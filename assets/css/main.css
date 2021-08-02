@@ -1379,6 +1379,9 @@ label {
   line-height: 20px;
   color: #FFFFFF;
 }
+.footer-list ul li a {
+  color:#FFFFFF;
+}
 .footer-list ul li:last-child {
   margin-right: 0;
 }
