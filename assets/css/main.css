@@ -694,44 +694,44 @@ label {
     max-width: 400px;
   }
 }
-.tracking-area-wrapper {
+.nft-area-wrapper {
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
 }
 
-.tracking-content {
+.nft-content {
   max-width: 336px;
   margin-right: 80px;
 }
-.tracking-content h4 {
+.nft-content h4 {
   font-size: 32px;
   line-height: 38px;
   font-weight: 700;
   color: #000000;
   margin-bottom: 30px;
 }
-.tracking-content p {
+.nft-content p {
   font-size: 16px;
   color: #5D6673;
   line-height: 24px;
 }
 
-.tracking-details {
+.nft-details {
   background: #FFFFFF;
   box-shadow: 0px 12px 24px rgba(42, 87, 63, 0.07), 0px 40px 80px rgba(65, 80, 70, 0.25);
   border-radius: 13.5887px;
   padding-right: 30px;
 }
 
-.track-top-bar {
+.nft-top-bar {
   position: relative;
 }
-.track-top-bar img {
+.nft-top-bar img {
   border-radius: 13px 13px 0px 0px;
 }
-.track-top-bar a {
+.nft-top-bar span {
   position: absolute;
   content: "";
   left: 50%;
@@ -742,20 +742,20 @@ label {
   color: #7A8E9D;
 }
 
-.track-dtls-wrapper {
+.nft-dtls-wrapper {
   display: flex;
 }
 
-.track-dtls-thumb {
+.nft-dtls-thumb {
   position: relative;
   max-width: 350px;
   width: 100%;
   margin-right: 20px;
 }
-.track-dtls-thumb img {
+.nft-dtls-thumb img {
   width: 100%;
 }
-.track-dtls-thumb figcaption {
+.nft-dtls-thumb figcaption {
   font-size: 8px;
   line-height: 16px;
   background-color: #192D2B;
@@ -766,12 +766,12 @@ label {
   display: block;
 }
 
-.track-dtls-content {
+.nft-dtls-content {
   position: relative;
   max-width: 300px;
   width: 100%;
 }
-.track-dtls-content .track-tag {
+.nft-dtls-content .nft-tag {
   position: absolute;
   max-width: 36px;
   max-height: 57px;
@@ -779,17 +779,17 @@ label {
   right: 0;
   z-index: 99;
 }
-.track-dtls-content .title {
+.nft-dtls-content .title {
   margin-top: 13px;
 }
-.track-dtls-content .title span {
+.nft-dtls-content .title span {
   color: #158D0C;
   font-size: 9px;
   line-height: 12px;
   font-weight: 700;
   display: block;
 }
-.track-dtls-content .title h4 {
+.nft-dtls-content .title h4 {
   font-size: 22px;
   line-height: 29px;
   font-weight: 700;
@@ -881,7 +881,7 @@ label {
 .update-post::-webkit-scrollbar {
   width: 10px;
 }
-.update-post::-webkit-scrollbar-track {
+.update-post::-webkit-scrollbar-nft {
   background-color: #dadada;
   border-radius: 10px;
 }
@@ -944,35 +944,35 @@ label {
 }
 
 @media screen and (max-width: 1199px) {
-  .tracking-area-wrapper {
+  .nft-area-wrapper {
     flex-direction: column;
   }
 
-  .tracking-content {
+  .nft-content {
     max-width: 500px;
     margin: 0px 0px 30px 0px;
     text-align: center;
   }
-  .tracking-content h4 {
+  .nft-content h4 {
     margin-bottom: 15px;
   }
 }
 @media screen and (max-width: 767px) {
-  .tracking-details {
+  .nft-details {
     padding-right: 0px;
   }
 
-  .track-dtls-wrapper {
+  .nft-dtls-wrapper {
     flex-direction: column;
     padding: 0px 20px 20px;
   }
 
-  .track-dtls-thumb {
+  .nft-dtls-thumb {
     max-width: 100%;
     margin-right: 0;
   }
 
-  .track-dtls-content {
+  .nft-dtls-content {
     max-width: 400px;
     margin: 30px auto 0px;
   }
@@ -982,14 +982,14 @@ label {
   }
 }
 @media screen and (max-width: 575px) {
-  .tracking-details {
+  .nft-details {
     border-radius: 10px;
   }
 
-  .tracking-content {
+  .nft-content {
     margin: 0px 0px 20px 0px;
   }
-  .tracking-content h4 {
+  .nft-content h4 {
     font-size: 30px;
   }
 }
