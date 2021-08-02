@@ -1067,7 +1067,7 @@ label {
   }
 }
 .accordion-wrapper {
-  max-width: 1080px;
+  max-width: 50rem;
   margin: 0 auto;
 }
 
@@ -1076,7 +1076,7 @@ label {
   border: 1px solid #EAEAEA;
   border-radius: 10px;
   padding: 30px 25px 30px 30px;
-  margin-bottom: 20px;
+  margin-bottom: 0.75rem;
   -webkit-transition: all 0.3s linear 0s;
   -moz-transition: all 0.3s linear 0s;
   -ms-transition: all 0.3s linear 0s;
@@ -1126,7 +1126,7 @@ label {
   max-width: 995px;
 }
 .accordion-body p {
-  font-size: 16px;
+  font-size: 1.1rem;
   line-height: 1.4;
   color: #425075;
 }
@@ -1188,8 +1188,7 @@ label {
 @media screen and (max-width: 575px) {
   .single-accordion {
     border-radius: 5px;
-    padding: 20px 20px 20px 20px;
-    margin-bottom: 15px;
+    padding: 1rem 1.5rem;
   }
 
   .accordion-head h6 {
