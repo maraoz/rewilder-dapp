@@ -1084,6 +1084,7 @@ label {
 }
 
 .single-accordion {
+  cursor: pointer;
   background: #FFFFFF;
   border: 1px solid #EAEAEA;
   border-radius: 10px;

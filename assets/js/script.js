@@ -15,8 +15,8 @@
 	};
 
 	// ================ Accordion =================
-	$(".accordion-head").click(function(){
-		$(this).toggleClass("active").next().slideToggle().parent().siblings().children('.accordion-head').removeClass('.active');
+	$(".single-accordion").click(function(){
+		$(this).children('.accordion-head').toggleClass("active").next().slideToggle().siblings().children('.accordion-head').removeClass('.active');
     });
 	
 
