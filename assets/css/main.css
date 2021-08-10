@@ -1004,7 +1004,9 @@ label {
   }
 }
 .cripto-native-area {
-  background-color: #202D27;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .cripto-native-content {
