@@ -824,7 +824,7 @@ label {
   font-family: "Airbnb Cereal App Book";
   margin-bottom: 7px;
 }
-.location-wrapper .location a {
+.location-wrapper .location div {
   display: block;
   font-size: 11px;
   line-height: 1;
