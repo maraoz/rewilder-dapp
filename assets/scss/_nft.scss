@@ -286,6 +286,9 @@
     .nft-dtls-thumb {
         max-width: 100%;
         margin-right: 0;
+        figcaption {
+            border-radius: 0px 0px 13px 13px;
+        }
     }
     .nft-dtls-content {
         max-width: 400px;
