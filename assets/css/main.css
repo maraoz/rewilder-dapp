@@ -844,6 +844,11 @@ label {
   color: #425075;
 }
 
+.location-wrapper .dai h6 img {
+  vertical-align: middle;
+  margin-bottom: .2rem;
+}
+
 .owner {
   margin-top: 16px;
 }

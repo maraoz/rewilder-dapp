@@ -134,6 +134,10 @@
             color: #15203E;
             font-family: $body-fonts;
             margin-bottom: 7px;
+            img {
+                vertical-align: middle;
+                margin-bottom: .2rem;
+            }
         }
         p {
             display: block;
@@ -141,6 +145,7 @@
             line-height: 1;
             color: #425075;
         }
+        
     }
 }
 
