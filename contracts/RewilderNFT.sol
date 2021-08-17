@@ -18,9 +18,11 @@ contract RewilderNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UU
         __UUPSUpgradeable_init();
     }
 
-    
+    // https://docs.opensea.io/docs/metadata-standards
+    // https://eips.ethereum.org/EIPS/eip-721#metadata
+    // example: https://us-central1-wicked-apes.cloudfunctions.net/app/v1/200
     function _baseURI() internal pure override returns (string memory) {
-        return "https://api.rewilder.xyz/token/";
+        return "https://api.rewilder.xyz/token/v1/";
     }
 
     function safeMint(address to) public onlyOwner {
