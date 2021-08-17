@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "npx hardhat test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pretty-quick": "pretty-quick"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +45,14 @@
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@openzeppelin/contracts": "^4.2.0",
     "ethers": "^5.4.4",
-    "hardhat": "^2.6.0"
+    "hardhat": "^2.6.0",
+    "husky": "^7.0.1",
+    "prettier": "^2.3.2",
+    "pretty-quick": "^3.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }

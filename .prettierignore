@@ -1,0 +1,8 @@
+.openzeppelin
+artifacts/
+cache/
+contracts/
+
+# mostly minified assets
+# skip running prettier on for now
+assets/

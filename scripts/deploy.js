@@ -12,11 +12,11 @@ async function main() {
   console.log("Greeter deployed to:", greeter.address);
 
   // box
-  const Box = await hre.ethers.getContractFactory('Box');
-  console.log('Deploying Box...');
+  const Box = await hre.ethers.getContractFactory("Box");
+  console.log("Deploying Box...");
   const box = await Box.deploy();
   await box.deployed();
-  console.log('Box deployed to:', box.address);
+  console.log("Box deployed to:", box.address);
 }
 
 main()
