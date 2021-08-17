@@ -25,3 +25,8 @@ artifacts/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# OpenZeppelin
+.openzeppelin/*-1337.json
+.openzeppelin/.session
