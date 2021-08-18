@@ -1,13 +1,14 @@
-import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import { ethers } from "ethers";
-import Greeter from "./artifacts/contracts/Greeter.sol/Greeter.json";
-import Box from "./artifacts/contracts/Box.sol/Box.json";
+import Greeter from "./../artifacts/contracts/Greeter.sol/Greeter.json";
+import Box from "./../artifacts/contracts/Box.sol/Box.json";
 import { getAddress } from "ethers/lib/utils";
+import { Config } from "./../config.template.js";
 
-import { Config } from "./config.template.js";
+import Meta from "./../components/Meta";
 
-function App() {
+function IndexPage(props) {
   // store greeting in local state
   const [greeting, setGreetingValue] = useState();
 
@@ -67,18 +68,26 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button onClick={fetchGreeting}>Fetch Greeting</button>
-        <button onClick={setGreeting}>Set Greeting</button>
-        <input
-          onChange={(e) => setGreetingValue(e.target.value)}
-          placeholder="Set greeting"
-        />
-        <button onClick={getBoxContent}>Box content</button>
-      </header>
-    </div>
+    <>
+      <Meta />
+      <div className="App">
+        <header className="App-header">
+          <button onClick={fetchGreeting}>Fetch Greeting</button>
+          <button onClick={setGreeting}>Set Greeting</button>
+          <input
+            onChange={(e) => setGreetingValue(e.target.value)}
+            placeholder="Set greeting"
+          />
+          <button onClick={getBoxContent}>Box content</button>
+          <Link href="/other">
+            <a className="App-link" style={{ fontSize: "0.5em" }}>
+              go to other page
+            </a>
+          </Link>
+        </header>
+      </div>
+    </>
   );
 }
 
-export default App;
+export default IndexPage;
