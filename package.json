@@ -1,37 +1,29 @@
 {
-  "name": "react-dapp",
+  "name": "rewilder-dapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "next": "11.1",
-    "sass": "1.32.13",
-    "ga-4-react": "0.1.281",
-    "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "@openzeppelin/contracts-upgradeable": "^4.2.0",
-    "@openzeppelin/hardhat-upgrades": "^1.9.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "chai": "^4.3.4",
-    "ethereum-waffle": "^3.4.0"
+    "@chakra-ui/react": "^1.6.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@usedapp/core": "^0.4.4",
+    "@web3-react/walletconnect-connector": "^6.2.4",
+    "blockies-ts": "^1.0.0",
+    "deepmerge": "^4.2.2",
+    "ethers": "^5.4.5",
+    "framer-motion": "^4",
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.2",
-    "@openzeppelin/contracts": "^4.2.0",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "ethers": "^5.4.4",
-    "hardhat": "^2.6.0",
-    "prettier": "^2.3.2"
+    "lint-staged": "^10.0.10",
+    "prettier": "^2.0.2"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "npx hardhat test"
+    "format": "prettier --write ."
   }
 }
