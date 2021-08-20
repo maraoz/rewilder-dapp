@@ -31,12 +31,17 @@ async function main() {
   saveFrontendFiles(multicallContract, "MulticallContract");
   console.log("Multicall deployed to:", multicallContract.address);
 
-  // rewilder
+  // NFT
+  // TODO: use upgradeable version
   const RewilderNFT = await hre.ethers.getContractFactory("RewilderNFT");
   const rewilderNFT = await RewilderNFT.deploy();
   await rewilderNFT.deployed();
   saveFrontendFiles(rewilderNFT, "RewilderNFT");
   console.log("RewilderNFT deployed to:", rewilderNFT.address);
+
+  // donation campaign
+  // TODO: deploy
+
 }
 
 // Save the contract address so our frontend can read it

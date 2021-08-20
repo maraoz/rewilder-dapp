@@ -14,13 +14,6 @@ contract MockRewilderNFTv2 is Initializable, ERC721Upgradeable, OwnableUpgradeab
 
     CountersUpgradeable.Counter private _tokenIdCounter;
 
-    function initialize() initializer public {
-        console.log("hi");
-        __ERC721_init("MockRewilderNFTv2", "WILDER");
-        __Ownable_init();
-        __UUPSUpgradeable_init();
-    }
-
     function safeMint(address to) public onlyOwner {
         _safeMint(to, _tokenIdCounter.current());
         _tokenIdCounter.increment();
