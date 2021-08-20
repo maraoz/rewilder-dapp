@@ -11,14 +11,14 @@ describe("RewilderDonationCampaign", function () {
 
   it("deploys with upgrades", async function () {
     const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-    const campaign = await upgrades.deployProxy(RewilderDonationCampaign, [this.nft.address]);
+    const campaign = await upgrades.deployProxy(RewilderDonationCampaign, [this.nft.address], { kind: "uups" });
     await campaign.deployed();
   });
 
   describe("constructs correctly", function () {
     beforeEach(async function () {
       const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, [this.nft.address]);
+      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, [this.nft.address], { kind: "uups" });
     });
     it("stores nft address", async function () {
       expect(await this.campaign.nft()).to.equal(this.nft.address);
@@ -52,7 +52,7 @@ describe("RewilderDonationCampaign", function () {
   describe("donation call", function () {
     beforeEach(async function () {
       const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, [this.nft.address]);
+      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, [this.nft.address], { kind: "uups" });
       
       // transfer nft ownership to donation campaign
       await this.nft.transferOwnership(this.campaign.address);
