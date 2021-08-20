@@ -1,8 +1,13 @@
 const hre = require("hardhat");
 const fs = require("fs");
+const path = require('path')
+
+const contractAddressFile = `${hre.config.paths.artifacts}${path.sep}contracts${path.sep}contractAddress.js`
 
 async function main() {
-  fs.unlinkSync(`${hre.config.paths.artifacts}/contracts/contractAddress.js`);
+  if (fs.existsSync(contractAddressFile)) {
+    fs.unlinkSync(contractAddressFile);
+  }
 
   // greeter
   const Greeter = await hre.ethers.getContractFactory("Greeter");
@@ -38,7 +43,7 @@ async function main() {
 // https://github.com/nomiclabs/hardhat-hackathon-boilerplate/blob/master/scripts/deploy.js
 function saveFrontendFiles(contract, contractName) {
   fs.appendFileSync(
-    `${hre.config.paths.artifacts}/contracts/contractAddress.js`,
+    contractAddressFile,
     `export const ${contractName} = '${contract.address}'\n`
   );
 }
