@@ -29,6 +29,7 @@ contract RewilderDonationCampaign is Initializable, OwnableUpgradeable, UUPSUpgr
     // TODO: add min and max donation check
     // TODO: forward funds to rewilder multisig
     function donate() public payable {
+        require(msg.value >= 1 ether, "Minimum donation is 1 ETH");
         emit Donation(msg.sender, msg.value);
         nft.safeMint(msg.sender);
     }

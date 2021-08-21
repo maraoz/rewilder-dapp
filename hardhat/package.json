@@ -15,8 +15,12 @@
     "@openzeppelin/contracts-upgradeable": "^4.2.0",
     "@openzeppelin/hardhat-upgrades": "^1.9.0",
     "chai": "^4.3.4",
+    "chainlink": "^0.8.2",
     "ethereum-waffle": "^3.3.0",
     "ethers": "^5.4.4",
     "hardhat": "^2.6.0"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.2.1"
   }
 }
