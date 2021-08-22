@@ -66,6 +66,16 @@ describe("RewilderDonationCampaign", function () {
 
     });
 
+    it("reject donation just below minimum", async function () {
+      const justBelow1ETH = ethers.utils.parseEther("1.0").sub(1);
+      await expect(this.campaign.donate(
+        {value: justBelow1ETH})).to.be.revertedWith('Minimum donation is 1 ETH')
+
+      const exactly1ETH = justBelow1ETH.add(1);
+      await expect(await this.campaign.donate({value: exactly1ETH}))
+      .to.changeEtherBalance(this.campaign, exactly1ETH);
+    });
+
     it("reject donation below minimum", async function () {
       const donationAmountWEI = 1000;
       await expect(this.campaign.donate(
