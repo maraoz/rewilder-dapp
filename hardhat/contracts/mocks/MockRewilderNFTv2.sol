@@ -9,17 +9,15 @@ import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
 import "hardhat/console.sol";
 
-contract MockRewilderNFTv2 is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUpgradeable {
+contract MockRewilderNFTv2 is
+    Initializable,
+    ERC721Upgradeable,
+    OwnableUpgradeable,
+    UUPSUpgradeable
+{
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
     CountersUpgradeable.Counter private _tokenIdCounter;
-
-    function initialize() initializer public {
-        console.log("hi");
-        __ERC721_init("MockRewilderNFTv2", "WILDER");
-        __Ownable_init();
-        __UUPSUpgradeable_init();
-    }
 
     function safeMint(address to) public onlyOwner {
         _safeMint(to, _tokenIdCounter.current());
@@ -28,7 +26,7 @@ contract MockRewilderNFTv2 is Initializable, ERC721Upgradeable, OwnableUpgradeab
 
     function _authorizeUpgrade(address newImplementation)
         internal
-        onlyOwner
         override
+        onlyOwner
     {}
 }

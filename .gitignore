@@ -30,6 +30,8 @@ hardhat/*.txt
 hardhat/cache
 hardhat/artifacts
 hardhat/deployments
+hardhat/.openzeppelin
+src/artifacts/
 
 ## Frontend Files ##
 # testing
