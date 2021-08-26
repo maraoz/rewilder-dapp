@@ -7,22 +7,18 @@ import {
   Button,
   Container,
   Flex,
-  Image,
   Link,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   SimpleGrid,
-  Text,
 } from "@chakra-ui/react";
 import { useEthers, useNotifications } from "@usedapp/core";
-import blockies from "blockies-ts";
 import NextLink from "next/link";
 import React from "react";
-import Balance from "../Balance";
-import ConnectWallet from "../ConnectWallet";
-import Head, { MetaProps } from "./Head";
+import ConnectWallet from "./ConnectWallet";
+import Head from "./Head";
 
 // Title text for the various transaction notifications.
 const TRANSACTION_TITLES = {
@@ -35,18 +31,13 @@ function truncateHash(hash, length = 38) {
   return hash.replace(hash.substring(6, length), "...");
 }
 
-const Layout = ({ children, customMeta }) => {
+const Layout = ({ children, ...customMeta }) => {
   const { account, deactivate } = useEthers();
   const { notifications } = useNotifications();
 
-  let blockieImageSrc;
-  if (typeof window !== "undefined") {
-    blockieImageSrc = blockies.create({ seed: account }).toDataURL();
-  }
-
   return (
     <>
-      <Head customMeta={customMeta} />
+      <Head {...customMeta} />
       <header>
         <Container maxWidth="container.xl">
           <SimpleGrid
@@ -61,9 +52,9 @@ const Layout = ({ children, customMeta }) => {
                   Home
                 </Link>
               </NextLink>
-              <NextLink href="/signature-example" passHref>
+              <NextLink href="/demo" passHref>
                 <Link px="4" py="1">
-                  Signature Example
+                  Demo
                 </Link>
               </NextLink>
             </Flex>
@@ -73,8 +64,6 @@ const Layout = ({ children, customMeta }) => {
                 alignItems={"center"}
                 justifyContent={["flex-start", null, null, "flex-end"]}
               >
-                <Balance />
-                <Image ml="4" src={blockieImageSrc} alt="blockie" />
                 <Menu placement="bottom-end">
                   <MenuButton as={Button} ml="4">
                     {truncateHash(account)}
