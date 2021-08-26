@@ -26,11 +26,11 @@ yarn-error.log*
 node_modules
 
 ## Hardhat files ##
-hardhat/*.txt
-hardhat/cache
-hardhat/artifacts
-hardhat/deployments
-hardhat/.openzeppelin
+*.txt
+cache
+artifacts
+deployments
+.openzeppelin
 src/artifacts/
 
 ## Frontend Files ##
