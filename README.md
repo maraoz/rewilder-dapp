@@ -6,6 +6,13 @@ Install dependencies
 npm install
 ```
 
+Copy `.env.example` to `.env.local` and fill in environment variables
+
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=xxxxxxxxx
+etc ...
+```
+
 Run the development server
 
 ```
