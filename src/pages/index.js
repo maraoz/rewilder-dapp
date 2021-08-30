@@ -1,27 +1,47 @@
-import { Box, Button, Divider, Input, Text } from "@chakra-ui/react";
-import { ChainId, useEthers } from "@usedapp/core";
-import { ethers } from "ethers";
 import React from "react";
+import { QueryClient } from "react-query";
+import { dehydrate } from "react-query/hydration";
+import NextLink from "next/link";
+import { Link, List, ListItem } from "@chakra-ui/react";
 import Layout from "./../components/Layout";
-import { useItem } from "./../lib/db";
+import { useAllTokens } from "./../lib/db";
+import { getAllTokens as getAllTokensServer } from "./../lib/server/db";
 
 function IndexPage() {
-  // Subscribe to data
-  const { data, status, error } = useItem("2auVGLqbXx8mt04Wg4xk");
+  const { data, status, error } = useAllTokens();
 
   return (
     <Layout>
-      Data fetch test:
-      <div style={{ marginBottom: "2rem" }}>
+      Tokens from database:
+      <div>
         {status === "loading" ? (
           "Loading..."
         ) : (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          <List>
+            {data.map((token) => (
+              <ListItem key={token.id}>
+                <NextLink href={`/nft/${token.id}`} passHref>
+                  <Link color="teal.500">{token.name}</Link>
+                </NextLink>
+              </ListItem>
+            ))}
+          </List>
         )}
       </div>
-      Start building Rewilder UI here ...
     </Layout>
   );
+}
+
+// Pre-render pages at build-time
+export async function getStaticProps(context) {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["tokens"], () => getAllTokensServer());
+
+  return {
+    props: {
+      reactQueryState: dehydrate(queryClient),
+    },
+  };
 }
 
 export default IndexPage;
