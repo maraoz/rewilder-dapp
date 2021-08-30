@@ -16,7 +16,13 @@ function NftPage(props) {
   const { data, status, error } = useToken(router.query.id);
 
   return (
-    <Layout title={data && data.name}>
+    <Layout
+      // Pass head data once it's loaded
+      {...(data && {
+        title: data.name,
+        image: data.image,
+      })}
+    >
       Token data:
       <div>
         {status === "loading" ? (

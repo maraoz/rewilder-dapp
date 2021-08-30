@@ -18,7 +18,7 @@ function Head(props) {
     title: "Rewilder",
     description:
       "Crypto-native non-profit that coordinates the global purchase of land for wildlife conservation.",
-    image: "/images/social.png",
+    image: "https://rewilder.xyz/assets/img/social/avatar.png",
     type: "website",
   };
 
@@ -37,14 +37,14 @@ function Head(props) {
       <meta property="og:site_name" content={meta.siteName} key="og-site-name" />
       <meta property="og:type" content="website" key="og-type" />
       {meta.domain && <meta property="og:url" content={`${meta.domain}${router.asPath}`} key="og-url" />}
-      {meta.domain && meta.image && <meta property="og:image" content={`${meta.domain}${meta.image}`} key="og-image" />}
+      {meta.image && <meta property="og:image" content={meta.image} key="og-image" />}
 
       {/* Twitter */}
       <meta name="twitter:title" content={meta.title} key="twitter-title" />
       <meta name="twitter:description" content={meta.description} key="twitter-description"/>
       <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
       {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} key="twitter-site" />}
-      {meta.domain && meta.image && <meta name="twitter:image" content={`${meta.domain}${meta.image}`} key="twitter-image" />}
+      {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
     </NextHead>
   );
 }
