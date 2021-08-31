@@ -1,58 +1,47 @@
 {
-  "name": "react-dapp",
+  "name": "rewilder-dapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "@openzeppelin/contracts-upgradeable": "^4.2.0",
-    "@openzeppelin/hardhat-upgrades": "^1.9.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "chai": "^4.3.4",
-    "ethereum-waffle": "^3.4.0",
+    "@chainlink/contracts": "^0.2.1",
+    "@chakra-ui/react": "^1.6.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@usedapp/core": "^0.4.4",
+    "@web3-react/walletconnect-connector": "^6.2.4",
+    "deepmerge": "^4.2.2",
+    "ethers": "^5.4.5",
+    "firebase": "^8.9.1",
+    "firebase-admin": "^9.11.0",
+    "framer-motion": "^4",
+    "ga-4-react": "^0.1.281",
+    "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "npx hardhat test",
-    "eject": "react-scripts eject",
-    "pretty-quick": "pretty-quick"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-query": "^3.21.1"
   },
   "devDependencies": {
+    "lint-staged": "^10.0.10",
+    "prettier": "^2.0.2",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.2.0",
+    "@openzeppelin/contracts-upgradeable": "^4.2.0",
+    "@openzeppelin/hardhat-upgrades": "^1.9.0",
+    "chai": "^4.3.4",
+    "chainlink": "^0.8.2",
+    "ethereum-waffle": "^3.3.0",
     "ethers": "^5.4.4",
-    "hardhat": "^2.6.0",
-    "husky": "^7.0.1",
-    "prettier": "^2.3.2",
-    "pretty-quick": "^3.1.1"
+    "hardhat": "^2.6.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write .",
+    "hardhat:chain": "npx hardhat node",
+    "hardhat:compile": "npx hardhat compile",
+    "hardhat:test": "npx hardhat test",
+    "hardhat:deploy": "npx hardhat run scripts/deploy.js --network localhost"
   }
 }
