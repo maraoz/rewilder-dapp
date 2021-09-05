@@ -6,7 +6,8 @@ const contractAddressFile = `${config.paths.artifacts}${path.sep}contracts${path
 
 async function main() {
   
-  const [deployer] = await ethers.getSigners();
+  const [deployer, wallet] = await ethers.getSigners();
+
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()/1e18).toString());
 
@@ -40,7 +41,8 @@ async function main() {
 
   // donation campaign
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-  const campaign = await upgrades.deployProxy(RewilderDonationCampaign, [nft.address], { kind: "uups" });
+  const campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
+    [nft.address, wallet.address], { kind: "uups" });
   await campaign.deployed();
   saveFrontendFiles(campaign, "RewilderDonationCampaign");
   console.log("RewilderDonationCampaign deployed to:", campaign.address);
