@@ -2,6 +2,8 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
 require("@openzeppelin/hardhat-upgrades");
 
+require('dotenv').config({ path: '.env.local' })
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (_args, hre) => {
@@ -27,5 +29,11 @@ module.exports = {
     hardhat: {
       chainId: 1337,
     },
+    rinkeby: {
+      url: "https://rinkeby.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",
+      accounts: {
+        mnemonic: process.env.MNEMONIC,
+      }
+    }
   },
 };

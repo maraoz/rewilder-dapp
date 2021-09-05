@@ -1,13 +1,27 @@
-const hre = require("hardhat");
+const {config, ethers, upgrades} = require("hardhat");
 const fs = require("fs");
 const path = require('path')
 
-const contractAddressFile = `${hre.config.paths.artifacts}${path.sep}contracts${path.sep}contractAddress.js`
+const contractAddressFile = `${config.paths.artifacts}${path.sep}contracts${path.sep}contractAddress.js`
 
 async function main() {
+  
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with the account:", deployer.address);
+  console.log("Account balance:", (await deployer.getBalance()/1e18).toString());
+
+  // re-create contract address file if needed, and back up old one
   if (fs.existsSync(contractAddressFile)) {
+    const ts = new Date().getTime();
+    const contractAddressFileNoJS = contractAddressFile.split(".")[0];
+    fs.copyFileSync(contractAddressFile, `${contractAddressFileNoJS}-${ts}.js`)
     fs.unlinkSync(contractAddressFile);
   }
+
+  fs.appendFileSync(
+    contractAddressFile,
+    `export const networkName = '${network.name}'\n`
+  );
 
   // greeter
   const Greeter = await hre.ethers.getContractFactory("Greeter");
@@ -16,32 +30,20 @@ async function main() {
   saveFrontendFiles(greeter, "Greeter");
   console.log("Greeter deployed to:", greeter.address);
 
-  // box
-  const Box = await hre.ethers.getContractFactory("Box");
-  console.log("Deploying Box...");
-  const box = await Box.deploy();
-  await box.deployed();
-  saveFrontendFiles(box, "BoxContract");
-  console.log("Box deployed to:", box.address);
-
-  // multicall
-  const MulticallContract = await hre.ethers.getContractFactory("Multicall");
-  const multicallContract = await MulticallContract.deploy();
-  await multicallContract.deployed();
-  saveFrontendFiles(multicallContract, "MulticallContract");
-  console.log("Multicall deployed to:", multicallContract.address);
-
   // NFT
-  // TODO: use upgradeable version
-  const RewilderNFT = await hre.ethers.getContractFactory("RewilderNFT");
-  const rewilderNFT = await RewilderNFT.deploy();
-  await rewilderNFT.deployed();
-  saveFrontendFiles(rewilderNFT, "RewilderNFT");
-  console.log("RewilderNFT deployed to:", rewilderNFT.address);
+  const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
+  const nft = await RewilderNFT.deploy();
+  const rewilderNFT = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
+  await nft.deployed();
+  saveFrontendFiles(nft, "RewilderNFT");
+  console.log("RewilderNFT deployed to:", nft.address);
 
   // donation campaign
-  // TODO: deploy
-
+  const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
+  const campaign = await upgrades.deployProxy(RewilderDonationCampaign, [nft.address], { kind: "uups" });
+  await campaign.deployed();
+  saveFrontendFiles(campaign, "RewilderDonationCampaign");
+  console.log("RewilderDonationCampaign deployed to:", campaign.address);
 }
 
 // Save the contract address so our frontend can read it
