@@ -8,14 +8,20 @@ describe("RewilderNFT", function () {
     await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
   });
 
-  describe("ERC20", function () {
+  describe("ERC721", function () {
     beforeEach(async function () {
+      const [deployer] = await ethers.getSigners();
+      this.deployer = deployer;
       const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
       this.token = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
     });
     it("has correct symbol", async function () {
       expect(await this.token.symbol()).to.equal("WILD");
     });
+    it("sets the right owner", async function () {
+      expect(await this.token.owner()).to.equal(this.deployer.address);
+    });
+
   });
 
   describe("upgrades", function () {
@@ -38,7 +44,7 @@ describe("RewilderNFT", function () {
       expect(upgradedNFT.address).to.equal(this.token.address);
     });
 
-    it.skip("upgrades to v2 implementation that changes symbol", async function () {
+    it.skip("upgrades to v2 implementation that changes something", async function () {
       const MockRewilderNFTv2 = await ethers.getContractFactory(
         "MockRewilderNFTv2"
       );
