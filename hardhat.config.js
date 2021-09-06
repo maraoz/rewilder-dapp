@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-etherscan");
 require("@openzeppelin/hardhat-upgrades");
 
 require('dotenv').config({ path: '.env.local' })
@@ -25,12 +26,16 @@ module.exports = {
   paths: {
     artifacts: "./src/artifacts",
   },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_KEY
+  },
   networks: {
     hardhat: {
       chainId: 1337,
     },
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",
+      gasPrice: 10*1e9,
       accounts: {
         mnemonic: process.env.MNEMONIC,
       }

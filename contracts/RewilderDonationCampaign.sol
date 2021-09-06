@@ -9,7 +9,7 @@ import "./RewilderNFT.sol";
 
 contract RewilderDonationCampaign is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
-    RewilderNFT public _nft;
+    RewilderNFT private _nft;
     address payable private _wallet;
 
     event Donation(address donor, uint256 value);
@@ -36,7 +36,7 @@ contract RewilderDonationCampaign is Initializable, OwnableUpgradeable, UUPSUpgr
     }
 
 
-    // TODO: add min and max donation check
+    // TODO: add max donation check
     /**
      * @dev Receives donation and mints new NFT for donor
      */
