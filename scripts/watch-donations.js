@@ -47,10 +47,11 @@ async function main() {
       attributes: [
         {trait_type: "donor", value: donor},
         {trait_type: "amount", value: ethers.utils.formatEther(amount)},
+        {trait_type: "tier", value: tier},
       ]
     };
     console.log(data);
-    const res = await db.collection('tokens-rinkeby').doc(donor).set(data);
+    const res = await db.collection(`tokens-${network.name}`).doc(donor).set(data);
     console.log("NFT metadata created and stored for", donor,"successfully!!");
   });
 }
