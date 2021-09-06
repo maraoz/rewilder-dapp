@@ -118,6 +118,7 @@ describe("RewilderDonationCampaign", function () {
     it.skip("mints NFT for donor", async function () {});
     it.skip("emits Transfer event from 0x", async function () {});
     it.skip("donor can then transfer the NFT", async function () {});
+    it.skip("campaign can transfer ownership of NFT to multisig", async function () {});
   });
 
 
