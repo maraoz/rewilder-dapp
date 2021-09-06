@@ -1,21 +1,21 @@
 const {config, ethers, upgrades, network} = require("hardhat");
-const {Firestore} = require('@google-cloud/firestore');
 
-const firestore = new Firestore();
+var admin = require('firebase-admin');
+var serviceAccount = require("../rewilder-dev-firebase.json");
+const app = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+const db = admin.firestore(app);
 const addresses = require("./addresses");
 
 async function main() {
   const [deployer, wallet, donorA] = await ethers.getSigners();
 
-  var wsProvider = new ethers.providers.WebSocketProvider("wss://rinkeby.infura.io/ws/v3/cea7dccbc1994ce1a585d6f06eda519b");
-  console.log(await wsProvider.getBalance(deployer.address).toString());
-  
   // get donation campaign
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
 
   const campaign = RewilderDonationCampaign
       .attach(addresses.RewilderDonationCampaign);
-      //.connect(wsProvider)
   console.log("RewilderDonationCampaign attached to:", campaign.address);
   
   // block tick
@@ -30,10 +30,28 @@ async function main() {
   // listen for events
   console.log("Registering Donation event handler")
   
-  campaign.on('Donation', console.log);
-  let filter = campaign.filters.Donation(null,null);
-  campaign.on(filter, (a, b, c) => {
-      console.log(a, b, c);
+  campaign.on('Donation', async function(donor, amount) {
+    console.log(donor, "just donated", ethers.utils.formatEther(amount), "ETH");
+    tier = 'cypress';
+    // TODO: fix to proper comparison
+    if (amount.gte(ethers.utils.parseEther("2.0"))) {
+      tier = 'araucaria';
+    }
+    // TODO: fix to proper comparison
+    if (amount.gte(ethers.utils.parseEther("3.0"))) {
+      tier = 'sequoia';
+    }
+    const data = {
+      name: 'Rewilder Edition #001: Origin',
+      image: 'https://rewilder.xyz/assets/img/' + tier + '.png',
+      attributes: [
+        {trait_type: "donor", value: donor},
+        {trait_type: "amount", value: ethers.utils.formatEther(amount)},
+      ]
+    };
+    console.log(data);
+    const res = await db.collection('tokens-rinkeby').doc(donor).set(data);
+    console.log("NFT metadata created and stored for", donor,"successfully!!");
   });
 }
 
