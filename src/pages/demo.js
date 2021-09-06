@@ -2,7 +2,7 @@ import { Box, Button, Divider, Input, Text } from "@chakra-ui/react";
 import { ChainId, useEthers } from "@usedapp/core";
 import { ethers } from "ethers";
 import React, { useReducer } from "react";
-import { Greeter as LOCAL_CONTRACT_ADDRESS } from "./../addresses.json";
+import { Greeter as LOCAL_CONTRACT_ADDRESS } from "./../addresses-localhost.json";
 import Greeter from "./../artifacts/contracts/Greeter.sol/Greeter.json";
 import Layout from "./../components/Layout";
 

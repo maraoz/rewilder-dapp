@@ -1,10 +1,13 @@
-const {config, ethers, upgrades, erc1967} = require("hardhat");
+const {config, ethers, upgrades, erc1967, network} = require("hardhat");
 const fs = require("fs");
 const path = require('path')
 
-const contractAddressFile = `${config.paths.artifacts}${path.sep}..${path.sep}addresses.json`
+const contractAddressFile = `${config.paths.artifacts}${path.sep}..${path.sep}addresses-${network.name}.json`
 
 async function verifyImplementation(implAddress) {
+  if (network.name == "localhost" || network.name == "hardhat") 
+    return;
+
   try {
     await hre.run("verify:verify", {
       address: implAddress,

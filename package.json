@@ -22,6 +22,7 @@
     "react-query": "^3.21.1"
   },
   "devDependencies": {
+    "@google-cloud/firestore": "^4.15.1",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "^2.1.6",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
@@ -32,7 +33,7 @@
     "chainlink": "^0.8.2",
     "ethereum-waffle": "^3.3.0",
     "ethers": "^5.4.4",
-    "hardhat": "^2.6.0",
+    "hardhat": "=2.6.1",
     "lint-staged": "^10.0.10",
     "prettier": "^2.0.2"
   },

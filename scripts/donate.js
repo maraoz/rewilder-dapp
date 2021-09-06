@@ -1,11 +1,5 @@
 const {config, ethers, upgrades} = require("hardhat");
-const fs = require("fs");
-const path = require('path');
-
-
-const contractAddressFile = `${config.paths.artifacts}${path.sep}..${path.sep}addresses.json`
-const addresses = JSON.parse(fs.readFileSync(contractAddressFile));
-console.log(addresses);
+const addresses = require("./addresses");
 
 async function main() {
   
@@ -26,12 +20,12 @@ async function main() {
   console.log("Donating", donationAmountWEI.toString(), "wei");
   const tx = await campaign.connect(donorA).donate({
     value: donationAmountWEI})
-  console.log(tx);
-
+  console.log(tx.hash);
+  await tx.wait();
 }
 
 main()
-  .then(() => process.exit(0))
+  .then(() => setInterval(function() { process.exit(0) }, 1))
   .catch((error) => {
     console.error(error);
     process.exit(1);
