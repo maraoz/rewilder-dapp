@@ -32,7 +32,9 @@ artifacts
 deployments
 .openzeppelin
 src/artifacts/
-src/addresses*.json
+src/addresses-localhost.json
+src/addresses-hardhat.json
+
 
 ## Firebase credentials
 rewilder-dev-firebase.json

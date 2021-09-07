@@ -1,12 +1,10 @@
 import { Box, Button, Divider, Input, Text } from "@chakra-ui/react";
-import { ChainId, useEthers } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 import { ethers } from "ethers";
 import React, { useReducer } from "react";
-import { Greeter as LOCAL_CONTRACT_ADDRESS } from "./../addresses-localhost.json";
+import { addressFor } from "../lib/addresses";
 import Greeter from "./../artifacts/contracts/Greeter.sol/Greeter.json";
 import Layout from "./../components/Layout";
-
-const ROPSTEN_CONTRACT_ADDRESS = "0x6b61a52b1EA15f4b8dB186126e980208E1E18864";
 
 const initialState = {
   greeting: "",
@@ -39,12 +37,9 @@ function reducer(state, action) {
 
 function HomeIndex() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { chainId, library } = useEthers();
+  const { library } = useEthers();
 
-  const CONTRACT_ADDRESS =
-    chainId === ChainId.Ropsten
-      ? ROPSTEN_CONTRACT_ADDRESS
-      : LOCAL_CONTRACT_ADDRESS;
+  const CONTRACT_ADDRESS = addressFor('Greeter');
 
   // call the smart contract, read the current greeting value
   async function fetchContractGreeting() {
