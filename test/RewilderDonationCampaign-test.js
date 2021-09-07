@@ -114,11 +114,11 @@ describe("RewilderDonationCampaign", function () {
       const twoFour = ethers.utils.parseEther("2.4")
       await expect(await this.campaign.connect(this.donorA).donate({value: donationAmountWEI}))
         .to.emit(this.campaign, 'Donation')
-        .withArgs(this.donorA.address, donationAmountWEI, 0);
+        .withArgs(this.donorA.address, donationAmountWEI, 1);
 
       await expect(await this.campaign.connect(this.donorB).donate({value: twoFour}))
         .to.emit(this.campaign, 'Donation')
-        .withArgs(this.donorB.address, twoFour, 1);
+        .withArgs(this.donorB.address, twoFour, 2);
     });
 
     it.skip("mints NFT for donor", async function () {});
