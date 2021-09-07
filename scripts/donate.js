@@ -12,7 +12,7 @@ async function main() {
 
   // get donation campaign
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-  const campaign = await RewilderDonationCampaign.attach(addresses.RewilderDonationCampaign);
+  const campaign = RewilderDonationCampaign.attach(addresses.RewilderDonationCampaign);
   console.log("RewilderDonationCampaign attached to:", campaign.address);
 
   // send 1 ETH donation

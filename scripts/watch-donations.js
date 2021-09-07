@@ -32,7 +32,7 @@ async function main() {
   
   campaign.on('Donation', async function(donor, amount, tokenID) {
     console.log(donor, "just donated", ethers.utils.formatEther(amount), 
-      "ETH and obtained token id", tokenID);
+      "ETH and obtained token id", tokenID.toString());
     tier = 'cypress';
     // TODO: fix to proper comparison
     if (amount.gte(ethers.utils.parseEther("2.0"))) {
@@ -43,17 +43,19 @@ async function main() {
       tier = 'sequoia';
     }
     const data = {
-      name: 'Rewilder Origin Edition #'+tokenID,
+      name: 'Rewilder Origin Edition #' + tokenID.toString(),
+      description: 'Receipt NFT for Rewilder\'s first donation campaign on October 2021.',
       image: 'https://rewilder.xyz/assets/img/mockup/' + tier + '.png',
       attributes: [
-        {trait_type: "donor", value: donor},
-        {trait_type: "amount", value: ethers.utils.formatEther(amount)},
-        {trait_type: "tier", value: tier},
+        //{trait_type: "Date", value: new Date().toString()},
+        {trait_type: "Donor", value: donor},
+        {trait_type: "Donated amount", value: ethers.utils.formatEther(amount)},
+        {trait_type: "Tier", value: tier},
       ]
     };
     console.log(data);
     const res = await db.collection(`tokens-${network.name}`).doc(tokenID.toString()).set(data);
-    console.log("NFT metadata created and stored for", donor,"successfully!!");
+    console.log("NFT metadata created and stored for", tokenID.toString(),"successfully!!");
   });
 }
 
