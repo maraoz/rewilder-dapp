@@ -6,7 +6,7 @@ module.exports.chainId = ChainId.Localhost;
 if (process.env.REWILDER_ENVIRONMENT == "production") {
   module.exports.chainId = ChainId.Rinkeby;
 }
-module.exports.network = getChainName(module.exports.chainId).toLowerCase();
+module.exports.networkName = getChainName(module.exports.chainId).toLowerCase();
 
 module.exports.INFURA_ID = INFURA_ID;
 module.exports.config = {

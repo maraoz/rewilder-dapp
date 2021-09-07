@@ -33,9 +33,9 @@ module.exports = {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",
       gasPrice: 10*1e9,
-      accounts: {
+      accounts: process.env.MNEMONIC ? {
         mnemonic: process.env.MNEMONIC,
-      }
+      } : undefined,
     }
   },
 };
