@@ -3,7 +3,6 @@ import { ChainId, getChainName } from "@usedapp/core";
 const INFURA_ID = "cea7dccbc1994ce1a585d6f06eda519b";
 
 module.exports.chainId = ChainId.Localhost;
-module.exports.chainId = ChainId.Rinkeby;
 if (process.env.REWILDER_ENVIRONMENT == "production") {
   module.exports.chainId = ChainId.Rinkeby;
 }
