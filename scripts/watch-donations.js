@@ -43,7 +43,7 @@ async function main() {
       tier = 'sequoia';
     }
     const data = {
-      name: 'Rewilder Edition #001: Origin',
+      name: 'Rewilder Origin Edition #'+tokenID,
       image: 'https://rewilder.xyz/assets/img/mockup/' + tier + '.png',
       attributes: [
         {trait_type: "donor", value: donor},
