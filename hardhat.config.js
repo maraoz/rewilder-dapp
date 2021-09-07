@@ -36,6 +36,12 @@ module.exports = {
       accounts: process.env.MNEMONIC ? {
         mnemonic: process.env.MNEMONIC,
       } : undefined,
+    },
+    kovan: {
+      url: "https://kovan.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",
+      accounts: process.env.MNEMONIC ? {
+        mnemonic: process.env.MNEMONIC,
+      } : undefined,
     }
   },
 };
