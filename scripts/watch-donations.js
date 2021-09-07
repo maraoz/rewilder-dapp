@@ -49,7 +49,7 @@ async function main() {
       attributes: [
         //{trait_type: "Date", value: new Date().toString()},
         {trait_type: "Donor", value: donor},
-        {trait_type: "Donated amount", value: ethers.utils.formatEther(amount)},
+        {trait_type: "Donated amount", value: ethers.utils.formatEther(amount)+" ETH"},
         {trait_type: "Tier", value: tier},
       ]
     };
