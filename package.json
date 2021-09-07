@@ -37,7 +37,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx hardhat compile && next build",
     "start": "next start",
     "format": "prettier --write .",
     "hardhat:chain": "npx hardhat node",
