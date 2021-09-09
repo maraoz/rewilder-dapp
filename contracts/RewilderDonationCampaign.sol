@@ -9,15 +9,17 @@ import "./RewilderNFT.sol";
 
 contract RewilderDonationCampaign is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
-    RewilderNFT public nft;
+    RewilderNFT private _nft;
+    address payable private _wallet;
 
-    event Donation(address donor, uint256 value);
+    event Donation(address donor, uint256 value, uint256 tokenID);
 
-    function initialize(RewilderNFT nftAddress) initializer public {
+    function initialize(RewilderNFT nftAddress, address payable wallet) initializer public {
         __Ownable_init();
         __UUPSUpgradeable_init();
 
-        nft = nftAddress;
+        _nft = nftAddress;
+        _wallet = wallet;
     }
 
     function _authorizeUpgrade(address newImplementation)
@@ -26,11 +28,23 @@ contract RewilderDonationCampaign is Initializable, OwnableUpgradeable, UUPSUpgr
         override
     {}
 
-    // TODO: add min and max donation check
-    // TODO: forward funds to rewilder multisig
+    /**
+     * @dev Returns the address of the NFT contract.
+     */
+    function nft() public view virtual returns (RewilderNFT) {
+        return _nft;
+    }
+
+
+    /**
+     * @dev Receives donation and mints new NFT for donor
+     */
     function donate() public payable {
+        // TODO: add max donation check
         require(msg.value >= 1 ether, "Minimum donation is 1 ETH");
-        emit Donation(msg.sender, msg.value);
-        nft.safeMint(msg.sender);
+
+        uint256 tokenId =_nft.safeMint(msg.sender);
+        emit Donation(msg.sender, msg.value, tokenId);
+        _wallet.transfer(msg.value);
     }
 }

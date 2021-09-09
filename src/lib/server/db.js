@@ -2,14 +2,18 @@ const firebaseAdmin = require("./firebase");
 
 const firestore = firebaseAdmin.firestore();
 
+const config = require("../../config");
+
+const collectionName = "tokens-"+config.networkName;
+
 // Get token
 function getToken(id) {
-  return firestore.collection("tokens").doc(id).get().then(format);
+  return firestore.collection(collectionName).doc(id).get().then(format);
 }
 
 // Get all tokens
 function getAllTokens() {
-  return firestore.collection("tokens").get().then(format);
+  return firestore.collection(collectionName).get().then(format);
 }
 
 /**** HELPERS ****/

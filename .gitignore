@@ -32,6 +32,12 @@ artifacts
 deployments
 .openzeppelin
 src/artifacts/
+src/addresses-localhost.json
+src/addresses-hardhat.json
+
+
+## Firebase credentials
+rewilder-dev-firebase.json
 
 ## Frontend Files ##
 # testing

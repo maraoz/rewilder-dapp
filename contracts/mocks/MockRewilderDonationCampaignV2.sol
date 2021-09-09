@@ -9,7 +9,8 @@ import "../RewilderNFT.sol";
 
 contract MockRewilderDonationCampaignV2 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
-    RewilderNFT public nft;
+    RewilderNFT public _nft;
+    address payable private _wallet;
 
     event Donation(address donor, uint256 value);
 
@@ -18,5 +19,9 @@ contract MockRewilderDonationCampaignV2 is Initializable, OwnableUpgradeable, UU
         onlyOwner
         override
     {}
+
+    function nft() public view virtual returns (RewilderNFT) {
+        return _nft;
+    }
 
 }

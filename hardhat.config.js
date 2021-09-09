@@ -1,6 +1,9 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-etherscan");
 require("@openzeppelin/hardhat-upgrades");
+
+require('dotenv').config({ path: '.env.local' })
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -12,9 +15,6 @@ task("accounts", "Prints the list of accounts", async (_args, hre) => {
   }
 });
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -23,9 +23,25 @@ module.exports = {
   paths: {
     artifacts: "./src/artifacts",
   },
+  etherscan: process.env.ETHERSCAN_KEY ? {
+    apiKey: process.env.ETHERSCAN_KEY
+  } : undefined,
   networks: {
     hardhat: {
       chainId: 1337,
     },
+    rinkeby: {
+      url: "https://rinkeby.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",
+      gasPrice: 10*1e9,
+      accounts: process.env.MNEMONIC ? {
+        mnemonic: process.env.MNEMONIC,
+      } : undefined,
+    },
+    kovan: {
+      url: "https://kovan.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",
+      accounts: process.env.MNEMONIC ? {
+        mnemonic: process.env.MNEMONIC,
+      } : undefined,
+    }
   },
 };
