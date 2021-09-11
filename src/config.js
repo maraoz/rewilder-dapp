@@ -1,9 +1,11 @@
-import { ChainId, getChainName } from "@usedapp/core";
+import { ChainId, getChainName, MULTICALL_ADDRESSES} from "@usedapp/core";
 
 const INFURA_ID = "cea7dccbc1994ce1a585d6f06eda519b";
 
 module.exports.chainId = ChainId.Localhost;
+
 if (process.env.REWILDER_ENV == "production") {
+  // TODO: change to mainnet
   module.exports.chainId = ChainId.Rinkeby;
 }
 module.exports.networkName = getChainName(module.exports.chainId).toLowerCase();
@@ -18,7 +20,7 @@ module.exports.config = {
     [ChainId.Localhost]: "http://localhost:8545",
   },
   supportedChains: [
-    //hainId.Mainnet,
+    //ChainId.Mainnet,
     //ChainId.Goerli,
     //ChainId.Kovan,
     ChainId.Rinkeby,
@@ -27,11 +29,9 @@ module.exports.config = {
     ChainId.Localhost,
     ChainId.Hardhat,
   ],
-  /*
   multicallAddresses: {
     ...MULTICALL_ADDRESSES,
-    [ChainId.Hardhat]: MulticallContract,
-    [ChainId.Localhost]: MulticallContract,
+    //[ChainId.Hardhat]: MulticallContract,
+    //[ChainId.Localhost]: MulticallContract,
   },
-  */
 };

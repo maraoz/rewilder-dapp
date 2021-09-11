@@ -21,9 +21,7 @@ contract RewilderNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UU
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        // TODO: change 
-        //return "https://api.rewilder.xyz/token/v1/";
-        return "https://serene-tesla-541392.netlify.app/api/v1/";
+        return "https://app.rewilder.xyz/api/v1/";
     }
 
     function safeMint(address to) public onlyOwner returns (uint256) {
