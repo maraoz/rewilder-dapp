@@ -17,6 +17,7 @@ try {
 const addresses = {
 };
 addresses[ChainId.Localhost] = localhostAddresses;
+addresses[ChainId.Hardhat] = localhostAddresses;
 addresses[ChainId.Rinkeby] = rinkebyAddresses;
 
 export const addressFor = function(contractName) {

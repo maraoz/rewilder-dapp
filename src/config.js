@@ -11,7 +11,7 @@ if (process.env.REWILDER_ENV == "production") {
 module.exports.networkName = getChainName(module.exports.chainId).toLowerCase();
 
 module.exports.INFURA_ID = INFURA_ID;
-module.exports.config = {
+module.exports.DAppProviderConfig = {
   readOnlyChainId: module.exports.chainId,
   readOnlyUrls: {
     [ChainId.Ropsten]: `https://ropsten.infura.io/v3/${INFURA_ID}`,
@@ -20,18 +20,9 @@ module.exports.config = {
     [ChainId.Localhost]: "http://localhost:8545",
   },
   supportedChains: [
-    //ChainId.Mainnet,
-    //ChainId.Goerli,
-    //ChainId.Kovan,
-    ChainId.Rinkeby,
-    ChainId.Ropsten,
-    //ChainId.xDai,
-    ChainId.Localhost,
-    ChainId.Hardhat,
+    module.exports.chainId, // app only runs in configured network
   ],
   multicallAddresses: {
     ...MULTICALL_ADDRESSES,
-    //[ChainId.Hardhat]: MulticallContract,
-    //[ChainId.Localhost]: MulticallContract,
   },
 };
