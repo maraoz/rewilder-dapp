@@ -44,15 +44,15 @@ const Layout = ({ children, ...customMeta }) => {
     <>
       <Head {...customMeta} />
       <header>
-        {
-          incorrectNetwork && 
-            <Alert status="error">
-            <AlertIcon />
-            <AlertTitle mr={2}>Network selected in wallet ({getChainName(chainId)}, id: {chainId}) unsupported,
-              please change to {config.networkName}.</AlertTitle>
-            </Alert>
-        }
         <Container maxWidth="container.xl">
+          {
+            incorrectNetwork && 
+              <Alert status="error">
+              <AlertIcon />
+              <AlertTitle mr={2}>Network selected in wallet ({getChainName(chainId)}, id: {chainId}) unsupported,
+                please change to {config.networkName}.</AlertTitle>
+              </Alert>
+          }
           <SimpleGrid
             columns={[1, 1, 1, 2]}
             alignItems="center"
