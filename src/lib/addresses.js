@@ -23,6 +23,7 @@ addresses[ChainId.Rinkeby] = rinkebyAddresses;
 // copy multicall addresses from usedapp on production networks
 for (const chain of Object.keys(addresses)) {
   if (MULTICALL_ADDRESSES[chain]) {
+    console.log(chain, addresses[chain]);
     addresses[chain]['Multicall'] = MULTICALL_ADDRESSES[chain];
     console.log(chain, addresses[chain]);
   }
