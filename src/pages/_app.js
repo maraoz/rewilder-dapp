@@ -13,7 +13,7 @@ config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor,("Mult
 export const queryClient = new QueryClient();
 
 // TODO: delete this messages for prod
-console.log(`REWILDER_ENV = ${process.env.REWILDER_ENV}`);
+console.log(`REWILDER_ENV = ${process.env.NEXT_PUBLIC_REWILDER_ENV}`);
 console.log(`Configuring app in ${config.networkName} network, id = ${config.chainId}.`)
 console.log(`multicallAddresses = ${config.DAppProviderConfig.multicallAddresses}`);
 

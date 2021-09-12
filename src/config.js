@@ -4,7 +4,7 @@ const INFURA_ID = "cea7dccbc1994ce1a585d6f06eda519b";
 
 module.exports.chainId = ChainId.Localhost;
 
-if (process.env.REWILDER_ENV == "production") {
+if (process.env.NEXT_PUBLIC_REWILDER_ENV == "production") {
   // TODO: change to mainnet
   module.exports.chainId = ChainId.Rinkeby;
 }
