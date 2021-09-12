@@ -20,6 +20,7 @@ addresses[ChainId.Localhost] = localhostAddresses;
 addresses[ChainId.Hardhat] = localhostAddresses;
 addresses[ChainId.Rinkeby] = rinkebyAddresses;
 
+console.log(Object.keys(addresses));
 // copy multicall addresses from usedapp on production networks
 for (const chain of Object.keys(addresses)) {
   if (MULTICALL_ADDRESSES[chain]) {
