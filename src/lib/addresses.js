@@ -1,4 +1,4 @@
-import { ChainId, getChainName} from "@usedapp/core";
+import { ChainId, getChainName, MULTICALL_ADDRESSES} from "@usedapp/core";
 import config from "../config.js"; 
 
 
@@ -19,6 +19,13 @@ const addresses = {
 addresses[ChainId.Localhost] = localhostAddresses;
 addresses[ChainId.Hardhat] = localhostAddresses;
 addresses[ChainId.Rinkeby] = rinkebyAddresses;
+
+// copy multicall addresses from usedapp on production networks
+for (const chain of Object.keys(addresses)) {
+  if (!addresses[chain]['Multicall']) {
+    addresses[chain]['Multicall'] = MULTICALL_ADDRESSES[chain];
+  }
+}
 
 export const addressFor = function(contractName) {
   const chainAddresses = addresses[config.chainId];
