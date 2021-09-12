@@ -3,7 +3,10 @@ require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
 require("@openzeppelin/hardhat-upgrades");
 
-require('dotenv').config({ path: '.env.local' })
+if (process.env.REWILDER_ENV == null) {
+  // only update env manually if not already updated (eg by netlify)
+  require('dotenv').config({ path: '.env.local' })
+}
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
