@@ -8,7 +8,7 @@ import config from "../config.js";
 import { addressFor } from "../lib/addresses";
 
 // required for dev networks
-config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor,("Multicall")
+config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor("Multicall")
 
 export const queryClient = new QueryClient();
 
