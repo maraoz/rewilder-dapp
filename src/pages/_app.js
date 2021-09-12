@@ -15,7 +15,7 @@ export const queryClient = new QueryClient();
 // TODO: delete this messages for prod
 console.log(`NEXT_PUBLIC_REWILDER_ENV = ${process.env.NEXT_PUBLIC_REWILDER_ENV}`);
 console.log(`Configuring app in ${config.networkName} network, id = ${config.chainId}.`)
-console.log(`multicallAddresses = ${config.DAppProviderConfig.multicallAddresses}`);
+console.log(`multicallAddresses = ${config.DAppProviderConfig.multicallAddresses[config.chainId]}`);
 
 const MyApp = ({ Component, pageProps }) => {
   return (
