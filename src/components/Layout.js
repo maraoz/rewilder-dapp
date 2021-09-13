@@ -4,14 +4,9 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  Button,
   Container,
   Flex,
   Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   SimpleGrid,
 } from "@chakra-ui/react";
 import config from "../config"
@@ -19,7 +14,9 @@ import { useEthers, useNotifications, getChainName, getExplorerTransactionLink }
 import NextLink from "next/link";
 import React from "react";
 import ConnectWallet from "./ConnectWallet";
+import WalletInfo from "./WalletInfo";
 import Head from "./Head";
+import truncateHash from "../lib/truncateHash";
 
 // Title text for the various transaction notifications.
 const TRANSACTION_TITLES = {
@@ -27,13 +24,8 @@ const TRANSACTION_TITLES = {
   transactionSucceed: "Transaction Completed",
 };
 
-// Takes a long hash string and truncates it.
-function truncateHash(hash, length = 38) {
-  return hash.replace(hash.substring(6, length), "...");
-}
-
 const Layout = ({ children, ...customMeta }) => {
-  const { account, deactivate, error, chainId} = useEthers();
+  const { account, error, chainId} = useEthers();
   const { notifications } = useNotifications();
 
   const incorrectNetwork = error && error.name == 'UnsupportedChainIdError' || 
@@ -76,26 +68,7 @@ const Layout = ({ children, ...customMeta }) => {
               </NextLink>
             </Flex>
             {account ? (
-              <Flex
-                order={[-1, null, null, 2]}
-                alignItems={"center"}
-                justifyContent={["flex-start", null, null, "flex-end"]}
-              >
-                <Menu placement="bottom-end">
-                  <MenuButton as={Button} ml="4">
-                    {truncateHash(account)}
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem
-                      onClick={() => {
-                        deactivate();
-                      }}
-                    >
-                      Disconnect
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Flex>
+              <WalletInfo />
             ) : (
               <ConnectWallet />
             )}
