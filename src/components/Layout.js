@@ -37,7 +37,7 @@ const Layout = ({ children, ...customMeta }) => {
   const { notifications } = useNotifications();
 
   const incorrectNetwork = error && error.name == 'UnsupportedChainIdError' || 
-    chainId != config.chainId;
+    (chainId && chainId != config.chainId);
 
   return (
     <>
@@ -124,7 +124,10 @@ const Layout = ({ children, ...customMeta }) => {
                     {TRANSACTION_TITLES[notification.type]}
                   </AlertTitle>
                   <AlertDescription overflow="hidden">
-                    <Link href={getExplorerTransactionLink(notification.transaction.hash, config.chainId)}>
+                    <Link 
+                      href={getExplorerTransactionLink(notification.transaction.hash, config.chainId)}
+                      target="_blank"
+                    >
                       View on Explorer ({truncateHash(notification.transaction.hash, 61)})
                     </Link>
                   </AlertDescription>
