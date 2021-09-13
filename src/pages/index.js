@@ -139,7 +139,6 @@ function IndexPage() {
               "Donate and mint your NFT"
             }
         </Button>
-        <div>tx: {donateTx.status}, {donateTx.transaction?donateTx.transaction.hash:"-" }</div>
       </div>
     </Layout>
   );
