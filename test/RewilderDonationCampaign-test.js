@@ -174,7 +174,7 @@ describe("RewilderDonationCampaign", function () {
       it("transfers ownership of NFT to multisig ", async function () {
         expect(await this.nft.owner()).to.equal(this.wallet.address);
       });
-      it("disallows further donations", async function () {});
+      it.skip("disallows further donations", async function () {});
       it("can only be unpaused by wallet", async function () {
         await this.campaign.connect(this.wallet).unpause();
         expect(await this.campaign.paused()).to.equal(false);
