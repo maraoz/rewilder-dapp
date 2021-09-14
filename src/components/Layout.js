@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Container,
+  CloseButton,
   Flex,
   Link,
   Menu,
@@ -14,7 +15,8 @@ import {
   MenuList,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { useEthers, useNotifications } from "@usedapp/core";
+import config from "../config"
+import { useEthers, useNotifications, getChainName } from "@usedapp/core";
 import NextLink from "next/link";
 import React from "react";
 import ConnectWallet from "./ConnectWallet";
@@ -32,14 +34,25 @@ function truncateHash(hash, length = 38) {
 }
 
 const Layout = ({ children, ...customMeta }) => {
-  const { account, deactivate } = useEthers();
+  const { account, deactivate, error, chainId} = useEthers();
   const { notifications } = useNotifications();
+
+  const incorrectNetwork = error && error.name == 'UnsupportedChainIdError' || 
+    chainId != config.chainId;
 
   return (
     <>
       <Head {...customMeta} />
       <header>
         <Container maxWidth="container.xl">
+          {
+            incorrectNetwork && 
+              <Alert status="error">
+              <AlertIcon />
+              <AlertTitle mr={2}>Network selected in wallet ({getChainName(chainId)}, id: {chainId}) unsupported,
+                please change to {config.networkName}.</AlertTitle>
+              </Alert>
+          }
           <SimpleGrid
             columns={[1, 1, 1, 2]}
             alignItems="center"

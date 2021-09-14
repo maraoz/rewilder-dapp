@@ -19,9 +19,6 @@ module.exports.DAppProviderConfig = {
     [ChainId.Hardhat]: "http://localhost:8545",
     [ChainId.Localhost]: "http://localhost:8545",
   },
-  supportedChains: [
-    module.exports.chainId, // app only runs in configured network
-  ],
   multicallAddresses: {
     ...MULTICALL_ADDRESSES,
   },
