@@ -19,7 +19,10 @@ contract MockRewilderNFTv2 is
 
     CountersUpgradeable.Counter private _tokenIdCounter;
 
-    function safeMint(address to) public onlyOwner {
+    /*
+     * onlyOwner modifier removed to safeMint function
+     */
+    function safeMint(address to) public {
         _safeMint(to, _tokenIdCounter.current());
         _tokenIdCounter.increment();
     }
@@ -29,4 +32,5 @@ contract MockRewilderNFTv2 is
         override
         onlyOwner
     {}
+
 }

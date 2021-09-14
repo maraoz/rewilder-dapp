@@ -3,20 +3,16 @@ const { expect } = require("chai");
 
 
 describe("RewilderNFT", function () {
-  it("deploys with upgrades", async function () {
+  beforeEach(async function () {
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
-    await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
+    const [deployer, alice, bob] = await ethers.getSigners();
+    this.deployer = deployer;
+    this.alice = alice;
+    this.bob = bob;
+    this.token = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
   });
-
+  
   describe("ERC721", function () {
-    beforeEach(async function () {
-      const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
-      const [deployer, alice, bob] = await ethers.getSigners();
-      this.deployer = deployer;
-      this.alice = alice;
-      this.bob = bob;
-      this.token = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
-    });
     it("has correct symbol", async function () {
       expect(await this.token.symbol()).to.equal("WILD");
     });
@@ -48,14 +44,6 @@ describe("RewilderNFT", function () {
 
 
   describe("upgrades", function () {
-    beforeEach(async function () {
-      const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
-      this.token = await upgrades.deployProxy(RewilderNFT, {
-        kind: "uups",
-        initializer: "initialize",
-      });
-    });
-
     it("upgrades to v2 implementation and preserves address", async function () {
       const MockRewilderNFTv2 = await ethers.getContractFactory(
         "MockRewilderNFTv2"
@@ -67,18 +55,23 @@ describe("RewilderNFT", function () {
       expect(upgradedNFT.address).to.equal(this.token.address);
     });
 
-    it.skip("upgrades to v2 implementation that changes something", async function () {
+    // in this test we allow minting by anyone with the upgrade
+    it("upgrades to v2 implementation that changes something", async function () {
+
       const MockRewilderNFTv2 = await ethers.getContractFactory(
         "MockRewilderNFTv2"
       );
+
+      // before upgrade, revert on mint by anyone but owner
+      await expect(this.token.connect(this.alice).safeMint(this.alice.address))
+            .to.be.revertedWith('Ownable: caller is not the owner');
       const upgradedNFT = await upgrades.upgradeProxy(
         this.token.address,
         MockRewilderNFTv2
       );
-      //await upgradedNFT.initialize();
-      const newSymbol = await upgradedNFT.symbol();
-      const oldSymbol = await this.token.symbol();
-      expect(newSymbol).to.not.equal(oldSymbol);
+      // no revert after upgrade
+      await this.token.connect(this.alice).safeMint(this.alice.address);
+        
     });
   });
 });
