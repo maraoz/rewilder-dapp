@@ -42,6 +42,7 @@
     "dev": "next dev",
     "build": "npx hardhat compile && next build",
     "start": "next start",
+    "test": "npx hardhat test",
     "format": "prettier --write .",
     "hardhat:chain": "npx hardhat node",
     "hardhat:compile": "npx hardhat compile",

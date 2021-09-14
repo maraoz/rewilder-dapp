@@ -119,7 +119,6 @@ describe("RewilderDonationCampaign", function () {
     });
 
     it("emits Transfer event from 0x", async function () {
-      const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await expect(await this.campaign.connect(this.donorA).donate({value: donationAmountWEI}))
         .to.emit(this.nft, 'Transfer')
