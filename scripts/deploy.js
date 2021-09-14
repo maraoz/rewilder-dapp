@@ -42,14 +42,6 @@ async function main() {
   addresses['network'] = network.name;
     
   if (network.name == "localhost") {
-    // TODO: remove greeter contract from app
-    // greeter
-    const Greeter = await hre.ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, Hardhat!");
-    await greeter.deployed();
-    addresses["Greeter"] = greeter.address;
-    console.log("Greeter deployed to:", greeter.address);
-    
     // multicall (required by usedapp)
     const MulticallContract = await hre.ethers.getContractFactory("Multicall");
     const multicall = await MulticallContract.deploy();
