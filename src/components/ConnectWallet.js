@@ -17,7 +17,7 @@ function ConnectWallet() {
         textAlign={["left", null, null, "right"]}
       >
         <Button colorScheme="teal" variant="outline" onClick={onOpen}>
-          Connect to a wallet
+          Connect Wallet
         </Button>
       </Box>
       <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>

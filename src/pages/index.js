@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Router from 'next/router'
-import { Button, Box } from "@chakra-ui/react";
+import { Button, Box, useDisclosure} from "@chakra-ui/react";
 import { useEthers, useContractFunction } from "@usedapp/core";
 import Slider from "@material-ui/core/Slider";
 import Layout from "./../components/Layout";
 import { addressFor } from "../lib/addresses";
 import { useBalanceOf } from "../lib/rewilderNFT";
+import ConnectWalletModal from "../components/ConnectWalletModal";
 import { ethers } from 'ethers';
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
 function IndexPage() {
   const { account, error, library } = useEthers();
+  const { onOpen, isOpen, onClose } = useDisclosure();
   
   const [amount, setAmount] = useState(1);
   const [walletOpened, setWalletOpened] = useState(false);
@@ -81,8 +83,11 @@ function IndexPage() {
   };
 
   // call the campaign smart contract, send a donation
-  const donate = async () => {
-    if (!amount || !account) return;
+  const donate = () => {
+    if (!account) {
+      return onOpen();
+    }
+    if (!amount) return;
     const donationAmountWEI = ethers.utils.parseEther(amount.toString());
 
     if (library) {
@@ -146,10 +151,10 @@ function IndexPage() {
         <Button mt="2" colorScheme="teal" 
           onClick={donate} 
           isLoading={walletOpened || donateTx.status=="Mining"}
-          isDisabled={!account || donateTx.status=="Success" || balance }
+          isDisabled={donateTx.status=="Success" || balance }
         >
             {!account?
-              "Please connect wallet":
+              "Connect Wallet":
               balance > 0 || donateTx.status=="Success"?
                 "Thanks for donating!":
                 "Donate and mint your NFT"
@@ -161,6 +166,7 @@ function IndexPage() {
           donateTx.status={donateTx.status} /
         </Box>
       </div>
+      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
     </Layout>
   );
 }

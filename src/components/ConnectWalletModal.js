@@ -12,7 +12,7 @@ import { useEthers } from "@usedapp/core";
 import React from "react";
 import { walletconnect } from "../lib/connectors";
 
-function ConnectWalletModal({ onOpen, isOpen, onClose }) {
+function ConnectWalletModal({ isOpen, onClose }) {
   const { activate, activateBrowserWallet } = useEthers();
 
   return (
