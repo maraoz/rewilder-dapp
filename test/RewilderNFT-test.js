@@ -32,8 +32,15 @@ describe("RewilderNFT", function () {
         await this.token.safeMint(this.alice.address);
         await this.token.safeMint(this.bob.address);
         expect(await this.token.balanceOf(this.alice.address)).to.equal(1);
+        expect(await this.token.ownerOf(1)).to.be.equal(this.alice.address);
         expect(await this.token.balanceOf(this.bob.address)).to.equal(1);
+        expect(await this.token.ownerOf(2)).to.be.equal(this.bob.address);
       });
+      it("creates the correct tokenURIs", async function() {
+        const BASE_URI = "https://app.rewilder.xyz/api/v1/";
+        await this.token.safeMint(this.alice.address);
+        expect(await this.token.tokenURI(1)).to.equal(BASE_URI+"1");
+      })
       it("others can't mint", async function () {
         await expect(this.token.connect(this.alice).safeMint(this.alice.address))
             .to.be.revertedWith('Ownable: caller is not the owner');
