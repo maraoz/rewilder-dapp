@@ -140,17 +140,17 @@ describe("RewilderDonationCampaign", function () {
     it("mints NFT for donor", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await this.campaign.connect(this.donorA).donate({value: donationAmountWEI});
-      await expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
+      expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
     });
 
     it.skip("emits Transfer event from 0x", async function () {});
-    it.skip("donor can then transfer the NFT", async function () {
+    it("donor can then transfer the NFT", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await this.campaign.connect(this.donorA).donate({value: donationAmountWEI});
-      await expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
+      expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
 
-      await this.nft.transferFrom(this.donorA.address, this.donorB.address, 1);
-      //await expect(await this.nft.ownerOf(1)).to.be.equal(this.donorB.address);
+      await this.nft.connect(this.donorA).transferFrom(this.donorA.address, this.donorB.address, 1);
+      expect(await this.nft.ownerOf(1)).to.be.equal(this.donorB.address);
     });
     it.skip("campaign can transfer ownership of NFT to multisig", async function () {});
   });
