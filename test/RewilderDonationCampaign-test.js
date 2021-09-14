@@ -4,6 +4,7 @@ const { expect } = require("chai");
 
 describe("RewilderDonationCampaign", function () {
   
+  let RewilderDonationCampaign;
   beforeEach(async function () {
     const [deployer, donorA, donorB, wallet] = await ethers.getSigners();
     this.deployer = deployer;
@@ -12,20 +13,20 @@ describe("RewilderDonationCampaign", function () {
     this.wallet = wallet;
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
     this.nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
+    RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
   });
 
-  it("deploys with upgrades", async function () {
-    const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-    const campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-      [this.nft.address, this.wallet.address], { kind: "uups" });
+  it("deploys", async function () {
+    const campaign = await RewilderDonationCampaign.deploy(
+      this.nft.address, this.wallet.address);
     await campaign.deployed();
   });
 
   describe("constructs correctly", function () {
     beforeEach(async function () {
-      const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-        [this.nft.address, this.wallet.address], { kind: "uups" });
+      this.campaign = await RewilderDonationCampaign.deploy(
+        this.nft.address, this.wallet.address);
+      await this.campaign.deployed();
     });
     it("stores nft address", async function () {
       expect(await this.campaign.nft()).to.equal(this.nft.address);
@@ -33,43 +34,13 @@ describe("RewilderDonationCampaign", function () {
     it("sets the right owner", async function () {
       expect(await this.campaign.owner()).to.equal(this.wallet.address);
     });
-
-
-    describe("upgrades", function () {
-      it("upgrades to v2 implementation and preserves address", async function () {
-        const MockRewilderDonationCampaignV2 = await ethers.getContractFactory(
-          "MockRewilderDonationCampaignV2",
-          this.wallet
-          );
-        const upgradedCampaign = await upgrades.upgradeProxy(
-          this.campaign.address,
-          MockRewilderDonationCampaignV2
-        );
-        expect(upgradedCampaign.address).to.equal(this.campaign.address);
-      });
-
-      it("upgrades to v2 implementation and preserves nft", async function () {
-        const preUpgradeNFTAddress = await this.campaign.nft();
-
-        const MockRewilderDonationCampaignV2 = await ethers.getContractFactory(
-          "MockRewilderDonationCampaignV2",
-          this.wallet
-          );
-        const upgradedCampaign = await upgrades.upgradeProxy(
-          this.campaign.address,
-          MockRewilderDonationCampaignV2
-        );
-        expect(await upgradedCampaign.nft()).to.equal(preUpgradeNFTAddress);
-      });
-
-    });
   });
 
   describe("donation call", function () {
     beforeEach(async function () {
-      const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-        [this.nft.address, this.wallet.address], { kind: "uups" });
+      this.campaign = await RewilderDonationCampaign.deploy(
+        this.nft.address, this.wallet.address);
+      await this.campaign.deployed();
 
       // transfer nft ownership to donation campaign
       await this.nft.transferOwnership(this.campaign.address);
@@ -79,7 +50,6 @@ describe("RewilderDonationCampaign", function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await expect(await this.campaign.donate({value: donationAmountWEI}))
         .to.changeEtherBalance(this.wallet, donationAmountWEI);
-
     });
 
     it("reject donation just below minimum, accept exact minimum", async function () {
@@ -153,11 +123,11 @@ describe("RewilderDonationCampaign", function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await expect(await this.campaign.connect(this.donorA).donate({value: donationAmountWEI}))
         .to.emit(this.nft, 'Transfer')
-        .withArgs(ZERO_ADDRESS, this.donorA.address, 1);
+        .withArgs(ethers.constants.AddressZero, this.donorA.address, 1);
 
       await expect(await this.campaign.connect(this.donorB).donate({value: donationAmountWEI}))
       .to.emit(this.nft, 'Transfer')
-      .withArgs(ZERO_ADDRESS, this.donorB.address, 2);
+      .withArgs(ethers.constants.AddressZero, this.donorB.address, 2);
     });
 
     it("donor can then transfer the NFT", async function () {
@@ -173,12 +143,12 @@ describe("RewilderDonationCampaign", function () {
   
   describe("finalize call", function () {
     beforeEach(async function () {
-      const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-        [this.nft.address, this.wallet.address], { kind: "uups" });
+      this.campaign = await RewilderDonationCampaign.deploy(
+        this.nft.address, this.wallet.address);
+      await this.campaign.deployed();
         
-        // transfer nft ownership to donation campaign
-        await this.nft.transferOwnership(this.campaign.address);
+      // transfer nft ownership to donation campaign
+      await this.nft.transferOwnership(this.campaign.address);
     });
       
     it("starts unpaused", async function () {

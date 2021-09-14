@@ -26,6 +26,9 @@ module.exports = {
   paths: {
     artifacts: "./src/artifacts",
   },
+  mocha: {
+    bail: "true"
+  },
   etherscan: process.env.ETHERSCAN_KEY ? {
     apiKey: process.env.ETHERSCAN_KEY
   } : undefined,

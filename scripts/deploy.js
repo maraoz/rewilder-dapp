@@ -4,7 +4,7 @@ const path = require('path')
 
 const contractAddressFile = `${config.paths.artifacts}${path.sep}..${path.sep}addresses-${network.name}.json`
 
-async function verifyImplementation(implAddress) {
+async function verifyImplementationOnEtherscan(implAddress) {
   if (network.name == "localhost" || network.name == "hardhat") 
     return;
 
@@ -24,8 +24,14 @@ async function verifyImplementation(implAddress) {
 
 async function main() {
   
-  // TODO: allow configuring wallet externally
-  const [deployer, wallet] = await ethers.getSigners();
+  let [deployer, wallet] = await ethers.getSigners();
+  wallet = wallet.address;
+  if (process.env.REWILDER_MULTISIG && 
+    ethers.utils.isAddress(process.env.REWILDER_MULTISIG)) {
+    
+    wallet = process.env.REWILDER_MULTISIG
+  }
+  console.log("Using wallet address:", wallet);
   const addresses = {};
   
   console.log("Deploying contracts with the account:", deployer.address);
@@ -62,24 +68,21 @@ async function main() {
   console.log("RewilderNFT implementation at:", nftImpl);
   addresses["RewilderNFT"] = nft.address;
   addresses["RewilderNFTImpl"] = nftImpl;
-  await verifyImplementation(nftImpl);
+  await verifyImplementationOnEtherscan(nftImpl);
   
   
   // donation campaign
   console.log("Deploying upgradeable RewilderDonationCampaign...");
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-  const campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-    [nft.address, wallet.address], { kind: "uups" });
+  const campaign = await RewilderDonationCampaign.deploy(
+    nft.address, wallet
+  );
   await campaign.deployed();
-  console.log("RewilderDonationCampaign proxy deployed to:", campaign.address);
-  const campaignImpl = await upgrades.erc1967.getImplementationAddress(campaign.address);
-  console.log("RewilderDonationCampaign implementation at:", campaignImpl);
+  console.log("RewilderDonationCampaign deployed to:", campaign.address);
   addresses["RewilderDonationCampaign"] = campaign.address;
-  addresses["RewilderDonationCampaignImpl"] = campaignImpl;
-  await verifyImplementation(campaignImpl);
 
   // transfer nft ownership to donation campaign
-  console.log("Transferring NFT ownership to Campaign");
+  console.log("Transferring NFT ownership to Campaign...");
   await nft.transferOwnership(campaign.address);
   
   

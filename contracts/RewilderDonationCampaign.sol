@@ -1,36 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 import "./RewilderNFT.sol";
 
-contract RewilderDonationCampaign is Initializable, PausableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
+contract RewilderDonationCampaign is Pausable, Ownable {
 
     RewilderNFT private _nft;
     address payable private _wallet;
 
     event Donation(address donor, uint256 value, uint256 tokenID);
 
-    function initialize(RewilderNFT nftAddress, address payable wallet) initializer public {
-        __Ownable_init();
-        __UUPSUpgradeable_init();
-
+    constructor(RewilderNFT nftAddress, address payable wallet) {
         _nft = nftAddress;
         _wallet = wallet;
         
         // give ownership of campaign to wallet (allows finalizing)
         transferOwnership(_wallet);
     }
-
-    function _authorizeUpgrade(address newImplementation)
-        internal
-        onlyOwner
-        override
-    {}
 
     /**
      * @dev Returns the address of the NFT contract.
