@@ -93,6 +93,22 @@ describe("RewilderDonationCampaign", function () {
         {value: donationAmountWEI})).to.be.revertedWith('Minimum donation is 1 ETH')
     });
 
+    it("reject donation above maximum", async function () {
+      const above100ETH = ethers.utils.parseEther("150");
+      await expect(this.campaign.donate(
+        {value: above100ETH})).to.be.revertedWith('Maximum donation is 100 ETH')
+    });
+
+    it("reject donation just above maximum, accept exact maximum", async function () {
+      const justAbove100ETH = ethers.utils.parseEther("100").add(1);
+      await expect(this.campaign.donate(
+        {value: justAbove100ETH})).to.be.revertedWith('Maximum donation is 100 ETH')
+
+      const exactly100ETH = justAbove100ETH.sub(1);
+      await expect(await this.campaign.donate({value: exactly100ETH}))
+      .to.changeEtherBalance(this.wallet, exactly100ETH);
+    });
+
     it("accepts multiple donations from different donors", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       let preBalance = await ethers.provider.getBalance(this.wallet.address);
@@ -111,7 +127,7 @@ describe("RewilderDonationCampaign", function () {
 
     it("emits Donation events", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
-      const twoFour = ethers.utils.parseEther("2.4")
+      const twoFour = ethers.utils.parseEther("2.4");
       await expect(await this.campaign.connect(this.donorA).donate({value: donationAmountWEI}))
         .to.emit(this.campaign, 'Donation')
         .withArgs(this.donorA.address, donationAmountWEI, 1);
@@ -121,9 +137,21 @@ describe("RewilderDonationCampaign", function () {
         .withArgs(this.donorB.address, twoFour, 2);
     });
 
-    it.skip("mints NFT for donor", async function () {});
+    it("mints NFT for donor", async function () {
+      const donationAmountWEI = ethers.utils.parseEther("1.0");
+      await this.campaign.connect(this.donorA).donate({value: donationAmountWEI});
+      expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
+    });
+
     it.skip("emits Transfer event from 0x", async function () {});
-    it.skip("donor can then transfer the NFT", async function () {});
+    it("donor can then transfer the NFT", async function () {
+      const donationAmountWEI = ethers.utils.parseEther("1.0");
+      await this.campaign.connect(this.donorA).donate({value: donationAmountWEI});
+      expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
+
+      await this.nft.connect(this.donorA).transferFrom(this.donorA.address, this.donorB.address, 1);
+      expect(await this.nft.ownerOf(1)).to.be.equal(this.donorB.address);
+    });
     it.skip("campaign can transfer ownership of NFT to multisig", async function () {});
   });
 
