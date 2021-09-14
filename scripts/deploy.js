@@ -32,14 +32,6 @@ async function main() {
   console.log("Account balance:", 
     (await deployer.getBalance()/1e18).toString(), 
     network.name, "ETH");
-    
-  // re-create contract address file if needed, and back up old one
-  if (fs.existsSync(contractAddressFile)) {
-    const ts = new Date().getTime();
-    const contractAddressFileNoJSON = contractAddressFile.split(".")[0];
-    fs.copyFileSync(contractAddressFile, `${contractAddressFileNoJSON}-${ts}.json`)
-    fs.unlinkSync(contractAddressFile);
-  }
   
   addresses['network'] = network.name;
     
@@ -90,7 +82,16 @@ async function main() {
   console.log("Transferring NFT ownership to Campaign");
   await nft.transferOwnership(campaign.address);
   
-  // Save the contract addresses so our frontend can read it
+  
+  // re-create contract address file if needed, and back up old one
+  if (fs.existsSync(contractAddressFile)) {
+    const ts = new Date().getTime();
+    const contractAddressFileNoJSON = contractAddressFile.split(".")[0];
+    fs.copyFileSync(contractAddressFile, `${contractAddressFileNoJSON}-${ts}.json`)
+    fs.unlinkSync(contractAddressFile);
+  }
+  
+  // Save the new contract addresses so our frontend can read it
   console.log("Saving deployed contract addresses to file...");
   fs.appendFileSync(contractAddressFile, JSON.stringify(addresses, null, 2));
   console.log("Done!");

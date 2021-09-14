@@ -32,6 +32,10 @@ module.exports = {
   networks: {
     hardhat: {
       chainId: 1337,
+      mining: {
+        auto: true,
+        interval: 5000
+      }
     },
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/cea7dccbc1994ce1a585d6f06eda519b",

@@ -6,6 +6,7 @@ import { Hydrate } from "react-query/hydration";
 import "./../lib/analytics.js";
 import config from "../config.js";
 import { addressFor } from "../lib/addresses";
+import '../styles/main.css';
 
 // required for dev networks
 config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor("Multicall")

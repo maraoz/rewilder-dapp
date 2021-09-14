@@ -4,41 +4,32 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  Button,
   Container,
-  CloseButton,
   Flex,
   Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   SimpleGrid,
 } from "@chakra-ui/react";
 import config from "../config"
-import { useEthers, useNotifications, getChainName } from "@usedapp/core";
+import { useEthers, useNotifications, getChainName, getExplorerTransactionLink } from "@usedapp/core";
 import NextLink from "next/link";
 import React from "react";
 import ConnectWallet from "./ConnectWallet";
+import WalletInfo from "./WalletInfo";
 import Head from "./Head";
+import truncateHash from "../lib/truncateHash";
 
 // Title text for the various transaction notifications.
 const TRANSACTION_TITLES = {
-  transactionStarted: "Local Transaction Started",
-  transactionSucceed: "Local Transaction Completed",
+  transactionStarted: "Transaction Sent to Network",
+  transactionSucceed: "Transaction Completed",
 };
 
-// Takes a long hash string and truncates it.
-function truncateHash(hash, length = 38) {
-  return hash.replace(hash.substring(6, length), "...");
-}
-
 const Layout = ({ children, ...customMeta }) => {
-  const { account, deactivate, error, chainId} = useEthers();
+  const { account, error, chainId} = useEthers();
   const { notifications } = useNotifications();
 
   const incorrectNetwork = error && error.name == 'UnsupportedChainIdError' || 
-    chainId != config.chainId;
+    (chainId && chainId != config.chainId);
 
   return (
     <>
@@ -65,6 +56,11 @@ const Layout = ({ children, ...customMeta }) => {
                   Home
                 </Link>
               </NextLink>
+              <NextLink href="/nfts" passHref>
+                <Link px="4" py="1">
+                  NFTs
+                </Link>
+              </NextLink>
               <NextLink href="/demo" passHref>
                 <Link px="4" py="1">
                   Demo
@@ -72,26 +68,7 @@ const Layout = ({ children, ...customMeta }) => {
               </NextLink>
             </Flex>
             {account ? (
-              <Flex
-                order={[-1, null, null, 2]}
-                alignItems={"center"}
-                justifyContent={["flex-start", null, null, "flex-end"]}
-              >
-                <Menu placement="bottom-end">
-                  <MenuButton as={Button} ml="4">
-                    {truncateHash(account)}
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem
-                      onClick={() => {
-                        deactivate();
-                      }}
-                    >
-                      Disconnect
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Flex>
+              <WalletInfo />
             ) : (
               <ConnectWallet />
             )}
@@ -120,8 +97,12 @@ const Layout = ({ children, ...customMeta }) => {
                     {TRANSACTION_TITLES[notification.type]}
                   </AlertTitle>
                   <AlertDescription overflow="hidden">
-                    Transaction Hash:{" "}
-                    {truncateHash(notification.transaction.hash, 61)}
+                    <Link 
+                      href={getExplorerTransactionLink(notification.transaction.hash, config.chainId)}
+                      target="_blank"
+                    >
+                      View on Explorer ({truncateHash(notification.transaction.hash, 61)})
+                    </Link>
                   </AlertDescription>
                 </Box>
               </Alert>

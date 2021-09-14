@@ -1,5 +1,11 @@
 const {config, ethers, upgrades, network} = require("hardhat");
 
+
+var mineOneBlock = async function() {
+  console.log("Requesting node to mine one block");
+  await network.provider.send("evm_mine");
+}
+
 var admin = require('firebase-admin');
 var serviceAccount = require("../rewilder-dev-firebase.json");
 const app = admin.initializeApp({
@@ -25,6 +31,10 @@ async function main() {
   // Emitted when any new pending transaction is noticed
   ethers.provider.on("pending", (tx) => {
     console.log("pending tx", tx.hash);
+    if (!config.networks.hardhat.mining.auto &&
+      network.name == 'localhost') {
+      setTimeout(mineOneBlock, 5000);
+    }
   });
 
   // listen for events
