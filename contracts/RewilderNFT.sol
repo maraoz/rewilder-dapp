@@ -12,6 +12,9 @@ contract RewilderNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UU
 
     CountersUpgradeable.Counter private _tokenIdCounter;
 
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() initializer {}
+
     function initialize() initializer public {
         __ERC721_init("RewilderNFT", "WILD");
         __Ownable_init();
