@@ -14,6 +14,14 @@ describe("RewilderDonationCampaign", function () {
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
     this.nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
     RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
+    
+    this.campaign = await RewilderDonationCampaign.deploy(
+      this.nft.address, this.wallet.address);
+    await this.campaign.deployed();
+    
+    // transfer nft ownership to donation campaign
+    //await this.nft.transferOwnership(this.campaign.address);
+    await this.nft.transferOwnership(this.campaign.address);
   });
 
   it("deploys", async function () {
@@ -23,28 +31,18 @@ describe("RewilderDonationCampaign", function () {
   });
 
   describe("constructs correctly", function () {
-    beforeEach(async function () {
-      this.campaign = await RewilderDonationCampaign.deploy(
-        this.nft.address, this.wallet.address);
-      await this.campaign.deployed();
-    });
     it("stores nft address", async function () {
       expect(await this.campaign.nft()).to.equal(this.nft.address);
     });
     it("sets the right owner", async function () {
       expect(await this.campaign.owner()).to.equal(this.wallet.address);
     });
+    it("has nft ownership", async function () {
+      expect(await this.nft.owner()).to.equal(this.campaign.address);
+    });
   });
 
   describe("donation call", function () {
-    beforeEach(async function () {
-      this.campaign = await RewilderDonationCampaign.deploy(
-        this.nft.address, this.wallet.address);
-      await this.campaign.deployed();
-
-      // transfer nft ownership to donation campaign
-      await this.nft.transferOwnership(this.campaign.address);
-    });
 
     it("receives donation", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
@@ -141,14 +139,6 @@ describe("RewilderDonationCampaign", function () {
   
   
   describe("finalize call", function () {
-    beforeEach(async function () {
-      this.campaign = await RewilderDonationCampaign.deploy(
-        this.nft.address, this.wallet.address);
-      await this.campaign.deployed();
-        
-      // transfer nft ownership to donation campaign
-      await this.nft.transferOwnership(this.campaign.address);
-    });
       
     it("starts unpaused", async function () {
       expect(await this.campaign.paused()).to.equal(false);
@@ -182,6 +172,10 @@ describe("RewilderDonationCampaign", function () {
           .to.be.revertedWith('Pausable: paused')
       });
       it("can only be unpaused by wallet", async function () {
+        await expect(this.campaign.connect(this.deployer).unpause())
+          .to.be.revertedWith('Ownable: caller is not the owner')
+        await expect(this.campaign.connect(this.donorA).unpause())
+          .to.be.revertedWith('Ownable: caller is not the owner')
         await this.campaign.connect(this.wallet).unpause();
         expect(await this.campaign.paused()).to.equal(false);
       });

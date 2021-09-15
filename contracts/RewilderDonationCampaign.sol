@@ -17,7 +17,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
         _nft = nftAddress;
         _wallet = wallet;
         
-        // give ownership of campaign to wallet (allows finalizing)
+        // give ownership of campaign to wallet (allows pausing and finalizing campaign)
         transferOwnership(_wallet);
     }
 
