@@ -1,31 +1,50 @@
-const {config, ethers, upgrades, erc1967, network} = require("hardhat");
+const {config, ethers, upgrades, network} = require("hardhat");
 const fs = require("fs");
 const path = require('path')
 
 const contractAddressFile = `${config.paths.artifacts}${path.sep}..${path.sep}addresses-${network.name}.json`
 
-async function verifyImplementation(implAddress) {
+async function verifyImplementationOnEtherscan(implAddress, constructorArguments) {
   if (network.name == "localhost" || network.name == "hardhat") 
     return;
 
-  try {
-    await hre.run("verify:verify", {
-      address: implAddress,
-      constructorArguments: [],
-    });
-  } catch(err) {
-    if (err.message.includes("Contract source code already verified")) {
-      console.log(err.message)
-    } else {
-      throw err;
+  console.log(`Attempting to verify ${implAddress} on Etherscan...`);
+  let attempt;
+  for (attempt=0; attempt<5; attempt += 1) {
+    try {
+      await hre.run("verify:verify", {
+        address: implAddress,
+        constructorArguments: constructorArguments??[],
+      });
+      break
+    } catch(err) {
+      if (err.message.includes("Contract source code already verified")) {
+        console.log(`Contract source code for ${implAddress} already verified, skipping.`)
+        break;
+      } else if (err.message.includes("Failed to send contract verification request")) {
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        continue
+      } else {
+        throw err;
+      }
     }
+  }
+  if (attempt == 5) {
+    console.log(`FAILED to verify ${implAddress} contract on Etherscan`+
+    ` after ${attempt} attempts. Abandoning.`);
   }
 }
 
 async function main() {
   
-  // TODO: allow configuring wallet externally
-  const [deployer, wallet] = await ethers.getSigners();
+  let [deployer, wallet] = await ethers.getSigners();
+  wallet = wallet.address;
+  if (process.env.REWILDER_MULTISIG && 
+    ethers.utils.isAddress(process.env.REWILDER_MULTISIG)) {
+    
+    wallet = process.env.REWILDER_MULTISIG
+  }
+  console.log("Using wallet address:", wallet);
   const addresses = {};
   
   console.log("Deploying contracts with the account:", deployer.address);
@@ -36,14 +55,6 @@ async function main() {
   addresses['network'] = network.name;
     
   if (network.name == "localhost") {
-    // TODO: remove greeter contract from app
-    // greeter
-    const Greeter = await hre.ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, Hardhat!");
-    await greeter.deployed();
-    addresses["Greeter"] = greeter.address;
-    console.log("Greeter deployed to:", greeter.address);
-    
     // multicall (required by usedapp)
     const MulticallContract = await hre.ethers.getContractFactory("Multicall");
     const multicall = await MulticallContract.deploy();
@@ -52,7 +63,7 @@ async function main() {
     console.log("Multicall deployed to:", multicall.address);
   }
   
-  // NFT
+  // NFT -- upgradeable
   console.log("Deploying upgradeable RewilderNFT...");
   const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
   const nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
@@ -62,24 +73,22 @@ async function main() {
   console.log("RewilderNFT implementation at:", nftImpl);
   addresses["RewilderNFT"] = nft.address;
   addresses["RewilderNFTImpl"] = nftImpl;
-  await verifyImplementation(nftImpl);
+  await verifyImplementationOnEtherscan(nftImpl);
   
   
-  // donation campaign
-  console.log("Deploying upgradeable RewilderDonationCampaign...");
+  // donation campaign -- non-upgradeable
+  console.log("Deploying RewilderDonationCampaign...");
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-  const campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-    [nft.address, wallet.address], { kind: "uups" });
+  const campaign = await RewilderDonationCampaign.deploy(
+    nft.address, wallet
+  );
   await campaign.deployed();
-  console.log("RewilderDonationCampaign proxy deployed to:", campaign.address);
-  const campaignImpl = await upgrades.erc1967.getImplementationAddress(campaign.address);
-  console.log("RewilderDonationCampaign implementation at:", campaignImpl);
+  console.log("RewilderDonationCampaign deployed to:", campaign.address);
   addresses["RewilderDonationCampaign"] = campaign.address;
-  addresses["RewilderDonationCampaignImpl"] = campaignImpl;
-  await verifyImplementation(campaignImpl);
+  await verifyImplementationOnEtherscan(campaign.address, [nft.address, wallet]);
 
   // transfer nft ownership to donation campaign
-  console.log("Transferring NFT ownership to Campaign");
+  console.log("Transferring NFT ownership to Campaign...");
   await nft.transferOwnership(campaign.address);
   
   
@@ -95,7 +104,6 @@ async function main() {
   console.log("Saving deployed contract addresses to file...");
   fs.appendFileSync(contractAddressFile, JSON.stringify(addresses, null, 2));
   console.log("Done!");
-  
 }
 
 main()

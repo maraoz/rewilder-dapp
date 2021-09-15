@@ -4,6 +4,7 @@ const { expect } = require("chai");
 
 describe("RewilderDonationCampaign", function () {
   
+  let RewilderDonationCampaign;
   beforeEach(async function () {
     const [deployer, donorA, donorB, wallet] = await ethers.getSigners();
     this.deployer = deployer;
@@ -12,69 +13,43 @@ describe("RewilderDonationCampaign", function () {
     this.wallet = wallet;
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
     this.nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
+    RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
   });
 
-  it("deploys with upgrades", async function () {
-    const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-    const campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-      [this.nft.address, this.wallet.address], { kind: "uups" });
+  it("deploys", async function () {
+    const campaign = await RewilderDonationCampaign.deploy(
+      this.nft.address, this.wallet.address);
     await campaign.deployed();
   });
 
   describe("constructs correctly", function () {
     beforeEach(async function () {
-      const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-        [this.nft.address, this.wallet.address], { kind: "uups" });
+      this.campaign = await RewilderDonationCampaign.deploy(
+        this.nft.address, this.wallet.address);
+      await this.campaign.deployed();
     });
     it("stores nft address", async function () {
       expect(await this.campaign.nft()).to.equal(this.nft.address);
     });
     it("sets the right owner", async function () {
-      expect(await this.campaign.owner()).to.equal(this.deployer.address);
-    });
-
-
-    describe("upgrades", function () {
-      it("upgrades to v2 implementation and preserves address", async function () {
-        const MockRewilderDonationCampaignV2 = await ethers.getContractFactory("MockRewilderDonationCampaignV2");
-        const upgradedCampaign = await upgrades.upgradeProxy(
-          this.campaign.address,
-          MockRewilderDonationCampaignV2
-        );
-        expect(upgradedCampaign.address).to.equal(this.campaign.address);
-      });
-
-      it("upgrades to v2 implementation and preserves nft", async function () {
-        const preUpgradeNFTAddress = await this.campaign.nft();
-
-        const MockRewilderDonationCampaignV2 = await ethers.getContractFactory("MockRewilderDonationCampaignV2");
-        const upgradedCampaign = await upgrades.upgradeProxy(
-          this.campaign.address,
-          MockRewilderDonationCampaignV2
-        );
-        expect(await upgradedCampaign.nft()).to.equal(preUpgradeNFTAddress);
-      });
-
+      expect(await this.campaign.owner()).to.equal(this.wallet.address);
     });
   });
 
   describe("donation call", function () {
     beforeEach(async function () {
-      const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-      this.campaign = await upgrades.deployProxy(RewilderDonationCampaign, 
-        [this.nft.address, this.wallet.address], { kind: "uups" });
+      this.campaign = await RewilderDonationCampaign.deploy(
+        this.nft.address, this.wallet.address);
+      await this.campaign.deployed();
 
       // transfer nft ownership to donation campaign
       await this.nft.transferOwnership(this.campaign.address);
-
     });
 
     it("receives donation", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await expect(await this.campaign.donate({value: donationAmountWEI}))
         .to.changeEtherBalance(this.wallet, donationAmountWEI);
-
     });
 
     it("reject donation just below minimum, accept exact minimum", async function () {
@@ -143,7 +118,17 @@ describe("RewilderDonationCampaign", function () {
       expect(await this.nft.ownerOf(1)).to.be.equal(this.donorA.address);
     });
 
-    it.skip("emits Transfer event from 0x", async function () {});
+    it("emits Transfer event from 0x", async function () {
+      const donationAmountWEI = ethers.utils.parseEther("1.0");
+      await expect(await this.campaign.connect(this.donorA).donate({value: donationAmountWEI}))
+        .to.emit(this.nft, 'Transfer')
+        .withArgs(ethers.constants.AddressZero, this.donorA.address, 1);
+
+      await expect(await this.campaign.connect(this.donorB).donate({value: donationAmountWEI}))
+      .to.emit(this.nft, 'Transfer')
+      .withArgs(ethers.constants.AddressZero, this.donorB.address, 2);
+    });
+
     it("donor can then transfer the NFT", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       await this.campaign.connect(this.donorA).donate({value: donationAmountWEI});
@@ -152,9 +137,56 @@ describe("RewilderDonationCampaign", function () {
       await this.nft.connect(this.donorA).transferFrom(this.donorA.address, this.donorB.address, 1);
       expect(await this.nft.ownerOf(1)).to.be.equal(this.donorB.address);
     });
-    it.skip("campaign can transfer ownership of NFT to multisig", async function () {});
   });
+  
+  
+  describe("finalize call", function () {
+    beforeEach(async function () {
+      this.campaign = await RewilderDonationCampaign.deploy(
+        this.nft.address, this.wallet.address);
+      await this.campaign.deployed();
+        
+      // transfer nft ownership to donation campaign
+      await this.nft.transferOwnership(this.campaign.address);
+    });
+      
+    it("starts unpaused", async function () {
+      expect(await this.campaign.paused()).to.equal(false);
+    });
 
+    it("only wallet can finalize", async function () {
+      await expect(this.campaign.finalize())
+        .to.be.revertedWith('Ownable: caller is not the owner');
+
+      await this.campaign.connect(this.wallet).finalize();
+      expect(await this.campaign.paused()).to.equal(true);
+    });
+
+    describe("after finalized", async function() {
+      beforeEach(async function () {
+        await this.campaign.connect(this.wallet).finalize();
+      });
+
+      it("is paused", async function() {
+        expect(await this.campaign.paused()).to.equal(true);
+      })
+
+      it("transfers ownership of NFT to multisig ", async function () {
+        expect(await this.nft.owner()).to.equal(this.wallet.address);
+      });
+      
+      it("disallows further donations", async function () {
+        const donationAmountWEI = ethers.utils.parseEther("1.0");
+        await expect(this.campaign.connect(this.donorA).donate({
+          value: donationAmountWEI}))
+          .to.be.revertedWith('Pausable: paused')
+      });
+      it("can only be unpaused by wallet", async function () {
+        await this.campaign.connect(this.wallet).unpause();
+        expect(await this.campaign.paused()).to.equal(false);
+      });
+    });
+  });
 
 
 });

@@ -2,6 +2,7 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
 require("@openzeppelin/hardhat-upgrades");
+require("solidity-coverage");
 
 if (process.env.REWILDER_ENV == null) {
   // only update env manually if not already updated (eg by netlify)
@@ -25,6 +26,9 @@ module.exports = {
   solidity: "0.8.4",
   paths: {
     artifacts: "./src/artifacts",
+  },
+  mocha: {
+    bail: "true"
   },
   etherscan: process.env.ETHERSCAN_KEY ? {
     apiKey: process.env.ETHERSCAN_KEY

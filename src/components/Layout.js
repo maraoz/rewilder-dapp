@@ -61,11 +61,6 @@ const Layout = ({ children, ...customMeta }) => {
                   NFTs
                 </Link>
               </NextLink>
-              <NextLink href="/demo" passHref>
-                <Link px="4" py="1">
-                  Demo
-                </Link>
-              </NextLink>
             </Flex>
             {account ? (
               <WalletInfo />
