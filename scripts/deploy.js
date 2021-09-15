@@ -4,21 +4,34 @@ const path = require('path')
 
 const contractAddressFile = `${config.paths.artifacts}${path.sep}..${path.sep}addresses-${network.name}.json`
 
-async function verifyImplementationOnEtherscan(implAddress) {
+async function verifyImplementationOnEtherscan(implAddress, constructorArguments) {
   if (network.name == "localhost" || network.name == "hardhat") 
     return;
 
-  try {
-    await hre.run("verify:verify", {
-      address: implAddress,
-      constructorArguments: [],
-    });
-  } catch(err) {
-    if (err.message.includes("Contract source code already verified")) {
-      console.log(err.message)
-    } else {
-      throw err;
+  console.log(`Attempting to verify ${implAddress} on Etherscan...`);
+  let attempt;
+  for (attempt=0; attempt<5; attempt += 1) {
+    try {
+      await hre.run("verify:verify", {
+        address: implAddress,
+        constructorArguments: constructorArguments??[],
+      });
+      break
+    } catch(err) {
+      if (err.message.includes("Contract source code already verified")) {
+        console.log(`Contract source code for ${implAddress} already verified, skipping.`)
+        break;
+      } else if (err.message.includes("Failed to send contract verification request")) {
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        continue
+      } else {
+        throw err;
+      }
     }
+  }
+  if (attempt == 5) {
+    console.log(`FAILED to verify ${implAddress} contract on Etherscan`+
+    ` after ${attempt} attempts. Abandoning.`);
   }
 }
 
@@ -50,7 +63,7 @@ async function main() {
     console.log("Multicall deployed to:", multicall.address);
   }
   
-  // NFT
+  // NFT -- upgradeable
   console.log("Deploying upgradeable RewilderNFT...");
   const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
   const nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
@@ -63,8 +76,8 @@ async function main() {
   await verifyImplementationOnEtherscan(nftImpl);
   
   
-  // donation campaign
-  console.log("Deploying upgradeable RewilderDonationCampaign...");
+  // donation campaign -- non-upgradeable
+  console.log("Deploying RewilderDonationCampaign...");
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
   const campaign = await RewilderDonationCampaign.deploy(
     nft.address, wallet
@@ -72,6 +85,7 @@ async function main() {
   await campaign.deployed();
   console.log("RewilderDonationCampaign deployed to:", campaign.address);
   addresses["RewilderDonationCampaign"] = campaign.address;
+  await verifyImplementationOnEtherscan(campaign.address, [nft.address, wallet]);
 
   // transfer nft ownership to donation campaign
   console.log("Transferring NFT ownership to Campaign...");
@@ -90,7 +104,6 @@ async function main() {
   console.log("Saving deployed contract addresses to file...");
   fs.appendFileSync(contractAddressFile, JSON.stringify(addresses, null, 2));
   console.log("Done!");
-  
 }
 
 main()
