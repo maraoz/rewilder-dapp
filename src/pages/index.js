@@ -1,45 +1,69 @@
 import React, { useState, useEffect } from "react";
 import Router from 'next/router'
-import { Link, List, ListItem, Button } from "@chakra-ui/react";
-import { useEthers, useContractFunction } from "@usedapp/core";
+import { Button, Box, useDisclosure} from "@chakra-ui/react";
+import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
 import Slider from "@material-ui/core/Slider";
 import Layout from "./../components/Layout";
 import { addressFor } from "../lib/addresses";
+import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
+import ConnectWalletModal from "../components/ConnectWalletModal";
 import { ethers } from 'ethers';
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
 function IndexPage() {
   const { account, error, library } = useEthers();
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  const etherBalance  = useEtherBalance(account);
   
   const [amount, setAmount] = useState(1);
   const [walletOpened, setWalletOpened] = useState(false);
-
+  
   const clamp = (n, lower, upper) => Math.min(Math.max(n, lower), upper);
   
+  // TODO: move this to rewilderNFT.js :: useDonate or something
   const RewilderDonationCampaignInterface = new ethers.utils.Interface(RewilderDonationCampaign.abi)
   const campaignAddress = addressFor("RewilderDonationCampaign");
   const campaign = new ethers.Contract(
     campaignAddress,
     RewilderDonationCampaignInterface,
   );
-  const { state: donateTx , events, send: requestDonateToWallet } = useContractFunction(campaign, "donate", { transactionName: 'Donate' });
-
+  
+  const { state: donateTx , events, send: requestDonateToWallet } =
+    useContractFunction(campaign, "donate", { transactionName: 'Donate' });
+    
+  const maybeNFTBalance = useBalanceOf(account);
+  const nftBalance = maybeNFTBalance && maybeNFTBalance.toNumber();
+  const maybeTokenId = useTokenOfOwner(account, nftBalance);
+  const tokenId =  maybeTokenId && maybeTokenId.toNumber();
+  
+  const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
+  const insufficientBalance = amount > etherBalance/1e18;
+    
   useEffect(() => {
     if (error) {
       console.log(`error`, error);
     }
   }, [error]);
-
+  
+  const redirectDelayMS = 2000;
   useEffect(() => {
     if (events) {
       const tokenId = events[0].args[2].toNumber();
-      const redirectDelayMS = 2000;
       console.log(`tokenId=${tokenId} minted, redirecting in ${redirectDelayMS}ms...`);
       setTimeout(() => {
         Router.push(`/nft/${tokenId}`);
       }, redirectDelayMS);
     }
   }, [events]);
+  useEffect(() => {
+    if (nftBalance > 0 && tokenId) {
+      console.log(`balance=${nftBalance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
+      // TODO: do something here instead of redirecting
+      setTimeout(() => {
+        //Router.push(`/nft/${tokenId}`);
+      }, redirectDelayMS);
+    }
+  }, [nftBalance, tokenId]);
   useEffect(() => {
     if (donateTx.status == 'Exception' || 
         donateTx.status == 'Mining'
@@ -65,8 +89,11 @@ function IndexPage() {
   };
 
   // call the campaign smart contract, send a donation
-  const donate = async () => {
-    if (!amount || !account) return;
+  const donate = () => {
+    if (!account) {
+      return onOpen();
+    }
+    if (!amount) return;
     const donationAmountWEI = ethers.utils.parseEther(amount.toString());
 
     if (library) {
@@ -99,6 +126,7 @@ function IndexPage() {
             min={1}
             step={1}
             max={100}
+            disabled={alreadyDonated}
             marks={[
               {
                 value: 1,
@@ -130,16 +158,26 @@ function IndexPage() {
         <Button mt="2" colorScheme="teal" 
           onClick={donate} 
           isLoading={walletOpened || donateTx.status=="Mining"}
-          isDisabled={!account || donateTx.status=="Success"}
+          isDisabled={alreadyDonated || insufficientBalance}
         >
             {!account?
-              "Please connect wallet":
-              donateTx.status=="Success"?
-              "✔️":
-              "Donate and mint your NFT"
+              "Connect Wallet":
+              alreadyDonated?
+                "Thanks for donating!":
+                insufficientBalance?
+                  "Insufficient Balance":
+                  "Donate and mint your NFT"
             }
         </Button>
+        <Box>
+          // TODO: delete //
+          Debug info= / 
+          tokenId={tokenId??"..."} /
+          balance={nftBalance??"..."} / 
+          donateTx.status={donateTx.status} /
+        </Box>
       </div>
+      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
     </Layout>
   );
 }
