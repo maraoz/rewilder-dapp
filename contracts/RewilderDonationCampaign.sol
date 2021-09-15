@@ -11,7 +11,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     RewilderNFT private _nft;
     address payable private _wallet;
 
-    event Donation(address donor, uint256 value, uint256 tokenID);
+    event Donation(address indexed donor, uint256 amount, uint256 indexed tokenID);
 
     constructor(RewilderNFT nftAddress, address payable wallet) {
         _nft = nftAddress;
