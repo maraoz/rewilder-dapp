@@ -33,8 +33,9 @@ async function main() {
   // listen for events
   console.log("Registering Donation event handler")
   
-  campaign.on('Donation', async function(donor, amount, tokenID) {
-    await indexDonation(donor, amount, tokenID);
+  campaign.on('Donation', async function(donor, amount, tokenID, event) {
+    const txid = event.transactionHash;
+    await indexDonation(donor, amount, tokenID, txid);
   });
 }
 

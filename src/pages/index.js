@@ -58,9 +58,9 @@ function IndexPage() {
   useEffect(() => {
     if (nftBalance > 0 && tokenId) {
       console.log(`balance=${nftBalance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
-      // TODO: maybe we shouldn't redirect in this case 
+      // TODO: do something here instead of redirecting
       setTimeout(() => {
-        Router.push(`/nft/${tokenId}`);
+        //Router.push(`/nft/${tokenId}`);
       }, redirectDelayMS);
     }
   }, [nftBalance, tokenId]);

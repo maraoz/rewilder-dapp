@@ -6,9 +6,16 @@ const app = admin.initializeApp({
 
 const db = admin.firestore(app);
 
-module.exports = async function(donor, amount, tokenID) {
-  console.log(donor, "donated", ethers.utils.formatEther(amount), 
-  "ETH and obtained token id", tokenID.toString());
+const FLAVOR_TEXT = {
+  'cypress': "In the shadow of your roots, I am born again.",
+  'araucaria': "Alone, in the forest, you stand, and watch the passing of the seasons.",
+  'sequoia': "In your branches, I reach for the stars.",
+}
+
+module.exports = async function(donor, amount, tokenID, txid) {
+  console.log(donor, "donated", ethers.utils.formatEther(amount), "ETH",
+  "in transaction ", txid,
+  "and obtained token id", tokenID.toString());
 
   tier = 'cypress';
   // TODO: fix to proper comparison
@@ -25,9 +32,11 @@ module.exports = async function(donor, amount, tokenID) {
     image: 'https://rewilder.xyz/assets/img/mockup/' + tier + '.png',
     attributes: [
       //{trait_type: "Date", value: new Date().toString()},
-      {trait_type: "Donor", value: donor},
-      {trait_type: "Donated amount", value: ethers.utils.formatEther(amount)+" ETH"},
-      {trait_type: "Tier", value: tier},
+      {trait_type: "donor", value: donor},
+      {trait_type: "amount donated", value: ethers.utils.formatEther(amount)+" ETH"},
+      {trait_type: "tier", value: tier},
+      {trait_type: "flavor text", value: FLAVOR_TEXT[tier]},
+      {trait_type: "mint transaction", value: txid},
     ]
   };
   console.log(data);
