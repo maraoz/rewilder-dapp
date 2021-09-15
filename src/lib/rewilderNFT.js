@@ -9,6 +9,7 @@ const nft = new ethers.Contract(
   RewilderNFTInterface,
 );
 
+
 export function useBalanceOf(address) {
   const [balance] = useContractCall(
     address && {
@@ -19,4 +20,15 @@ export function useBalanceOf(address) {
     }
   ) ?? [];
   return balance;
+}
+export function useTokenOfOwner(address, balance) {
+  const [tokenId] = useContractCall(
+    address && balance && {
+      abi: RewilderNFTInterface,
+      address: nftAddress,
+      method: "tokenOfOwnerByIndex",
+      args: [address, 0],
+    }
+  ) ?? [];
+  return tokenId;
 }

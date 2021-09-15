@@ -5,7 +5,7 @@ import { useEthers, useContractFunction } from "@usedapp/core";
 import Slider from "@material-ui/core/Slider";
 import Layout from "./../components/Layout";
 import { addressFor } from "../lib/addresses";
-import { useBalanceOf } from "../lib/rewilderNFT";
+import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
 import ConnectWalletModal from "../components/ConnectWalletModal";
 import { ethers } from 'ethers';
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
@@ -29,8 +29,12 @@ function IndexPage() {
   const { state: donateTx , events, send: requestDonateToWallet } =
     useContractFunction(campaign, "donate", { transactionName: 'Donate' });
     
-  const tokenBalance = useBalanceOf(account);
-  const balance = tokenBalance && tokenBalance.toNumber();
+  const maybeBalance = useBalanceOf(account);
+  const balance = maybeBalance && maybeBalance.toNumber();
+  const maybeTokenId = useTokenOfOwner(account, balance);
+  const tokenId =  maybeTokenId && maybeTokenId.toNumber();
+  
+  const alreadyDonated = donateTx.status=="Success" || balance > 0;
     
   useEffect(() => {
     if (error) {
@@ -49,15 +53,13 @@ function IndexPage() {
     }
   }, [events]);
   useEffect(() => {
-    if (balance > 0) {
-      console.log(`balance=${balance}, redirecting in ${redirectDelayMS}ms...`);
+    if (balance > 0 && tokenId) {
+      console.log(`balance=${balance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
       setTimeout(() => {
-        // TODO: obtain id from the api
-        const tokenId = 4;
         Router.push(`/nft/${tokenId}`);
       }, redirectDelayMS);
     }
-  }, [balance]);
+  }, [balance, tokenId]);
   useEffect(() => {
     if (donateTx.status == 'Exception' || 
         donateTx.status == 'Mining'
@@ -120,6 +122,7 @@ function IndexPage() {
             min={1}
             step={1}
             max={100}
+            disabled={alreadyDonated}
             marks={[
               {
                 value: 1,
@@ -151,18 +154,20 @@ function IndexPage() {
         <Button mt="2" colorScheme="teal" 
           onClick={donate} 
           isLoading={walletOpened || donateTx.status=="Mining"}
-          isDisabled={donateTx.status=="Success" || balance }
+          isDisabled={alreadyDonated}
         >
             {!account?
               "Connect Wallet":
-              balance > 0 || donateTx.status=="Success"?
+              alreadyDonated?
                 "Thanks for donating!":
                 "Donate and mint your NFT"
             }
         </Button>
         <Box>
-          Debug= / 
-          tokenBalance={tokenBalance && tokenBalance.toNumber()} / 
+          // TODO: delete //
+          Debug info= / 
+          tokenId={tokenId??"..."} /
+          balance={balance??"..."} / 
           donateTx.status={donateTx.status} /
         </Box>
       </div>
