@@ -1,4 +1,4 @@
-const {config, ethers, upgrades, network} = require("hardhat");
+const {config, ethers, network} = require("hardhat");
 
 
 var mineOneBlock = async function() {
@@ -6,18 +6,10 @@ var mineOneBlock = async function() {
   await network.provider.send("evm_mine");
 }
 
-var admin = require('firebase-admin');
-var serviceAccount = require("../rewilder-dev-firebase.json");
-const app = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-const db = admin.firestore(app);
 const addresses = require("./addresses");
 const indexDonation = require("./lib/index-donation");
 
 async function main() {
-  const [deployer, wallet, donorA] = await ethers.getSigners();
-
   // get donation campaign
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
 

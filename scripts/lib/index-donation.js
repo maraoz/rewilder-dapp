@@ -7,8 +7,8 @@ const app = admin.initializeApp({
 const db = admin.firestore(app);
 
 module.exports = async function(donor, amount, tokenID) {
-    console.log(donor, "donated", ethers.utils.formatEther(amount), 
-    "ETH and obtained token id", tokenID.toString());
+  console.log(donor, "donated", ethers.utils.formatEther(amount), 
+  "ETH and obtained token id", tokenID.toString());
 
   tier = 'cypress';
   // TODO: fix to proper comparison
@@ -31,6 +31,6 @@ module.exports = async function(donor, amount, tokenID) {
     ]
   };
   console.log(data);
-  const res = await db.collection(`tokens-${network.name}`).doc(tokenID.toString()).set(data);
+  await db.collection(`tokens-${network.name}`).doc(tokenID.toString()).set(data);
   console.log("NFT metadata created and stored for", tokenID.toString(),"successfully!!");
 }
