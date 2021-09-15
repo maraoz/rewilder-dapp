@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Router from 'next/router'
 import { Button, Box, useDisclosure} from "@chakra-ui/react";
-import { useEthers, useContractFunction } from "@usedapp/core";
+import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
 import Slider from "@material-ui/core/Slider";
 import Layout from "./../components/Layout";
 import { addressFor } from "../lib/addresses";
@@ -13,12 +13,14 @@ import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationC
 function IndexPage() {
   const { account, error, library } = useEthers();
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const etherBalance  = useEtherBalance(account);
   
   const [amount, setAmount] = useState(1);
   const [walletOpened, setWalletOpened] = useState(false);
   
   const clamp = (n, lower, upper) => Math.min(Math.max(n, lower), upper);
   
+  // TODO: move this to rewilderNFT.js :: useDonate or something
   const RewilderDonationCampaignInterface = new ethers.utils.Interface(RewilderDonationCampaign.abi)
   const campaignAddress = addressFor("RewilderDonationCampaign");
   const campaign = new ethers.Contract(
@@ -29,12 +31,13 @@ function IndexPage() {
   const { state: donateTx , events, send: requestDonateToWallet } =
     useContractFunction(campaign, "donate", { transactionName: 'Donate' });
     
-  const maybeBalance = useBalanceOf(account);
-  const balance = maybeBalance && maybeBalance.toNumber();
-  const maybeTokenId = useTokenOfOwner(account, balance);
+  const maybeNFTBalance = useBalanceOf(account);
+  const nftBalance = maybeNFTBalance && maybeNFTBalance.toNumber();
+  const maybeTokenId = useTokenOfOwner(account, nftBalance);
   const tokenId =  maybeTokenId && maybeTokenId.toNumber();
   
-  const alreadyDonated = donateTx.status=="Success" || balance > 0;
+  const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
+  const insufficientBalance = amount > etherBalance/1e18;
     
   useEffect(() => {
     if (error) {
@@ -53,13 +56,14 @@ function IndexPage() {
     }
   }, [events]);
   useEffect(() => {
-    if (balance > 0 && tokenId) {
-      console.log(`balance=${balance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
+    if (nftBalance > 0 && tokenId) {
+      console.log(`balance=${nftBalance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
+      // TODO: maybe we shouldn't redirect in this case 
       setTimeout(() => {
         Router.push(`/nft/${tokenId}`);
       }, redirectDelayMS);
     }
-  }, [balance, tokenId]);
+  }, [nftBalance, tokenId]);
   useEffect(() => {
     if (donateTx.status == 'Exception' || 
         donateTx.status == 'Mining'
@@ -154,20 +158,22 @@ function IndexPage() {
         <Button mt="2" colorScheme="teal" 
           onClick={donate} 
           isLoading={walletOpened || donateTx.status=="Mining"}
-          isDisabled={alreadyDonated}
+          isDisabled={alreadyDonated || insufficientBalance}
         >
             {!account?
               "Connect Wallet":
               alreadyDonated?
                 "Thanks for donating!":
-                "Donate and mint your NFT"
+                insufficientBalance?
+                  "Insufficient Balance":
+                  "Donate and mint your NFT"
             }
         </Button>
         <Box>
           // TODO: delete //
           Debug info= / 
           tokenId={tokenId??"..."} /
-          balance={balance??"..."} / 
+          balance={nftBalance??"..."} / 
           donateTx.status={donateTx.status} /
         </Box>
       </div>
