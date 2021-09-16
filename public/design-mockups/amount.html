@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amount</title>
+    <link rel="shortcut icon" href="assets/images/logo/logo-small-white.png" type="image/x-icon">
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/all.css" rel="stylesheet">
+    <!-- customs stylesheet -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+      <section class="window-section">
+        <div class="container-fluid">
+          <!-- nav bar start -->
+          <nav class="navbar navbar-expand-md nav-custom">
+            <div class="d-flex d-sm-none w-50 order-0">
+                <a class="navbar-brand" href="#"><img src="assets/images/logo/logo-small-white.svg" alt="Logo not found" height="18"></a>
+            </div>
+            <div class="navbar-collapse d-none d-sm-block collapse justify-content-center order-2 ml-6">
+              <a class="nav-link" href="#"><img src="assets/images/logo/logo-full-white.svg" alt="Logo not found" height="18" width="115"></a>
+            </div>
+            <span class="text-right order-1 order-md-last mr-20 sm-corner">
+              <div class="amount-box">
+                <p class="fs-16 lh-18 amount-text">24.625 ETH <span class="amount-inner-box"><span class="amount-inner-text"><img src="assets/images/icon/amount-icon.svg" class="amount-inner-icon" height="14" alt="" srcset=""> 0xeC71..BDbC</span></span></p>
+              </div>
+            </span>
+          </nav>
+          <!-- navbar close -->
+
+          <!-- middle card start -->
+          <div class="d-flex flex-row min-vh-100 justify-content-center align-items-center">
+            <div class="card card-style">
+              <div class="card-body no-paddings">
+                <div class="row no-gutters">
+
+                  <div class="col-md-6 no-paddings no-gutters">
+                    <img src="assets/images/card-image-default.png" class="banner-image" alt="" srcset="" max>
+                    <div class="banner-image-footer">
+                      <p class="text-center bannar-text">“Alone, in the forest, you stand, and watch the passing of the seasons."</p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 text-color px-4">
+
+                    <div class="d-flex justify-content-between mt-3">
+                      <div>
+                        <img src="assets/images/logo/logo-full-green.svg" alt="" height="14" srcset="">
+                        <h2 class="mt-3 text-header">Edition 001: Origin</h2>
+                      </div>
+                      <div>
+                        <img src="assets/images/triangle.png" alt="" width="60" srcset="">
+                      </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-5">
+                      <div class="mt-5 text-center">
+                        <img src="assets/images/tree/tree-1-green.png" alt="" id="image-1" height="40" srcset="">
+                        <h5 class="image-1 image-title">Cypress</h5>
+                      </div>
+                      <div class="mt-3 text-center">
+                        <img src="assets/images/tree/tree-2-gray.png" alt="" id="image-2" height="70" srcset="">
+                        <h5 class="image-2 image-title">Araucaria</h5>
+                      </div>
+                      <div class="text-center">
+                        <img src="assets/images/tree/tree-3-gray.png" alt="" id="image-3" height="90" srcset="">
+                        <h5 class="image-3 image-title">Sequoia</h5>
+                      </div>
+                    </div>
+
+                    <div class="range-input">
+                      <input type="range" min="1" max="100" value="1" step="0.1" list="tickmarks" class="mt-1" id="rangeInput">
+                      <div id="selector">
+                        <div class="SelectBtn">
+                        </div>
+                      </div>
+                      <div id="Progressbar"></div>
+                    </div>
+
+                    <div class="text-center my-5">
+                      <h4 class="view-amount">You are donating <br class="d-sm-none"> <span class="selected-amount px-3">1</span> <img src="assets/images/icon/eth.svg" height="16" class="mb-1" alt="no icon found"> ETH</h4>
+                      <p class="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~18 hectares. <i class="fas fa-question-circle icon-color"></i></p>
+                    </div>
+                    <div class="d-grid gap-2 mb-3 mb-md-0">
+                      <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#warningModal">Donate and mint your NFT</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- middle card close -->
+
+          <!-- footer start -->
+          <div class="footer">
+            <div class="text-center">
+              © Rewilder   -  Terms of use  -  Privacy
+            </div>
+          </div>
+          <!-- footer close -->
+        </div>
+
+      </section>
+
+      <!-- modal connect to wallet start -->
+      <div class="modal fade" id="connectToWallet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h4 class="text-center color-green-gradient font-extra-bold">Connect to a wallet</h4>
+              <div class="d-flex justify-content-center my-5">
+                <div class="mr-2">
+                  <a href="#">
+                    <img src="assets/images/metamask.png" alt="Logo not found" height="72">
+                  </a>
+                  <h5 class="connect-type-name mt-2 font-bold">Metamask</h5>
+                </div>
+                <div class="ml-2">
+                  <a href="#">
+                    <img src="assets/images/wallet-connect.png" alt="Logo not found" height="72">
+                  </a>
+                  <h5 class="connect-type-name mt-2 font-bold">WalletConnect</h5>
+                </div>
+              </div>
+              <h5 class="text-center text-muted font-light fs-14 mb-4 lh-18">By connecting a wallet, you agree to Rewilder’s <br><span class="color-green">Terms of Service and Privacy Policy.</span></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal connect to wallet close -->
+      
+
+      <!-- modal warning modal start -->
+      <div class="modal fade" id="warningModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h4 class="color-gray-dark font-extra-bold">Warning</h4>
+              <div class="text-center my-5">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                  </symbol>
+                </svg>
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                  <svg class="bi flex-shrink-0 me-2 fs-14" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#info-fill"/></svg>
+                  <div class="font-medium fs-14">
+                    insufficient balance to pay for gas
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button class="btn color-green fs-14 font-book btn-cancel text-center" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal warning modal close -->
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!-- customs scripts -->
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
