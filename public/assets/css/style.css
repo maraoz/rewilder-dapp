@@ -228,7 +228,7 @@ body {
 .range-input {
     padding: 0px;
     position: relative;
-} 
+} */
 
 .view-amount{
     font-size: 20px;
@@ -237,6 +237,8 @@ body {
 }
 
 .selected-amount {
+    text-align: center; 
+    width: 5rem;
     display: inline;
     -webkit-appearance: none;
     border: 0;

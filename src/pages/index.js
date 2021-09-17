@@ -38,8 +38,14 @@ function IndexPage() {
   
   const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
   const insufficientBalance = amount > etherBalance/1e18;
+  
+  const getTierForAmount = (amount) => {
+    return amount < 33 ? "cypress" : amount < 66 ? "araucaria" : "sequoia";
+  };
+  
   const ethToUSD = 3500;
   const hectaresEstimation = amount*ethToUSD/8000;
+  const tier = getTierForAmount(amount);
 
   const sliderMarks = [
     {
@@ -98,9 +104,6 @@ function IndexPage() {
     setAmount(value);
   };
 
-  const getImageIdByAmount = (value) => {
-    return value < 33 ? "cypress" : value < 66 ? "araucaria" : "sequoia";
-  };
 
   // call the campaign smart contract, send a donation
   const donate = () => {
@@ -132,7 +135,7 @@ function IndexPage() {
               <div className="row no-gutters">
 
                 <div className="col-md-6 no-paddings no-gutters">
-                  <img src="assets/images/card-image-default.png" className="banner-image" />
+                  <img src={`assets/images/card-image-${tier}.jpg`} className="banner-image" />
                   <div className="banner-image-footer">
                     <p className="text-center bannar-text">“Alone, in the forest, you stand, and watch the passing of the seasons."</p>
                   </div>
@@ -152,15 +155,18 @@ function IndexPage() {
 
                   <div className="d-flex justify-content-between mt-5">
                     <div className="mt-5 text-center">
-                      <img src="assets/images/tree/tree-1-green.png" alt="" id="image-1" style={{height:"40px"}} />
+                      <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`}
+                        id="image-1" style={{height:"40px"}} />
                       <h5 className="image-1 image-title">Cypress</h5>
                     </div>
                     <div className="mt-3 text-center">
-                      <img src="assets/images/tree/tree-2-gray.png" alt="" id="image-2" style={{height:"70px"}} />
+                      <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`}
+                        id="image-2" style={{height:"70px"}} />
                       <h5 className="image-2 image-title">Araucaria</h5>
                     </div>
                     <div className="text-center">
-                      <img src="assets/images/tree/tree-3-gray.png" alt="" id="image-3" style={{height:"90px"}} />
+                      <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`}
+                        id="image-3" style={{height:"90px"}} />
                       <h5 className="image-3 image-title">Sequoia</h5>
                     </div>
                   </div>
@@ -176,11 +182,9 @@ function IndexPage() {
                       marks={sliderMarks}
                       onChange={handleSliderChange}
                     />
-                    <input type="range" min="1" max="100" 
+                    {/* <input type="range"
                      value={amount}
-                     step="0.1"
-                     onChange={handleSliderChange}
-                     list="tickmarks" className="mt-1" className="rangeInput" id="rangeInput" />
+                     className="mt-1" className="rangeInput"/> */}
                     <div className="selector" style={{left: `${amount}%`}}>
                       <div className="SelectBtn">
                       </div>
@@ -189,6 +193,9 @@ function IndexPage() {
                   </div>
 
                   <div className="text-center my-5">
+                     <div>
+                       Display <strong>{tier}.jpg</strong>
+                     </div>
                     <h4 className="view-amount">
                       You are donating{" "} <br className="d-sm-none" /> 
                       <input 
@@ -222,18 +229,6 @@ function IndexPage() {
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          Display <strong>{getImageIdByAmount(amount)}.jpg</strong>
-        </div>
-        
-        
-        <div>
-          // TODO: delete //
-          Debug info= / 
-          tokenId={tokenId??"..."} /
-          balance={nftBalance??"..."} / 
-          donateTx.status={donateTx.status} /
         </div>
       </div>
       <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
