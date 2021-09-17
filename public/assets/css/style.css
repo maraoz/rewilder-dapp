@@ -104,6 +104,9 @@ body {
   padding: 13px 0px;
 }
 
+.stamp {
+  mix-blend-mode: overlay;
+}
 
 @media (max-width: 576px) { 
   .card-style {

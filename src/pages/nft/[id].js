@@ -44,7 +44,7 @@ function NftPage(props) {
               </div>
 
               <div class="sticky-banner">
-                <img src="/assets/images/card-with-border.png" height="446" alt="" srcset=""/>
+                <img src="/assets/images/stamp.svg" height="446" width="390" alt="" className="stamp"/>
                 <p class="mt-3 mt-sm-5 sticky-banner-text">“In the shadow of your roots, I am born again”</p>
               </div>
 
