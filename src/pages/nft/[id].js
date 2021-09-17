@@ -16,14 +16,14 @@ function NftPage(props) {
   const { data, status } = useToken(router.query.id);
 
   return (
-    <Layout
+    <div
       {...(data && {
         title: data.name,
         image: data.image,
       })}
     >
-      Token data:
-      {/* <div>
+      {/* Token data:
+      <div>
         {status === "loading" ? (
           "Loading..."
         ) : (
@@ -152,7 +152,7 @@ function NftPage(props) {
         </div>
 
       </section>
-    </Layout>
+    </div>
   );
 }
 
