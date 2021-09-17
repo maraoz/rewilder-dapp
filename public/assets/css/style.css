@@ -40,11 +40,11 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #ffffff;
+    background: #1B201C;
 }
 
 .window-section {
     height: 100vh;
-    background-image: url('../images/background-image.jpg');
     background-size: 100%;
 }
 
