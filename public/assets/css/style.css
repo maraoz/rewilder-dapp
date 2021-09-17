@@ -349,10 +349,9 @@ body {
 }
 
 .notification {
-    border-radius: 16px;
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 100%);
-    padding: 20px;
+    border-radius: 1rem;
+    background: rgb(0 0 0 / 40%);
+    padding: 2rem;
     min-height: 90vh;
 }
 
@@ -387,10 +386,6 @@ body {
 
 .content .text {
     color: #758078;
-}
-
-.hr-sticky {
-
 }
 
 .notification-card {
