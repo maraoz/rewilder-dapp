@@ -14,6 +14,10 @@ module.exports = {
     if (dev) {
       config.optimization.minimize = false;
     }
-    return config
+    config.resolve.fallback = {
+      ...config.resolve.fallback, 
+      fs: false,
+    };
+    return config;
   },
 };
