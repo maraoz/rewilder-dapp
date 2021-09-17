@@ -4,13 +4,6 @@ import ConnectWallet from "./ConnectWallet";
 import NetworkErrorMessage  from "./NetworkErrorMessage";
 import WalletInfo from "./WalletInfo";
 import Head from "./Head";
-import truncateHash from "../lib/truncateHash";
-
-// Title text for the various transaction notifications.
-const TRANSACTION_TITLES = {
-  transactionStarted: "Transaction Sent to Network",
-  transactionSucceed: "Transaction Completed",
-};
 
 const Layout = ({ children, ...customMeta }) => {
   const { account } = useEthers();

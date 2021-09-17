@@ -38,6 +38,8 @@ function IndexPage() {
   
   const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
   const insufficientBalance = amount > etherBalance/1e18;
+  const ethToUSD = 3500;
+  const hectaresEstimation = amount*ethToUSD/8000;
 
   const sliderMarks = [
     {
@@ -130,7 +132,7 @@ function IndexPage() {
               <div className="row no-gutters">
 
                 <div className="col-md-6 no-paddings no-gutters">
-                  <img src="assets/images/card-image-default.png" className="banner-image" alt="" srcset="" max />
+                  <img src="assets/images/card-image-default.png" className="banner-image" />
                   <div className="banner-image-footer">
                     <p className="text-center bannar-text">“Alone, in the forest, you stand, and watch the passing of the seasons."</p>
                   </div>
@@ -140,42 +142,46 @@ function IndexPage() {
 
                   <div className="d-flex justify-content-between mt-3">
                     <div>
-                      <img src="assets/images/logo/logo-full-green.svg" alt="" height="14" srcset="" />
+                      <img src="assets/images/logo/logo-full-green.svg" alt="" height="14" />
                       <h2 className="mt-3 text-header">Edition 001: Origin</h2>
                     </div>
                     <div>
-                      <img src="assets/images/triangle.png" alt="" width="60" srcset="" />
+                      <img src="assets/images/triangle.png" alt="" width="60" />
                     </div>
                   </div>
 
                   <div className="d-flex justify-content-between mt-5">
                     <div className="mt-5 text-center">
-                      <img src="assets/images/tree/tree-1-green.png" alt="" id="image-1" style={{height:"40px"}} srcset="" />
+                      <img src="assets/images/tree/tree-1-green.png" alt="" id="image-1" style={{height:"40px"}} />
                       <h5 className="image-1 image-title">Cypress</h5>
                     </div>
                     <div className="mt-3 text-center">
-                      <img src="assets/images/tree/tree-2-gray.png" alt="" id="image-2" style={{height:"70px"}} srcset="" />
+                      <img src="assets/images/tree/tree-2-gray.png" alt="" id="image-2" style={{height:"70px"}} />
                       <h5 className="image-2 image-title">Araucaria</h5>
                     </div>
                     <div className="text-center">
-                      <img src="assets/images/tree/tree-3-gray.png" alt="" id="image-3" style={{height:"90px"}} srcset="" />
+                      <img src="assets/images/tree/tree-3-gray.png" alt="" id="image-3" style={{height:"90px"}} />
                       <h5 className="image-3 image-title">Sequoia</h5>
                     </div>
                   </div>
 
+                    
                   <div className="range-input">
-                  <Slider
-                    value={amount}
-                    min={1}
-                    step={1}
-                    max={100}
-                    disabled={alreadyDonated}
-                    marks={sliderMarks}
-                    valueLabelDisplay="off"
-                    onChange={handleSliderChange}
-                  />
-                    <input type="range" min="1" max="100" value={amount} step="0.1" list="tickmarks" className="mt-1" id="rangeInput" />
-                    <div id="selector" style={{left: `${amount}%`}}>
+                    <Slider 
+                      value={amount}
+                      min={1}
+                      step={1}
+                      max={100}
+                      disabled={alreadyDonated}
+                      marks={sliderMarks}
+                      onChange={handleSliderChange}
+                    />
+                    <input type="range" min="1" max="100" 
+                     value={amount}
+                     step="0.1"
+                     onChange={handleSliderChange}
+                     list="tickmarks" className="mt-1" className="rangeInput" id="rangeInput" />
+                    <div className="selector" style={{left: `${amount}%`}}>
                       <div className="SelectBtn">
                       </div>
                     </div>
@@ -191,17 +197,16 @@ function IndexPage() {
                         value={amount}
                         onChange={handleInputChange}
                         />{" "}
-                      <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1" alt="ETH" />
-                       ETH
+                      <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1"/>ETH
                     </h4>
-                    <p className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~18 hectares. <i className="fas fa-question-circle icon-color"></i></p>
+                    <p className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. <i className="fas fa-question-circle icon-color"></i></p>
                   </div>
                   <div className="d-grid gap-2 mb-3 mb-md-0">
                   <button 
                     className="btn btn-custom" data-bs-toggle="modal" data-bs-target="#signTransaction"
                     onClick={donate} 
-                    isLoading={walletOpened || donateTx.status=="Mining"}
-                    isDisabled={alreadyDonated || insufficientBalance}
+                    //isLoading={walletOpened || donateTx.status=="Mining"}
+                    disabled={alreadyDonated || insufficientBalance}
                   >
                       {!account?
                         "Connect Wallet":
