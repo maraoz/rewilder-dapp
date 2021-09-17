@@ -11,7 +11,6 @@ const InformationIcon = React.forwardRef(({ text }, refs) => {
   const { styles, attributes } = usePopper(referenceElement, popperElement);
 
   const onHover = (open, entering) => {
-    console.log(open, entering, referenceElement);
     if (entering && !open) {
       referenceElement?.click();
     }
