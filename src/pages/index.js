@@ -193,13 +193,10 @@ function IndexPage() {
                   </div>
 
                   <div className="text-center my-5">
-                     <div>
-                       Display <strong>{tier}.jpg</strong>
-                     </div>
                     <h4 className="view-amount">
                       You are donating{" "} <br className="d-sm-none" /> 
                       <input 
-                        className="selected-amount px-3"
+                        className="selected-amount"
                         type="number"
                         value={amount}
                         onChange={handleInputChange}
