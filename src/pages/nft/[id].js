@@ -13,11 +13,10 @@ function NftPage(props) {
   const router = useRouter();
 
   // Subscribe to data
-  const { data, status, error } = useToken(router.query.id);
+  const { data, status } = useToken(router.query.id);
 
   return (
     <Layout
-      // Pass head data once it's loaded
       {...(data && {
         title: data.name,
         image: data.image,

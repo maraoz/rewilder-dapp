@@ -1,9 +1,7 @@
 import {
-  Box,
-  Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+
 import ConnectWalletModal from "./ConnectWalletModal";
 
 function ConnectWallet() {
@@ -12,14 +10,11 @@ function ConnectWallet() {
 
   return (
     <>
-      <Box
-        order={[-1, null, null, 2]}
-        textAlign={["left", null, null, "right"]}
-      >
-        <Button colorScheme="teal" variant="outline" onClick={onOpen}>
-          Connect Wallet
-        </Button>
-      </Box>
+      <span className="text-right order-1 order-md-last fs-14 mr-20">
+        <button onClick={onOpen} className="btn btn-custom btn-outline-none" data-bs-toggle="modal" data-bs-target="#connectToWallet">
+          Connect wallet
+        </button>
+      </span>
       <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
     </>
   );

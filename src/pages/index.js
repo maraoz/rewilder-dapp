@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Router from 'next/router'
-import { Button, Box, useDisclosure} from "@chakra-ui/react";
+import { useDisclosure} from "@chakra-ui/react";
 import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
 import Slider from "@material-ui/core/Slider";
 import Layout from "./../components/Layout";
@@ -38,6 +38,18 @@ function IndexPage() {
   
   const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
   const insufficientBalance = amount > etherBalance/1e18;
+
+  const sliderMarks = [
+    {
+      value: 1,
+    },
+    {
+      value: 33,
+    },
+    {
+      value: 66,
+    },
+  ];
     
   useEffect(() => {
     if (error) {
@@ -111,71 +123,113 @@ function IndexPage() {
 
   return (
     <Layout>
-      <div
-        style={{
-          marginTop: "3rem",
-          border: "1px solid #efefef",
-          padding: "1rem 2rem",
-          maxWidth: "700px",
-        }}
-      >
-        <div style={{ margin: "1rem 2rem" }}>
+      <div>
+        <div className="d-flex flex-row min-vh-100 justify-content-center align-items-center">
+          <div className="card card-style">
+            <div className="card-body no-paddings">
+              <div className="row no-gutters">
+
+                <div className="col-md-6 no-paddings no-gutters">
+                  <img src="assets/images/card-image-default.png" className="banner-image" alt="" srcset="" max />
+                  <div className="banner-image-footer">
+                    <p className="text-center bannar-text">“Alone, in the forest, you stand, and watch the passing of the seasons."</p>
+                  </div>
+                </div>
+
+                <div className="col-md-6 text-color px-4">
+
+                  <div className="d-flex justify-content-between mt-3">
+                    <div>
+                      <img src="assets/images/logo/logo-full-green.svg" alt="" height="14" srcset="" />
+                      <h2 className="mt-3 text-header">Edition 001: Origin</h2>
+                    </div>
+                    <div>
+                      <img src="assets/images/triangle.png" alt="" width="60" srcset="" />
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-between mt-5">
+                    <div className="mt-5 text-center">
+                      <img src="assets/images/tree/tree-1-green.png" alt="" id="image-1" style={{height:"40px"}} srcset="" />
+                      <h5 className="image-1 image-title">Cypress</h5>
+                    </div>
+                    <div className="mt-3 text-center">
+                      <img src="assets/images/tree/tree-2-gray.png" alt="" id="image-2" style={{height:"70px"}} srcset="" />
+                      <h5 className="image-2 image-title">Araucaria</h5>
+                    </div>
+                    <div className="text-center">
+                      <img src="assets/images/tree/tree-3-gray.png" alt="" id="image-3" style={{height:"90px"}} srcset="" />
+                      <h5 className="image-3 image-title">Sequoia</h5>
+                    </div>
+                  </div>
+
+                  <div className="range-input">
+                  <Slider
+                    value={amount}
+                    min={1}
+                    step={1}
+                    max={100}
+                    disabled={alreadyDonated}
+                    marks={sliderMarks}
+                    valueLabelDisplay="off"
+                    onChange={handleSliderChange}
+                  />
+                    <input type="range" min="1" max="100" value={amount} step="0.1" list="tickmarks" className="mt-1" id="rangeInput" />
+                    <div id="selector" style={{left: `${amount}%`}}>
+                      <div className="SelectBtn">
+                      </div>
+                    </div>
+                    <div id="Progressbar" style={{width: `${amount}%`}}></div>
+                  </div>
+
+                  <div className="text-center my-5">
+                    <h4 className="view-amount">
+                      You are donating{" "} <br className="d-sm-none" /> 
+                      <input 
+                        className="selected-amount px-3"
+                        type="number"
+                        value={amount}
+                        onChange={handleInputChange}
+                        />{" "}
+                      <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1" alt="ETH" />
+                       ETH
+                    </h4>
+                    <p className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~18 hectares. <i className="fas fa-question-circle icon-color"></i></p>
+                  </div>
+                  <div className="d-grid gap-2 mb-3 mb-md-0">
+                  <button 
+                    className="btn btn-custom" data-bs-toggle="modal" data-bs-target="#signTransaction"
+                    onClick={donate} 
+                    isLoading={walletOpened || donateTx.status=="Mining"}
+                    isDisabled={alreadyDonated || insufficientBalance}
+                  >
+                      {!account?
+                        "Connect Wallet":
+                        alreadyDonated?
+                          "Thanks for donating!":
+                          insufficientBalance?
+                            "Insufficient Balance":
+                            "Donate and mint your NFT"
+                      }
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
           Display <strong>{getImageIdByAmount(amount)}.jpg</strong>
-          <Slider
-            value={amount}
-            min={1}
-            step={1}
-            max={100}
-            disabled={alreadyDonated}
-            marks={[
-              {
-                value: 1,
-                label: "Cypress",
-              },
-              {
-                value: 33,
-                label: "Araucaria",
-              },
-              {
-                value: 66,
-                label: "Sequoia",
-              },
-            ]}
-            valueLabelDisplay="off"
-            onChange={handleSliderChange}
-          />
         </div>
-        <div style={{ marginTop: "2rem" }}>
-          You are donating{" "}
-          <input
-            style={{ border: "1px solid #efefef" }}
-            type="number"
-            value={amount}
-            onChange={handleInputChange}
-          />{" "}
-          ETH
-        </div>
-        <Button mt="2" colorScheme="teal" 
-          onClick={donate} 
-          isLoading={walletOpened || donateTx.status=="Mining"}
-          isDisabled={alreadyDonated || insufficientBalance}
-        >
-            {!account?
-              "Connect Wallet":
-              alreadyDonated?
-                "Thanks for donating!":
-                insufficientBalance?
-                  "Insufficient Balance":
-                  "Donate and mint your NFT"
-            }
-        </Button>
-        <Box>
+        
+        
+        <div>
           // TODO: delete //
           Debug info= / 
           tokenId={tokenId??"..."} /
           balance={nftBalance??"..."} / 
           donateTx.status={donateTx.status} /
-        </Box>
+        </div>
       </div>
       <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
     </Layout>
