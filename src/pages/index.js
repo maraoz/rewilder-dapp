@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Router from 'next/router'
-import { useDisclosure} from "@chakra-ui/react";
-import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
+
+import { useDisclosure } from "@chakra-ui/react";
 import Slider from "@material-ui/core/Slider";
+import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
+import { ethers } from 'ethers';
+
 import Layout from "./../components/Layout";
 import { addressFor } from "../lib/addresses";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
 import ConnectWalletModal from "../components/ConnectWalletModal";
-import { ethers } from 'ethers';
+import ThanksForDonating from "../components/ThanksForDonating";
+import Button from "../components/Button";
+
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
 function IndexPage() {
@@ -36,7 +41,7 @@ function IndexPage() {
   const maybeTokenId = useTokenOfOwner(account, nftBalance);
   const tokenId =  maybeTokenId && maybeTokenId.toNumber();
   
-  const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
+  const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
   const insufficientBalance = amount > etherBalance/1e18;
   
   const getTierForAmount = (amount) => {
@@ -75,15 +80,6 @@ function IndexPage() {
       }, redirectDelayMS);
     }
   }, [events]);
-  useEffect(() => {
-    if (nftBalance > 0 && tokenId) {
-      console.log(`balance=${nftBalance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
-      // TODO: do something here instead of redirecting
-      setTimeout(() => {
-        //Router.push(`/nft/${tokenId}`);
-      }, redirectDelayMS);
-    }
-  }, [nftBalance, tokenId]);
   useEffect(() => {
     if (donateTx.status == 'Exception' || 
         donateTx.status == 'Mining'
@@ -152,76 +148,77 @@ function IndexPage() {
                       <img src="assets/images/triangle.png" alt="" width="60" />
                     </div>
                   </div>
-
-                  <div className="d-flex justify-content-between mt-5">
-                    <div className="mt-5 text-center">
-                      <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`}
-                        id="image-1" style={{height:"40px"}} />
-                      <h5 className="image-1 image-title">Cypress</h5>
-                    </div>
-                    <div className="mt-3 text-center">
-                      <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`}
-                        id="image-2" style={{height:"70px"}} />
-                      <h5 className="image-2 image-title">Araucaria</h5>
-                    </div>
-                    <div className="text-center">
-                      <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`}
-                        id="image-3" style={{height:"90px"}} />
-                      <h5 className="image-3 image-title">Sequoia</h5>
-                    </div>
-                  </div>
-
-                    
-                  <div className="range-input">
-                    <Slider 
-                      value={amount}
-                      min={1}
-                      step={1}
-                      max={100}
-                      disabled={alreadyDonated}
-                      marks={sliderMarks}
-                      onChange={handleSliderChange}
-                    />
-                    {/* <input type="range"
-                     value={amount}
-                     className="mt-1" className="rangeInput"/> */}
-                    <div className="selector" style={{left: `${amount}%`}}>
-                      <div className="SelectBtn">
+                  {
+                    !alreadyDonated?
+                    <>
+                      <div className="d-flex justify-content-between mt-5">
+                        <div className="mt-5 text-center">
+                          <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`}
+                            id="image-1" style={{height:"40px"}} />
+                          <h5 className="image-1 image-title">Cypress</h5>
+                        </div>
+                        <div className="mt-3 text-center">
+                          <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`}
+                            id="image-2" style={{height:"70px"}} />
+                          <h5 className="image-2 image-title">Araucaria</h5>
+                        </div>
+                        <div className="text-center">
+                          <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`}
+                            id="image-3" style={{height:"90px"}} />
+                          <h5 className="image-3 image-title">Sequoia</h5>
+                        </div>
                       </div>
-                    </div>
-                    <div id="Progressbar" style={{width: `${amount}%`}}></div>
-                  </div>
 
-                  <div className="text-center my-5">
-                    <h4 className="view-amount">
-                      You are donating{" "} <br className="d-sm-none" /> 
-                      <input 
-                        className="selected-amount"
-                        type="number"
+                        
+                      <div className="range-input">
+                        <Slider 
+                          value={amount}
+                          min={1}
+                          step={1}
+                          max={100}
+                          disabled={alreadyDonated}
+                          marks={sliderMarks}
+                          onChange={handleSliderChange}
+                        />
+                        {/* <input type="range"
                         value={amount}
-                        onChange={handleInputChange}
-                        />{" "}
-                      <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1"/>ETH
-                    </h4>
-                    <p className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. <i className="fas fa-question-circle icon-color"></i></p>
-                  </div>
-                  <div className="d-grid gap-2 mb-3 mb-md-0">
-                  <button 
-                    className="btn btn-custom" data-bs-toggle="modal" data-bs-target="#signTransaction"
-                    onClick={donate} 
-                    //isLoading={walletOpened || donateTx.status=="Mining"}
-                    disabled={alreadyDonated || insufficientBalance}
-                  >
-                      {!account?
-                        "Connect Wallet":
-                        alreadyDonated?
-                          "Thanks for donating!":
-                          insufficientBalance?
-                            "Insufficient Balance":
-                            "Donate and mint your NFT"
-                      }
-                  </button>
-                  </div>
+                        className="mt-1" className="rangeInput"/> */}
+                        <div className="selector" style={{left: `${amount}%`}}>
+                          <div className="SelectBtn">
+                          </div>
+                        </div>
+                        <div id="Progressbar" style={{width: `${amount}%`}}></div>
+                      </div>
+
+                      <div className="text-center my-5">
+                        <h4 className="view-amount">
+                          You are donating{" "} <br className="d-sm-none" /> 
+                          <input 
+                            className="selected-amount"
+                            type="number"
+                            value={amount}
+                            onChange={handleInputChange}
+                            />{" "}
+                          <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1"/>ETH
+                        </h4>
+                        <p className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. <i className="fas fa-question-circle icon-color"></i></p>
+                      </div>
+                      
+                      <Button 
+                        onClick={donate} 
+                        disabled={alreadyDonated || insufficientBalance}
+                        text={!account?
+                          "Connect Wallet":
+                          alreadyDonated?
+                            "Thanks for donating!":
+                            insufficientBalance?
+                              "Insufficient Balance":
+                              "Donate and mint your NFT"
+                        }
+                        />
+                    </>:
+                    <ThanksForDonating tokenId={tokenId}/>
+                  }
                 </div>
               </div>
             </div>
