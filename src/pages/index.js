@@ -12,6 +12,7 @@ import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
 import ConnectWalletModal from "../components/ConnectWalletModal";
 import ThanksForDonating from "../components/ThanksForDonating";
 import Button from "../components/Button";
+import InformationIcon from "../components/InformationIcon";
 
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
@@ -52,6 +53,18 @@ function IndexPage() {
   const hectaresEstimation = amount*ethToUSD/8000;
   const tier = getTierForAmount(amount);
 
+  const donateButtonText = !account?
+    "Connect Wallet":
+    alreadyDonated?
+      "Thanks for donating!":
+      insufficientBalance?
+        "Insufficient Balance":
+        "Donate and mint your NFT";
+
+  const donateButtonLoadingText = !account?
+    "Connecting Wallet":
+    "Sign Transaction in Wallet"
+
   const sliderMarks = [
     {
       value: 1,
@@ -82,8 +95,8 @@ function IndexPage() {
   }, [events]);
   useEffect(() => {
     if (donateTx.status == 'Exception' || 
-        donateTx.status == 'Mining'
-        ) {
+        donateTx.status == 'Mining') {
+      console.log('status=', donateTx.status);
       setWalletOpened(false);
     }
   }, [donateTx]);
@@ -110,13 +123,7 @@ function IndexPage() {
     const donationAmountWEI = ethers.utils.parseEther(amount.toString());
 
     if (library) {
-      //const signer = library.getSigner();
-      //console.log("signer", signer.address, "account", account);
       console.log(`${account} is about to donate`, donationAmountWEI/1e18, "ETH");
-      //const transaction = await campaign.connect(signer)
-      //        .donate({value: donationAmountWEI});
-      //console.log("Transaction sent", transaction.hash);
-      //await transaction.wait();
       requestDonateToWallet({value: donationAmountWEI});
       setWalletOpened(true);
     }
@@ -201,20 +208,17 @@ function IndexPage() {
                             />{" "}
                           <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1"/>ETH
                         </h4>
-                        <p className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. <i className="fas fa-question-circle icon-color"></i></p>
+                        <div className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
+                          <InformationIcon text={"This is our current best estimate based on early research."}/>
+                        </div>
                       </div>
                       
                       <Button 
                         onClick={donate} 
+                        isLoading={walletOpened || donateTx.status=="Mining"}
                         disabled={alreadyDonated || insufficientBalance}
-                        text={!account?
-                          "Connect Wallet":
-                          alreadyDonated?
-                            "Thanks for donating!":
-                            insufficientBalance?
-                              "Insufficient Balance":
-                              "Donate and mint your NFT"
-                        }
+                        text={donateButtonText}
+                        loadingText={donateButtonLoadingText}
                         />
                     </>:
                     <ThanksForDonating tokenId={tokenId}/>

@@ -1,11 +1,3 @@
-.canvas {
-    margin-left: .5rem;
-    margin-bottom: 5px;
-    display: inline;
-    border-radius: 1.125rem;
-    background-color: black;
-}
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

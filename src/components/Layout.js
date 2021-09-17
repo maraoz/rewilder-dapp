@@ -12,9 +12,9 @@ const Layout = ({ children, ...customMeta }) => {
     <>
       <Head {...customMeta} />
       <header>
-      <NetworkErrorMessage />
       <section className="window-section">
         <div className="container-fluid">
+          <NetworkErrorMessage />
           <nav className="navbar navbar-expand-md nav-custom">
             <div className="d-flex d-sm-none w-50 order-0">
                 <a className="navbar-brand" href="#">

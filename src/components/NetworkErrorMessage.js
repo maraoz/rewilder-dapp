@@ -13,9 +13,8 @@ function NetworkErrorMessage () {
       {
         incorrectNetwork && 
           <div className="alert" status="error">
-            <AlertIcon />
-            <AlertTitle mr={2}>Network selected in wallet ({getChainName(chainId)}, id: {chainId}) unsupported,
-              please change to {config.networkName}.</AlertTitle>
+            <div mr={2}>Network selected in wallet ({getChainName(chainId)}, id: {chainId}) unsupported,
+              please change to {config.networkName}.</div>
           </div>
       }
     </div>

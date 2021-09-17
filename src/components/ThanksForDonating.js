@@ -11,6 +11,7 @@ function ThanksForDonating({ tokenId }) {
         <a>
           <Button
             text={"Go to your donation NFT"}
+            loadingText={"..."}
           />
         </a>
       </Link>

@@ -11,7 +11,7 @@ function ConnectWallet() {
   return (
     <>
       <span className="text-right order-1 order-md-last fs-14 mr-20">
-        <button onClick={onOpen} className="btn btn-custom btn-outline-none" data-bs-toggle="modal" data-bs-target="#connectToWallet">
+        <button onClick={onOpen} className="btn btn-custom btn-outline-none">
           Connect wallet
         </button>
       </span>

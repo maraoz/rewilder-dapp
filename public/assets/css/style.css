@@ -219,6 +219,12 @@ body {
   left: 0;
 }
 
+.donate-spinner {
+  margin: 0 1rem;
+  width: 18px;
+  height: 18px;
+}
+
 .range-input:after {
   position: absolute;
   color: #777;
@@ -238,6 +244,13 @@ body {
   font-size: 20px;
   font-weight: bold;
   font-family: 'Airbnb Cereal Bold';
+}
+
+.info-popover-root {
+  display: inline;
+}
+.info-popover {
+  width: 200px;
 }
 
 .selected-amount {
@@ -293,7 +306,13 @@ body {
   margin-left: 1.2rem;
 }
 
+.alert {
+  background-color: #990808;
+  font-weight: 800;
+}
+
 .amount-box {
+  z-index: -1000;
   background-color: #0D0F09;
   border-radius: 12px;
   margin: 10px 0px;
@@ -304,8 +323,10 @@ body {
   text-decoration: none;
 }
 .amount-inner-icon {
-  padding-right: 2px;
-  margin-bottom: 4px;
+  display: inline;
+  border-radius: 1.125rem;
+  background-color: black;
+  margin-bottom: -2px;
 }
 
 .amount-text {

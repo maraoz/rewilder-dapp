@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 
-function Button({ onClick , disabled, text }) {
+function Button({ onClick , disabled, text, loadingText, isLoading }) {
   
   const [displayText, setDisplayText] = useState(text);
+  useEffect(() => {
+    setDisplayText(text);
+  }, [text]);
 
   const clicked = () => {
-    setDisplayText("...");
+    if (loadingText) {
+      setDisplayText(loadingText);
+    }
     if (typeof(onClick)==='function')
       return onClick();
   }
@@ -15,8 +20,11 @@ function Button({ onClick , disabled, text }) {
       <button 
         className="btn btn-custom"
         onClick={clicked} 
-        disabled={disabled}>
-
+        disabled={disabled || isLoading}>
+        {isLoading && 
+          <div className="spinner-border text-white donate-spinner" role="status">
+          </div>
+        }
         {displayText}
 
       </button>
