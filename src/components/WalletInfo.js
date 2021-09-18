@@ -34,7 +34,7 @@ function WalletInfo() {
                     <a onClick={deactivate}>
                     <p className={`${
                       active ? '.active' : ''
-                    } disconnected text-right font-bold fs-14`}>
+                    }  disconnected text-right font-bold fs-14`}>
                       <i className="fas fa-sign-out-alt"></i>
                       Disconnect</p>
                   </a>

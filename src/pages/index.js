@@ -14,6 +14,8 @@ import ThanksForDonating from "../components/ThanksForDonating";
 import Button from "../components/Button";
 import InformationIcon from "../components/InformationIcon";
 import FLAVOR_TEXT from "../lib/flavorText";
+import networkMatches from "../lib/networkMatches";
+import config from "../config";
 
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
@@ -24,6 +26,7 @@ function IndexPage() {
   
   const [amount, setAmount] = useState(1);
   const [walletOpened, setWalletOpened] = useState(false);
+  const networkIncorrect = !networkMatches();
   
   const clamp = (n, lower, upper) => Math.min(Math.max(n, lower), upper);
   
@@ -45,7 +48,7 @@ function IndexPage() {
   
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
   const insufficientBalance = amount > etherBalance/1e18;
-  
+
   const getTierForAmount = (amount) => {
     return amount < 33 ? "cypress" : amount < 66 ? "araucaria" : "sequoia";
   };
@@ -55,13 +58,15 @@ function IndexPage() {
   const tier = getTierForAmount(amount);
   const flavorText = FLAVOR_TEXT[tier]; 
 
-  const donateButtonText = !account?
-    "Connect Wallet":
-    alreadyDonated?
-      "Thanks for donating!":
-      insufficientBalance?
-        "Insufficient Balance":
-        "Donate and mint your NFT";
+  const donateButtonText = networkIncorrect?
+    `Change wallet network to ${config.networkName} to donate`:
+    !account?
+      "Connect Wallet":
+      alreadyDonated?
+        "Thanks for donating!":
+        insufficientBalance?
+          "Insufficient Balance":
+          "Donate and mint your NFT";
 
   const donateButtonLoadingText = !account?
     "Connecting Wallet":
@@ -206,6 +211,7 @@ function IndexPage() {
                             className="selected-amount"
                             type="number"
                             value={amount}
+                            disabled={alreadyDonated}
                             onChange={handleInputChange}
                             />{" "}
                           <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1"/>ETH
@@ -218,7 +224,7 @@ function IndexPage() {
                       <Button 
                         onClick={donate} 
                         isLoading={walletOpened || donateTx.status=="Mining"}
-                        disabled={alreadyDonated || insufficientBalance}
+                        disabled={networkIncorrect || alreadyDonated || insufficientBalance}
                         text={donateButtonText}
                         loadingText={donateButtonLoadingText}
                         />

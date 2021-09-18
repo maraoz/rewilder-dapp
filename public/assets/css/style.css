@@ -333,7 +333,8 @@ body {
 }
 
 .amount-box {
-  z-index: -1000;
+  z-index: 1000;
+  margin-right: 20px;
   background-color: #0D0F09;
   border-radius: 12px;
   margin: 10px 0px;
@@ -365,6 +366,8 @@ body {
 }
 
 .disconnected {
+  margin-right: 80px;
+  z-index: 1000;
   color: #778C7E;
   text-align: right;
   margin-right: 15px;

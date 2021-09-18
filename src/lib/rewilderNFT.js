@@ -4,10 +4,10 @@ import RewilderNFT from "../artifacts/contracts/RewilderNFT.sol/RewilderNFT.json
 import { addressFor } from "./addresses";
 const RewilderNFTInterface = new ethers.utils.Interface(RewilderNFT.abi)
 const nftAddress = addressFor("RewilderNFT");
-const nft = new ethers.Contract(
-  nftAddress,
-  RewilderNFTInterface,
-);
+// const nft = new ethers.Contract(
+//   nftAddress,
+//   RewilderNFTInterface,
+// );
 
 
 export function useBalanceOf(address) {
