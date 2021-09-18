@@ -13,54 +13,33 @@ const Layout = ({ children, ...customMeta }) => {
   return (
     <>
       <Head {...customMeta} />
-      <header>
-      <section className="window-section">
-        <div className="container-fluid">
-          
-          {
-             <>
-            <nav className="navbar navbar-expand-md nav-custom">
-              <div className="d-flex d-sm-none w-50 order-0">
-                  <a className="navbar-brand" href="#">
-                    <img src="/assets/images/logo/logo-small-white.png" alt="Logo" height="18" />
-                  </a>
-              </div>
-              <div className="navbar-collapse d-none d-sm-block collapse justify-content-center order-1">
+      <header class="header-area-v1">
+        <div class="container-fluid">
+          <div class="header-v1-wrapper">
+            <div class="logo">
                 <NetworkErrorMessage />
                 {
-                  !incorrectNetwork && <a className="nav-link" href="#">
-                    <img src="/assets/images/logo/logo-full-white.svg" alt="Logo" height="18" width="115" />
+                !incorrectNetwork &&
+                  <a href="#">
+                    <img class="big-logo" src="assets/img/logo/logo.svg" alt="logo" />
+                    <img class="small-logo" src="assets/img/logo/small-logo.svg" alt="logo" />
                   </a>
                 }
-              </div>
-            </nav>
-            <nav className="navbar navbar-expand-md nav-custom">
-              <div className="d-flex d-sm-none w-50">
-              </div>
-              <div className="navbar-collapse">
-              </div>
-              <div className="order-2">
-                {account ? (
+            </div>
+              {account ? (
                   <WalletInfo />
                 ) : (
                   <ConnectWallet />
-                )}
-              </div>
-              
-            </nav>
-          </>
-          }
-
-          {children}
-
-          <div className="footer">
-            <div className="text-center">
-              © Rewilder Foundation, Inc.  -  Terms of use  -  Privacy
-            </div>
+              )}
           </div>
         </div>
-      </section>
       </header>
+          
+      {children}
+
+      <div class="footer text-center">
+        <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>
+      </div>
     </>
   );
 };

@@ -341,7 +341,7 @@ label {
 }
 
 .logo {
-  max-width: 115px;
+  /* max-width: 115px; */
   position: absolute;
   top: 25px;
   left: 50%;
@@ -1361,3 +1361,11 @@ label {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+
+/* extras */
+.alert {
+  background-color: #990808;
+  color: #fafafa;
+  font-weight: 800;
+}
