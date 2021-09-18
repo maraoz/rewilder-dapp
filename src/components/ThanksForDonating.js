@@ -7,7 +7,7 @@ function ThanksForDonating({ tokenId }) {
   return (
     <>
       <div> Thanks for donating! </div>
-      <Link href={`/nft/${tokenId}`} >
+      <Link href={`/donation/${tokenId}`} >
         <a>
           <Button
             text={"Go to your donation NFT"}

@@ -20,7 +20,7 @@ function AllPage() {
           <List>
             {data.map((token) => (
               <ListItem key={token.id}>
-                <NextLink href={`/nft/${token.id}`} passHref>
+                <NextLink href={`/donation/${token.id}`} passHref>
                   <Link color="teal.500">{token.name}</Link>
                 </NextLink> - 
                 <NextLink href={`/api/v1/${token.id}`} passHref>

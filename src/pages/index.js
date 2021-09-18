@@ -91,7 +91,7 @@ function IndexPage() {
       const tokenId = events[0].args[2].toNumber();
       console.log(`tokenId=${tokenId} minted, redirecting in ${redirectDelayMS}ms...`);
       setTimeout(() => {
-        Router.push(`/nft/${tokenId}`);
+        Router.push(`/donation/${tokenId}`);
       }, redirectDelayMS);
     }
   }, [events]);
