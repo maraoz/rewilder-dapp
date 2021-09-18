@@ -1,15 +1,23 @@
 import { useEthers } from "@usedapp/core";
 import React from "react";
-import ConnectWallet from "./ConnectWallet";
-import NetworkErrorMessage  from "./NetworkErrorMessage";
-import WalletInfo from "./WalletInfo";
+import {
+  useDisclosure,
+} from "@chakra-ui/react";
+
 import Head from "./Head";
 import networkMatches from "../lib/networkMatches";
+import ConnectWalletModal from "./ConnectWalletModal";
+import NetworkErrorMessage  from "./NetworkErrorMessage";
+import WalletInfo from "./WalletInfo";
 
 const Layout = ({ children, ...customMeta }) => {
   const { account } = useEthers();
   const incorrectNetwork = !networkMatches();
-  
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
+  const openWalletModal = function() {
+    onOpen();
+  }
   return (
     <>
       <Head {...customMeta} />
@@ -29,13 +37,17 @@ const Layout = ({ children, ...customMeta }) => {
               {account ? (
                   <WalletInfo />
                 ) : (
-                  <ConnectWallet />
+                  <div className="header-button">
+                      <a href="#" onClick={openWalletModal}>Connect wallet</a>
+                  </div>
               )}
           </div>
         </div>
       </header>
           
       {children}
+
+      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
 
       <div className="footer text-center">
         <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>

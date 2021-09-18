@@ -11,8 +11,9 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
     if (loadingText) {
       setDisplayText(loadingText);
     }
-    if (typeof(onClick)==='function')
+    if (typeof(onClick)==='function') {
       return onClick();
+    }
   }
 
   return (

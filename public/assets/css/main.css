@@ -222,6 +222,7 @@ label {
   font-size: 14px;
   font-family: "Airbnb Cereal App Bold";
   font-weight: bold;
+  cursor: pointer;
   color: #fff;
   background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
   border-radius: 8px;
@@ -585,7 +586,7 @@ label {
 .hero-v1-content .donating-value h4 img {
   width: 20px;
 }
-.hero-v1-content .donating-value p {
+.hero-v1-content .donating-value span {
   font-size: 12px;
   color: #8C8D91;
   line-height: 16px;

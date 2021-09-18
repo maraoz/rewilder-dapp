@@ -123,6 +123,7 @@ function IndexPage() {
 
   // call the campaign smart contract, send a donation
   const donate = () => {
+    console.log("donate", account)
     if (!account) {
       return onOpen();
     }
@@ -138,18 +139,18 @@ function IndexPage() {
 
   return (
     <Layout>
-      <section class="hero-v1-area">
-        <div class="container">
-          <div class="hero-v1-wrapper">
-            <div class="hero-v1-thumb">
-              <img src={`assets/images/card-image-${tier}.jpg`} alt="hero" class="banner-image" />
-              <p class="bannar-text">“{flavorText}”</p>
+      <section className="hero-v1-area">
+        <div className="container">
+          <div className="hero-v1-wrapper">
+            <div className="hero-v1-thumb">
+              <img src={`assets/images/card-image-${tier}.jpg`} alt="hero" className="banner-image" />
+              <p className="bannar-text">“{flavorText}”</p>
             </div>
-            <div class="hero-v1-content">
-              <div class="shape">
+            <div className="hero-v1-content">
+              <div className="shape">
                 <img src="assets/img/shape/triangle.png" alt="shape" />
               </div>
-              <div class="title">
+              <div className="title">
                 <img src="assets/img/logo/hero-logo.svg" alt="logo" />
                 <h2>Edition 001: Origin</h2>
               </div>
@@ -158,36 +159,36 @@ function IndexPage() {
                 {
                 !alreadyDonated?
                 <>
-                <div class="tree-group">
-                  <div class="single-tree">
-                    <div class="tree-img small-tree">
+                <div className="tree-group">
+                  <div className="single-tree">
+                    <div className="tree-img small-tree">
                       <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} alt="tree"/>
                     </div>
-                    <div class="tree-title">
-                      <h5 class="image-1 image-title">Cypress</h5>
+                    <div className="tree-title">
+                      <h5 className="image-1 image-title">Cypress</h5>
                     </div>
                   </div>
-                  <div class="single-tree">
-                    <div class="tree-img meduum-tree">
+                  <div className="single-tree">
+                    <div className="tree-img meduum-tree">
                       <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} alt="tree"/>
                     </div>
-                    <div class="tree-title">
-                      <h5 class="image-2 image-title">Araucaria</h5>
+                    <div className="tree-title">
+                      <h5 className="image-2 image-title">Araucaria</h5>
                     </div>
                   </div>
-                  <div class="single-tree">
-                    <div class="tree-img">
+                  <div className="single-tree">
+                    <div className="tree-img">
                       <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} alt="tree"/>
                     </div>
-                    <div class="tree-title">
-                      <h5 class="image-3 image-title">Sequoia</h5>
+                    <div className="tree-title">
+                      <h5 className="image-3 image-title">Sequoia</h5>
                     </div>
                   </div>
                 </div>
-                <div class="range-input">
-                    <input type="range" min="1" max="100" value="1" step="0.1" list="tickmarks" id="rangeInput" />
+                <div className="range-input">
+                    <input type="range" min="1" max="100" onChange={handleSliderChange} value={amount} step="0.1" list="tickmarks" id="rangeInput" />
                     <div id="selector" style={{left: `${amount}%`}}>
-                      <div class="SelectBtn">
+                      <div className="SelectBtn">
                       </div>
                     </div>
                     <div id="Progressbar" style={{width: `${amount}%`}}></div>
@@ -203,8 +204,8 @@ function IndexPage() {
                 </div>
                   {/* v done v */}
                   
-                  <div class="donating-value">
-                    <h4 class="view-amount">
+                  <div className="donating-value">
+                    <h4 className="view-amount">
                       You are donating{" "}
                       <input 
                         className="selected-amount"
@@ -213,10 +214,10 @@ function IndexPage() {
                         disabled={alreadyDonated}
                         onChange={handleInputChange}
                         />{" "} <img src="assets/img/icon/eth.svg" height="16" width="16" alt="ETH" /> ETH</h4>
-                    <p>
+                    <span>
                       We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
                       <InformationIcon text={"This is our current best estimate based on early research."}/>
-                    </p>
+                    </span>
                   </div>
                   <div className="hero-v1-btn">
                     <Button 
@@ -234,7 +235,7 @@ function IndexPage() {
           </div>
         </div>
       </section>
-      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
+      {/* <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal> */}
     </Layout>
   );
 }

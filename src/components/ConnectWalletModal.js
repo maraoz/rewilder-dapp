@@ -1,19 +1,26 @@
 import { useEthers } from "@usedapp/core";
-import React from "react";
+import { useEffect } from "react";
 import { walletconnect } from "../lib/connectors";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
+
 function ConnectWalletModal({ isOpen, onClose }) {
   const { activate, activateBrowserWallet } = useEthers();
-  return <div className="container"></div>;
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('overlay');
+    } else {
+      document.body.classList.remove('overlay');
+    }
+  }, [isOpen]);
+
   return (
     <div className="container">
     { 
-      isOpen &&
-
-      <div className="connect-wallet-popup active">
-        <div className="connect-wallet-close">
+      <div className={"connect-wallet-popup"+(isOpen?" active":"")}>
+        <div className="connect-wallet-close" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </div>
         <h4>Connect to a wallet</h4>
