@@ -32,7 +32,7 @@ function ConnectWalletModal({ isOpen, onClose }) {
               rightIcon={
                 <Image
                   maxWidth="20px"
-                  src="/images/logo-metamask.png"
+                  src="/assets/images/logo-metamask.png"
                   alt="MetaMask"
                 />
               }
@@ -51,7 +51,7 @@ function ConnectWalletModal({ isOpen, onClose }) {
               rightIcon={
                 <Image
                   maxWidth="20px"
-                  src="/images/logo-walletconnect.svg"
+                  src="/assets/images/logo-walletconnect.svg"
                   alt="WalletConnect"
                 />
               }

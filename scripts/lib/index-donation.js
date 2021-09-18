@@ -4,13 +4,9 @@ const app = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const db = admin.firestore(app);
+const FLAVOR_TEXT = require("../../src/lib/flavorText.js");
 
-const FLAVOR_TEXT = {
-  'cypress': "In the shadow of your roots, I am born again.",
-  'araucaria': "Alone, in the forest, you stand, and watch the passing of the seasons.",
-  'sequoia': "In your branches, I reach for the stars.",
-}
+const db = admin.firestore(app);
 
 module.exports = async function(donor, amount, tokenID, txid) {
   console.log(donor, "donated", ethers.utils.formatEther(amount), "ETH",

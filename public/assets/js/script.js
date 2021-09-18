@@ -1,29 +1,59 @@
-(function ($) {
+$(document).ready(function(){
+    let height = window.innerHeight;
+    $('.window-section').css("min-height", `${height}px`);
+    $('.selected-amount').html($('#rangeInput').val());
 
-    'use strict';
+    $('#rangeInput').on('change', function(){
+        const amount = $(this).val();
+        $('.selected-amount').html(amount);
+        $('.image-1').css('color', '#388447');
 
-	/*------------------------------------
-    countdown
-	--------------------------------------*/
-	if (jQuery("[data-countdown]").length > 0) {
-		$('[data-countdown]').each(function () {
-			var $this = $(this), finalDate = $(this).data('countdown');
-			$this.countdown(finalDate, function (event) {
-				$this.html(event.strftime('<span class="cdown days"><p>Days</p> <span class="time-count">%-D</span></span> <span class="cdown hour"><p>Hours</p> <span class="time-count">%-H</span></span> <span class="cdown minutes"><p>Minutes</p> <span class="time-count">%M</span></span> '));
-			});
-		});
-	};
+        if(amount < 33.334) {
+            $('#image-1').attr("src", "assets/images/tree/tree-1-green.png");
+            $('#image-2').attr("src", "assets/images/tree/tree-2-gray.png");
+            $('#image-3').attr("src", "assets/images/tree/tree-3-gray.png");
+            
+            $('.bannar-text').html('“Alone, in the forest, you stand, and watch the passing of the seasons."');
+            
+            $('.banner-image').attr("src", "assets/images/card-image-default.png");
 
+            $('.image-1').css('color', '#388447');
+            $('.image-2').css('color', '#8C8D90');
+            $('.image-3').css('color', '#8C8D90');
 
-	// accordion
-	$(".single-accordion").click(function(e){
+        } else if(amount < 66.667) {
+            $('#image-1').attr("src", "assets/images/tree/tree-1-gray.png");
+            $('#image-2').attr("src", "assets/images/tree/tree-2-green.png");
+            $('#image-3').attr("src", "assets/images/tree/tree-3-gray.png");
+            
+            $('.bannar-text').html("In the shadow of your roots, I am born again");
+            
+            $('.banner-image').attr("src", "assets/images/card-image-next.png");
 
-		if ($(e.target).closest('a').length) {
-			return;
-		}
-		$(this).children('.accordion-head').toggleClass("active").next().slideToggle().siblings().children('.accordion-head').removeClass('.active');
+            $('.image-1').css('color', '#8C8D90');
+            $('.image-2').css('color', '#388447');
+            $('.image-3').css('color', '#8C8D90');
+        } else {
+            $('#image-1').attr("src", "assets/images/tree/tree-1-gray.png");
+            $('#image-2').attr("src", "assets/images/tree/tree-2-gray.png");
+            $('#image-3').attr("src", "assets/images/tree/tree-3-green.png");
+
+            $('.image-1').css('color', '#8C8D90');
+            $('.image-2').css('color', '#8C8D90');
+            $('.image-3').css('color', '#388447');
+        }
     });
-	
 
-})(jQuery);
+    var slider = document.getElementById('rangeInput');
+    var selector = document.getElementById('selector');
+    var progressbar = document.getElementById('Progressbar');
+
+    selector.style.left = this.value + "%";
+    progressbar.style.width = this.value + "%";
+
+    slider.onchange = function () {
+        selector.style.left = this.value + "%";
+        progressbar.style.width = this.value + "%";
+    }
+});
 
