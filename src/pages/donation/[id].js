@@ -10,11 +10,11 @@ import { addressFor } from "../../lib/addresses";
 import { getExplorerTransactionLink } from "@usedapp/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { useToken } from "./../../lib/db";
+import { useToken } from "../../lib/db";
 import {
   getToken as getTokenServer,
   getAllTokens as getAllTokensServer,
-} from "./../../lib/server/db";
+} from "../../lib/server/db";
 
 function NftPage(props) {
   const router = useRouter();
@@ -33,13 +33,7 @@ function NftPage(props) {
   return (
     <>
       <Head { ...{ title: data.name } } />
-      <div
-        {...(data && {
-          title: data.name,
-          image: data.image,
-        })}
-      >
-
+      
       <section className="window-section">
         <div className="container-fluid">
           <div className="row min-vh-100 align-items-center mb-2 mb-sm-0">
@@ -99,12 +93,12 @@ function NftPage(props) {
                   iconalt="alt name"
                   date="Aug 15, 2021" 
                   message={<>
-                    You donated {attributes["amount donated"]}. 
+                    You donated {attributes["amount donated"]} {" "}
                     <a href={getExplorerTransactionLink(attributes["mint transaction"], config.chainId)??"#"} target="_blank">
                       <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
                     </a>
                     <br />
-                    Your unique NFT is yours.
+                    Your unique NFT is yours {" "}
                     <a href={openseaURL} target="_blank">
                       <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
                     </a>
@@ -127,11 +121,8 @@ function NftPage(props) {
               © Rewilder   -  Terms of use  -  Privacy
             </div>
           </div>
-
         </div>
-
       </section>
-      </div>
     </>
   );
 }
