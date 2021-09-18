@@ -29,6 +29,9 @@ function NftPage(props) {
     (config.networkName=='mainnet'?'':'testnets.')+
     'opensea.io/assets/'+addressFor("RewilderNFT")+
     "/"+tokenId;
+  // const imageSource = data.image;
+  // TODO: use above in production
+  const imageSource = `/assets/images/card-image-${attributes.tier}.jpg`
 
   return (
     <>
@@ -41,13 +44,14 @@ function NftPage(props) {
               <div className="header-sticky">
                 <div className="text-center">
                   <a className="navbar-brand" href="#">
-                    <img src="/assets/images/logo/logo-full-white.svg" alt="Logo not found" height="18"/>
+                    <img src="/assets/images/logo/logo-full-white.svg" alt="rewilder logo" height="18"/>
                   </a>
                 </div>
               </div>
 
               <div>
-                <img src="/assets/images/stamp.svg" height="446" width="390" alt="" className="stamp"/>
+                <img src={imageSource} className="nft" alt="nft"/>
+                <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="stamp"/>
                 <p className="mt-3 mt-sm-5 sticky-banner-text">“{attributes["flavor text"]}”</p>
               </div>
 

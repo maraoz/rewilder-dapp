@@ -106,7 +106,28 @@ body {
 
 .stamp {
   mix-blend-mode: overlay;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
+
+.nft {
+  position: absolute;
+  padding: 1.5rem;
+  height: 446px;
+  width: 390px;
+  z-index: 10;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 
 @media (max-width: 576px) { 
   .card-style {
