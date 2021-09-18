@@ -3,6 +3,13 @@ import { useRouter } from "next/router";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import DonationUpdate from "../../components/DonationUpdate";
+import DonationInfo from "../../components/DonationInfo";
+import Head from "../../components/Head";
+import config from "../../config";
+import { addressFor } from "../../lib/addresses";
+import { getExplorerTransactionLink } from "@usedapp/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { useToken } from "./../../lib/db";
 import {
   getToken as getTokenServer,
@@ -12,118 +19,111 @@ import {
 function NftPage(props) {
   const router = useRouter();
 
-  // Subscribe to data
-  const { data, status } = useToken(router.query.id);
+  const tokenId = router.query.id;
+  const { data, status } = useToken(tokenId);
+  console.log(data.attributes);
+  const attributes = {};
+  data.attributes.map(({trait_type, value}) => { attributes[trait_type] = value;});
+  console.log(attributes);
+  const openseaURL = "https://" + 
+    (config.networkName=='mainnet'?'':'testnets.')+
+    'opensea.io/assets/'+addressFor("RewilderNFT")+
+    "/"+tokenId;
 
   return (
-    <div
-      {...(data && {
-        title: data.name,
-        image: data.image,
-      })}
-    >
-      {/* Token data:
-      <div>
-        {status === "loading" ? (
-          "Loading..."
-        ) : (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        )}
-      </div> */}
+    <>
+      <Head { ...{ title: data.name } } />
+      <div
+        {...(data && {
+          title: data.name,
+          image: data.image,
+        })}
+      >
 
-      <section class="window-section">
-        <div class="container-fluid">
-          <div class="row min-vh-100 align-items-center mb-2 mb-sm-0">
-            <div class="col-md-6 text-center">
-              <div class="header-sticky">
-                <div class="text-center">
-                  <a class="navbar-brand" href="#">
+      <section className="window-section">
+        <div className="container-fluid">
+          <div className="row min-vh-100 align-items-center mb-2 mb-sm-0">
+            <div className="col-md-6 text-center">
+              <div className="header-sticky">
+                <div className="text-center">
+                  <a className="navbar-brand" href="#">
                     <img src="/assets/images/logo/logo-full-white.svg" alt="Logo not found" height="18"/>
                   </a>
                 </div>
               </div>
 
-              <div class="sticky-banner">
+              <div>
                 <img src="/assets/images/stamp.svg" height="446" width="390" alt="" className="stamp"/>
-                <p class="mt-3 mt-sm-5 sticky-banner-text">“In the shadow of your roots, I am born again”</p>
+                <p className="mt-3 mt-sm-5 sticky-banner-text">“{attributes["flavor text"]}”</p>
               </div>
 
-              <div class="footer-sticky d-none d-sm-block">
-                <div class="text-center">
+              <div className="footer-sticky d-none d-sm-block">
+                <div className="text-center">
                   © Rewilder   -  Terms of use  -  Privacy
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="notification">
-                <div class="d-flex justify-content-between mt-3">
+            <div className="col-md-6">
+              <div className="notification">
+                <div className="d-flex justify-content-between mt-3">
                   <div>
-                    <h2 class="fs-14 font-bold color-green">Tier: Sequoia</h2>
-                    <h2 class="mt-2 text-header">Edition 001: Origin</h2>
+                    <h2 className="fs-14 font-bold color-green">Tier: {attributes.tier}</h2>
+                    <h2 className="mt-2 text-header">{data.name}</h2>
                   </div>
                   <div>
-                    <img src="/assets/images/icon/sticky-corner-logo.svg" alt="" width="90" srcset=""/>
+                    <img src="/assets/images/icon/sticky-corner-logo.svg" alt={attributes.tier + " stamp"} width="90"/>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-6 col-sm-3">
-                    <div class="tag d-flex justify-content-start">
-                      <div class="icon-donation mr-2">
-                        <img src="/assets/images/icon/donation.svg" height="20"/>
-                      </div>
-                      <div class="content">
-                        <h5 class="fs-12 font-bold text">donation</h5>
-                        <h3 class="fs-18 font-bold">37.2 ETH</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-6 col-sm-5">
-                    <div class="tag d-flex justify-content-start">
-                      <div class="icon-rewilding mr-2">
-                        <img src="/assets/images/icon/rewilder-logo.svg" height="20"/>
-                      </div>
-                      <div class="content">
-                        <h5 class="fs-12 font-bold text">rewilding</h5>
-                        <h3 class="fs-18 font-bold">Location TBD</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 mt-4">
-                    <div class="tag d-flex justify-content-start">
-                      <div class="icon-owner mr-2">
-                        <img src="/assets/images/icon/amount-icon.svg" height="20"/>
-                      </div>
-                      <div class="content">
-                        <h5 class="fs-12 font-bold text">owner</h5>
-                        <h3 class="fs-18 font-medium d-none d-sm-block">0xeC7100ABDbCf922f975148C6516BC95696cA0eF6</h3>
-                        <h3 class="fs-18 font-medium d-sm-none">0xec71...0eF6</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr class="hr-sticky "></hr>
-                <h4 class="fs-16 font-bold color-white mt-5 mb-2">Updates</h4>
+                
+                <DonationInfo 
+                  image="/assets/images/icon/donation.svg"
+                  label="donation"
+                  data={attributes["amount donated"]}
+                />
+                <DonationInfo 
+                  image="/assets/images/icon/rewilder-logo.svg"
+                  label="rewilding"
+                  data="Location TBD"
+                />
+                <DonationInfo 
+                  image="/assets/images/icon/amount-icon.svg"
+                  label="donor"
+                  data={attributes["donor"]}
+                />
+              
+                <hr className="hr-sticky "></hr>
 
+                <h4 className="fs-16 font-bold color-white mt-5 mb-2">Updates</h4>
                 <DonationUpdate 
                   icon="/assets/images/icon/avatar-icon.svg"
                   iconalt="alt name"
                   date="Aug 15, 2021" 
-                  message="You donated 37.2 ETH. Your unique NFT is yours."
+                  message={<>
+                    You donated {attributes["amount donated"]}. 
+                    <a href={getExplorerTransactionLink(attributes["mint transaction"], config.chainId)??"#"} target="_blank">
+                      <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                    </a>
+                    <br />
+                    Your unique NFT is yours.
+                    <a href={openseaURL} target="_blank">
+                      <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                    </a>
+                  </>}
                 />
-
                 <DonationUpdate 
                   icon="/assets/images/icon/info.svg"
                   iconalt="alt name"
                   date="Aug 15, 2021" 
                   message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
-                  link="Subscribe here to also receive email notifications."
+                  linkText="Subscribe here to also receive email notifications."
+                  linkHref="https://rewilder.substack.com"
                 />
               </div>
             </div>
           </div>
 
-          <div class="footer d-sm-none">
-            <div class="text-center">
+          <div className="footer d-sm-none">
+            <div className="text-center">
               © Rewilder   -  Terms of use  -  Privacy
             </div>
           </div>
@@ -131,7 +131,8 @@ function NftPage(props) {
         </div>
 
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 
