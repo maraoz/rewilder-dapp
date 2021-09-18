@@ -13,6 +13,7 @@ import ConnectWalletModal from "../components/ConnectWalletModal";
 import ThanksForDonating from "../components/ThanksForDonating";
 import Button from "../components/Button";
 import InformationIcon from "../components/InformationIcon";
+import FLAVOR_TEXT from "../lib/flavorText";
 
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
@@ -52,6 +53,7 @@ function IndexPage() {
   const ethToUSD = 3500;
   const hectaresEstimation = amount*ethToUSD/8000;
   const tier = getTierForAmount(amount);
+  const flavorText = FLAVOR_TEXT[tier]; 
 
   const donateButtonText = !account?
     "Connect Wallet":
@@ -140,7 +142,7 @@ function IndexPage() {
                 <div className="col-md-6 no-paddings no-gutters">
                   <img src={`assets/images/card-image-${tier}.jpg`} className="banner-image" />
                   <div className="banner-image-footer">
-                    <p className="text-center bannar-text">“Alone, in the forest, you stand, and watch the passing of the seasons."</p>
+                    <p className="text-center bannar-text">“{flavorText}”</p>
                   </div>
                 </div>
 
