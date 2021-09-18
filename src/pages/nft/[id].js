@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
-import Layout from "./../../components/Layout";
+import DonationUpdate from "../../components/DonationUpdate";
 import { useToken } from "./../../lib/db";
 import {
   getToken as getTokenServer,
@@ -103,6 +103,8 @@ function NftPage(props) {
                 </div>
                 <hr class="hr-sticky "></hr>
                 <h4 class="fs-16 font-bold color-white mt-5 mb-2">Updates</h4>
+
+                <DonationUpdate name="Sara" />
 
                 <div class="row">
                   <div class="col-12">
