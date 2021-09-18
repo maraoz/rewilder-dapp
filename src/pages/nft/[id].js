@@ -171,3 +171,20 @@ export async function getStaticProps(context) {
 
 export default NftPage;
 
+// Generates routes for all pages we want to pre-render
+export async function getStaticPaths() {
+  // Get all tokens
+  const tokens = await getAllTokensServer();
+  // Generate page path params for all tokens
+  const paths = tokens.map((token) => ({
+    params: { id: token.id },
+  }));
+
+  return {
+    paths,
+    // Server-render on demand if page does't exist yet
+    // TODO: Not sure if "blocking" is supported by Netlify, but not a big deal since client-side will
+    // still take over and fetch data from `/api/token`.
+    fallback: "blocking",
+  };
+}
