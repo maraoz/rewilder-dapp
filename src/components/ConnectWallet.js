@@ -10,10 +10,10 @@ function ConnectWallet() {
 
   return (
     <>
-      <div class="header-button">
+      <div className="header-button">
           <a href="#" onClick={onOpen}>Connect wallet</a>
       </div>
-      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
+      {/* <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal> */}
     </>
   );
 }

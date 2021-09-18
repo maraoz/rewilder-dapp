@@ -13,16 +13,16 @@ const Layout = ({ children, ...customMeta }) => {
   return (
     <>
       <Head {...customMeta} />
-      <header class="header-area-v1">
-        <div class="container-fluid">
-          <div class="header-v1-wrapper">
-            <div class="logo">
+      <header className="header-area-v1">
+        <div className="container-fluid">
+          <div className="header-v1-wrapper">
+            <div className="logo">
                 <NetworkErrorMessage />
                 {
                 !incorrectNetwork &&
                   <a href="#">
-                    <img class="big-logo" src="assets/img/logo/logo.svg" alt="logo" />
-                    <img class="small-logo" src="assets/img/logo/small-logo.svg" alt="logo" />
+                    <img className="big-logo" src="assets/img/logo/logo.svg" alt="logo" />
+                    <img className="small-logo" src="assets/img/logo/small-logo.svg" alt="logo" />
                   </a>
                 }
             </div>
@@ -37,7 +37,7 @@ const Layout = ({ children, ...customMeta }) => {
           
       {children}
 
-      <div class="footer text-center">
+      <div className="footer text-center">
         <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>
       </div>
     </>

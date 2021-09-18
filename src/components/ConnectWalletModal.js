@@ -1,70 +1,39 @@
-import {
-  Button,
-  Image,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/react";
 import { useEthers } from "@usedapp/core";
 import React from "react";
 import { walletconnect } from "../lib/connectors";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function ConnectWalletModal({ isOpen, onClose }) {
   const { activate, activateBrowserWallet } = useEthers();
-
+  return <div className="container"></div>;
   return (
-    <>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Connect to a wallet</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Button
-              justifyContent="space-between"
-              width="100%"
-              mb="4"
-              size="lg"
-              variant="outline"
-              rightIcon={
-                <Image
-                  maxWidth="20px"
-                  src="/assets/images/logo-metamask.png"
-                  alt="MetaMask"
-                />
-              }
-              onClick={() => {
-                activateBrowserWallet();
-              }}
-            >
-              MetaMask
-            </Button>
-            <Button
-              justifyContent="space-between"
-              width="100%"
-              mb="4"
-              size="lg"
-              variant="outline"
-              rightIcon={
-                <Image
-                  maxWidth="20px"
-                  src="/assets/images/logo-walletconnect.svg"
-                  alt="WalletConnect"
-                />
-              }
-              onClick={() => {
-                activate(walletconnect);
-              }}
-            >
-              WalletConnect
-            </Button>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
+    <div className="container">
+    { 
+      isOpen &&
+
+      <div className="connect-wallet-popup active">
+        <div className="connect-wallet-close">
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
+        <h4>Connect to a wallet</h4>
+        <div className="connect-option">
+          <a href="#" onClick={activateBrowserWallet}>
+            <img src="assets/img/icon/metamask-icon.svg" alt="Metamask" />
+            <span>Metamask</span>
+          </a>
+          <a href="#" onClick={() => {activate(walletconnect)}}>
+            <img src="assets/img/icon/wallet-connect-icon.svg" alt="WalletConnect" />
+            <span>WalletConnect</span>
+          </a>
+        </div>
+        <p>
+          By connecting a wallet, you agree to Rewilder’s 
+          <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a>
+        </p>
+      </div>
+    }
+    </div>
   );
 }
 

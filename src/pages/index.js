@@ -138,105 +138,102 @@ function IndexPage() {
 
   return (
     <Layout>
-      <div>
-        <div className="d-flex flex-row min-vh-100 justify-content-center align-items-center">
-          <div className="card card-style">
-            <div className="card-body no-paddings">
-              <div className="row no-gutters">
-
-                <div className="col-md-6 no-paddings no-gutters">
-                  <img src={`assets/images/card-image-${tier}.jpg`} className="banner-image" />
-                  <div className="banner-image-footer">
-                    <p className="text-center bannar-text">“{flavorText}”</p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 text-color px-4">
-
-                  <div className="d-flex justify-content-between mt-3">
-                    <div>
-                      <img src="assets/images/logo/logo-full-green.svg" alt="" height="14" />
-                      <h2 className="mt-3 text-header">Edition 001: Origin</h2>
-                    </div>
-                    <div>
-                      <img src="assets/images/triangle.png" alt="" width="60" />
-                    </div>
-                  </div>
-                  {
-                    !alreadyDonated?
-                    <>
-                      <div className="d-flex justify-content-between mt-5">
-                        <div className="mt-5 text-center">
-                          <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`}
-                            id="image-1" style={{height:"40px"}} />
-                          <h5 className="image-1 image-title">Cypress</h5>
-                        </div>
-                        <div className="mt-3 text-center">
-                          <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`}
-                            id="image-2" style={{height:"70px"}} />
-                          <h5 className="image-2 image-title">Araucaria</h5>
-                        </div>
-                        <div className="text-center">
-                          <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`}
-                            id="image-3" style={{height:"90px"}} />
-                          <h5 className="image-3 image-title">Sequoia</h5>
-                        </div>
-                      </div>
-
-                        
-                      <div className="range-input">
-                        <Slider 
-                          value={amount}
-                          min={1}
-                          step={1}
-                          max={100}
-                          disabled={alreadyDonated}
-                          marks={sliderMarks}
-                          onChange={handleSliderChange}
-                        />
-                        {/* <input type="range"
-                        value={amount}
-                        className="mt-1" className="rangeInput"/> */}
-                        <div className="selector" style={{left: `${amount}%`}}>
-                          <div className="SelectBtn">
-                          </div>
-                        </div>
-                        <div id="Progressbar" style={{width: `${amount}%`}}></div>
-                      </div>
-
-                      <div className="text-center my-5">
-                        <h4 className="view-amount">
-                          You are donating{" "} <br className="d-sm-none" /> 
-                          <input 
-                            className="selected-amount"
-                            type="number"
-                            value={amount}
-                            disabled={alreadyDonated}
-                            onChange={handleInputChange}
-                            />{" "}
-                          <img src="assets/images/icon/eth.svg" height="16" width="16" className="mb-1"/>ETH
-                        </h4>
-                        <div className="mt-3 mt-sm-1 estimate-text">We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
-                          <InformationIcon text={"This is our current best estimate based on early research."}/>
-                        </div>
-                      </div>
-                      
-                      <Button 
-                        onClick={donate} 
-                        isLoading={walletOpened || donateTx.status=="Mining"}
-                        disabled={networkIncorrect || alreadyDonated || insufficientBalance}
-                        text={donateButtonText}
-                        loadingText={donateButtonLoadingText}
-                        />
-                    </>:
-                    <ThanksForDonating tokenId={tokenId}/>
-                  }
-                </div>
+      <section class="hero-v1-area">
+        <div class="container">
+          <div class="hero-v1-wrapper">
+            <div class="hero-v1-thumb">
+              <img src={`assets/images/card-image-${tier}.jpg`} alt="hero" class="banner-image" />
+              <p class="bannar-text">“{flavorText}”</p>
+            </div>
+            <div class="hero-v1-content">
+              <div class="shape">
+                <img src="assets/img/shape/triangle.png" alt="shape" />
               </div>
+              <div class="title">
+                <img src="assets/img/logo/hero-logo.svg" alt="logo" />
+                <h2>Edition 001: Origin</h2>
+              </div>
+                
+
+                {
+                !alreadyDonated?
+                <>
+                <div class="tree-group">
+                  <div class="single-tree">
+                    <div class="tree-img small-tree">
+                      <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} alt="tree"/>
+                    </div>
+                    <div class="tree-title">
+                      <h5 class="image-1 image-title">Cypress</h5>
+                    </div>
+                  </div>
+                  <div class="single-tree">
+                    <div class="tree-img meduum-tree">
+                      <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} alt="tree"/>
+                    </div>
+                    <div class="tree-title">
+                      <h5 class="image-2 image-title">Araucaria</h5>
+                    </div>
+                  </div>
+                  <div class="single-tree">
+                    <div class="tree-img">
+                      <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} alt="tree"/>
+                    </div>
+                    <div class="tree-title">
+                      <h5 class="image-3 image-title">Sequoia</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="range-input">
+                    <input type="range" min="1" max="100" value="1" step="0.1" list="tickmarks" id="rangeInput" />
+                    <div id="selector" style={{left: `${amount}%`}}>
+                      <div class="SelectBtn">
+                      </div>
+                    </div>
+                    <div id="Progressbar" style={{width: `${amount}%`}}></div>
+                    <Slider 
+                      value={amount}
+                      min={1}
+                      step={1}
+                      max={100}
+                      disabled={alreadyDonated}
+                      marks={sliderMarks}
+                      onChange={handleSliderChange}
+                    />
+                </div>
+                  {/* v done v */}
+                  
+                  <div class="donating-value">
+                    <h4 class="view-amount">
+                      You are donating{" "}
+                      <input 
+                        className="selected-amount"
+                        type="number"
+                        value={amount}
+                        disabled={alreadyDonated}
+                        onChange={handleInputChange}
+                        />{" "} <img src="assets/img/icon/eth.svg" height="16" width="16" alt="ETH" /> ETH</h4>
+                    <p>
+                      We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
+                      <InformationIcon text={"This is our current best estimate based on early research."}/>
+                    </p>
+                  </div>
+                  <div className="hero-v1-btn">
+                    <Button 
+                      onClick={donate} 
+                      isLoading={walletOpened || donateTx.status=="Mining"}
+                      disabled={networkIncorrect || alreadyDonated || insufficientBalance}
+                      text={donateButtonText}
+                      loadingText={donateButtonLoadingText}
+                      />
+                  </div>
+                </>:
+                  <ThanksForDonating tokenId={tokenId}/>
+              }
             </div>
           </div>
         </div>
-      </div>
+      </section>
       <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
     </Layout>
   );

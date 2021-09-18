@@ -1369,3 +1369,26 @@ label {
   color: #fafafa;
   font-weight: 800;
 }
+
+.info-popover-root {
+  display: inline;
+}
+.info-popover {
+  width: 200px;
+}
+
+.selected-amount {
+  text-align: center; 
+  width: 5rem;
+  padding-left: 0px;
+  padding-right: 0px;
+  display: inline;
+  -webkit-appearance: none;
+  border: 0;
+  border-width:0px;
+  border-bottom: 1px solid #C2C4CC;
+  font-size: 28px;
+}
+.selected-amount:focus {
+  outline: none;
+}
