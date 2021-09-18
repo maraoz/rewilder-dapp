@@ -8,9 +8,9 @@ import config from "../config.js";
 import { addressFor } from "../lib/addresses";
 
 // css
+import '../../public/assets/css/airbnb-font.css';
 import '../../public/assets/css/bootstrap.min.css';
-import '../../public/assets/css/variables.css';
-import '../../public/assets/css/style.css';
+//import '../../public/assets/css/style.css';
 import '../../public/assets/css/main.css';
 
 
