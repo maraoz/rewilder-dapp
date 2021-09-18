@@ -93,30 +93,40 @@ function DonationPage(props) {
                 <hr className="hr-sticky "></hr>
 
                 <h4 className="fs-16 font-bold color-white mt-5 mb-2">Updates</h4>
-                <DonationUpdate 
-                  icon="/assets/images/icon/avatar-icon.svg"
-                  iconalt="alt name"
-                  date="Aug 15, 2021" 
-                  message={<>
-                    You donated {attributes["amount donated"]} {" "}
-                    <a href={getExplorerTransactionLink(attributes["mint transaction"], config.chainId)??"#"} target="_blank">
-                      <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
-                    </a>
-                    <br />
-                    Your unique NFT is yours {" "}
-                    <a href={openseaURL} target="_blank">
-                      <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
-                    </a>
-                  </>}
-                />
-                <DonationUpdate 
-                  icon="/assets/images/icon/info.svg"
-                  iconalt="alt name"
-                  date="Aug 15, 2021" 
-                  message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
-                  linkText="Subscribe here to also receive email notifications."
-                  linkHref="https://rewilder.substack.com"
-                />
+                <div className="donation-updates">
+                  <DonationUpdate 
+                    icon="/assets/images/icon/info.svg"
+                    iconalt="alt name"
+                    date="Aug 15, 2021" 
+                    message="If you want your donation to be 501(c)(3) tax deductible, send us an email to "
+                    linkText="receipts@rewilder.xyz"
+                    linkHref="#"
+                  />
+                  <DonationUpdate 
+                    icon="/assets/images/icon/info.svg"
+                    iconalt="alt name"
+                    date="Aug 15, 2021" 
+                    message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
+                    linkText="Subscribe here to also receive email notifications."
+                    linkHref="https://rewilder.substack.com"
+                  />
+                  <DonationUpdate 
+                    icon="/assets/images/icon/avatar-icon.svg"
+                    iconalt="alt name"
+                    date="Aug 15, 2021" 
+                    message={<>
+                      You donated {attributes["amount donated"]} {" "}
+                      <a href={getExplorerTransactionLink(attributes["mint transaction"], config.chainId)??"#"} target="_blank">
+                        <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                      </a>
+                      <br />
+                      Your unique NFT is yours {" "}
+                      <a href={openseaURL} target="_blank">
+                        <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                      </a>
+                    </>}
+                  />
+                </div>
               </div>
             </div>
           </div>
