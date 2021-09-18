@@ -104,43 +104,20 @@ function NftPage(props) {
                 <hr class="hr-sticky "></hr>
                 <h4 class="fs-16 font-bold color-white mt-5 mb-2">Updates</h4>
 
-                <DonationUpdate name="Sara" />
+                <DonationUpdate 
+                  icon="/assets/images/icon/avatar-icon.svg"
+                  iconalt="alt name"
+                  date="Aug 15, 2021" 
+                  message="You donated 37.2 ETH. Your unique NFT is yours."
+                />
 
-                <div class="row">
-                  <div class="col-12">
-                    <div class="notification-card">
-                      <div class="tag d-flex justify-content-start">
-                        <div class="icon-avatar mr-2">
-                          <img src="/assets/images/icon/avatar-icon.svg" height="20"/>
-                        </div>
-                        <div class="content">
-                          <h5 class="fs-12 font-bold text">Aug 15, 2021</h5>
-                          <h3 class="fs-14 font-book">You donated 37.2 ETH. <i class="fas fa-external-link-alt fs-9 color-light"></i></h3>
-                          <h3 class="fs-14 font-book">Your unique NFT is yours. <i class="fas fa-external-link-alt fs-9 color-light"></i></h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="notification-card">
-                      <div class="tag d-flex justify-content-start">
-                        <div class="icon-avatar mr-2">
-                          <img src="/assets/images/icon/info.svg" height="20"/>
-                        </div>
-                        <div class="content d-flex justify-content-between">
-                          <div>
-                            <h5 class="fs-12 font-bold text">Aug 15, 2021</h5>
-                            <h3 class="fs-14 font-book">You will be able to see future updates about your donation here (for example, when we buy the land or make a payment).</h3>
-                            <a href="#">
-                              <h3 class="fs-14 font-book color-green text-decoration-underline">Subscribe here to also receive email notifications.</h3>
-                            </a>
-                          </div>
-                          <div>
-                            <button class="btn text"><i class="fas fa-times"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <DonationUpdate 
+                  icon="/assets/images/icon/info.svg"
+                  iconalt="alt name"
+                  date="Aug 15, 2021" 
+                  message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
+                  link="Subscribe here to also receive email notifications."
+                />
               </div>
             </div>
           </div>
