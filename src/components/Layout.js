@@ -15,9 +15,8 @@ const Layout = ({ children, ...customMeta }) => {
   const incorrectNetwork = !networkMatches();
   const { onOpen, isOpen, onClose } = useDisclosure();
 
-  const openWalletModal = function() {
-    onOpen();
-  }
+  const walletModal = <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>;
+  
   return (
     <>
       <Head {...customMeta} />
@@ -38,7 +37,7 @@ const Layout = ({ children, ...customMeta }) => {
                   <WalletInfo />
                 ) : (
                   <div className="header-button">
-                      <a href="#" onClick={openWalletModal}>Connect wallet</a>
+                      <a href="#" onClick={onOpen}>Connect wallet</a>
                   </div>
               )}
           </div>
@@ -47,7 +46,7 @@ const Layout = ({ children, ...customMeta }) => {
           
       {children}
 
-      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
+      {walletModal}
 
       <div className="footer text-center">
         <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>
