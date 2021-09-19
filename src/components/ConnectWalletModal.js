@@ -16,6 +16,15 @@ function ConnectWalletModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
+  const clickMetamask = () => {
+    activateBrowserWallet();
+    onClose();
+  };
+
+  const clickWalletConnect = () => {
+    activate(walletconnect);
+  };
+
   return (
     <div className="container">
     { 
@@ -25,11 +34,11 @@ function ConnectWalletModal({ isOpen, onClose }) {
         </div>
         <h4>Connect to a wallet</h4>
         <div className="connect-option">
-          <a href="#" onClick={activateBrowserWallet}>
+          <a href="#" onClick={clickMetamask}>
             <img src="assets/img/icon/metamask-icon.svg" alt="Metamask" />
             <span>Metamask</span>
           </a>
-          <a href="#" onClick={() => {activate(walletconnect)}}>
+          <a href="#" onClick={clickWalletConnect}>
             <img src="assets/img/icon/wallet-connect-icon.svg" alt="WalletConnect" />
             <span>WalletConnect</span>
           </a>
