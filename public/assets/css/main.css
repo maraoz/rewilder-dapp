@@ -427,7 +427,8 @@ label {
   position: relative;
 }
 .hero-v1-thumb img {
-  height: 100%;
+  /* TODO: make this fit nicely without stretching */
+  /* height: 100%; */
   padding-bottom: 40px;
 }
 .hero-v1-thumb p {
@@ -472,7 +473,7 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 50px;
+  margin-top: 2rem;
   margin-bottom: 10px;
 }
 .hero-v1-content .tree-group .single-tree {
@@ -482,10 +483,7 @@ label {
   max-width: 45px;
   margin: 0 auto;
 }
-.hero-v1-content .tree-group .single-tree .tree-img img {
-  width: 100%;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.meduum-tree {
+.hero-v1-content .tree-group .single-tree .tree-img.medium-tree {
   max-width: 60px;
   margin: 0 auto;
 }
@@ -1392,4 +1390,14 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.hero-v1-content .tree-group .single-tree .tree-img.small-tree img {
+  max-height: 1.5rem;
+}
+.hero-v1-content .tree-group .single-tree .tree-img.medium-tree img {
+  max-height: 3rem;
+}
+.hero-v1-content .tree-group .single-tree .tree-img.large-tree img {
+  max-height: 5rem;
 }

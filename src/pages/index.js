@@ -123,7 +123,6 @@ function IndexPage() {
 
   // call the campaign smart contract, send a donation
   const donate = () => {
-    console.log("donate", account)
     if (!account) {
       return onOpen();
     }
@@ -144,7 +143,7 @@ function IndexPage() {
           <div className="hero-v1-wrapper">
             <div className="hero-v1-thumb">
               <img src={`assets/images/card-image-${tier}.jpg`} alt="hero" className="banner-image" />
-              <p className="bannar-text">“{flavorText}”</p>
+              <p>“{flavorText}”</p>
             </div>
             <div className="hero-v1-content">
               <div className="shape">
@@ -169,7 +168,7 @@ function IndexPage() {
                     </div>
                   </div>
                   <div className="single-tree">
-                    <div className="tree-img meduum-tree">
+                    <div className="tree-img medium-tree">
                       <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} alt="tree"/>
                     </div>
                     <div className="tree-title">
@@ -177,7 +176,7 @@ function IndexPage() {
                     </div>
                   </div>
                   <div className="single-tree">
-                    <div className="tree-img">
+                    <div className="tree-img large-tree">
                       <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} alt="tree"/>
                     </div>
                     <div className="tree-title">
@@ -192,7 +191,7 @@ function IndexPage() {
                       </div>
                     </div>
                     <div id="Progressbar" style={{width: `${amount}%`}}></div>
-                    <Slider 
+                    {/* <Slider 
                       value={amount}
                       min={1}
                       step={1}
@@ -200,10 +199,8 @@ function IndexPage() {
                       disabled={alreadyDonated}
                       marks={sliderMarks}
                       onChange={handleSliderChange}
-                    />
+                    /> */}
                 </div>
-                  {/* v done v */}
-                  
                   <div className="donating-value">
                     <h4 className="view-amount">
                       You are donating{" "}
