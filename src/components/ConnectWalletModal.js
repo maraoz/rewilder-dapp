@@ -1,5 +1,5 @@
 import { useEthers } from "@usedapp/core";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { walletconnect } from "../lib/connectors";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +24,21 @@ function ConnectWalletModal({ isOpen, onClose }) {
   const clickWalletConnect = () => {
     activate(walletconnect);
   };
+
+  // ESC key closes
+  const escFunction = useCallback((event) => {
+    if(event.keyCode === 27) {
+      onClose();
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
 
   return (
     <div className="container">
