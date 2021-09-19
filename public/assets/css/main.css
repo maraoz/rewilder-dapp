@@ -1131,7 +1131,6 @@ label {
   text-align: center;
 }
 .description-thumbnial .thumb {
-  max-width: 380px;
   margin: 80px auto 0px;
 }
 .description-thumbnial .thumb figcaption {
