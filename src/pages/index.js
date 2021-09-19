@@ -148,7 +148,7 @@ function IndexPage() {
             </div>
             <div className="hero-v1-content">
               <div className="shape">
-                <img src="assets/img/shape/triangle.png" alt="shape" />
+                <img src="assets/img/shape/stamp.png" alt="shape" />
               </div>
               <div className="title">
                 <img src="assets/img/logo/hero-logo.svg" alt="logo" />
