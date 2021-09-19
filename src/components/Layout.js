@@ -1,22 +1,16 @@
 import { useEthers } from "@usedapp/core";
-import React from "react";
-import {
-  useDisclosure,
-} from "@chakra-ui/react";
-
+import React, { useContext } from "react";
 import Head from "./Head";
 import networkMatches from "../lib/networkMatches";
-import ConnectWalletModal from "./ConnectWalletModal";
 import NetworkErrorMessage  from "./NetworkErrorMessage";
 import WalletInfo from "./WalletInfo";
+import WalletModalContext from "../lib/walletModalContext";
 
-const Layout = ({ children, ...customMeta }) => {
+export const Layout = ({ children, ...customMeta }) => {
   const { account } = useEthers();
   const incorrectNetwork = !networkMatches();
-  const { onOpen, isOpen, onClose } = useDisclosure();
+  const modalContext = useContext(WalletModalContext);
 
-  const walletModal = <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>;
-  
   return (
     <>
       <Head {...customMeta} />
@@ -37,16 +31,17 @@ const Layout = ({ children, ...customMeta }) => {
                   <WalletInfo />
                 ) : (
                   <div className="header-button">
-                      <a href="#" onClick={onOpen}>Connect wallet</a>
+                      <a href="#" onClick={modalContext.onOpen}>Connect wallet</a>
                   </div>
               )}
           </div>
         </div>
       </header>
-          
+      
+      
       {children}
 
-      {walletModal}
+      {modalContext.modalComponent}
 
       <div className="footer text-center">
         <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>
@@ -54,5 +49,3 @@ const Layout = ({ children, ...customMeta }) => {
     </>
   );
 };
-
-export default Layout;

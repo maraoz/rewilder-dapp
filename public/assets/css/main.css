@@ -10,6 +10,8 @@ body {
   background-image: url("/assets/img/body-bg.png");
   background-size: cover;
   background-attachment: fixed;
+  position: -webkit-sticky;
+  position: sticky;
 }
 body::after {
   position: absolute;
@@ -28,6 +30,8 @@ body::after {
 body.overlay {
   overflow: hidden !important;
   transition: all 0.4s ease-in-out;
+  position: -webkit-sticky;
+  position: sticky;
 }
 body.overlay:after {
   opacity: 1;
@@ -649,7 +653,7 @@ label {
   }
 }
 .connect-wallet-popup {
-  position: absolute;
+  position: fixed;
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);

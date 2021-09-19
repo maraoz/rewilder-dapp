@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Router from 'next/router'
 
-import { useDisclosure } from "@chakra-ui/react";
 import Slider from "@material-ui/core/Slider";
 import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
 import { ethers } from 'ethers';
 
-import Layout from "./../components/Layout";
+import { Layout, ModalContext } from "./../components/Layout";
 import { addressFor } from "../lib/addresses";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
-import ConnectWalletModal from "../components/ConnectWalletModal";
 import ThanksForDonating from "../components/ThanksForDonating";
 import Button from "../components/Button";
 import InformationIcon from "../components/InformationIcon";
 import FLAVOR_TEXT from "../lib/flavorText";
 import networkMatches from "../lib/networkMatches";
 import config from "../config";
+import WalletModalContext from "../lib/walletModalContext";
 
 import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
 
 function IndexPage() {
   const { account, error, library } = useEthers();
-  const { onOpen, isOpen, onClose } = useDisclosure();
   const etherBalance  = useEtherBalance(account);
+  const modalContext = useContext(WalletModalContext);
   
   const [amount, setAmount] = useState(1);
   const [walletOpened, setWalletOpened] = useState(false);
@@ -124,7 +123,7 @@ function IndexPage() {
   // call the campaign smart contract, send a donation
   const donate = () => {
     if (!account) {
-      return onOpen();
+      return modalContext.onOpen();
     }
     if (!amount) return;
     const donationAmountWEI = ethers.utils.parseEther(amount.toString());
@@ -138,6 +137,9 @@ function IndexPage() {
 
   return (
     <Layout>
+      {
+        
+      }
       <section className="hero-v1-area">
         <div className="container">
           <div className="hero-v1-wrapper">
@@ -218,6 +220,7 @@ function IndexPage() {
                   </div>
                   <div className="hero-v1-btn">
                     <Button 
+                      href="#"
                       onClick={donate} 
                       isLoading={walletOpened || donateTx.status=="Mining"}
                       disabled={networkIncorrect || alreadyDonated || insufficientBalance}
@@ -232,7 +235,6 @@ function IndexPage() {
           </div>
         </div>
       </section>
-      {/* <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal> */}
     </Layout>
   );
 }
