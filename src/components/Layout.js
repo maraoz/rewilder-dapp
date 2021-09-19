@@ -21,7 +21,7 @@ const Layout = ({ children, ...customMeta }) => {
   return (
     <>
       <Head {...customMeta} />
-      <header className="header-area-v1">
+      <header className="header-area-v1 connect-header disconnect-header">
         <div className="container-fluid">
           <div className="header-v1-wrapper">
             <div className="logo">
