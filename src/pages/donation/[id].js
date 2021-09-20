@@ -21,10 +21,8 @@ function NftPage(props) {
 
   const tokenId = router.query.id;
   const { data, status } = useToken(tokenId);
-  console.log(data.attributes);
   const attributes = {};
   data.attributes.map(({trait_type, value}) => { attributes[trait_type] = value;});
-  console.log(attributes);
   const openseaURL = "https://" + 
     (config.networkName=='mainnet'?'':'testnets.')+
     'opensea.io/assets/'+addressFor("RewilderNFT")+
