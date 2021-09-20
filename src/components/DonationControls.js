@@ -1,5 +1,6 @@
 import React, { useState , useContext, useEffect } from "react";
-import Slider from "@material-ui/core/Slider";
+import SliderUnstyled from '@mui/core/SliderUnstyled';
+import { styled, alpha, Box } from '@mui/system';
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { ethers } from 'ethers';
 
@@ -9,6 +10,70 @@ import networkMatches from "../lib/networkMatches";
 import config from "../config";
 import WalletModalContext from "../lib/walletModalContext";
 
+const RewilderSlider = styled(SliderUnstyled)(
+  ({ theme }) => `
+  color: ${theme.palette.mode === 'light' ? '#158D0C' : '#158D0C'};
+  height: 10px;
+  width: 100%;
+  padding: 13px 0;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.75;
+  &:hover {
+    opacity: 1;
+  }
+
+  & .MuiSlider-rail {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    border-radius: 2px;
+    background-color: currentColor;
+    opacity: 0.38;
+  }
+
+  & .MuiSlider-track {
+    display: block;
+    position: absolute;
+    height: 8px;
+    border-radius: 2px;
+    background-color: currentColor;
+  }
+
+  & .MuiSlider-thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    // background-image: url("/assets/img/logo/logo-small-white.png");
+    margin-left: -6px;
+    margin-top: -5px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    outline: 0;
+    border: 2px solid currentColor;
+    // background-color: currentColor;
+    background-color: #fff;
+    :hover,
+    &.Mui-focusVisible {
+      box-shadow: 0 0 0 0.25rem ${alpha(
+        theme.palette.mode === 'light' ? '#1976d2' : '#90caf9',
+        0.15,
+      )};
+    }
+
+    &.Mui-active {
+      box-shadow: 0 0 0 0.25rem ${alpha(
+        theme.palette.mode === 'light' ? '#1976d2' : '#90caf9',
+        0.3,
+      )};
+    }
+  }
+`,
+);
 
 function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet }) {
   
@@ -40,18 +105,6 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
     donateTx.status == 'Mining'?
       "Donation tx pending":
       "Sign Transaction in Wallet";
-
-  const sliderMarks = [
-    {
-      value: 1,
-    },
-    {
-      value: 33,
-    },
-    {
-      value: 66,
-    },
-  ];
 
   const handleSliderChange = (event, newValue) => {
     setAmount(newValue);
@@ -115,21 +168,30 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
       </div>
     </div>
     <div className="range-input">
-        <input type="range" min="1" max="100" onChange={handleSliderChange} value={amount} step="0.1" list="tickmarks" id="rangeInput" />
+        {/* <input type="range" min="1" max="100" onChange={handleSliderChange} value={amount} step="0.1" list="tickmarks" id="rangeInput" />
         <div id="selector" style={{left: `${amount}%`}}>
           <div className="SelectBtn">
           </div>
         </div>
-        <div id="Progressbar" style={{width: `${amount}%`}}></div>
-        {/* <Slider 
+        <div id="Progressbar" style={{width: `${amount}%`}}></div> */}
+        <RewilderSlider 
           value={amount}
           min={1}
           step={1}
           max={100}
           disabled={alreadyDonated}
-          marks={sliderMarks}
           onChange={handleSliderChange}
-        /> */}
+        />
+    </div>
+    <div className="range-value">
+        <span>
+          1 ETH{" "}
+          <InformationIcon text={"1 ETH."}/>
+        </span>
+        <span>
+          100 ETH{" "}
+        <InformationIcon text={"100 ETH."}/>
+        </span>
     </div>
     <div className="donating-value">
       <h4 className="view-amount">
