@@ -386,23 +386,22 @@ label {
 .header-button a:hover::before {
   opacity: 1;
 }
-.stamp {
+.frame {
   mix-blend-mode: overlay;
-  user-drag: none;
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  opacity: .2;
 }
 
-.nft {
+.nft-image {
   position: absolute;
   padding: 1.5rem;
   height: 446px;
   width: 390px;
   z-index: 10;
-  user-drag: none;
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
@@ -1141,27 +1140,33 @@ label {
   margin-top: 55px;
 }
 
-.description-content {
-  width: 50%;
+/* DONATION CARD */
+.donation {
+  width: 42rem;
+  height: 90vh;
+  min-height: 40rem;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 16px;
-  padding: 40px 50px 10px;
+  padding: 2.5rem 3rem;
   position: relative;
+  overflow: scroll;
 }
-.description-content .shape {
+
+/* donation header */
+.donation .stamp {
   position: absolute;
   top: 25px;
   right: 30px;
   max-width: 90px;
 }
-.description-content .title span {
+.donation .title span {
   font-weight: 800;
   font-size: 14px;
   line-height: 18px;
   font-family: "Airbnb Cereal App Extra Bold";
   color: #388447;
 }
-.description-content .title h2 {
+.donation .title h2 {
   color: #fff;
   font-family: "Airbnb Cereal App Black";
   font-style: normal;
@@ -1172,14 +1177,24 @@ label {
   padding: 0;
   margin-top: 8px;
 }
-.description-content .option {
-  padding: 40px 0px;
-  border-bottom: 2px solid #202D24;
+.donation .info-container {
+  padding: 2rem 0;
 }
-.description-content .option .single-option {
+.donation .info-container .flex {
   display: flex;
+  padding-bottom: 1.75rem;
 }
-.description-content .option .single-option .option-img {
+
+/* DonationInfo component */
+.donation-info {
+  display: flex;
+  align-content: center;
+  margin-right: 3rem;
+}
+.donation-info:last-child {
+  margin-right: 0;
+}
+.donation-info .donation-img {
   width: 40px;
   height: 40px;
   display: flex;
@@ -1189,7 +1204,7 @@ label {
   border-radius: 50%;
   margin-right: 12px;
 }
-.description-content .option .single-option .option-title span {
+.donation-info span {
   font-size: 12px;
   line-height: 16px;
   font-weight: 700;
@@ -1197,7 +1212,7 @@ label {
   color: #758078;
   display: block;
 }
-.description-content .option .single-option .option-title h4 {
+.donation-info h4 {
   font-size: 18px;
   line-height: 23px;
   font-family: "Airbnb Cereal App Bold";
@@ -1206,79 +1221,65 @@ label {
   padding: 0;
   margin-top: 3px;
 }
-.description-content .option .top-option {
-  display: flex;
-}
-.description-content .option .top-option .single-option {
-  margin-right: 55px;
-}
-.description-content .option .top-option .single-option:last-child {
-  margin-right: 0;
-}
-.description-content .option .bottom-option {
-  margin-top: 30px;
+
+/* donation updates */
+.updates h5{
+  font-family: 'Airbnb Cereal App Bold', sans-serif;
+  font-weight: bold;
+  color: #F7FAF8;
+  margin: 2rem 0 1rem;
 }
 
-.donation-updates {
-  margin-top: 40px;
-}
-.donation-updates .single-updates {
+/* DonationUpdate component */
+.update-card {
   background: #162018;
-  border-radius: 8px;
-  padding: 16px 45px 16px 16px;
-  margin-bottom: 15px;
+  border-radius: .5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
   display: flex;
-  position: relative;
+  justify-content: space-between;
 }
-.donation-updates .single-updates:last-child {
+.update-card:last-child {
   margin-bottom: 0;
 }
-.donation-updates .single-updates .update-close {
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  cursor: pointer;
-}
-.donation-updates .single-updates .update-icon {
-  width: 40px;
-  height: 40px;
+.update-card .update-icon {
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: #0D0F09;
-  position: absolute;
-  top: 16px;
-  left: 16px;
 }
-.donation-updates .single-updates .update-icon img {
-  width: 16px;
+.update-card .update-icon img {
+  width: 1rem;
 }
-.donation-updates .single-updates .update-content {
-  padding-left: 56px;
+.update-card .update-content {
+  padding: 0 1rem;
+  flex-grow: 2;
+  font-size: 0.95rem;
+  width: min-content;
 }
-.donation-updates .single-updates .update-content span {
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 16px;
-  font-family: "Airbnb Cereal App Bold";
-  color: #758078;
-}
-.donation-updates .single-updates .update-content h4 {
-  font-size: 14px;
-  line-height: 20px;
+.update-card .update-content p {
+  margin-top: .25rem;
   color: #F7FAF8;
-  margin: 0;
-  padding: 0;
-  margin-top: 8px;
-  display: block;
-  max-width: 426px;
 }
-.donation-updates .single-updates .update-content h4 a {
+.update-card .update-content a {
   color: #388447;
   text-decoration: underline;
-  margin-left: 5px;
-  display: inline-block;
+}
+.update-card .update-content span {
+  font-weight: bold;
+  font-size: 0.75rem;
+  font-family: 'Airbnb Cereal App Bold', sans-serif;
+  color: #758078;
+}
+.update-card .close {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  background: black;
 }
 
 @media screen and (max-width: 1199px) {
@@ -1287,7 +1288,7 @@ label {
     margin-right: 30px;
   }
 
-  .description-content {
+  .donation {
     width: 60%;
   }
 }
@@ -1307,8 +1308,10 @@ label {
     margin-top: 30px;
   }
 
-  .description-content {
-    width: 100%;
+  .donation {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 50px;
   }
 }
@@ -1317,17 +1320,14 @@ label {
     padding: 20px;
   }
 
-  .description-content {
-    padding: 25px 25px 10px;
+  .donation {
+    padding: 1.5rem;
+    width: 100%;
   }
 }
 @media screen and (max-width: 575px) {
   .description-area {
     padding: 0px;
-  }
-
-  .description-content {
-    padding: 20px 15px 10px;
   }
 
   .description-thumbnial .thumb {
@@ -1338,52 +1338,45 @@ label {
     font-size: 14px;
   }
 
-  .description-content .shape {
+  .donation .shape {
     top: 10px;
     right: 10px;
     max-width: 60px;
   }
-  .description-content .title h2 {
-    font-size: 24px;
-    line-height: 30px;
-    margin-top: 5px;
+
+  .donation {
+    padding: 2rem 0px;
+    width: 100%;
   }
-  .description-content .option {
-    padding: 30px 0px;
-  }
-  .description-content .option .single-option {
+  .donation .donation-update {
     flex-direction: column;
   }
-  .description-content .option .single-option .option-title h4 {
-    font-size: 16px;
+  .donation .donation-update h4 {
+    font-size: 1rem;
     line-height: 20px;
     margin-top: 3px;
   }
-  .description-content .option .single-option .option-img {
+  .donation .donation-update .update-icon {
     margin-right: 0;
     margin-bottom: 6px;
   }
-  .description-content .option .top-option .single-option {
+  .donation .top-option .donation-update {
     margin-right: 50px;
   }
-
-  .donation-updates {
-    margin-top: 25px;
-  }
-  .donation-updates .single-updates {
+  .update-card {
     flex-direction: column;
     padding: 15px;
   }
-  .donation-updates .single-updates .update-icon {
+  .update-card .update-icon {
     position: unset;
     margin-bottom: 6px;
   }
-  .donation-updates .single-updates .update-content {
+  .update-card .update-content {
     padding-left: 0;
   }
 }
 
-/*# sourceMappingURL=main.css.map */
+/* # sourceMappingURL=main.css.map */
 
 
 /* extras added by maraoz */

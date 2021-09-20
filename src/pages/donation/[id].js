@@ -42,38 +42,35 @@ function DonationPage(props) {
           <div className="description-wrapper">
             <div className="description-thumbnial">
               <div className="donation-logo">
-                <a href="#">
-                  <img src="/assets/img/logo/logo.svg" alt="logo"/>
-                </a>
+                <img src="/assets/img/logo/logo.svg" alt="logo"/>
               </div>
               <div className="thumb">
-                <img src={imageSource} className="nft" alt="nft"/>
-                <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="stamp"/>
+                <img src={imageSource} className="nft-image" alt="nft"/>
+                <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="frame"/>
                 <figcaption>“{attributes["flavor text"]}”</figcaption>
               </div>
             </div>
-            <div className="description-content">
-              <div className="shape">
-                <img src="/assets/img/icon/sticky-corner-logo.svg" alt={attributes.tier + " stamp"}/>
-              </div>
-              <div className="title">
-                <span>Tier: {attributes.tier}</span>
-                <h2>{data.name}</h2>
-              </div>
-              <div className="option">
-                <div className="top-option">
-                  <DonationInfo 
-                    image="/assets/images/icon/donation.svg"
-                    label="donation"
-                    data={attributes["amount donated"]}
-                  />
-                  <DonationInfo 
-                    image="/assets/images/icon/rewilder-logo.svg"
-                    label="rewilding"
-                    data="Location TBD"
-                  />
+
+            <div className="donation">
+              <div className="header">
+                <img src="/assets/img/icon/sticky-corner-logo.svg" alt={attributes.tier + " stamp"} className="stamp"/>
+                <div className="title">
+                  <span>Tier: {attributes.tier}</span>
+                  <h2>{data.name}</h2>
                 </div>
-                <div className="bottom-option">
+                <div className="info-container">
+                  <div className="flex">
+                    <DonationInfo 
+                      image="/assets/images/icon/donation.svg"
+                      label="donation"
+                      data={attributes["amount donated"]}
+                    />
+                    <DonationInfo 
+                      image="/assets/images/icon/rewilder-logo.svg"
+                      label="rewilding"
+                      data="Location TBD"
+                    />
+                  </div>
                   <DonationInfo 
                     image="/assets/images/icon/amount-icon.svg"
                     label="donor"
@@ -82,8 +79,8 @@ function DonationPage(props) {
                 </div>
               </div>
             
-              <h3>Updates</h3>
-              <div className="donation-updates">
+              <div className="updates">
+                <h5>Updates</h5>
                 <DonationUpdate 
                   icon="/assets/images/icon/info.svg"
                   iconalt="alt name"
