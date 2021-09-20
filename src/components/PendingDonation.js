@@ -7,8 +7,8 @@ import config from "../config";
 function PendingDonation({ donateTx }) {
 
   return (
-    <div class="pending-donation">
-      <div class="circle-shape">
+    <div className="pending-donation">
+      <div className="circle-shape">
           <img src="/assets/img/shape/circle-shape.svg" alt="loading" />
       </div>
       <h4>Donation transaction pending</h4>
