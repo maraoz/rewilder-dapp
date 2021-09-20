@@ -8,6 +8,7 @@ import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
 import { useDonation } from "../lib/rewilderDonationCampaign";
 import ThanksForDonating from "../components/ThanksForDonating";
 import DonationControls from "../components/DonationControls";
+import PendingDonation from "../components/PendingDonation";
 import FLAVOR_TEXT from "../lib/flavorText";
 
 function IndexPage() {
@@ -31,6 +32,7 @@ function IndexPage() {
   const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
     
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
+  // TODO: remove this debugging effect
   useEffect(() => {
     if (error) {
       console.log(`error!! fix this:`, error);
@@ -65,9 +67,11 @@ function IndexPage() {
                 <h2>Edition 001: Origin</h2>
               </div>
               {
-                !alreadyDonated?
-                  <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>:
-                  <ThanksForDonating tokenId={tokenId}/>
+                alreadyDonated?
+                  <ThanksForDonating tokenId={tokenId}/>:
+                  donateTx.status == 'Mining'?
+                    <PendingDonation {...{donateTx}} />:
+                    <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
               }
             </div>
           </div>

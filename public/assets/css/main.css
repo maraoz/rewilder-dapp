@@ -1091,7 +1091,7 @@ label {
   line-height: 16px;
   margin-top: 10px;
 }
-.pending-donation a i {
+.pending-donation a svg {
   font-size: 12px;
   margin-left: 5px;
 }

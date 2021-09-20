@@ -12,6 +12,7 @@ function WalletInfo() {
   const { account, deactivate } = useEthers();
   const etherBalance  = useEtherBalance(account);
   const size = 15;
+  // TODO: pick better colors
   const palette = ["#158D0C", "#3F6947", "#339645"];
   return (
     account && (
@@ -29,7 +30,7 @@ function WalletInfo() {
             <Menu.Item as="div" className="disconnect">
               {({ active }) => (
                 <a href="#" onClick={deactivate}>
-                  <FontAwesomeIcon className="far" icon={faSignOutAlt} />
+                  <FontAwesomeIcon icon={faSignOutAlt} />
                   Disconnect
                 </a>
               )}
