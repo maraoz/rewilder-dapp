@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { ethers } from 'ethers';
-import { useEthers, useContractFunction } from "@usedapp/core";
+
+import { useEthers } from "@usedapp/core";
 import Router from 'next/router'
 
 import { Layout } from "./../components/Layout";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
+import { useDonation } from "../lib/rewilderDonationCampaign";
 import ThanksForDonating from "../components/ThanksForDonating";
 import DonationControls from "../components/DonationControls";
 import FLAVOR_TEXT from "../lib/flavorText";
-import { addressFor } from "../lib/addresses";
-import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
-
 
 function IndexPage() {
   const { account, error } = useEthers();
@@ -30,16 +28,7 @@ function IndexPage() {
   const tier = getTierForAmount(amount);
   const flavorText = FLAVOR_TEXT[tier]; 
   
-  // TODO: move this to rewilderNFT.js :: useDonate or something
-  const RewilderDonationCampaignInterface = new ethers.utils.Interface(RewilderDonationCampaign.abi)
-  const campaignAddress = addressFor("RewilderDonationCampaign");
-  const campaign = new ethers.Contract(
-    campaignAddress,
-    RewilderDonationCampaignInterface,
-    );
-    
-  const { state: donateTx , events: donationEvents, send: requestDonationToWallet } =
-  useContractFunction(campaign, "donate", { transactionName: 'Donate' });
+  const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
     
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
   useEffect(() => {

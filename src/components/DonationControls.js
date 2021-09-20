@@ -69,7 +69,6 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   useEffect(() => {
     if (donateTx.status == 'Exception' || 
         donateTx.status == 'Mining') {
-      console.log('status=', donateTx.status);
       setWalletOpened(false);
     }
   }, [donateTx]);
