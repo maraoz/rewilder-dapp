@@ -4,27 +4,19 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
   
   const [displayText, setDisplayText] = useState(text);
   useEffect(() => {
-    setDisplayText(text);
-  }, [text]);
-
-  useEffect(() => {
-    setDisplayText(text);
-  }, [text]);
-
-  useEffect(() => {
-    if (isLoading) {
+    if (isLoading && loadingText) {
       setDisplayText(loadingText);
     } else {
       setDisplayText(text);
     }
-  }, [isLoading]);
+  }, [isLoading, loadingText, text]);
 
-  const clicked = () => {
+  const clicked = async () => {
     if (disabled || isLoading) {
       return;
     }
     if (typeof(onClick)==='function') {
-      return onClick();
+      await onClick();
     }
   }
 
