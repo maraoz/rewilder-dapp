@@ -142,7 +142,7 @@ function IndexPage() {
         <div className="container">
           <div className="hero-v1-wrapper">
             <div className="hero-v1-thumb">
-              <img src={`assets/images/card-image-${tier}.jpg`} alt="hero" className="banner-image" />
+              <img src={`assets/img/donation/${tier}.jpg`} className="banner-image" />
               <p>“{flavorText}”</p>
             </div>
             <div className="hero-v1-content">
@@ -227,7 +227,7 @@ function IndexPage() {
                       />
                   </div>
                 </>:
-                  <ThanksForDonating tokenId={tokenId}/>
+                <ThanksForDonating tokenId={tokenId}/>
               }
             </div>
           </div>
