@@ -1,6 +1,6 @@
 import React, { useState , useContext, useEffect } from "react";
 import SliderUnstyled from '@mui/core/SliderUnstyled';
-import { styled, alpha, Box } from '@mui/system';
+import { styled, alpha } from '@mui/system';
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { ethers } from 'ethers';
 
@@ -10,66 +10,96 @@ import networkMatches from "../lib/networkMatches";
 import config from "../config";
 import WalletModalContext from "../lib/walletModalContext";
 
+const rewilderColor = '#277336';
 const RewilderSlider = styled(SliderUnstyled)(
-  ({ theme }) => `
-  color: ${theme.palette.mode === 'light' ? '#158D0C' : '#158D0C'};
+`
+  color: ${rewilderColor};
   height: 10px;
   width: 100%;
-  padding: 13px 0;
+  padding: 2px 0;
   display: inline-block;
   position: relative;
   cursor: pointer;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
-  opacity: 0.75;
+  opacity: 0.90;
   &:hover {
     opacity: 1;
+  }
+
+  & .MuiSlider-mark {
+    width: 1px;
+    height: 7px;
+    position: absolute;
+    display: inline;
+    background-color: rgba(63, 105, 71, 0.2);
   }
 
   & .MuiSlider-rail {
     display: block;
     position: absolute;
     width: 100%;
+    -webkit-appearance: none;
+    width: 100%;
     height: 8px;
-    border-radius: 2px;
-    background-color: currentColor;
-    opacity: 0.38;
+    background: #FAF8F6;
+    border: 1px solid rgba(63, 105, 71, 0.2);
+    outline: none;
+    border-radius: 6px;
   }
 
   & .MuiSlider-track {
-    display: block;
-    position: absolute;
+    width: 0%;
     height: 8px;
-    border-radius: 2px;
-    background-color: currentColor;
+    background: -webkit-linear-gradient(360deg, #3f6947 0%, #339445 100%);
+    border-radius: 6px;
+    position: absolute;
+    left: 0;
+    z-index: 1;
   }
 
   & .MuiSlider-thumb {
     position: absolute;
+    z-index: 3;
     width: 20px;
     height: 20px;
-    // background-image: url("/assets/img/logo/logo-small-white.png");
-    margin-left: -6px;
-    margin-top: -5px;
+    background-image: url("/assets/img/logo/logo-small-white.svg");
+    margin-top: -6px;
+    transform: translateX(-50%);
+    z-index: 2;
     box-sizing: border-box;
     border-radius: 50%;
     outline: 0;
     border: 2px solid currentColor;
-    // background-color: currentColor;
-    background-color: #fff;
+    opacity: 1;
+    background-color: ${rewilderColor};
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: 42% 50%;;
+    //background-color: #fff;
+    //background: rgb(56, 132, 71, 2);
     :hover,
     &.Mui-focusVisible {
       box-shadow: 0 0 0 0.25rem ${alpha(
-        theme.palette.mode === 'light' ? '#1976d2' : '#90caf9',
+        rewilderColor,
         0.15,
       )};
     }
 
+
     &.Mui-active {
       box-shadow: 0 0 0 0.25rem ${alpha(
-        theme.palette.mode === 'light' ? '#1976d2' : '#90caf9',
+        rewilderColor,
         0.3,
       )};
+    }
+
+    @media screen and (max-width: 767px) {
+      &.MuiSlider-thumb {
+        width: 30px;
+        height: 30px;
+        margin-top: -12px;
+      }
     }
   }
 `,
@@ -140,6 +170,15 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
     setWalletOpened(true);
   }
 
+  const marks = [
+    {
+      value: 33,
+    },
+    {
+      value: 66,
+    },
+  ];
+  
   return (<>
     <div className="tree-group">
       <div className="single-tree">
@@ -174,10 +213,11 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
           </div>
         </div>
         <div id="Progressbar" style={{width: `${amount}%`}}></div> */}
-        <RewilderSlider 
+        <RewilderSlider
           value={amount}
           min={1}
           step={1}
+          marks={marks}
           max={100}
           disabled={alreadyDonated}
           onChange={handleSliderChange}
