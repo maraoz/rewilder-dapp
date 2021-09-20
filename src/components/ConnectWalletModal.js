@@ -16,13 +16,14 @@ function ConnectWalletModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  const clickMetamask = () => {
-    activateBrowserWallet();
+  const clickMetamask = async () => {
+    await activateBrowserWallet();
     onClose();
   };
 
-  const clickWalletConnect = () => {
-    activate(walletconnect);
+  const clickWalletConnect = async () => {
+    await activate(walletconnect);
+    onClose();
   };
 
   // ESC key closes

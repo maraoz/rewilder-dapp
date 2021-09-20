@@ -137,9 +137,6 @@ function IndexPage() {
 
   return (
     <Layout>
-      {
-        
-      }
       <section className="hero-v1-area">
         <div className="container">
           <div className="hero-v1-wrapper">
