@@ -32,7 +32,7 @@ function DonationPage(props) {
     "/"+tokenId;
   // const imageSource = data.image;
   // TODO: use above in production
-  const imageSource = `/assets/images/card-image-${attributes.tier}.jpg`
+  const imageSource = `/assets/img/donation/${attributes.tier}.jpg`
 
   return (
     <>
