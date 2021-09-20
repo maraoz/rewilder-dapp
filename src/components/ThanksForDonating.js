@@ -1,20 +1,27 @@
 import Button from "./Button";
-import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import Router from 'next/router'
+
 
 function ThanksForDonating({ tokenId }) {
+
+  const [loading, setLoading] = useState(false);
+
+  const clicked = () => {
+    setLoading(true);
+    Router.push(`/donation/${tokenId}`);
+  };
 
   return (
     <>
       <div> Thanks for donating! </div>
-      <Link href={`/donation/${tokenId}`} >
-        <a>
-          <Button
-            text={"Go to your donation NFT"}
-            loadingText={"..."}
-          />
-        </a>
-      </Link>
+      <div className="hero-v1-btn">
+        <Button
+          text={"Go to your donation NFT"}
+          isLoading={loading}
+          onClick={clicked}
+        />
+      </div>
     </>
   );
 }

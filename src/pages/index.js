@@ -67,6 +67,7 @@ function IndexPage() {
           "Insufficient Balance":
           "Donate and mint your NFT";
 
+  
   const donateButtonLoadingText = !account?
     "Connecting Wallet":
     donateTx.status == 'Mining'?
@@ -128,13 +129,11 @@ function IndexPage() {
       return modalContext.onOpen();
     }
     if (!amount) return;
+    
     const donationAmountWEI = ethers.utils.parseEther(amount.toString());
-
-    if (library) {
-      console.log(`${account} is about to donate`, donationAmountWEI/1e18, "ETH");
-      requestDonateToWallet({value: donationAmountWEI});
-      setWalletOpened(true);
-    }
+    console.log(`${account} is about to donate`, donationAmountWEI/1e18, "ETH");
+    requestDonateToWallet({value: donationAmountWEI});
+    setWalletOpened(true);
   }
 
   return (
