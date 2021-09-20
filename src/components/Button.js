@@ -7,9 +7,21 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
     setDisplayText(text);
   }, [text]);
 
-  const clicked = () => {
-    if (loadingText) {
+  useEffect(() => {
+    setDisplayText(text);
+  }, [text]);
+
+  useEffect(() => {
+    if (isLoading) {
       setDisplayText(loadingText);
+    } else {
+      setDisplayText(text);
+    }
+  }, [isLoading]);
+
+  const clicked = () => {
+    if (disabled || isLoading) {
+      return;
     }
     if (typeof(onClick)==='function') {
       return onClick();
@@ -17,29 +29,13 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
   }
 
   return (
-    <a className="btn-theme"
+    <a className={"btn-theme"+((disabled || isLoading)?" disabled":"")}
       onClick={clicked} disabled={disabled || isLoading} >
       {isLoading && 
-        <div className="circle-shape">
-            <img src="assets/img/shape/circle-shape.svg" alt="shape" />
-        </div>
+        <img className="circle-shape" src="assets/img/shape/circle-shape.svg" alt="shape" />
       }
-      {displayText}{isLoading}{disabled}
+      {displayText}
     </a>
-    
-    // <div className="d-grid gap-2 mb-3 mb-md-0">
-    //   <button 
-    //     className="btn btn-custom"
-    //     onClick={clicked} 
-    //     disabled={disabled || isLoading}>
-    //     {isLoading && 
-    //       <div className="spinner-border text-white donate-spinner" role="status">
-    //       </div>
-    //     }
-    //     {displayText}
-
-    //   </button>
-    // </div>
   );
 }
 

@@ -245,6 +245,11 @@ label {
   opacity: 1;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: .65;
+}
+
 /* Others Common Css Here :) */
 .f-left {
   float: left;
@@ -799,10 +804,14 @@ label {
   margin: 0;
   padding: 0;
 }
+
+.circle-shape {
+  animation: rotate 1s linear infinite;
+}
+
 .sign-transaction-popup .circle-shape {
   max-width: 80px;
   margin: 60px auto 0px;
-  animation: rotate 1s linear infinite;
 }
 .sign-transaction-popup p {
   color: #5D657A;
@@ -1042,7 +1051,6 @@ label {
 .pending-donation .circle-shape {
   max-width: 80px;
   margin: 60px auto 0px;
-  animation: rotate 1s linear infinite;
 }
 .pending-donation h4 {
   color: #15203E;
@@ -1404,4 +1412,10 @@ input[type=number] {
 }
 .hero-v1-content .tree-group .single-tree .tree-img.large-tree img {
   max-height: 5rem;
+}
+
+.btn-theme .circle-shape {
+  max-width: 1rem;
+  filter: invert(100%) sepia(1%) saturate(218%) hue-rotate(142deg) brightness(117%) contrast(100%);
+  margin: auto 10px;
 }

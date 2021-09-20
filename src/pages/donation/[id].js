@@ -16,12 +16,15 @@ import {
   getAllTokens as getAllTokensServer,
 } from "../../lib/server/db";
 
-function NftPage(props) {
+function DonationPage(props) {
   const router = useRouter();
 
   const tokenId = router.query.id;
   const { data, status } = useToken(tokenId);
   const attributes = {};
+  if (status == 'loading') {
+    return "";
+  }
   data.attributes.map(({trait_type, value}) => { attributes[trait_type] = value;});
   const openseaURL = "https://" + 
     (config.networkName=='mainnet'?'':'testnets.')+
@@ -128,6 +131,7 @@ function NftPage(props) {
     </>
   );
 }
+export default DonationPage;
 
 // Pre-render pages at build-time
 export async function getStaticProps(context) {
@@ -141,9 +145,6 @@ export async function getStaticProps(context) {
     },
   };
 }
-
-export default NftPage;
-
 // Generates routes for all pages we want to pre-render
 export async function getStaticPaths() {
   // Get all tokens
@@ -152,7 +153,6 @@ export async function getStaticPaths() {
   const paths = tokens.map((token) => ({
     params: { id: token.id },
   }));
-
   return {
     paths,
     // Server-render on demand if page does't exist yet

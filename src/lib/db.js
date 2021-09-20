@@ -3,12 +3,7 @@ import { apiRequest } from "./util";
 
 // Get token
 export function useToken(id) {
-  return useQuery(["token", { id }], () => apiRequest(`token?id=${id}`), {
+  return useQuery([`api/v1/${id}`], () => apiRequest(`${id}`), {
     enabled: !!id,
   });
-}
-
-// Get all tokens
-export function useAllTokens() {
-  return useQuery(["tokens"], () => apiRequest(`tokens`));
 }

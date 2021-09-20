@@ -58,7 +58,7 @@ function IndexPage() {
   const flavorText = FLAVOR_TEXT[tier]; 
 
   const donateButtonText = networkIncorrect?
-    `Change wallet network to ${config.networkName} to donate`:
+    `Change wallet network to ${config.networkName}`:
     !account?
       "Connect Wallet":
       alreadyDonated?
@@ -69,7 +69,9 @@ function IndexPage() {
 
   const donateButtonLoadingText = !account?
     "Connecting Wallet":
-    "Sign Transaction in Wallet"
+    donateTx.status == 'Mining'?
+      "Donation tx pending":
+      "Sign Transaction in Wallet";
 
   const sliderMarks = [
     {
