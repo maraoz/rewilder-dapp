@@ -889,7 +889,7 @@ label {
 .connect-header .connect-button {
   background: #0D0F09;
   border-radius: 12px;
-  padding: 4px 4px 4px 10px;
+  padding: 4px 4px 3px 10px;
 }
 .connect-header .connect-button a {
   font-family: 'Azeret Mono', monospace;
@@ -898,24 +898,25 @@ label {
   line-height: 1;
 }
 .connect-header .connect-button a span {
-  margin: 3px 0;
   background: #28332C;
   border-radius: 8px;
   padding: 4px 8px 4px 6px;
   display: inline-flex;
   align-items: center;
   margin-left: 8px;
+  margin-top: 2px;
 }
 
 .connect-header .connect-button a span.balance {
+  margin-bottom: 3px;
   vertical-align: bottom;
   background: none;
+  padding-left: 0;
 }
 
 .connect-header .connect-button a span canvas {
-  border-radius: 1.125rem;
-  max-width: 14px;
-  margin-right: 4px;
+  border-radius: 1rem;
+  margin-right: 8px;
 }
 
 .connect-error-popup {
