@@ -1394,6 +1394,7 @@ label {
   color: #8C8D91;
   line-height: 16px;
   margin-top: 8px;;
+  z-index: 10;
 }
 
 .selected-amount {
