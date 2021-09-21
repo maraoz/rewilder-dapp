@@ -12,7 +12,7 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
   }
 
   return (
-    <a className={"btn-theme"+((disabled || isLoading)?" disabled":"")}
+    <a href="#" className={"btn-theme"+((disabled || isLoading)?" disabled":"")}
       onClick={clicked} disabled={disabled || isLoading} >
       {isLoading && 
         <img className="circle-shape" src="assets/img/shape/circle-shape.svg" alt="shape" />

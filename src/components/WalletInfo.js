@@ -13,16 +13,18 @@ function WalletInfo() {
   const etherBalance  = useEtherBalance(account);
   const size = 15;
   // TODO: pick better colors
-  const palette = ["#158D0C", "#3F6947", "#339645"];
+  const palette = ["#3F6947", "#158D0C", "#339645"];
   return (
     account && (
       <>
         <Menu as="span" className="connect-button disconnect-button">
           <Menu.Button as="a" href="#">
-            {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
-            {" "}ETH{" "}
+            <span className="balance">
+              {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
+              {" "}ETH{" "}
+            </span>
             <span>
-              <Identicon palette={palette} string={account} size={size} />
+              <Identicon palette={palette} bg="#FAF8F6" string={account} size={size} />
               {"  "}{truncateHash(account)}
             </span>
           </Menu.Button>

@@ -32,7 +32,7 @@ function Head(props) {
       {meta.domain && <link rel="canonical" href={`${meta.domain}${router.asPath}`} key="canonical" />}
 
       {/* favicon */}
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.png" />
 
       {/* Google fonts */}
       <link
