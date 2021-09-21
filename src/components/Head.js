@@ -31,6 +31,9 @@ function Head(props) {
       <meta content={meta.description} name="description" key="description" />
       {meta.domain && <link rel="canonical" href={`${meta.domain}${router.asPath}`} key="canonical" />}
 
+      {/* favicon */}
+      <link rel="shortcut icon" href="/favicon.ico" />
+
       {/* Google fonts */}
       <link
         href="https://fonts.googleapis.com/css2?family=Azeret+Mono&display=swap"
