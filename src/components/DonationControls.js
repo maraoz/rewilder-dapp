@@ -171,7 +171,6 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   }
 
   const setMinimumFor = (tier) => {
-    console.log(tier);
     switch (tier) {
       case 'cypress':
         setAmount(0);
