@@ -508,6 +508,7 @@ label {
 .hero-v1-content .tree-group .single-tree {
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 .hero-v1-content .tree-group .single-tree .tree-img {
   max-width: 45px;
