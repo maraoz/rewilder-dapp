@@ -1062,7 +1062,7 @@ label {
   text-align: center;
   margin: 120px 0px 0px;
 }
-.pending-donation .circle-shape {
+.pending-donation .main-shape {
   max-width: 80px;
   margin: 60px auto 0px;
 }
@@ -1105,7 +1105,7 @@ label {
   .pending-donation {
     margin: 30px 0px 0px;
   }
-  .pending-donation .circle-shape {
+  .pending-donation .main-shape {
     max-width: 55px;
     margin: 0px auto 0px;
   }
