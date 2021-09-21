@@ -140,7 +140,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
     setAmount(newValue);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event, newValue) => {
     if (event.target.value == "") {
       setAmount("");
       return;
@@ -226,11 +226,11 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
     <div className="range-value">
         <span>
           1 ETH{" "}
-          <InformationIcon text={"1 ETH."}/>
+          <InformationIcon text={"Our current best estimates say that donating the equivalent of $3000 USD in crypto will help add ~1 hectare (~2.5 acres) of wildland to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum donation value."}/>
         </span>
         <span>
           100 ETH{" "}
-        <InformationIcon text={"100 ETH."}/>
+        <InformationIcon text={"Given this is our first fundraising campaign, we've decided to set a maximum donation per address"}/>
         </span>
     </div>
     <div className="donating-value">
@@ -240,6 +240,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
           className="selected-amount"
           type="number"
           value={amount}
+          min={1}
           disabled={alreadyDonated}
           onChange={handleInputChange}
           />{" "} <img src="assets/img/icon/eth.svg" height="16" width="16" alt="ETH" /> ETH</h4>
