@@ -15,15 +15,14 @@ function ThanksForDonating({ tokenId }) {
   };
   return (
     <>
-      <div className="pending-donation">
-        <FontAwesomeIcon icon={faCheckCircle} />
+      <div className="donation-message">
+        <div className="main-shape">
+          <img src="/assets/img/shape/check-shape.svg" alt="success" />
+        </div>
         <h4>Thanks for donating!</h4>
-        <a href={getExplorerTransactionLink(donateTx.transactionHash, config.chainId)??"#"} target="_blank">
-          View on etherscan{" "}
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </a>
         <div className="hero-v1-btn">
           <Button
+            href="#"
             text={"Go to your donation NFT"}
             isLoading={loading}
             onClick={clicked}

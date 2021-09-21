@@ -339,7 +339,6 @@ label {
 }
 
 .logo {
-  /* max-width: 115px; */
   position: absolute;
   top: 25px;
   left: 50%;
@@ -349,6 +348,7 @@ label {
   width: 100%;
 }
 .logo .small-logo {
+  margin-left: 10px;
   display: none;
 }
 
@@ -439,7 +439,7 @@ label {
   }
 }
 .hero-v1-area {
-  padding: 60px 0px 100px;
+  padding: 20px 0px 80px;
 }
 
 .hero-v1-wrapper {
@@ -1058,15 +1058,20 @@ label {
     margin-top: 10px;
   }
 }
-.pending-donation {
+.donation-message {
   text-align: center;
-  margin: 120px 0px 0px;
+  margin: 100px 0px 0px;
 }
-.pending-donation .main-shape {
+.donation-message .main-shape {
   max-width: 80px;
   margin: 60px auto 0px;
 }
-.pending-donation h4 {
+.donation-message .main-shape svg {
+  color: #277336;
+  width: 100%;
+  font-size: 5em;
+}
+.donation-message h4 {
   color: #15203E;
   font-size: 20px;
   line-height: 1.2;
@@ -1075,7 +1080,7 @@ label {
   padding: 0;
   margin-top: 20px;
 }
-.pending-donation a {
+.donation-message a {
   display: inline-flex;
   align-items: center;
   color: #8C8D91;
@@ -1083,7 +1088,7 @@ label {
   line-height: 16px;
   margin-top: 10px;
 }
-.pending-donation a svg {
+.donation-message a svg {
   font-size: 12px;
   margin-left: 5px;
 }
@@ -1094,22 +1099,22 @@ label {
     padding: 15px 15px;
   }
 
-  .pending-donation {
-    margin: 100px 0px 0px;
+  .donation-message {
+    margin: 80px 0px 0px;
   }
-  .pending-donation h4 {
+  .donation-message h4 {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 767px) {
-  .pending-donation {
+  .donation-message {
     margin: 30px 0px 0px;
   }
-  .pending-donation .main-shape {
+  .donation-message .main-shape {
     max-width: 55px;
     margin: 0px auto 0px;
   }
-  .pending-donation h4 {
+  .donation-message h4 {
     margin-top: 15px;
   }
 }
@@ -1437,4 +1442,7 @@ input[type=number] {
   max-width: 1rem;
   filter: invert(100%) sepia(1%) saturate(218%) hue-rotate(142deg) brightness(117%) contrast(100%);
   margin: auto 10px;
+}
+a.btn-theme {
+  color: white;
 }
