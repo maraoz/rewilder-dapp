@@ -340,7 +340,6 @@ label {
 
 .logo {
   position: absolute;
-  top: 25px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -899,6 +898,7 @@ label {
   line-height: 1;
 }
 .connect-header .connect-button a span {
+  margin: 3px 0;
   background: #28332C;
   border-radius: 8px;
   padding: 4px 8px 4px 6px;
@@ -906,6 +906,12 @@ label {
   align-items: center;
   margin-left: 8px;
 }
+
+.connect-header .connect-button a span.balance {
+  vertical-align: bottom;
+  background: none;
+}
+
 .connect-header .connect-button a span canvas {
   border-radius: 1.125rem;
   max-width: 14px;
@@ -1024,10 +1030,9 @@ label {
     padding: 10px 45px;
   }
 }
-.disconnect-header .disconnect-button {
-  padding: 12px;
-}
 .disconnect-header .disconnect-button .disconnect {
+  padding-right: 12px;
+  padding-bottom: 12px;
   text-align: right;
   margin-top: 15px;
 }

@@ -19,8 +19,10 @@ function WalletInfo() {
       <>
         <Menu as="span" className="connect-button disconnect-button">
           <Menu.Button as="a" href="#">
-            {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
-            {" "}ETH{" "}
+            <span className="balance">
+              {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
+              {" "}ETH{" "}
+            </span>
             <span>
               <Identicon palette={palette} string={account} size={size} />
               {"  "}{truncateHash(account)}
