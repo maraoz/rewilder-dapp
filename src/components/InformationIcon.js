@@ -26,7 +26,7 @@ const InformationIcon = React.forwardRef(({ text }, refs) => {
             onMouseEnter={() => onHover(open, true)}
             onMouseLeave={() => onHover(open, false)}
           >
-            <FontAwesomeIcon className="icon-color" icon={faQuestionCircle} />
+            <FontAwesomeIcon icon={faQuestionCircle} />
           </Popover.Button>
           {
             open && <Popover.Panel static

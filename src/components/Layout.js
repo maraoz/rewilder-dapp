@@ -1,68 +1,51 @@
 import { useEthers } from "@usedapp/core";
-import React from "react";
-import ConnectWallet from "./ConnectWallet";
-import NetworkErrorMessage  from "./NetworkErrorMessage";
-import WalletInfo from "./WalletInfo";
+import React, { useContext } from "react";
 import Head from "./Head";
 import networkMatches from "../lib/networkMatches";
+import NetworkErrorMessage  from "./NetworkErrorMessage";
+import WalletInfo from "./WalletInfo";
+import WalletModalContext from "../lib/walletModalContext";
 
-const Layout = ({ children, ...customMeta }) => {
+export const Layout = ({ children, ...customMeta }) => {
   const { account } = useEthers();
   const incorrectNetwork = !networkMatches();
-  
+  const modalContext = useContext(WalletModalContext);
+
   return (
     <>
       <Head {...customMeta} />
-      <header>
-      <section className="window-section">
+      <header className="header-area-v1 connect-header disconnect-header">
         <div className="container-fluid">
-          
-          {
-             <>
-            <nav className="navbar navbar-expand-md nav-custom">
-              <div className="d-flex d-sm-none w-50 order-0">
-                  <a className="navbar-brand" href="#">
-                    <img src="/assets/images/logo/logo-small-white.png" alt="Logo" height="18" />
-                  </a>
-              </div>
-              <div className="navbar-collapse d-none d-sm-block collapse justify-content-center order-1">
+          <div className="header-v1-wrapper">
+            <div className="logo">
                 <NetworkErrorMessage />
                 {
-                  !incorrectNetwork && <a className="nav-link" href="#">
-                    <img src="/assets/images/logo/logo-full-white.svg" alt="Logo" height="18" width="115" />
+                !incorrectNetwork &&
+                  <a href="#">
+                    <img className="big-logo" src="assets/img/logo/logo.svg" alt="logo" />
+                    <img className="small-logo" src="assets/img/logo/small-logo.svg" alt="logo" />
                   </a>
                 }
-              </div>
-            </nav>
-            <nav className="navbar navbar-expand-md nav-custom">
-              <div className="d-flex d-sm-none w-50">
-              </div>
-              <div className="navbar-collapse">
-              </div>
-              <div className="order-2">
-                {account ? (
+            </div>
+              {account ? (
                   <WalletInfo />
                 ) : (
-                  <ConnectWallet />
-                )}
-              </div>
-              
-            </nav>
-          </>
-          }
-
-          {children}
-
-          <div className="footer">
-            <div className="text-center">
-              © Rewilder Foundation, Inc.  -  Terms of use  -  Privacy
-            </div>
+                  <div className="header-button">
+                      <a href="#" onClick={modalContext.onOpen}>Connect wallet</a>
+                  </div>
+              )}
           </div>
         </div>
-      </section>
       </header>
+      
+      
+      {children}
+
+      {modalContext.modalComponent}
+
+      <div className="footer text-center">
+        <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>
+      </div>
     </>
   );
 };
-
-export default Layout;

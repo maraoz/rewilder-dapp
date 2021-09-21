@@ -16,8 +16,6 @@ function getAllTokens() {
   return firestore.collection(collectionName).get().then(format);
 }
 
-/**** HELPERS ****/
-
 // Format Firestore response
 function format(response) {
   if (response.docs) {

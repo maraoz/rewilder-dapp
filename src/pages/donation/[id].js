@@ -16,82 +16,87 @@ import {
   getAllTokens as getAllTokensServer,
 } from "../../lib/server/db";
 
-function NftPage(props) {
+function DonationPage(props) {
   const router = useRouter();
 
   const tokenId = router.query.id;
   const { data, status } = useToken(tokenId);
-  console.log(data.attributes);
   const attributes = {};
+  if (status == 'loading') {
+    return "";
+  }
   data.attributes.map(({trait_type, value}) => { attributes[trait_type] = value;});
-  console.log(attributes);
   const openseaURL = "https://" + 
     (config.networkName=='mainnet'?'':'testnets.')+
     'opensea.io/assets/'+addressFor("RewilderNFT")+
     "/"+tokenId;
   // const imageSource = data.image;
   // TODO: use above in production
-  const imageSource = `/assets/images/card-image-${attributes.tier}.jpg`
+  const imageSource = `/assets/img/donation/${attributes.tier}.jpg`
 
   return (
     <>
       <Head { ...{ title: data.name } } />
-      
-      <section className="window-section">
+      <div className="description-area">
         <div className="container-fluid">
-          <div className="row min-vh-100 align-items-center mb-2 mb-sm-0">
-            <div className="col-md-6 text-center">
-              <div className="header-sticky">
-                <div className="text-center">
-                  <a className="navbar-brand" href="#">
-                    <img src="/assets/images/logo/logo-full-white.svg" alt="rewilder logo" height="18"/>
-                  </a>
-                </div>
+          <div className="description-wrapper">
+            <div className="description-thumbnial">
+              <div className="donation-logo">
+                <img src="/assets/img/logo/logo.svg" alt="logo"/>
               </div>
-
-              <div>
-                <img src={imageSource} className="nft" alt="nft"/>
-                <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="stamp"/>
-                <p className="mt-3 mt-sm-5 sticky-banner-text">“{attributes["flavor text"]}”</p>
-              </div>
-
-              <div className="footer-sticky d-none d-sm-block">
-                <div className="text-center">
-                  © Rewilder   -  Terms of use  -  Privacy
-                </div>
+              <div className="thumb">
+                <img src={imageSource} className="nft-image" alt="nft"/>
+                <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="frame"/>
+                <figcaption>“{attributes["flavor text"]}”</figcaption>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="notification">
-                <div className="d-flex justify-content-between mt-3">
-                  <div>
-                    <h2 className="fs-14 font-bold color-green">Tier: {attributes.tier}</h2>
-                    <h2 className="mt-2 text-header">{data.name}</h2>
-                  </div>
-                  <div>
-                    <img src="/assets/images/icon/sticky-corner-logo.svg" alt={attributes.tier + " stamp"} width="90"/>
-                  </div>
-                </div>
-                
-                <DonationInfo 
-                  image="/assets/images/icon/donation.svg"
-                  label="donation"
-                  data={attributes["amount donated"]}
-                />
-                <DonationInfo 
-                  image="/assets/images/icon/rewilder-logo.svg"
-                  label="rewilding"
-                  data="Location TBD"
-                />
-                <DonationInfo 
-                  image="/assets/images/icon/amount-icon.svg"
-                  label="donor"
-                  data={attributes["donor"]}
-                />
-              
-                <hr className="hr-sticky "></hr>
 
-                <h4 className="fs-16 font-bold color-white mt-5 mb-2">Updates</h4>
+            <div className="donation">
+              <div className="header">
+                <img src="/assets/img/icon/sticky-corner-logo.svg" alt={attributes.tier + " stamp"} className="stamp"/>
+                <div className="title">
+                  <span>Tier: {attributes.tier}</span>
+                  <h2>{data.name}</h2>
+                </div>
+                <div className="info-container">
+                  <div className="flex">
+                    <DonationInfo 
+                      image="/assets/images/icon/donation.svg"
+                      label="donation"
+                      data={attributes["amount donated"]}
+                    />
+                    <DonationInfo 
+                      image="/assets/images/icon/rewilder-logo.svg"
+                      label="rewilding"
+                      data="Location TBD"
+                    />
+                  </div>
+                  <DonationInfo 
+                    image="/assets/images/icon/amount-icon.svg"
+                    label="donor"
+                    data={attributes["donor"]}
+                  />
+                </div>
+              </div>
+            
+              <div className="updates">
+                <h5>Updates</h5>
+                <DonationUpdate 
+                  icon="/assets/images/icon/info.svg"
+                  iconalt="alt name"
+                  date="Aug 15, 2021" 
+                  message="If you want your donation to be 501(c)(3) tax deductible, send us an email to "
+                  linkText="receipts@rewilder.xyz"
+                  linkHref="#"
+                />
+                <DonationUpdate 
+                  icon="/assets/images/icon/info.svg"
+                  iconalt="alt name"
+                  date="Aug 15, 2021" 
+                  message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
+                  linkText="Subscribe here to also receive email notifications."
+                  linkHref="https://rewilder.substack.com"
+                />
                 <DonationUpdate 
                   icon="/assets/images/icon/avatar-icon.svg"
                   iconalt="alt name"
@@ -108,28 +113,15 @@ function NftPage(props) {
                     </a>
                   </>}
                 />
-                <DonationUpdate 
-                  icon="/assets/images/icon/info.svg"
-                  iconalt="alt name"
-                  date="Aug 15, 2021" 
-                  message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
-                  linkText="Subscribe here to also receive email notifications."
-                  linkHref="https://rewilder.substack.com"
-                />
               </div>
             </div>
           </div>
-
-          <div className="footer d-sm-none">
-            <div className="text-center">
-              © Rewilder   -  Terms of use  -  Privacy
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }
+export default DonationPage;
 
 // Pre-render pages at build-time
 export async function getStaticProps(context) {
@@ -143,9 +135,6 @@ export async function getStaticProps(context) {
     },
   };
 }
-
-export default NftPage;
-
 // Generates routes for all pages we want to pre-render
 export async function getStaticPaths() {
   // Get all tokens
@@ -154,7 +143,6 @@ export async function getStaticPaths() {
   const paths = tokens.map((token) => ({
     params: { id: token.id },
   }));
-
   return {
     paths,
     // Server-render on demand if page does't exist yet

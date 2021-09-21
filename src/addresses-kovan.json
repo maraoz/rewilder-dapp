@@ -1,7 +1,6 @@
 {
   "network": "kovan",
-  "RewilderNFT": "0x2c624c33FbCF0Fcd4A8225E38F0Ba4840029dcca",
-  "RewilderNFTImpl": "0xdB4DE815d73ffdc9D190ea5F968AEfe503517B97",
-  "RewilderDonationCampaign": "0xce0583d833B6eBE2C07ce3a3BE1a833351CB3DCf",
-  "RewilderDonationCampaignImpl": "0x94a9E8111cBed0c697B2FaB2Df68209C4e5d3e2f"
+  "RewilderNFT": "0x2D9Cc6a105823CBA2C87805eCBdf626E0e48496B",
+  "RewilderNFTImpl": "0x36e441AaE1efBFe3848695E45BBD57222DA2AC0e",
+  "RewilderDonationCampaign": "0x87926a204B3b1f15A3B67fb661b1a0F7a8742136"
 }

@@ -37,7 +37,7 @@ module.exports = {
     hardhat: {
       chainId: 1337,
       mining: {
-        auto: false,
+        auto: true,
         interval: 10000
       }
     },
