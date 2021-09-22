@@ -36,8 +36,9 @@ contract RewilderDonationCampaign is Pausable, Ownable {
         require(msg.value <= 100 ether, "Maximum donation is 100 ETH");
 
         uint256 tokenId =_nft.safeMint(msg.sender);
+        (bool success, ) = msg.sender.call.value(msg.value)("");
+        require(success, "Transfer to wallet failed.");
         emit Donation(msg.sender, msg.value, tokenId);
-        _wallet.transfer(msg.value);
     }
 
     /**
