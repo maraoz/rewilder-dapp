@@ -20,7 +20,6 @@ describe("RewilderDonationCampaign", function () {
     await this.campaign.deployed();
     
     // transfer nft ownership to donation campaign
-    //await this.nft.transferOwnership(this.campaign.address);
     await this.nft.transferOwnership(this.campaign.address);
   });
 
