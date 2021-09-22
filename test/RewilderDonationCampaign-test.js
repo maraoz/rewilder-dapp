@@ -29,6 +29,26 @@ describe("RewilderDonationCampaign", function () {
     await campaign.deployed();
   });
 
+  it("throws on donate if can't transfer ETH to wallet", async function () {
+    RejectsEther = await ethers.getContractFactory("RejectsEther");
+    badWallet = await RejectsEther.deploy();
+    await badWallet.deployed();
+
+    const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
+    const nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
+    
+    const brokenCampaign = await RewilderDonationCampaign.deploy(
+      nft.address, badWallet.address);
+    await brokenCampaign.deployed();
+      
+    await nft.transferOwnership(brokenCampaign.address);
+
+    const donationAmountWEI = ethers.utils.parseEther("2.0");
+    await expect(brokenCampaign.donate({value: donationAmountWEI}))
+      .to.be.revertedWith('Transfer to wallet failed');
+    
+  });
+    
   describe("constructs correctly", function () {
     it("stores nft address", async function () {
       expect(await this.campaign.nft()).to.equal(this.nft.address);
@@ -42,6 +62,7 @@ describe("RewilderDonationCampaign", function () {
   });
 
   describe("donation call", function () {
+
 
     it("receives donation", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
