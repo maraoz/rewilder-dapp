@@ -173,7 +173,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   const setMinimumFor = (tier) => {
     switch (tier) {
       case 'cypress':
-        setAmount(0);
+        setAmount(1);
         break;
       case 'araucaria':
         setAmount(33);
