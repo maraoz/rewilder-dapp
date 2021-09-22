@@ -170,6 +170,20 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
     setWalletOpened(true);
   }
 
+  const setMinimumFor = (tier) => {
+    switch (tier) {
+      case 'cypress':
+        setAmount(1);
+        break;
+      case 'araucaria':
+        setAmount(33);
+        break;
+      case 'sequoia':
+        setAmount(66);
+        break;
+    }
+  }
+
   const marks = [
     {
       value: 33,
@@ -181,7 +195,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   
   return (<>
     <div className="tree-group">
-      <div className="single-tree">
+      <div className="single-tree" onClick={()=>{setMinimumFor('cypress')}}>
         <div className="tree-img small-tree">
           <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} alt="tree"/>
         </div>
@@ -189,7 +203,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
           <h5 className="image-1 image-title">Cypress</h5>
         </div>
       </div>
-      <div className="single-tree">
+      <div className="single-tree" onClick={()=>{setMinimumFor('araucaria')}}>
         <div className="tree-img medium-tree">
           <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} alt="tree"/>
         </div>
@@ -197,7 +211,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
           <h5 className="image-2 image-title">Araucaria</h5>
         </div>
       </div>
-      <div className="single-tree">
+      <div className="single-tree" onClick={()=>{setMinimumFor('sequoia')}}>
         <div className="tree-img large-tree">
           <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} alt="tree"/>
         </div>
