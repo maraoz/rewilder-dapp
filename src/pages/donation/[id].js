@@ -53,7 +53,7 @@ function DonationPage(props) {
 
             <div className="donation">
               <div className="header">
-                <img src="/assets/img/icon/sticky-corner-logo.svg" alt={attributes.tier + " stamp"} className="stamp"/>
+                <img src={"/assets/img/stamp_" + attributes.tier + ".svg"} alt={attributes.tier + " stamp"} className="stamp"/>
                 <div className="title">
                   <span>Tier: {attributes.tier}</span>
                   <h2>{data.name}</h2>
