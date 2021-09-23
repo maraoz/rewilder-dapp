@@ -1,9 +1,27 @@
 import { useQuery } from "react-query";
-import { apiRequest } from "./util";
 
-// Get token
+export async function apiRequest(path, method = "GET", data) {
+  return fetch(`/api/v1/${path}`, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data ? JSON.stringify(data) : undefined,
+  })
+  .then((response) => response.json());
+}
+
+
+// get token metadata
 export function useToken(id) {
-  return useQuery([`api/v1/${id}`], () => apiRequest(`${id}`), {
+  return useQuery([`${id}`], () => apiRequest(`${id}`), {
+    enabled: !!id,
+  });
+}
+
+// get updates for token
+export function useUpdatesForToken(id) {
+  return useQuery([`updates/${id}`], () => apiRequest(`updates/${id}`), {
     enabled: !!id,
   });
 }

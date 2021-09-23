@@ -1,23 +1,20 @@
-const { getToken } = require("./../../../lib/server/db.js");
-import config from "../../../config"; 
+const { getUpdatesForToken } = require("./../../../../lib/server/db.js");
+import config from "../../../../config"; 
 
 export default async (req, res) => {
   const { tokenId } = req.query;
   
-  const token = await getToken(tokenId);
-  if (!token) {
+  const updates = await getUpdatesForToken(tokenId);
+  
+  if (!updates) {
     return res.send({
       status: "error",
-      message: `Token with id ${tokenId} does not exist in ${config.networkName} network (id=${config.chainId})`,
+      message: `No updates found for token with id ${tokenId} in ${config.networkName} network (id=${config.chainId})`,
     });
   }
-
-  const host = req && req.headers.host;
-  const protocol = host.includes('localhost')?'http':'https';
-  const baseUrl = protocol + "://" + host;
-  const updatesURL = baseUrl + `/v1/updates/${tokenId}`;
-
-  // deterministic and safe responses
+  res.send(updates);
+  return 
+  // TODO: deterministic and safe responses
   token.attributes.sort();
   res.send({
     id: token.id,

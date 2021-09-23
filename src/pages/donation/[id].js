@@ -2,38 +2,62 @@ import React from "react";
 import { useRouter } from "next/router";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
+import { getExplorerTransactionLink, useEthers } from "@usedapp/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+
 import DonationUpdate from "../../components/DonationUpdate";
 import DonationInfo from "../../components/DonationInfo";
 import Head from "../../components/Head";
 import config from "../../config";
 import { addressFor } from "../../lib/addresses";
-import { getExplorerTransactionLink } from "@usedapp/core";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { useToken } from "../../lib/db";
-import {
-  getToken as getTokenServer,
-  getAllTokens as getAllTokensServer,
-} from "../../lib/server/db";
+import useStoredState  from "../../lib/storedState";
+import { useToken, useUpdatesForToken } from "../../lib/db";
+import truncateHash from "../../lib/truncateHash";
 
-function DonationPage(props) {
+function DonationPage() {
   const router = useRouter();
+  const { account } = useEthers();
+  const [taxInfoDismissed, setTaxInfoDismissed] = useStoredState(false, "taxInfoDismissed");
+  const [futureUpdatesInfoDismissed, setFutureUpdatesInfoDismissed] = useStoredState(false, "futureUpdatesInfo");
+  
+  // TODO: dev, delete
+  if (taxInfoDismissed || futureUpdatesInfoDismissed) {
+    //setTaxInfoDismissed(false);
+    //setFutureUpdatesInfoDismissed(false);
+  }
 
   const tokenId = router.query.id;
   const { data, status } = useToken(tokenId);
-  const attributes = {};
-  if (status == 'loading') {
-    return "";
+  const { data: updates, status: updatesStatus} = useUpdatesForToken(tokenId);
+
+  if (status == 'loading' || updatesStatus == 'loading') {
+    return ""; // TODO: add loading ui
   }
+  const attributes = {};
   data.attributes.map(({trait_type, value}) => { attributes[trait_type] = value;});
   const openseaURL = "https://" + 
     (config.networkName=='mainnet'?'':'testnets.')+
     'opensea.io/assets/'+addressFor("RewilderNFT")+
     "/"+tokenId;
+  
   // const imageSource = data.image;
   // TODO: use above in production
-  const imageSource = `/assets/img/donation/${attributes.tier}.jpg`
+  const imageSource = `/assets/img/donation/${attributes.tier}.jpg`;
 
+  const parseUpdates = (updates) => {
+    return Object.keys(updates)
+      .filter((key)=> key != 'id' )
+      .map((i) => updates[i]);
+  };
+  const updateList = parseUpdates(updates);
+  const dateOptions = {year: 'numeric', month: 'short', day: 'numeric'};
+  
+  const isDonor = account == attributes["donor"];
+  const youText = isDonor?'You':truncateHash(attributes["donor"]);
+  const yourText = isDonor?'your':'their';
+  const thanksText = isDonor?' - (thank you so much!)':'';
+  const creationDate = new Date(updateList[0].timestamp).toLocaleDateString(undefined, dateOptions);
   return (
     <>
       <Head { ...{ title: data.name } } />
@@ -64,55 +88,78 @@ function DonationPage(props) {
                       image="/assets/images/icon/donation.svg"
                       label="donation"
                       data={attributes["amount"]}
-                    />
+                      />
                     <DonationInfo 
                       image="/assets/images/icon/rewilder-logo.svg"
                       label="rewilding"
                       data="Location TBD"
-                    />
+                      />
                   </div>
                   <DonationInfo 
                     image="/assets/images/icon/amount-icon.svg"
                     label="donor"
                     data={attributes["donor"]}
-                  />
+                    />
                 </div>
               </div>
             
               <div className="updates">
                 <h5>Updates</h5>
+                {/* synthetic updates */}
+                {isDonor && !taxInfoDismissed &&
                 <DonationUpdate 
                   icon="/assets/images/icon/info.svg"
-                  iconalt="alt name"
-                  date="Aug 15, 2021" 
-                  message="If you want your donation to be 501(c)(3) tax deductible, send us an email to "
-                  linkText="receipts@rewilder.xyz"
-                  linkHref="#"
-                />
+                  iconalt="info"
+                  date={creationDate}
+                  message={
+                    <>
+                      If you want your donation to be 501(c)(3) tax deductible, send us an email to{" "}
+                      <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a>
+                    </>
+                  }
+                  isCloseable={true}
+                  onClose={()=>{setTaxInfoDismissed(true)}}
+                  />
+                }
+                {isDonor && !futureUpdatesInfoDismissed &&
                 <DonationUpdate 
                   icon="/assets/images/icon/info.svg"
-                  iconalt="alt name"
-                  date="Aug 15, 2021" 
-                  message="You will be able to see future updates about your donation here (for example, when we buy the land or make a payment)."
-                  linkText="Subscribe here to also receive email notifications."
+                  iconalt="info"
+                  date={creationDate}
+                  message="You will be able to see future updates about your donation here. For example, when we buy the land or make a payment."
+                  linkText="Subscribe to also receive email notifications."
                   linkHref="https://rewilder.substack.com"
-                />
-                <DonationUpdate 
-                  icon="/assets/images/icon/avatar-icon.svg"
-                  iconalt="alt name"
-                  date="Aug 15, 2021" 
-                  message={<>
-                    You donated {attributes["amount"]} {" "}
-                    <a href={getExplorerTransactionLink(attributes["minted"], config.chainId)??"#"} target="_blank">
-                      <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
-                    </a>
-                    <br />
-                    Your unique NFT is yours {" "}
-                    <a href={openseaURL} target="_blank">
-                      <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
-                    </a>
-                  </>}
-                />
+                  isCloseable={true}
+                  onClose={()=>{setFutureUpdatesInfoDismissed(true)}}
+                  />
+                }
+                {/* real updates */}
+                { updateList && updateList.length > 0 && updateList.map((update) => (
+                  update.type == 'creation' && 
+                    <DonationUpdate 
+                    key={update.timestamp}
+                    // TODO: change icon
+                    icon="/assets/images/icon/avatar-icon.svg"
+                    iconalt="creation"
+                    date={creationDate}
+                    message={
+                      <>
+                        {youText} donated {attributes["amount"]} {" "}
+                        {/* // TODO: change to update */}
+                        <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
+                          <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                        </a> 
+                        {thanksText}
+                        <br />
+                        and minted {yourText} unique NFT donation receipt{" "}
+                        <a href={openseaURL} target="_blank">
+                          <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                        </a>
+                      </>
+                    }>
+                    </DonationUpdate>
+                  ))
+                }
               </div>
             </div>
           </div>
@@ -123,11 +170,19 @@ function DonationPage(props) {
 }
 export default DonationPage;
 
+
+import {
+  getToken as getTokenServer,
+  getAllTokens as getAllTokensServer,
+  getUpdatesForToken as getUpdatesForTokenServer,
+} from "../../lib/server/db";
+
 // Pre-render pages at build-time
 export async function getStaticProps(context) {
   const { id } = context.params;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["token", { id }], () => getTokenServer(id));
+  await queryClient.prefetchQuery([`${id}`], () => getTokenServer(id));
+  await queryClient.prefetchQuery([`updates/${id}`], () => getUpdatesForTokenServer(id))
 
   return {
     props: {

@@ -33,12 +33,23 @@ module.exports = async function(donor, amount, tokenID, txid) {
       {trait_type: "amount", value: ethers.utils.formatEther(amount)+" ETH"},
       {trait_type: "tier", value: tier},
       {trait_type: "flavor", value: FLAVOR_TEXT[tier]},
-      {trait_type: "minted", value: txid},
     ],
-    // TODO: add updates: URL
-    //{trait_type: "Date", value: new Date().toString()},
   };
   console.log(data);
   await db.collection(`tokens-${network.name}`).doc(tokenID.toString()).set(data);
   console.log("NFT metadata created and stored for", tokenID.toString(),"successfully!!");
+
+  // initialize updates for this token
+  const updates = {};
+  updates[0] = {
+    timestamp: new Date().getTime(),
+    type: "creation", 
+    info: {
+      "txid": txid,
+    }
+  }
+  console.log(updates);
+  await db.collection(`updates-${network.name}`).doc(tokenID.toString()).set(updates);
+  console.log("NFT updates stored for", tokenID.toString(),"successfully!!");
+
 }
