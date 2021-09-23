@@ -23,8 +23,8 @@ function DonationPage() {
   
   // TODO: dev, delete
   if (taxInfoDismissed || futureUpdatesInfoDismissed) {
-    //setTaxInfoDismissed(false);
-    //setFutureUpdatesInfoDismissed(false);
+    // setTaxInfoDismissed(false);
+    // setFutureUpdatesInfoDismissed(false);
   }
 
   const tokenId = router.query.id;
@@ -103,8 +103,8 @@ function DonationPage() {
                 </div>
               </div>
             
+              <h5>Updates</h5>
               <div className="updates">
-                <h5>Updates</h5>
                 {/* synthetic updates */}
                 {isDonor && !taxInfoDismissed &&
                 <DonationUpdate 
