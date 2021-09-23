@@ -1164,9 +1164,11 @@ label {
 /* donation header */
 .donation .stamp {
   position: absolute;
-  top: 25px;
-  right: 30px;
+  top: 1.75rem;
+  right: 2rem;
   max-width: 90px;
+  transform: rotate(-15deg);
+  opacity: .8;
 }
 .donation .title span {
   font-weight: 800;
