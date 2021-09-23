@@ -19,6 +19,7 @@ export default async (req, res) => {
     id: token.id,
     name: token.name || "Rewilder",
     description: token.description || "",
+    external_url: token.external_url,
     image: token.image || "https://rewilder.xyz/assets/img/social/avatar.png",
     attributes: token.attributes.map(
       (attribute) => {

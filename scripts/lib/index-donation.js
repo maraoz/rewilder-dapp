@@ -25,16 +25,18 @@ module.exports = async function(donor, amount, tokenID, txid) {
   const data = {
     name: 'Rewilder Origin Donation #' + tokenID.toString(),
     description: 'Receipt NFT for Rewilder\'s first donation campaign on October 2021.',
+    external_url: tokenID?`https://app.rewilder.xyz/donation/${tokenID}`:'https://app.rewilder.xyz',
     // TODO: use the actual images, not mockups
     image: 'https://rewilder.xyz/assets/img/mockup/' + tier + '.png',
     attributes: [
-      //{trait_type: "Date", value: new Date().toString()},
       {trait_type: "donor", value: donor},
       {trait_type: "amount", value: ethers.utils.formatEther(amount)+" ETH"},
       {trait_type: "tier", value: tier},
-      {trait_type: "flavor text", value: FLAVOR_TEXT[tier]},
-      {trait_type: "mint transaction", value: txid},
-    ]
+      {trait_type: "flavor", value: FLAVOR_TEXT[tier]},
+      {trait_type: "minted", value: txid},
+    ],
+    // TODO: add updates: URL
+    //{trait_type: "Date", value: new Date().toString()},
   };
   console.log(data);
   await db.collection(`tokens-${network.name}`).doc(tokenID.toString()).set(data);

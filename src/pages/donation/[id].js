@@ -47,7 +47,7 @@ function DonationPage(props) {
               <div className="thumb">
                 <img src={imageSource} className="nft-image" alt="nft"/>
                 <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="frame"/>
-                <figcaption>“{attributes["flavor text"]}”</figcaption>
+                <figcaption>“{attributes["flavor"]}”</figcaption>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ function DonationPage(props) {
                   date="Aug 15, 2021" 
                   message={<>
                     You donated {attributes["amount"]} {" "}
-                    <a href={getExplorerTransactionLink(attributes["mint transaction"], config.chainId)??"#"} target="_blank">
+                    <a href={getExplorerTransactionLink(attributes["minted"], config.chainId)??"#"} target="_blank">
                       <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
                     </a>
                     <br />
