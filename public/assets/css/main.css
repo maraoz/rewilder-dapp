@@ -365,11 +365,11 @@ label {
   -ms-user-select: none;
 }
 
+
 @media screen and (max-width: 767px) {
   .header-v1-wrapper {
     justify-content: space-between;
   }
-
   .logo {
     max-width: 115px;
     position: unset;
@@ -411,24 +411,23 @@ label {
 .hero-v1-thumb {
   width: 50%;
   position: relative;
-}
-.hero-v1-thumb img {
-  /* TODO: make this fit nicely without stretching */
-  /* height: 100%; */
-  padding-bottom: 40px;
-}
-.hero-v1-thumb p {
-  position: absolute;
-  z-index: 9;
-  bottom: 0;
-  left: 0;
   background-color: #716B5E;
-  padding: 15px 0px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-v1-thumb p {
+  width: 100%;
+  flex-grow: 2;
+  z-index: 9;
   font-size: 12px;
   line-height: 16px;
   color: #fff;
-  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-v1-content {
@@ -563,6 +562,12 @@ label {
   color: #3F6947;
   font-size: 14px;
   line-height: 18px;
+}
+
+@media (min-width: 768px) {
+  .container, .container-md, .container-sm {
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -1366,16 +1371,25 @@ label {
 
 .info-popover-root {
   display: inline;
+  cursor: pointer;
 }
 .info-popover {
-  width: 200px;
-  border: 1px solid red;
-  background-color: white;
-  font-size: 12px;
-  color: #8C8D91;
-  line-height: 16px;
-  margin-top: 8px;;
   z-index: 10;
+  width: 220px;
+  padding: 10px;
+  background: #FFFDFC;
+  border: 1px solid #EBE2DE;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 8px rgba(32, 63, 38, 0.16);
+  border-radius: 8px;
+  font-family: "Airbnb Cereal App Book";
+  font-size: 12px;
+  line-height: 14px;
+  color: #565044;
+  text-align: left;
+}
+.info-popover-root:hover svg {
+  color: #3F6947;
 }
 
 .selected-amount {
