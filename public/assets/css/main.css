@@ -1399,6 +1399,7 @@ label {
 
 .info-popover-root {
   display: inline;
+  cursor: pointer;
 }
 .info-popover {
   z-index: 10;
