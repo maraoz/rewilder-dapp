@@ -251,21 +251,10 @@ label {
 }
 
 /* Others Common Css Here :) */
-.f-left {
-  float: left;
-}
-
-.f-right {
-  float: right;
-}
-
-.fix {
-  overflow: hidden;
-}
-
-.separator {
-  border-top: 1px solid #f2f2f2;
-}
+.f-left { float: left; }
+.f-right { float: right; }
+.fix { overflow: hidden; }
+.separator { border-top: 1px solid #f2f2f2; }
 
 /* Overlay */
 [data-overlay] {
@@ -282,54 +271,18 @@ label {
   bottom: 0;
   content: "";
 }
-
-[data-overlay=light]::before {
-  background-color: #fff;
-}
-
-[data-overlay=dark]::before {
-  background-color: #000;
-}
-
-[data-overlay=theme]::before {
-  background-color: #388447;
-}
-
-[data-opacity="1"]::before {
-  opacity: 0.1;
-}
-
-[data-opacity="2"]::before {
-  opacity: 0.2;
-}
-
-[data-opacity="3"]::before {
-  opacity: 0.3;
-}
-
-[data-opacity="4"]::before {
-  opacity: 0.4;
-}
-
-[data-opacity="5"]::before {
-  opacity: 0.5;
-}
-
-[data-opacity="6"]::before {
-  opacity: 0.6;
-}
-
-[data-opacity="7"]::before {
-  opacity: 0.7;
-}
-
-[data-opacity="8"]::before {
-  opacity: 0.8;
-}
-
-[data-opacity="9"]::before {
-  opacity: 0.9;
-}
+[data-overlay=light]::before { background-color: #fff; }
+[data-overlay=dark]::before { background-color: #000; }
+[data-overlay=theme]::before { background-color: #388447; }
+[data-opacity="1"]::before { opacity: 0.1; }
+[data-opacity="2"]::before { opacity: 0.2; }
+[data-opacity="3"]::before { opacity: 0.3; }
+[data-opacity="4"]::before { opacity: 0.4; }
+[data-opacity="5"]::before { opacity: 0.5; }
+[data-opacity="6"]::before { opacity: 0.6; }
+[data-opacity="7"]::before { opacity: 0.7; }
+[data-opacity="8"]::before { opacity: 0.8; }
+[data-opacity="9"]::before { opacity: 0.9; }
 
 .header-v1-wrapper {
   padding: 30px 10px;
