@@ -1,8 +1,6 @@
 import Button from "./Button";
 import React, { useState } from "react";
 import Router from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 function ThanksForDonating({ tokenId }) {
