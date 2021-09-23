@@ -68,22 +68,23 @@ async function main() {
   expect(await nft.owner()).to.equal(campaign.address);
 
   let preBalance = await ethers.provider.getBalance(proxy);
-  console.log("Safe account balance before donations ", ethers.utils.formatEther(preBalance));
+  await logBalance(proxy);
 
   // it accepts multiple donations from different donors
   const donationAmountWEI = ethers.utils.parseEther("1.0");
 
+  console.log("Donating %d ETH ", ethers.utils.formatEther(donationAmountWEI));
   await campaign.connect(donorA).donate({ value: donationAmountWEI });
   expect(await ethers.provider.getBalance(proxy)).to.equal(preBalance.add(donationAmountWEI));
 
+  console.log("Donating %d ETH ", ethers.utils.formatEther(donationAmountWEI));
   await campaign.connect(donorB).donate({ value: donationAmountWEI });
   expect(await ethers.provider.getBalance(proxy)).to.equal(preBalance.add(ethers.utils.parseEther("2.0")));
-
-  preBalance = await ethers.provider.getBalance(proxy);
-  console.log("Safe account balance after donations", ethers.utils.formatEther(preBalance));
+await logBalance(proxy);
 
   // gnosis safe can pause campaign
-  await executeContractCallWithSigners(safe, campaign, "finalize", [], [signer1, signer2], false, {});
+  console.log("Pausing campaign");
+  await executeContractCallWithSigners(safe, campaign, "pause", [], [signer1, signer2], false, {});
   expect(await campaign.paused()).to.equal(true);
 
   // // when paused, donations revert
@@ -93,12 +94,19 @@ async function main() {
 
   // // only gnosis safe can unpause campaign
   await expect(campaign.connect(donorA).unpause()).to.be.revertedWith('Ownable: caller is not the owner');
+  console.log("Unpausing campaign");
   await executeContractCallWithSigners(safe, campaign, "unpause", [], [signer2, signer3], false, {});
   expect(await campaign.paused()).to.equal(false);
 
-  // // when unpaused, donation works again and mints NFTs
-  // await campaign.connect(donorC).donate({ value: donationAmountWEI });
-  // expect(await nft.ownerOf(1)).to.be.equal(donorC.address);
+  // when unpaused, donation works again and mints NFTs
+  console.log("Donating %d ETH ", ethers.utils.formatEther(donationAmountWEI));
+  await campaign.connect(donorC).donate({ value: donationAmountWEI });
+  expect(await nft.ownerOf(1)).to.be.equal(donorC.address);
+  await logBalance(proxy);
+
+  // gnosis safe can finalize campaign
+  await executeContractCallWithSigners(safe, campaign, "finalize", [], [signer1, signer2], false, {});
+  expect(await campaign.paused()).to.equal(true);
 }
 
 main()
@@ -107,3 +115,9 @@ main()
     console.error(error);
     process.exit(1);
   });
+
+  async function logBalance(proxy) {
+  preBalance = await ethers.provider.getBalance(proxy);
+  console.log("Safe account balance after donations", ethers.utils.formatEther(preBalance));
+}
+
