@@ -12,21 +12,18 @@ export default async (req, res) => {
       message: `No updates found for token with id ${tokenId} in ${config.networkName} network (id=${config.chainId})`,
     });
   }
-  res.send(updates);
-  return 
-  // TODO: deterministic and safe responses
-  token.attributes.sort();
-  res.send({
-    id: token.id,
-    name: token.name || "Rewilder",
-    description: token.description || "",
-    external_url: token.external_url,
-    updates: updatesURL,
-    image: token.image || "https://rewilder.xyz/assets/img/social/avatar.png",
-    attributes: token.attributes.map(
-      (attribute) => {
-        return {"trait_type": attribute.trait_type, "value": attribute.value};
-      }
-    ),
-  });
+  const deterministicUpdates = {};
+  deterministicUpdates.id = updates.id;
+  Object.keys(updates)
+    .filter((key)=> key != 'id' )
+    .map((i) => {
+      console
+      const update = updates[i];
+      deterministicUpdates[i] = {
+        timestamp: update.timestamp,
+        type: update.type,
+        info: update.info,
+      };
+    });
+  res.send(deterministicUpdates);
 };
