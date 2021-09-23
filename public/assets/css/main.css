@@ -428,6 +428,7 @@ label {
   align-content: center;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .hero-v1-content {
@@ -456,6 +457,9 @@ label {
   font-family: "Airbnb Cereal App Black";
   margin: .5rem 0;
   line-height: 2rem;
+}
+.donation-control {
+  padding: 1rem 0 2rem;
 }
 .tree-group {
   display: flex;
@@ -572,31 +576,22 @@ label {
     overflow: hidden;
     flex-direction: column;
   }
-
   .hero-v1-thumb {
     width: 100%;
   }
-
-  .hero-v1-thumb p {
-    padding: 15px 30px;
-  }
-
   .hero-v1-content {
     width: 100%;
   }
   .hero-v1-content .range-value {
-    margin-top: 10px;
+    margin-top: 1rem;
   }
 }
 @media screen and (max-width: 575px) {
   .hero-v1-area {
-    padding: 25px 0px 30px;
-  }
-  .hero-v1-thumb p {
-    padding: 15px 30px;
+    padding: 1.5rem 0;
   }
   .hero-v1-content {
-    padding: 20px;
+    padding: 1.5rem;
   }
   .hero-v1-content .shape {
     top: 20px;
@@ -605,19 +600,12 @@ label {
   }
   .hero-v1-content .title h2 {
     font-size: 20px;
-    margin-top: 5px;
-  }
-  .hero-v1-content .donating-value {
-    margin-top: 30px;
   }
   .hero-v1-content .donating-value h4 {
     font-size: 18px;
     line-height: 1.5;
     max-width: 170px;
     margin: 0 auto;
-  }
-  .hero-v1-content .hero-v1-btn {
-    margin-top: 25px;
   }
 }
 .connect-wallet-popup {
@@ -1026,11 +1014,16 @@ label {
 }
 .donation-message {
   text-align: center;
-  margin: 100px 0px 0px;
+  margin: 0px;
+  flex-grow: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
 }
 .donation-message .main-shape {
   max-width: 80px;
-  margin: 60px auto 0px;
+  margin: 0px auto;
 }
 .donation-message .main-shape svg {
   color: #277336;
@@ -1050,9 +1043,9 @@ label {
   display: inline-flex;
   align-items: center;
   color: #8C8D91;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
-  margin-top: 10px;
+  margin: .5rem auto;
 }
 .donation-message a svg {
   font-size: 12px;
@@ -1060,25 +1053,13 @@ label {
 }
 
 @media screen and (max-width: 991px) {
-
-  .hero-v1-thumb p {
-    padding: 15px 15px;
-  }
-
-  .donation-message {
-    margin: 80px 0px 0px;
-  }
   .donation-message h4 {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 767px) {
-  .donation-message {
-    margin: 30px 0px 0px;
-  }
   .donation-message .main-shape {
     max-width: 55px;
-    margin: 0px auto 0px;
   }
   .donation-message h4 {
     margin-top: 15px;

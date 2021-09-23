@@ -194,7 +194,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   ];
   
   return (<>
-    <div>
+    <div className="donation-control">
       <div className="tree-group">
         <div className="single-tree" onClick={()=>{setMinimumFor('cypress')}}>
           <img 
