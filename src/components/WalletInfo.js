@@ -11,20 +11,19 @@ import truncateHash from "../lib/truncateHash";
 function WalletInfo() {
   const { account, deactivate } = useEthers();
   const etherBalance  = useEtherBalance(account);
-  const size = 15;
-  // TODO: pick better colors
-  const palette = ["#3F6947", "#158D0C", "#339645"];
+  const size = 16;
+  const palette = ["#E05304", "#DDB21A", "#12501E"];
   return (
     account && (
       <>
-        <Menu as="span" className="connect-button disconnect-button">
+        <Menu as="div" className="connect-button disconnect-button">
           <Menu.Button as="a" href="#">
             <span className="balance">
               {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
               {" "}ETH{" "}
             </span>
             <span>
-              <Identicon palette={palette} bg="#FAF8F6" string={account} size={size} />
+              <Identicon palette={palette} bg="#6DD681" string={account} size={size} />
               {"  "}{truncateHash(account)}
             </span>
           </Menu.Button>

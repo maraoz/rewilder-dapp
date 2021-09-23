@@ -251,21 +251,10 @@ label {
 }
 
 /* Others Common Css Here :) */
-.f-left {
-  float: left;
-}
-
-.f-right {
-  float: right;
-}
-
-.fix {
-  overflow: hidden;
-}
-
-.separator {
-  border-top: 1px solid #f2f2f2;
-}
+.f-left { float: left; }
+.f-right { float: right; }
+.fix { overflow: hidden; }
+.separator { border-top: 1px solid #f2f2f2; }
 
 /* Overlay */
 [data-overlay] {
@@ -282,54 +271,18 @@ label {
   bottom: 0;
   content: "";
 }
-
-[data-overlay=light]::before {
-  background-color: #fff;
-}
-
-[data-overlay=dark]::before {
-  background-color: #000;
-}
-
-[data-overlay=theme]::before {
-  background-color: #388447;
-}
-
-[data-opacity="1"]::before {
-  opacity: 0.1;
-}
-
-[data-opacity="2"]::before {
-  opacity: 0.2;
-}
-
-[data-opacity="3"]::before {
-  opacity: 0.3;
-}
-
-[data-opacity="4"]::before {
-  opacity: 0.4;
-}
-
-[data-opacity="5"]::before {
-  opacity: 0.5;
-}
-
-[data-opacity="6"]::before {
-  opacity: 0.6;
-}
-
-[data-opacity="7"]::before {
-  opacity: 0.7;
-}
-
-[data-opacity="8"]::before {
-  opacity: 0.8;
-}
-
-[data-opacity="9"]::before {
-  opacity: 0.9;
-}
+[data-overlay=light]::before { background-color: #fff; }
+[data-overlay=dark]::before { background-color: #000; }
+[data-overlay=theme]::before { background-color: #388447; }
+[data-opacity="1"]::before { opacity: 0.1; }
+[data-opacity="2"]::before { opacity: 0.2; }
+[data-opacity="3"]::before { opacity: 0.3; }
+[data-opacity="4"]::before { opacity: 0.4; }
+[data-opacity="5"]::before { opacity: 0.5; }
+[data-opacity="6"]::before { opacity: 0.6; }
+[data-opacity="7"]::before { opacity: 0.7; }
+[data-opacity="8"]::before { opacity: 0.8; }
+[data-opacity="9"]::before { opacity: 0.9; }
 
 .header-v1-wrapper {
   padding: 30px 10px;
@@ -352,8 +305,12 @@ label {
 }
 
 .header-button {
-  display: inline-block;
   text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.5rem 1rem 0 0;
+  z-index: 9;
 }
 .header-button a {
   font-size: 14px;
@@ -894,30 +851,32 @@ label {
 }
 .connect-header .connect-button {
   background: #0D0F09;
-  border-radius: 12px;
-  padding: 4px 4px 3px 10px;
+  border-radius: 14px;
+  padding: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.25rem 1rem 0 0;
+  z-index: 10;
 }
 .connect-header .connect-button a {
   font-family: 'Azeret Mono', monospace;
   color: #F7FAF8;
-  font-size: .9rem;
-  line-height: 1;
+  font-size: 1rem;
+  line-height: 1rem;
+  display: flex;
 }
 .connect-header .connect-button a span {
   background: #28332C;
-  border-radius: 8px;
-  padding: 4px 8px 4px 6px;
+  border-radius: .5rem;
+  padding: 6px 8px;
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
-  margin-top: 2px;
 }
 
 .connect-header .connect-button a span.balance {
-  margin-bottom: 3px;
-  vertical-align: bottom;
   background: none;
-  padding-left: 0;
+  margin-right: .5rem;
 }
 
 .connect-header .connect-button a span canvas {
@@ -1038,21 +997,29 @@ label {
   }
 }
 .disconnect-header .disconnect-button .disconnect {
-  padding-right: 12px;
-  padding-bottom: 12px;
-  text-align: right;
-  margin-top: 15px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 1rem 0 .5rem;
+  margin-left: auto;
+  flex-wrap: nowrap;
+  width: fit-content;
 }
+
 .disconnect-header .disconnect-button .disconnect a {
   letter-spacing: 0.01em;
-  color: #778C7E;
+  color: #ACBFB2;
   font-family: "Airbnb Cereal App Bold";
   font-size: 14px;
-  line-height: 21px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  opacity: .8;
 }
 .disconnect-header .disconnect-button .disconnect a svg {
-  margin-right: 5px;
+  margin-right: 4px;
 }
+.disconnect-header .disconnect-button .disconnect:hover { background: #28332C; }
+.disconnect-header .disconnect-button .disconnect:hover a { opacity: 1; }
 
 .disconnect-error-popup .message a {
   background: #F5EBEB;

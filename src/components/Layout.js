@@ -17,7 +17,7 @@ export const Layout = ({ children, ...customMeta }) => {
       <header className="header-area-v1 connect-header disconnect-header">
         <div className="container-fluid">
           <div className="header-v1-wrapper">
-            <div className="logo">
+            <div className="logo"> 
                 <NetworkErrorMessage />
                 {
                 !incorrectNetwork &&
@@ -27,13 +27,13 @@ export const Layout = ({ children, ...customMeta }) => {
                   </a>
                 }
             </div>
-              {account ? (
-                  <WalletInfo />
-                ) : (
-                  <div className="header-button">
-                      <a href="#" onClick={modalContext.onOpen}>Connect wallet</a>
-                  </div>
-              )}
+            {account ? (
+              <WalletInfo />
+              ) : (
+              <div className="header-button">
+                <a href="#" onClick={modalContext.onOpen}>Connect wallet</a>
+              </div>
+            )}
           </div>
         </div>
       </header>
