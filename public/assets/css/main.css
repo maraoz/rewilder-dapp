@@ -1416,6 +1416,9 @@ label {
   color: #565044;
   text-align: left;
 }
+.info-popover-root:hover svg {
+  color: #3F6947;
+}
 
 .selected-amount {
   text-align: center; 
