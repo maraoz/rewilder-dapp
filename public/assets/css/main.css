@@ -454,39 +454,29 @@ label {
   margin-top: 12px;
   line-height: 31px;
 }
-.hero-v1-content .tree-group {
+.tree-group {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 2rem;
-  margin-bottom: 10px;
 }
-.hero-v1-content .tree-group .single-tree {
+.tree-group .single-tree {
   width: 100%;
   text-align: center;
   cursor: pointer;
 }
-.hero-v1-content .tree-group .single-tree .tree-img {
-  max-width: 45px;
+.tree-group .single-tree .tree-img {
   margin: 0 auto;
 }
-.hero-v1-content .tree-group .single-tree .tree-img.medium-tree {
-  max-width: 55px;
-  margin: 0 auto;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.small-tree {
-  max-width: 20px;
-  margin: 0 auto;
-}
-.hero-v1-content .tree-group .single-tree .tree-title {
-  margin-top: 8px;
-}
-.hero-v1-content .tree-group .single-tree .tree-title h5 {
+.tree-group .single-tree h5 {
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
   font-family: "Airbnb Cereal App Bold";
   color: #8C8D91;
+  margin: .5rem auto;
+}
+.tree-group .single-tree h5.active { 
+  color: #388447;
 }
 .hero-v1-content .range-input {
   position: relative;
@@ -616,7 +606,7 @@ label {
     font-size: 20px;
     margin-top: 5px;
   }
-  .hero-v1-content .tree-group {
+  .tree-group {
     margin-top: 20px;
     margin-bottom: 5px;
   }
@@ -1431,15 +1421,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.hero-v1-content .tree-group .single-tree .tree-img.small-tree img {
-  max-height: 1.5rem;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.medium-tree img {
-  max-height: 3rem;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.large-tree img {
-  max-height: 5rem;
-}
+.tree-group .single-tree img.tree-img.small-tree { max-height: 2.8rem; }
+.tree-group .single-tree img.tree-img.medium-tree { max-height: 3.75rem; }
+.tree-group .single-tree img.tree-img.large-tree { max-height: 5rem; }
 
 .btn-theme .circle-shape {
   max-width: 1rem;

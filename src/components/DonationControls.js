@@ -196,28 +196,25 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   return (<>
     <div className="tree-group">
       <div className="single-tree" onClick={()=>{setMinimumFor('cypress')}}>
-        <div className="tree-img small-tree">
-          <img src={`assets/images/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} alt="tree"/>
-        </div>
-        <div className="tree-title">
-          <h5 className="image-1 image-title">Cypress</h5>
-        </div>
+        <img 
+          src={`assets/img/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} 
+          alt="Cypress tier" 
+          className="tree-img small-tree"/>
+        <h5 className={tier=='cypress'?'active':''}>Cypress</h5>
       </div>
       <div className="single-tree" onClick={()=>{setMinimumFor('araucaria')}}>
-        <div className="tree-img medium-tree">
-          <img src={`assets/images/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} alt="tree"/>
-        </div>
-        <div className="tree-title">
-          <h5 className="image-2 image-title">Araucaria</h5>
-        </div>
+        <img 
+          src={`assets/img/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} 
+          alt="Araucaria tier" 
+          className="tree-img medium-tree"/>
+        <h5 className={tier=='araucaria'?'active':''}>Araucaria</h5>
       </div>
       <div className="single-tree" onClick={()=>{setMinimumFor('sequoia')}}>
-        <div className="tree-img large-tree">
-          <img src={`assets/images/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} alt="tree"/>
-        </div>
-        <div className="tree-title">
-          <h5 className="image-3 image-title">Sequoia</h5>
-        </div>
+        <img 
+          src={`assets/img/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} 
+          alt="sequoia tier" 
+          className="tree-img large-tree"/>
+        <h5 className={tier=='sequoia'?'active':''}>Sequoia</h5>
       </div>
     </div>
     <div className="range-input">
