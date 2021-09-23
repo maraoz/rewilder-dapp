@@ -13,7 +13,7 @@ campaignAddress,
 
 export function useDonation() {
   const { state: donateTx , events: donationEvents, send: requestDonationToWallet } =
-    useContractFunction(campaign, "donate", { transactionName: 'Donate' });
+    useContractFunction(campaign, "receiveDonation", { transactionName: 'Donation' });
 
   return { donateTx , donationEvents, requestDonationToWallet };
 }

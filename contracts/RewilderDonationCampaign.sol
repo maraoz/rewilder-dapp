@@ -31,7 +31,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     /**
      * @dev Receives donation and mints new NFT for donor
      */
-    function donate() public whenNotPaused payable {
+    function receiveDonation() public whenNotPaused payable {
         require(msg.value >= 1 ether, "Minimum donation is 1 ETH");
         require(msg.value <= 100 ether, "Maximum donation is 100 ETH");
 
@@ -50,10 +50,18 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     }
 
     /**
+     * @dev pause the campaign
+     */
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    /**
      * @dev unpause the campaign
      */
     function unpause() public onlyOwner {
         _unpause();
     }
+
 
 }

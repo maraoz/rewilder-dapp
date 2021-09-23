@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
-function ConnectWalletModal({ isOpen, onClose }) {
-  const { activate, activateBrowserWallet } = useEthers();
+function ConnectWalletModal({ onOpen, isOpen, onClose }) {
+  const { activate, activateBrowserWallet, error } = useEthers();
 
   useEffect(() => {
     if (isOpen) {
@@ -16,8 +16,25 @@ function ConnectWalletModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (error) {
+      if (error.name == 'UserRejectedRequestError') {
+        onOpen();
+      } else {
+        console.log(`Unexpected error!! fix this:`, error);
+      }
+    }
+  }, [error]);
+
   const clickMetamask = async () => {
     await activateBrowserWallet();
+    if (error) {
+      if (error.name == 'UserRejectedRequestError') {
+        // user rejected connection, we want to leave modal open
+        return;
+      }
+      console.log("Unexpected MetaMask error:", error);
+    }
     onClose();
   };
 
