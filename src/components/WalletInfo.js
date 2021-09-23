@@ -16,7 +16,7 @@ function WalletInfo() {
   return (
     account && (
       <>
-        <Menu as="span" className="connect-button disconnect-button">
+        <Menu as="div" className="connect-button disconnect-button">
           <Menu.Button as="a" href="#">
             <span className="balance">
               {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
