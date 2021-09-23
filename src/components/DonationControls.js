@@ -194,71 +194,73 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
   ];
   
   return (<>
-    <div className="tree-group">
-      <div className="single-tree" onClick={()=>{setMinimumFor('cypress')}}>
-        <img 
-          src={`assets/img/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} 
-          alt="Cypress tier" 
-          className="tree-img small-tree"/>
-        <h5 className={tier=='cypress'?'active':''}>Cypress</h5>
-      </div>
-      <div className="single-tree" onClick={()=>{setMinimumFor('araucaria')}}>
-        <img 
-          src={`assets/img/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} 
-          alt="Araucaria tier" 
-          className="tree-img medium-tree"/>
-        <h5 className={tier=='araucaria'?'active':''}>Araucaria</h5>
-      </div>
-      <div className="single-tree" onClick={()=>{setMinimumFor('sequoia')}}>
-        <img 
-          src={`assets/img/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} 
-          alt="sequoia tier" 
-          className="tree-img large-tree"/>
-        <h5 className={tier=='sequoia'?'active':''}>Sequoia</h5>
-      </div>
-    </div>
-    <div className="range-input">
-        {/* <input type="range" min="1" max="100" onChange={handleSliderChange} value={amount} step="0.1" list="tickmarks" id="rangeInput" />
-        <div id="selector" style={{left: `${amount}%`}}>
-          <div className="SelectBtn">
-          </div>
+    <div>
+      <div className="tree-group">
+        <div className="single-tree" onClick={()=>{setMinimumFor('cypress')}}>
+          <img 
+            src={`assets/img/tree/tree-1-${tier=='cypress'?'green':'gray'}.png`} 
+            alt="Cypress tier" 
+            className="tree-img small-tree"/>
+          <h5 className={tier=='cypress'?'active':''}>Cypress</h5>
         </div>
-        <div id="Progressbar" style={{width: `${amount}%`}}></div> */}
-        <RewilderSlider
-          value={amount}
-          min={1}
-          step={1}
-          marks={marks}
-          max={100}
-          disabled={alreadyDonated}
-          onChange={handleSliderChange}
-        />
-    </div>
-    <div className="range-value">
+        <div className="single-tree" onClick={()=>{setMinimumFor('araucaria')}}>
+          <img 
+            src={`assets/img/tree/tree-2-${tier=='araucaria'?'green':'gray'}.png`} 
+            alt="Araucaria tier" 
+            className="tree-img medium-tree"/>
+          <h5 className={tier=='araucaria'?'active':''}>Araucaria</h5>
+        </div>
+        <div className="single-tree" onClick={()=>{setMinimumFor('sequoia')}}>
+          <img 
+            src={`assets/img/tree/tree-3-${tier=='sequoia'?'green':'gray'}.png`} 
+            alt="sequoia tier" 
+            className="tree-img large-tree"/>
+          <h5 className={tier=='sequoia'?'active':''}>Sequoia</h5>
+        </div>
+      </div>
+      <div className="range-input">
+          {/* <input type="range" min="1" max="100" onChange={handleSliderChange} value={amount} step="0.1" list="tickmarks" id="rangeInput" />
+          <div id="selector" style={{left: `${amount}%`}}>
+            <div className="SelectBtn">
+            </div>
+          </div>
+          <div id="Progressbar" style={{width: `${amount}%`}}></div> */}
+          <RewilderSlider
+            value={amount}
+            min={1}
+            step={1}
+            marks={marks}
+            max={100}
+            disabled={alreadyDonated}
+            onChange={handleSliderChange}
+          />
+      </div>
+      <div className="range-value">
+          <span>
+            1 ETH{" "}
+            <InformationIcon text={"Our current best estimates say that donating the equivalent of $3000 USD in crypto will help add ~1 hectare (~2.5 acres) of wildland to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum donation value."}/>
+          </span>
+          <span>
+            100 ETH{" "}
+          <InformationIcon text={"Given this is our first fundraising campaign, we've decided to set a maximum donation per address"}/>
+          </span>
+      </div>
+      <div className="donating-value">
+        <h4 className="view-amount">
+          You are donating{" "}
+          <input 
+            className="selected-amount"
+            type="number"
+            value={amount}
+            min={1}
+            disabled={alreadyDonated}
+            onChange={handleInputChange}
+            />{" "} <img src="assets/img/icon/eth.svg" height="16" width="16" alt="ETH" /> ETH</h4>
         <span>
-          1 ETH{" "}
-          <InformationIcon text={"Our current best estimates say that donating the equivalent of $3000 USD in crypto will help add ~1 hectare (~2.5 acres) of wildland to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum donation value."}/>
+          We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
+          <InformationIcon text={"This is our current best estimate, assuming we keep part of the raised funds in an endowment fund to pay for lifetime maintenance costs, and a preliminary survey of land purchase costs. Final numbers may change according to where we decide to buy land, but we'll do our best to keep the $/hectares ratio high."}/>
         </span>
-        <span>
-          100 ETH{" "}
-        <InformationIcon text={"Given this is our first fundraising campaign, we've decided to set a maximum donation per address"}/>
-        </span>
-    </div>
-    <div className="donating-value">
-      <h4 className="view-amount">
-        You are donating{" "}
-        <input 
-          className="selected-amount"
-          type="number"
-          value={amount}
-          min={1}
-          disabled={alreadyDonated}
-          onChange={handleInputChange}
-          />{" "} <img src="assets/img/icon/eth.svg" height="16" width="16" alt="ETH" /> ETH</h4>
-      <span>
-        We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
-        <InformationIcon text={"This is our current best estimate, assuming we keep part of the raised funds in an endowment fund to pay for lifetime maintenance costs, and a preliminary survey of land purchase costs. Final numbers may change according to where we decide to buy land, but we'll do our best to keep the $/hectares ratio high."}/>
-      </span>
+      </div>
     </div>
     <div className="hero-v1-btn">
       <Button 

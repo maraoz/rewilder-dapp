@@ -433,8 +433,11 @@ label {
 .hero-v1-content {
   width: 50%;
   background: #fff;
-  padding: 32px;
+  padding: 2rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .hero-v1-content .shape {
   position: absolute;
@@ -451,13 +454,14 @@ label {
   font-weight: 900;
   color: #171C18;
   font-family: "Airbnb Cereal App Black";
-  margin-top: 12px;
-  line-height: 31px;
+  margin: .5rem 0;
+  line-height: 2rem;
 }
 .tree-group {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-bottom: .5rem;
 }
 .tree-group .single-tree {
   width: 100%;
@@ -512,8 +516,8 @@ label {
   font-family: "Airbnb Cereal App Medium";
 }
 .hero-v1-content .donating-value {
-  margin-top: 60px;
   text-align: center;
+  margin-top: 2rem;
 }
 .hero-v1-content .donating-value h4 {
   font-size: 20px;
@@ -535,9 +539,6 @@ label {
   color: #8C8D91;
   line-height: 16px;
   margin-top: 8px;
-}
-.hero-v1-content .hero-v1-btn {
-  margin-top: 55px;
 }
 .hero-v1-content .hero-v1-btn a {
   display: block;
@@ -605,10 +606,6 @@ label {
   .hero-v1-content .title h2 {
     font-size: 20px;
     margin-top: 5px;
-  }
-  .tree-group {
-    margin-top: 20px;
-    margin-bottom: 5px;
   }
   .hero-v1-content .donating-value {
     margin-top: 30px;
