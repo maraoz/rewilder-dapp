@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 function Button({ onClick , disabled, text, loadingText, isLoading }) {
   
   const clicked = async () => {
@@ -12,7 +10,7 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
   }
 
   return (
-    <a href="#" className={"btn-theme"+((disabled || isLoading)?" disabled":"")}
+    <a className={"btn-theme"+((disabled || isLoading)?" disabled":"")}
       onClick={clicked} disabled={disabled || isLoading} >
       {isLoading && 
         <img className="circle-shape" src="assets/img/shape/circle-shape.svg" alt="shape" />

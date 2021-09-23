@@ -20,7 +20,6 @@ function ThanksForDonating({ tokenId }) {
         <h4>Thanks for donating!</h4>
         <div className="hero-v1-btn">
           <Button
-            href="#"
             text={"Go to your donation NFT"}
             isLoading={loading}
             onClick={clicked}

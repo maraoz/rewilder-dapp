@@ -265,7 +265,6 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
     </div>
     <div className="hero-v1-btn">
       <Button 
-        href="#"
         onClick={donate} 
         isLoading={walletOpened || donateTx.status=="Mining"}
         disabled={networkIncorrect || alreadyDonated || insufficientBalance}
