@@ -428,13 +428,17 @@ label {
   align-content: center;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .hero-v1-content {
   width: 50%;
   background: #fff;
-  padding: 32px;
+  padding: 2rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .hero-v1-content .shape {
   position: absolute;
@@ -451,42 +455,36 @@ label {
   font-weight: 900;
   color: #171C18;
   font-family: "Airbnb Cereal App Black";
-  margin-top: 12px;
-  line-height: 31px;
+  margin: .5rem 0;
+  line-height: 2rem;
 }
-.hero-v1-content .tree-group {
+.donation-control {
+  padding: 1rem 0 2rem;
+}
+.tree-group {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 2rem;
-  margin-bottom: 10px;
+  margin-bottom: .5rem;
 }
-.hero-v1-content .tree-group .single-tree {
+.tree-group .single-tree {
   width: 100%;
   text-align: center;
   cursor: pointer;
 }
-.hero-v1-content .tree-group .single-tree .tree-img {
-  max-width: 45px;
+.tree-group .single-tree .tree-img {
   margin: 0 auto;
 }
-.hero-v1-content .tree-group .single-tree .tree-img.medium-tree {
-  max-width: 55px;
-  margin: 0 auto;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.small-tree {
-  max-width: 20px;
-  margin: 0 auto;
-}
-.hero-v1-content .tree-group .single-tree .tree-title {
-  margin-top: 8px;
-}
-.hero-v1-content .tree-group .single-tree .tree-title h5 {
+.tree-group .single-tree h5 {
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
   font-family: "Airbnb Cereal App Bold";
   color: #8C8D91;
+  margin: .5rem auto;
+}
+.tree-group .single-tree h5.active { 
+  color: #388447;
 }
 .hero-v1-content .range-input {
   position: relative;
@@ -522,8 +520,8 @@ label {
   font-family: "Airbnb Cereal App Medium";
 }
 .hero-v1-content .donating-value {
-  margin-top: 60px;
   text-align: center;
+  margin-top: 2rem;
 }
 .hero-v1-content .donating-value h4 {
   font-size: 20px;
@@ -545,9 +543,6 @@ label {
   color: #8C8D91;
   line-height: 16px;
   margin-top: 8px;
-}
-.hero-v1-content .hero-v1-btn {
-  margin-top: 55px;
 }
 .hero-v1-content .hero-v1-btn a {
   display: block;
@@ -581,31 +576,22 @@ label {
     overflow: hidden;
     flex-direction: column;
   }
-
   .hero-v1-thumb {
     width: 100%;
   }
-
-  .hero-v1-thumb p {
-    padding: 15px 30px;
-  }
-
   .hero-v1-content {
     width: 100%;
   }
   .hero-v1-content .range-value {
-    margin-top: 10px;
+    margin-top: 1rem;
   }
 }
 @media screen and (max-width: 575px) {
   .hero-v1-area {
-    padding: 25px 0px 30px;
-  }
-  .hero-v1-thumb p {
-    padding: 15px 30px;
+    padding: 1.5rem 0;
   }
   .hero-v1-content {
-    padding: 20px;
+    padding: 1.5rem;
   }
   .hero-v1-content .shape {
     top: 20px;
@@ -614,23 +600,12 @@ label {
   }
   .hero-v1-content .title h2 {
     font-size: 20px;
-    margin-top: 5px;
-  }
-  .hero-v1-content .tree-group {
-    margin-top: 20px;
-    margin-bottom: 5px;
-  }
-  .hero-v1-content .donating-value {
-    margin-top: 30px;
   }
   .hero-v1-content .donating-value h4 {
     font-size: 18px;
     line-height: 1.5;
     max-width: 170px;
     margin: 0 auto;
-  }
-  .hero-v1-content .hero-v1-btn {
-    margin-top: 25px;
   }
 }
 .connect-wallet-popup {
@@ -1039,11 +1014,16 @@ label {
 }
 .donation-message {
   text-align: center;
-  margin: 100px 0px 0px;
+  margin: 0px;
+  flex-grow: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
 }
 .donation-message .main-shape {
   max-width: 80px;
-  margin: 60px auto 0px;
+  margin: 0px auto;
 }
 .donation-message .main-shape svg {
   color: #277336;
@@ -1063,9 +1043,9 @@ label {
   display: inline-flex;
   align-items: center;
   color: #8C8D91;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
-  margin-top: 10px;
+  margin: .5rem auto;
 }
 .donation-message a svg {
   font-size: 12px;
@@ -1073,25 +1053,13 @@ label {
 }
 
 @media screen and (max-width: 991px) {
-
-  .hero-v1-thumb p {
-    padding: 15px 15px;
-  }
-
-  .donation-message {
-    margin: 80px 0px 0px;
-  }
   .donation-message h4 {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 767px) {
-  .donation-message {
-    margin: 30px 0px 0px;
-  }
   .donation-message .main-shape {
     max-width: 55px;
-    margin: 0px auto 0px;
   }
   .donation-message h4 {
     margin-top: 15px;
@@ -1431,15 +1399,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.hero-v1-content .tree-group .single-tree .tree-img.small-tree img {
-  max-height: 1.5rem;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.medium-tree img {
-  max-height: 3rem;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.large-tree img {
-  max-height: 5rem;
-}
+.tree-group .single-tree img.tree-img.small-tree { max-height: 2.8rem; }
+.tree-group .single-tree img.tree-img.medium-tree { max-height: 3.75rem; }
+.tree-group .single-tree img.tree-img.large-tree { max-height: 5rem; }
 
 .btn-theme .circle-shape {
   max-width: 1rem;
