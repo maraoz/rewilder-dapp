@@ -14,6 +14,7 @@ module.exports.INFURA_ID = INFURA_ID;
 module.exports.DAppProviderConfig = {
   readOnlyChainId: module.exports.chainId,
   readOnlyUrls: {
+    [ChainId.Mainnet]: `https://mainnet.infura.io/v3/${INFURA_ID}`,
     [ChainId.Ropsten]: `https://ropsten.infura.io/v3/${INFURA_ID}`,
     [ChainId.Rinkeby]: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
     [ChainId.Hardhat]: "http://localhost:8545",

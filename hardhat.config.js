@@ -38,7 +38,7 @@ module.exports = {
       chainId: 1337,
       mining: {
         auto: true,
-        interval: 5000
+        interval: 10000
       }
     },
     rinkeby: {

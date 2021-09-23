@@ -31,6 +31,15 @@ function Head(props) {
       <meta content={meta.description} name="description" key="description" />
       {meta.domain && <link rel="canonical" href={`${meta.domain}${router.asPath}`} key="canonical" />}
 
+      {/* favicon */}
+      <link rel="shortcut icon" href="/favicon.png" />
+
+      {/* Google fonts */}
+      <link
+        href="https://fonts.googleapis.com/css2?family=Azeret+Mono&display=swap"
+        rel="stylesheet"
+      />
+
       {/* Open Graph */}
       <meta property="og:title" content={meta.title} key="og-title" />
       <meta property="og:description" content={meta.description} key="og-description" />

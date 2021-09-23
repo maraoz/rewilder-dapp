@@ -1,183 +1,84 @@
 import React, { useState, useEffect } from "react";
+
+import { useEthers } from "@usedapp/core";
 import Router from 'next/router'
-import { Button, Box, useDisclosure} from "@chakra-ui/react";
-import { useEthers, useContractFunction, useEtherBalance } from "@usedapp/core";
-import Slider from "@material-ui/core/Slider";
-import Layout from "./../components/Layout";
-import { addressFor } from "../lib/addresses";
+
+import { Layout } from "./../components/Layout";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
-import ConnectWalletModal from "../components/ConnectWalletModal";
-import { ethers } from 'ethers';
-import RewilderDonationCampaign from "./../artifacts/contracts/RewilderDonationCampaign.sol/RewilderDonationCampaign.json";
+import { useDonation } from "../lib/rewilderDonationCampaign";
+import ThanksForDonating from "../components/ThanksForDonating";
+import DonationControls from "../components/DonationControls";
+import PendingDonation from "../components/PendingDonation";
+import LoadingCampaign from "../components/LoadingCampaign";
+
+import FLAVOR_TEXT from "../lib/flavorText";
 
 function IndexPage() {
-  const { account, error, library } = useEthers();
-  const { onOpen, isOpen, onClose } = useDisclosure();
-  const etherBalance  = useEtherBalance(account);
+  const { account } = useEthers();
   
   const [amount, setAmount] = useState(1);
-  const [walletOpened, setWalletOpened] = useState(false);
   
-  const clamp = (n, lower, upper) => Math.min(Math.max(n, lower), upper);
-  
-  // TODO: move this to rewilderNFT.js :: useDonate or something
-  const RewilderDonationCampaignInterface = new ethers.utils.Interface(RewilderDonationCampaign.abi)
-  const campaignAddress = addressFor("RewilderDonationCampaign");
-  const campaign = new ethers.Contract(
-    campaignAddress,
-    RewilderDonationCampaignInterface,
-  );
-  
-  const { state: donateTx , events, send: requestDonateToWallet } =
-    useContractFunction(campaign, "donate", { transactionName: 'Donate' });
-    
   const maybeNFTBalance = useBalanceOf(account);
   const nftBalance = maybeNFTBalance && maybeNFTBalance.toNumber();
   const maybeTokenId = useTokenOfOwner(account, nftBalance);
   const tokenId =  maybeTokenId && maybeTokenId.toNumber();
+  const isLoading = account && maybeNFTBalance === undefined || 
+    (nftBalance && maybeTokenId === undefined);
+
+  const getTierForAmount = (amount) => {
+    return amount < 33 ? "cypress" : amount < 66 ? "araucaria" : "sequoia";
+  };
   
-  const alreadyDonated = donateTx.status=="Success" || nftBalance > 0;
-  const insufficientBalance = amount > etherBalance/1e18;
+  const tier = getTierForAmount(amount);
+  const flavorText = FLAVOR_TEXT[tier]; 
+  
+  const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
     
+  const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
+
   useEffect(() => {
-    if (error) {
-      console.log(`error`, error);
-    }
-  }, [error]);
-  
-  const redirectDelayMS = 2000;
-  useEffect(() => {
-    if (events) {
-      const tokenId = events[0].args[2].toNumber();
+    const redirectDelayMS = 2000;
+    if (donationEvents) {
+      const tokenId = donationEvents[0].args[2].toNumber();
       console.log(`tokenId=${tokenId} minted, redirecting in ${redirectDelayMS}ms...`);
-      setTimeout(() => {
-        Router.push(`/nft/${tokenId}`);
-      }, redirectDelayMS);
+      if (tokenId) {
+        setTimeout(() => {
+          Router.push(`/donation/${tokenId}`);
+        }, redirectDelayMS);
+      }
     }
-  }, [events]);
-  useEffect(() => {
-    if (nftBalance > 0 && tokenId) {
-      console.log(`balance=${nftBalance}, tokenId=${tokenId}. redirecting in ${redirectDelayMS}ms...`);
-      // TODO: do something here instead of redirecting
-      setTimeout(() => {
-        //Router.push(`/nft/${tokenId}`);
-      }, redirectDelayMS);
-    }
-  }, [nftBalance, tokenId]);
-  useEffect(() => {
-    if (donateTx.status == 'Exception' || 
-        donateTx.status == 'Mining'
-        ) {
-      setWalletOpened(false);
-    }
-  }, [donateTx]);
-  const handleSliderChange = (event, newValue) => {
-    setAmount(newValue);
-  };
-
-  const handleInputChange = (event) => {
-    if (event.target.value == "") {
-      setAmount("");
-      return;
-    }
-    const value = clamp(event.target.value, 1, 100);
-    setAmount(value);
-  };
-
-  const getImageIdByAmount = (value) => {
-    return value < 33 ? "cypress" : value < 66 ? "araucaria" : "sequoia";
-  };
-
-  // call the campaign smart contract, send a donation
-  const donate = () => {
-    if (!account) {
-      return onOpen();
-    }
-    if (!amount) return;
-    const donationAmountWEI = ethers.utils.parseEther(amount.toString());
-
-    if (library) {
-      //const signer = library.getSigner();
-      //console.log("signer", signer.address, "account", account);
-      console.log(`${account} is about to donate`, donationAmountWEI/1e18, "ETH");
-      //const transaction = await campaign.connect(signer)
-      //        .donate({value: donationAmountWEI});
-      //console.log("Transaction sent", transaction.hash);
-      //await transaction.wait();
-      requestDonateToWallet({value: donationAmountWEI});
-      setWalletOpened(true);
-    }
-  }
-
+  }, [donationEvents]);
+  
   return (
     <Layout>
-      <div
-        style={{
-          marginTop: "3rem",
-          border: "1px solid #efefef",
-          padding: "1rem 2rem",
-          maxWidth: "700px",
-        }}
-      >
-        <div style={{ margin: "1rem 2rem" }}>
-          Display <strong>{getImageIdByAmount(amount)}.jpg</strong>
-          <Slider
-            value={amount}
-            min={1}
-            step={1}
-            max={100}
-            disabled={alreadyDonated}
-            marks={[
+      <section className="hero-v1-area">
+        <div className="container">
+          <div className="hero-v1-wrapper">
+            <div className="hero-v1-thumb">
+              <img src={`assets/img/donation/${tier}.jpg`} className="banner-image" />
+              <p>“{flavorText}”</p>
+            </div>
+            <div className="hero-v1-content">
+              <div className="shape">
+                <img src="assets/img/shape/stamp.png" alt="shape" />
+              </div>
+              <div className="title">
+                <img src="assets/img/logo/hero-logo.svg" alt="logo" />
+                <h2>Edition 001: Origin</h2>
+              </div>
               {
-                value: 1,
-                label: "Cypress",
-              },
-              {
-                value: 33,
-                label: "Araucaria",
-              },
-              {
-                value: 66,
-                label: "Sequoia",
-              },
-            ]}
-            valueLabelDisplay="off"
-            onChange={handleSliderChange}
-          />
+                isLoading?
+                  <LoadingCampaign />:
+                  alreadyDonated?
+                    <ThanksForDonating tokenId={tokenId}/>:
+                    donateTx.status == 'Mining'?
+                      <PendingDonation {...{donateTx}} />:
+                      <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
+              }
+            </div>
+          </div>
         </div>
-        <div style={{ marginTop: "2rem" }}>
-          You are donating{" "}
-          <input
-            style={{ border: "1px solid #efefef" }}
-            type="number"
-            value={amount}
-            onChange={handleInputChange}
-          />{" "}
-          ETH
-        </div>
-        <Button mt="2" colorScheme="teal" 
-          onClick={donate} 
-          isLoading={walletOpened || donateTx.status=="Mining"}
-          isDisabled={alreadyDonated || insufficientBalance}
-        >
-            {!account?
-              "Connect Wallet":
-              alreadyDonated?
-                "Thanks for donating!":
-                insufficientBalance?
-                  "Insufficient Balance":
-                  "Donate and mint your NFT"
-            }
-        </Button>
-        <Box>
-          // TODO: delete //
-          Debug info= / 
-          tokenId={tokenId??"..."} /
-          balance={nftBalance??"..."} / 
-          donateTx.status={donateTx.status} /
-        </Box>
-      </div>
-      <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>
+      </section>
     </Layout>
   );
 }

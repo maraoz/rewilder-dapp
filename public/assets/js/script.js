@@ -1,29 +1,35 @@
 (function ($) {
 
-    'use strict';
 
-	/*------------------------------------
-    countdown
-	--------------------------------------*/
-	if (jQuery("[data-countdown]").length > 0) {
-		$('[data-countdown]').each(function () {
-			var $this = $(this), finalDate = $(this).data('countdown');
-			$this.countdown(finalDate, function (event) {
-				$this.html(event.strftime('<span class="cdown days"><p>Days</p> <span class="time-count">%-D</span></span> <span class="cdown hour"><p>Hours</p> <span class="time-count">%-H</span></span> <span class="cdown minutes"><p>Minutes</p> <span class="time-count">%M</span></span> '));
-			});
-		});
-	};
+	// Hide Funcation
+	$('.update-close').on("click", function(){
+		$(this).parent().hide(200);
+	});
 
 
-	// accordion
-	$(".single-accordion").click(function(e){
 
-		if ($(e.target).closest('a').length) {
-			return;
-		}
-		$(this).children('.accordion-head').toggleClass("active").next().slideToggle().siblings().children('.accordion-head').removeClass('.active');
-    });
+
+	// Connect Wallet
+	$('.header-button').on("click", function() {
+		$('.connect-wallet-popup').addClass('active');
+		$("body").addClass('overlay');
+	});
+	$('.connect-wallet-close').on("click", function() {
+		$('.connect-wallet-popup').removeClass('active');
+		$("body").removeClass('overlay');
+	});
+
+	// Connect Wallet
+	$('.hero-v1-btn,.connect-error-button').on("click", function() {
+		$('.sign-transaction-popup,.connect-error-popup').addClass('active');
+		$("body").addClass('overlay');
+	});
+	$('.sign-close,.sign-close-btn,.connect-error-close,.connect-error-close-btn').on("click", function() {
+		$('.sign-transaction-popup,.connect-error-popup').removeClass('active');
+		$("body").removeClass('overlay');
+	});
+
 	
 
-})(jQuery);
 
+})(jQuery);

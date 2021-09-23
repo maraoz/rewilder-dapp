@@ -18,7 +18,7 @@ async function main() {
   // send 1 ETH donation
   const donationAmountWEI = ethers.utils.parseEther("1.0");
   console.log("Donating", donationAmountWEI.toString(), "wei");
-  const tx = await campaign.connect(donorA).donate({
+  const tx = await campaign.connect(donorA).receiveDonation({
     value: donationAmountWEI})
   console.log(tx.hash);
   await tx.wait();

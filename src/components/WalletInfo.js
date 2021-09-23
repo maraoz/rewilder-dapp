@@ -1,62 +1,45 @@
-import {
-  Box,
-  Image,
-  Text,
-  Button,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Flex
-} from "@chakra-ui/react";
-import { formatEther } from "@ethersproject/units";
-import Identicon from 'react-identicons';
-import { useEthers, useEtherBalance } from "@usedapp/core";
 import React from "react";
+import Identicon from 'react-identicons';
+import { formatEther } from "@ethersproject/units";
+import { useEthers, useEtherBalance } from "@usedapp/core";
+import { Menu } from '@headlessui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
 import truncateHash from "../lib/truncateHash";
 
 function WalletInfo() {
   const { account, deactivate } = useEthers();
   const etherBalance  = useEtherBalance(account);
-  const size = 20;
-  const palette = ["#158D0C", "#3F6947", "#339645"];
+  const size = 15;
+  // TODO: pick better colors
+  const palette = ["#3F6947", "#158D0C", "#339645"];
   return (
     account && (
-    <Flex 
-      order={[-1, null, null, 2]}
-      justifyContent={["flex-end", null, null, "flex-end"]}
-      >
-        <Flex
-          borderRadius="xl"
-          alignItems="center"
-          background="gray.200"
-        >
-        <Menu placement="bottom-end" >
-          <Box px="3">
-            <Text fontSize="md">
-              {etherBalance && parseFloat(formatEther(etherBalance)).toFixed(3)} ETH
-            </Text>
-          </Box>
-          <MenuButton as={Button} borderRadius="xl">
-            <Flex
-            alignItems="center"
-            >
-            {truncateHash(account)}
-            <Identicon className="canvas" palette={palette} string={account} size={size} />
-            </Flex>
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                deactivate();
-              }}
-              >
-              Disconnect
-            </MenuItem>
-          </MenuList>
+      <>
+        <Menu as="span" className="connect-button disconnect-button">
+          <Menu.Button as="a" href="#">
+            <span className="balance">
+              {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
+              {" "}ETH{" "}
+            </span>
+            <span>
+              <Identicon palette={palette} bg="#FAF8F6" string={account} size={size} />
+              {"  "}{truncateHash(account)}
+            </span>
+          </Menu.Button>
+          <Menu.Items>
+            <Menu.Item as="div" className="disconnect">
+              {({ active }) => (
+                <a href="#" onClick={deactivate}>
+                  <FontAwesomeIcon icon={faSignOutAlt} />
+                  Disconnect
+                </a>
+              )}
+            </Menu.Item>
+          </Menu.Items>
         </Menu>
-      </Flex>
-    </Flex>
+      </>
     )
   );
 }

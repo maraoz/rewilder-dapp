@@ -1,31 +1,39 @@
 import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import {  useDisclosure } from "@chakra-ui/react";
 import { DAppProvider } from "@usedapp/core";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
+
 import "./../lib/analytics.js";
 import config from "../config.js";
 import { addressFor } from "../lib/addresses";
-import '../styles/main.css';
+import ConnectWalletModal from "../components/ConnectWalletModal";
+import WalletModalContext from "../lib/walletModalContext";
+
+
+// css
+import '../../public/assets/css/airbnb-font.css';
+import '../../public/assets/css/bootstrap.min.css';
+import '../../public/assets/css/main.css';
+
 
 // required for dev networks
 config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor("Multicall")
 
 export const queryClient = new QueryClient();
 
-// TODO: delete this messages for prod
-console.log(`NEXT_PUBLIC_REWILDER_ENV = ${process.env.NEXT_PUBLIC_REWILDER_ENV}`);
-console.log(`Configuring app in ${config.networkName} network, id = ${config.chainId}.`)
-console.log(`multicallAddresses = ${config.DAppProviderConfig.multicallAddresses[config.chainId]}`);
-
 const MyApp = ({ Component, pageProps }) => {
+
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  const modalComponent = <ConnectWalletModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} ></ConnectWalletModal>;
+
   return (
     <DAppProvider config={config.DAppProviderConfig}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.reactQueryState}>
-          <ChakraProvider>
+          <WalletModalContext.Provider value={{ modalComponent, onOpen, isOpen, onClose }}>
             <Component {...pageProps} />
-          </ChakraProvider>
+          </WalletModalContext.Provider>
         </Hydrate>
       </QueryClientProvider>
     </DAppProvider>
