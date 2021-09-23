@@ -1401,14 +1401,19 @@ label {
   display: inline;
 }
 .info-popover {
-  width: 200px;
-  border: 1px solid red;
-  background-color: white;
-  font-size: 12px;
-  color: #8C8D91;
-  line-height: 16px;
-  margin-top: 8px;;
   z-index: 10;
+  width: 220px;
+  padding: 10px;
+  background: #FFFDFC;
+  border: 1px solid #EBE2DE;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 8px rgba(32, 63, 38, 0.16);
+  border-radius: 8px;
+  font-family: "Airbnb Cereal App Book";
+  font-size: 12px;
+  line-height: 14px;
+  color: #565044;
+  text-align: left;
 }
 
 .selected-amount {
