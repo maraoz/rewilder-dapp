@@ -9,10 +9,12 @@ import { useDonation } from "../lib/rewilderDonationCampaign";
 import ThanksForDonating from "../components/ThanksForDonating";
 import DonationControls from "../components/DonationControls";
 import PendingDonation from "../components/PendingDonation";
+import LoadingCampaign from "../components/LoadingCampaign";
+
 import FLAVOR_TEXT from "../lib/flavorText";
 
 function IndexPage() {
-  const { account, error } = useEthers();
+  const { account } = useEthers();
   
   const [amount, setAmount] = useState(1);
   
@@ -20,8 +22,9 @@ function IndexPage() {
   const nftBalance = maybeNFTBalance && maybeNFTBalance.toNumber();
   const maybeTokenId = useTokenOfOwner(account, nftBalance);
   const tokenId =  maybeTokenId && maybeTokenId.toNumber();
-  
-  
+  const isLoading = account && maybeNFTBalance === undefined || 
+    (nftBalance && maybeTokenId === undefined);
+
   const getTierForAmount = (amount) => {
     return amount < 33 ? "cypress" : amount < 66 ? "araucaria" : "sequoia";
   };
@@ -32,20 +35,17 @@ function IndexPage() {
   const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
     
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
-  // TODO: remove this debugging effect
-  useEffect(() => {
-    if (error) {
-      console.log(`error!! fix this:`, error);
-    }
-  }, [error]);
+
   useEffect(() => {
     const redirectDelayMS = 2000;
     if (donationEvents) {
       const tokenId = donationEvents[0].args[2].toNumber();
       console.log(`tokenId=${tokenId} minted, redirecting in ${redirectDelayMS}ms...`);
-      setTimeout(() => {
-        Router.push(`/donation/${tokenId}`);
-      }, redirectDelayMS);
+      if (tokenId) {
+        setTimeout(() => {
+          Router.push(`/donation/${tokenId}`);
+        }, redirectDelayMS);
+      }
     }
   }, [donationEvents]);
   
@@ -67,11 +67,13 @@ function IndexPage() {
                 <h2>Edition 001: Origin</h2>
               </div>
               {
-                alreadyDonated?
-                  <ThanksForDonating tokenId={tokenId}/>:
-                  donateTx.status == 'Mining'?
-                    <PendingDonation {...{donateTx}} />:
-                    <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
+                isLoading?
+                  <LoadingCampaign />:
+                  alreadyDonated?
+                    <ThanksForDonating tokenId={tokenId}/>:
+                    donateTx.status == 'Mining'?
+                      <PendingDonation {...{donateTx}} />:
+                      <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
               }
             </div>
           </div>
