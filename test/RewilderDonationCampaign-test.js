@@ -156,6 +156,28 @@ describe("RewilderDonationCampaign", function () {
       expect(await this.nft.ownerOf(1)).to.be.equal(this.donorB.address);
     });
   });
+
+  describe("pausable", function() {
+    it("can only be paused by wallet", async function () {
+      await expect(this.campaign.connect(this.deployer).pause())
+        .to.be.revertedWith('Ownable: caller is not the owner')
+      await expect(this.campaign.connect(this.donorA).pause())
+        .to.be.revertedWith('Ownable: caller is not the owner')
+      await this.campaign.connect(this.wallet).pause();
+      expect(await this.campaign.paused()).to.equal(true);
+    });
+
+    it("can only be unpaused by wallet", async function () {
+      await this.campaign.connect(this.wallet).pause();
+      expect(await this.campaign.paused()).to.equal(true);
+      await expect(this.campaign.connect(this.deployer).unpause())
+        .to.be.revertedWith('Ownable: caller is not the owner')
+      await expect(this.campaign.connect(this.donorA).unpause())
+        .to.be.revertedWith('Ownable: caller is not the owner')
+      await this.campaign.connect(this.wallet).unpause();
+      expect(await this.campaign.paused()).to.equal(false);
+    });
+  })
   
   
   describe("finalize call", function () {

@@ -50,10 +50,18 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     }
 
     /**
+     * @dev pause the campaign
+     */
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    /**
      * @dev unpause the campaign
      */
     function unpause() public onlyOwner {
         _unpause();
     }
+
 
 }
