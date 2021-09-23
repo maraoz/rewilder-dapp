@@ -63,7 +63,7 @@ function DonationPage(props) {
                     <DonationInfo 
                       image="/assets/images/icon/donation.svg"
                       label="donation"
-                      data={attributes["amount donated"]}
+                      data={attributes["amount"]}
                     />
                     <DonationInfo 
                       image="/assets/images/icon/rewilder-logo.svg"
@@ -102,7 +102,7 @@ function DonationPage(props) {
                   iconalt="alt name"
                   date="Aug 15, 2021" 
                   message={<>
-                    You donated {attributes["amount donated"]} {" "}
+                    You donated {attributes["amount"]} {" "}
                     <a href={getExplorerTransactionLink(attributes["mint transaction"], config.chainId)??"#"} target="_blank">
                       <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
                     </a>

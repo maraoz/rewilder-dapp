@@ -23,13 +23,14 @@ module.exports = async function(donor, amount, tokenID, txid) {
     tier = 'sequoia';
   }
   const data = {
-    name: 'Rewilder Origin Edition #' + tokenID.toString(),
+    name: 'Rewilder Origin Donation #' + tokenID.toString(),
     description: 'Receipt NFT for Rewilder\'s first donation campaign on October 2021.',
+    // TODO: use the actual images, not mockups
     image: 'https://rewilder.xyz/assets/img/mockup/' + tier + '.png',
     attributes: [
       //{trait_type: "Date", value: new Date().toString()},
       {trait_type: "donor", value: donor},
-      {trait_type: "amount donated", value: ethers.utils.formatEther(amount)+" ETH"},
+      {trait_type: "amount", value: ethers.utils.formatEther(amount)+" ETH"},
       {trait_type: "tier", value: tier},
       {trait_type: "flavor text", value: FLAVOR_TEXT[tier]},
       {trait_type: "mint transaction", value: txid},
