@@ -4,11 +4,14 @@ const { expect } = require("chai");
 const { AddressZero } = require("@ethersproject/constants");
 const { executeContractCallWithSigners } = require("./gnosis-utils");
 
-async function main() {
-  // make sure you have gnosis safe-contracts deployed into your localhost node
-  // yarn install && npx yarn hardhat --network localhost deploy
+// - make sure you have gnosis safe-contracts deployed into your localhost node
+// yarn install && npx yarn hardhat --network localhost deploy
+// - if gnosis contracts are already deployed, then start the localhost node
+// npx hardhat node
+// - run test
+// npx hardhat run ./scripts/gnosis-multisig-test.js --network localhost
 
-  // npx hardhat run ./scripts/gnosis-multisig-test.js --network localhost
+async function main() {
   const [signer1, signer2, signer3, donorA, donorB, donorC] = await ethers.getSigners();
   const safeOwners = [signer1, signer2, signer3].map(signer => signer.address);
   const DEFAULT_FALLBACK_HANDLER_ADDRESS = AddressZero;
@@ -43,44 +46,44 @@ async function main() {
 
   const abi = ["event ProxyCreation(address proxy, address singleton)"];
   const iface = new ethers.utils.Interface(abi);
-  const eventsLog = iface.parseLog(txReceipt.events[1]);
+  const eventsLog = iface.parseLog(txReceipt.events[1])
   const { proxy, singleton } = eventsLog.args;
 
   console.log("Deployed proxy at: ", proxy);
   console.log("Master contract at: ", singleton);
-  
+
   const safe = GnosisSafeFactory.attach(proxy);
 
   // Create and deploy RewilderCampaign
   const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
   const nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
   RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-  const campaign = await RewilderDonationCampaign.deploy(nft.address, proxy);
+  const campaign = await RewilderDonationCampaign.deploy(nft.address, safe.address);
   await campaign.deployed();
 
   // transfer nft ownership to donation campaign
   await nft.transferOwnership(campaign.address);
 
   // it sets the right owner
-  expect(await campaign.owner()).to.equal(proxy)
+  expect(await campaign.owner()).to.equal(safe.address)
 
   //it "has nft ownership"
   expect(await nft.owner()).to.equal(campaign.address);
 
-  let preBalance = await ethers.provider.getBalance(proxy);
-  await logBalance(proxy);
+  let preBalance = await ethers.provider.getBalance(safe.address);
+  await logBalance(safe.address);
 
   // it accepts multiple donations from different donors
   const donationAmountWEI = ethers.utils.parseEther("1.0");
 
   console.log("Donating %d ETH ", ethers.utils.formatEther(donationAmountWEI));
-  await campaign.connect(donorA).donate({ value: donationAmountWEI });
-  expect(await ethers.provider.getBalance(proxy)).to.equal(preBalance.add(donationAmountWEI));
+  await campaign.connect(donorA).receiveDonation({ value: donationAmountWEI });
+  expect(await ethers.provider.getBalance(safe.address)).to.equal(preBalance.add(donationAmountWEI));
 
   console.log("Donating %d ETH ", ethers.utils.formatEther(donationAmountWEI));
-  await campaign.connect(donorB).donate({ value: donationAmountWEI });
-  expect(await ethers.provider.getBalance(proxy)).to.equal(preBalance.add(ethers.utils.parseEther("2.0")));
-await logBalance(proxy);
+  await campaign.connect(donorB).receiveDonation({ value: donationAmountWEI });
+  expect(await ethers.provider.getBalance(safe.address)).to.equal(preBalance.add(ethers.utils.parseEther("2.0")));
+  await logBalance(safe.address);
 
   // gnosis safe can pause campaign
   console.log("Pausing campaign");
@@ -88,11 +91,11 @@ await logBalance(proxy);
   expect(await campaign.paused()).to.equal(true);
 
   // // when paused, donations revert
-  await expect(campaign.connect(donorA).donate({
+  await expect(campaign.connect(donorA).receiveDonation({
     value: donationAmountWEI
   })).to.be.revertedWith('Pausable: paused')
 
-  // // only gnosis safe can unpause campaign
+  // only gnosis safe can unpause campaign
   await expect(campaign.connect(donorA).unpause()).to.be.revertedWith('Ownable: caller is not the owner');
   console.log("Unpausing campaign");
   await executeContractCallWithSigners(safe, campaign, "unpause", [], [signer2, signer3], false, {});
@@ -100,13 +103,17 @@ await logBalance(proxy);
 
   // when unpaused, donation works again and mints NFTs
   console.log("Donating %d ETH ", ethers.utils.formatEther(donationAmountWEI));
-  await campaign.connect(donorC).donate({ value: donationAmountWEI });
-  expect(await nft.ownerOf(1)).to.be.equal(donorC.address);
-  await logBalance(proxy);
+  await campaign.connect(donorC).receiveDonation({ value: donationAmountWEI });
+  expect(await nft.ownerOf(3)).to.be.equal(donorC.address);
+  await logBalance(safe.address);
 
   // gnosis safe can finalize campaign
+  console.log("Finalizing campaign");
   await executeContractCallWithSigners(safe, campaign, "finalize", [], [signer1, signer2], false, {});
   expect(await campaign.paused()).to.equal(true);
+
+  // gnosis safe gets ownership of the token
+  expect(await nft.owner()).to.equal(safe.address);
 }
 
 main()
@@ -116,8 +123,8 @@ main()
     process.exit(1);
   });
 
-  async function logBalance(proxy) {
-  preBalance = await ethers.provider.getBalance(proxy);
-  console.log("Safe account balance after donations", ethers.utils.formatEther(preBalance));
+async function logBalance(address) {
+  preBalance = await ethers.provider.getBalance(address);
+  console.log("Account balance after donations", ethers.utils.formatEther(preBalance));
 }
 
