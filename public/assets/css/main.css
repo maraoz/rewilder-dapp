@@ -408,11 +408,11 @@ label {
   -ms-user-select: none;
 }
 
+
 @media screen and (max-width: 767px) {
   .header-v1-wrapper {
     justify-content: space-between;
   }
-
   .logo {
     max-width: 115px;
     position: unset;
@@ -454,24 +454,23 @@ label {
 .hero-v1-thumb {
   width: 50%;
   position: relative;
-}
-.hero-v1-thumb img {
-  /* TODO: make this fit nicely without stretching */
-  /* height: 100%; */
-  padding-bottom: 40px;
-}
-.hero-v1-thumb p {
-  position: absolute;
-  z-index: 9;
-  bottom: 0;
-  left: 0;
   background-color: #716B5E;
-  padding: 15px 0px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-v1-thumb p {
+  width: 100%;
+  flex-grow: 2;
+  z-index: 9;
   font-size: 12px;
   line-height: 16px;
   color: #fff;
-  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-v1-content {
@@ -606,6 +605,12 @@ label {
   color: #3F6947;
   font-size: 14px;
   line-height: 18px;
+}
+
+@media (min-width: 768px) {
+  .container, .container-md, .container-sm {
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 767px) {
