@@ -1290,7 +1290,6 @@ label {
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
-  background: black;
 }
 
 @media screen and (max-width: 1199px) {

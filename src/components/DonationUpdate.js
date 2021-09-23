@@ -1,4 +1,7 @@
-function DonationUpdate({ icon, iconalt, date, message, linkText, linkHref }) {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+function DonationUpdate({ icon, iconalt, date, message, linkText, linkHref, isCloseable, onClose }) {
   return <div className="update-card">
     <div className="update-icon">
         <img src={icon} alt={iconalt}/>
@@ -8,9 +11,12 @@ function DonationUpdate({ icon, iconalt, date, message, linkText, linkHref }) {
       <p>{message}</p>
       <a href={linkHref} target="_blank">{linkText}</a>
     </div>
-    <div className="close">
-      <i className="fal fa-times"></i>
-    </div>
+    {
+    isCloseable && 
+      <div className="close" onClick={onClose}>
+        <FontAwesomeIcon icon={faTimes} />
+      </div>
+    }
   </div>;
 };
 
