@@ -310,7 +310,7 @@ label {
   top: 0;
   right: 0;
   margin: 1.5rem 1rem 0 0;
-  z-index: 10;
+  z-index: 9;
 }
 .header-button a {
   font-size: 14px;
