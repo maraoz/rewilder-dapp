@@ -6,6 +6,7 @@ const { executeContractCallWithSigners } = require("./gnosis-utils");
 
 // - make sure you have gnosis safe-contracts deployed into your localhost node
 // yarn install && npx yarn hardhat --network localhost deploy
+// - complete gnosis-addresses.js with deployed at addresses of GnosisSafeProxyFactory and GnosisSafe
 // - if gnosis contracts are already deployed, then start the localhost node
 // npx hardhat node
 // - run test
