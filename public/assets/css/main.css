@@ -357,13 +357,13 @@ label {
   opacity: 1;
 }
 .frame {
-  mix-blend-mode: overlay;
+  /* mix-blend-mode: overlay; */
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  opacity: .2;
+  opacity: .15;
 }
 
 .nft-image {
