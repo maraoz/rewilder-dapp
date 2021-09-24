@@ -75,6 +75,7 @@ function DonationPage() {
   return (
     <>
       <Head { ...{ title: data.name } } />
+      <div className="noise"></div>    
       <div className="description-area">
         <div className="container-fluid">
           <div className="description-wrapper">
