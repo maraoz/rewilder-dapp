@@ -1,8 +1,9 @@
 const { ethers } = require("hardhat");
-const gnosisAddresses = require("./gnosis-addresses");
 const { expect } = require("chai");
 const { AddressZero } = require("@ethersproject/constants");
-const { executeContractCallWithSigners } = require("./gnosis-utils");
+
+const gnosisAddresses = require("./lib/gnosis-addresses");
+const { executeContractCallWithSigners } = require("./lib/gnosis-utils");
 
 // - make sure you have gnosis safe-contracts deployed into your localhost node
 // yarn install && npx yarn hardhat --network localhost deploy
