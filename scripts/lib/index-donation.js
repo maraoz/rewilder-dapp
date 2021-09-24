@@ -5,6 +5,7 @@ const app = admin.initializeApp({
 });
 
 const FLAVOR_TEXT = require("../../src/lib/flavorText.js");
+const TIER_MARKERS = require("../../src/lib/tierMarkers.js");
 
 const db = admin.firestore(app);
 
@@ -14,12 +15,10 @@ module.exports = async function(donor, amount, tokenID, txid) {
   "and obtained token id", tokenID.toString());
 
   tier = 'cypress';
-  // TODO: fix to proper comparison
-  if (amount.gte(ethers.utils.parseEther("2.0"))) {
+  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['araucaria']))) {
     tier = 'araucaria';
   }
-  // TODO: fix to proper comparison
-  if (amount.gte(ethers.utils.parseEther("3.0"))) {
+  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['sequoia']))) {
     tier = 'sequoia';
   }
   const data = {

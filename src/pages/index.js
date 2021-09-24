@@ -13,6 +13,7 @@ import LoadingCampaign from "../components/LoadingCampaign";
 import CampaignFinalized from "../components/CampaignFinalized";
 
 import FLAVOR_TEXT from "../lib/flavorText";
+import TIER_MARKERS from "../lib/tierMarkers";
 
 function IndexPage() {
   const { account } = useEthers();
@@ -32,7 +33,11 @@ function IndexPage() {
     );
 
   const getTierForAmount = (amount) => {
-    return amount < 33 ? "cypress" : amount < 66 ? "araucaria" : "sequoia";
+    return amount < TIER_MARKERS['araucaria'] ?
+      "cypress" :
+      amount < TIER_MARKERS['sequoia'] ?
+        "araucaria":
+        "sequoia";
   };
   
   const tier = getTierForAmount(amount);

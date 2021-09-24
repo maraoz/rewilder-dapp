@@ -9,6 +9,7 @@ import InformationIcon from "../components/InformationIcon";
 import networkMatches from "../lib/networkMatches";
 import config from "../config";
 import WalletModalContext from "../lib/walletModalContext";
+import TIER_MARKERS from "../lib/tierMarkers";
 
 const rewilderColor = '#277336';
 const RewilderSlider = styled(SliderUnstyled)(
@@ -176,20 +177,20 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
         setAmount(1);
         break;
       case 'araucaria':
-        setAmount(33);
+        setAmount(TIER_MARKERS['araucaria']);
         break;
       case 'sequoia':
-        setAmount(66);
+        setAmount(TIER_MARKERS['sequoia']);
         break;
     }
   }
 
   const marks = [
     {
-      value: 33,
+      value: TIER_MARKERS['araucaria'],
     },
     {
-      value: 66,
+      value: TIER_MARKERS['sequoia'],
     },
   ];
   
