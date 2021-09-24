@@ -18,7 +18,7 @@ function Head(props) {
     title: "Rewilder",
     description:
       "Crypto-native non-profit that coordinates the global purchase of land for wildlife conservation.",
-    image: "https://rewilder.xyz/assets/img/social/avatar.png",
+    image: "https://rewilder.xyz/assets/img/social/avatar-small.png",
     type: "website",
   };
 
