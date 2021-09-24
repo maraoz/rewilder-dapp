@@ -258,7 +258,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
             />{" "} <img src="/assets/img/icon/eth.svg" height="16" width="16" alt="ETH" /> ETH</h4>
         <span>
           We estimate this will help buy ~{hectaresEstimation.toFixed(2)} hectares. 
-          <InformationIcon text={"This is our current best estimate, assuming we keep part of the raised funds in an endowment fund to pay for lifetime maintenance costs, and a preliminary survey of land purchase costs. Final numbers may change according to where we decide to buy land, but we'll do our best to keep the $/hectares ratio high."}/>
+          <InformationIcon text={"This is our current best estimate, assuming we keep part of the raised funds in an endowment fund to pay for lifetime maintenance costs, and a preliminary survey of land purchase costs. Final numbers may change according to where we decide to buy land, but we'll do our best to keep the hectares/$ ratio high."}/>
         </span>
       </div>
     </div>

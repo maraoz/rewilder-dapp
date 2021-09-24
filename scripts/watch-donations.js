@@ -16,7 +16,7 @@ async function main() {
   const campaign = RewilderDonationCampaign
       .attach(addresses.RewilderDonationCampaign);
   console.log("RewilderDonationCampaign attached to:", campaign.address);
-  
+
   // block tick
   ethers.provider.on("block", (blockNumber) => {
     console.log("block", blockNumber, "mined at", new Date().getTime());
@@ -32,8 +32,8 @@ async function main() {
 
   // listen for events
   console.log("Registering Donation event handler")
-  
-  campaign.on('Donation', async function(donor, amount, tokenID, event) {
+
+  campaign.on('DonationReceived', async function(donor, amount, tokenID, event) {
     const txid = event.transactionHash;
     await indexDonation(donor, amount, tokenID, txid);
   });

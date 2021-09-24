@@ -118,15 +118,15 @@ describe("RewilderDonationCampaign", function () {
         .to.equal(await ethers.provider.getBalance(this.wallet.address));
     });
 
-    it("emits Donation events", async function () {
+    it("emits DonationReceived events", async function () {
       const donationAmountWEI = ethers.utils.parseEther("1.0");
       const twoFour = ethers.utils.parseEther("2.4");
       await expect(await this.campaign.connect(this.donorA).receiveDonation({value: donationAmountWEI}))
-        .to.emit(this.campaign, 'Donation')
+        .to.emit(this.campaign, 'DonationReceived')
         .withArgs(this.donorA.address, donationAmountWEI, 1);
 
       await expect(await this.campaign.connect(this.donorB).receiveDonation({value: twoFour}))
-        .to.emit(this.campaign, 'Donation')
+        .to.emit(this.campaign, 'DonationReceived')
         .withArgs(this.donorB.address, twoFour, 2);
     });
 
@@ -223,6 +223,4 @@ describe("RewilderDonationCampaign", function () {
       });
     });
   });
-
-
 });
