@@ -998,15 +998,11 @@ label {
   margin: 1rem 0;
 }
 
-.updates::-webkit-scrollbar {
-  width: 6px;
-}
-.updates::-webkit-scrollbar-track {
-  background-color: #c7c7c7;
-}
-.updates::-webkit-scrollbar-thumb {
-  background: #000;
-}
+/* Scrollbar */
+.updates::-webkit-scrollbar { width: 8px; }
+.updates::-webkit-scrollbar-track { background-color: none; }
+.updates::-webkit-scrollbar-thumb { background: #223326; border-radius: 4px; }
+.updates::-webkit-scrollbar-thumb:hover { background: #3F6947; }
 
 /* DonationUpdate component */
 .update-card {
