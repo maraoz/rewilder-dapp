@@ -157,14 +157,12 @@ function DonationPage() {
                   update.type == 'creation' && 
                     <DonationUpdate 
                     key={update.timestamp}
-                    // TODO: change icon
                     icon="/assets/images/icon/avatar-icon.svg"
                     iconalt="creation"
                     date={creationDate}
                     message={
                       <>
                         {youText} donated {attributes["amount"]} {" "}
-                        {/* // TODO: change to update */}
                         <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
                           <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
                         </a> 
