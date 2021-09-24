@@ -122,7 +122,8 @@ function DonationPage() {
               <h5>Updates</h5>
               <div className="updates">
                 {/* synthetic updates */}
-                {isDonor && !taxInfoDismissed &&
+                {
+                isDonor && !taxInfoDismissed &&
                 <DonationUpdate 
                   icon="/assets/images/icon/info.svg"
                   iconalt="info"
@@ -137,7 +138,8 @@ function DonationPage() {
                   onClose={()=>{setTaxInfoDismissed(true)}}
                   />
                 }
-                {isDonor && !futureUpdatesInfoDismissed &&
+                {
+                isDonor && !futureUpdatesInfoDismissed &&
                 <DonationUpdate 
                   icon="/assets/images/icon/info.svg"
                   iconalt="info"
