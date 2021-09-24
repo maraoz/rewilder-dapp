@@ -1,6 +1,7 @@
 import Router from "next/router";
 import GA4React from "ga-4-react";
 
+
 if (
   typeof window !== "undefined" &&
   process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
