@@ -8,7 +8,7 @@ function Head(props) {
 
   // Meta values that are the same across all pages
   const globalMeta = {
-    siteName: "Rewilder",
+    siteName: "Rewilder Donation Campaign",
     domain: "https://app.rewilder.xyz",
     twitterHandle: "",
   };
@@ -48,7 +48,7 @@ function Head(props) {
       {/* Twitter */}
       <meta name="twitter:title" content={meta.title} key="twitter-title" />
       <meta name="twitter:description" content={meta.description} key="twitter-description"/>
-      <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
+      <meta name="twitter:card" content="summary" key="twitter-card" />
       {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} key="twitter-site" />}
       {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
     </NextHead>
