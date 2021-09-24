@@ -51,7 +51,7 @@ describe("RewilderDonationCampaign", function () {
 
   describe("constructs correctly", function () {
     it("stores nft address", async function () {
-      expect(await this.campaign.nft()).to.equal(this.nft.address);
+      expect(await this.campaign.getRewilderNft()).to.equal(this.nft.address);
     });
     it("sets the right owner", async function () {
       expect(await this.campaign.owner()).to.equal(this.wallet.address);

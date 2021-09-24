@@ -24,7 +24,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     /**
      * @dev Returns the address of the NFT contract.
      */
-    function nft() public view virtual returns (RewilderNFT) {
+    function getRewilderNft() public view virtual returns (RewilderNFT) {
         return _nft;
     }
 
