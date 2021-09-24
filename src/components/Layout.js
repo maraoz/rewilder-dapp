@@ -21,22 +21,17 @@ export const Layout = ({ children, ...customMeta }) => {
           <a href="#" onClick={modalContext.onOpen}>Connect wallet</a>
         </div>
       )}
-      {/* <NetworkErrorMessage /> */}
       
       <div className="header-v1-wrapper">
         <div className="logo"> 
-            <a href="#">
-              <img className="big-logo" src="assets/img/logo/logo.svg" alt="Rewilder logo" />
-              <img className="small-logo" src="assets/img/logo/small-logo.svg" alt="Rewilder logo" />
-            </a>
-            {/* <NetworkErrorMessage />
+            <NetworkErrorMessage />
             {
             !incorrectNetwork &&
               <a href="#">
-                <img className="big-logo" src="assets/img/logo/logo.svg" alt="logo" />
-                <img className="small-logo" src="assets/img/logo/small-logo.svg" alt="logo" />
+                <img className="big-logo" src="assets/img/logo/logo.svg" alt="Rewilder logo" />
+                <img className="small-logo" src="assets/img/logo/small-logo.svg" alt="Rewilder logo" />
               </a>
-            } */}
+            }
         </div>
         {children}
         <div className="footer text-center">
