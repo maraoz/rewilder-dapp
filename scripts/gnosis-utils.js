@@ -64,7 +64,6 @@ async function executeTxWithSigners(safe, tx, signers) {
 async function executeContractCallWithSigners(safe, contract, method, params, signers, delegateCall, overrides) {
   const nonce = await safe.nonce();
   const tx = buildContractCall(contract, method, params, nonce, delegateCall, overrides);
-  console.log("Safe Tx ", tx);
   return executeTxWithSigners(safe, tx, signers);
 }
 
