@@ -8,7 +8,14 @@ export async function apiRequest(path, method = "GET", data) {
     },
     body: data ? JSON.stringify(data) : undefined,
   })
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json && json.status && json.status == 'error') {
+      return Promise.reject(json.message);
+    } else {
+      return Promise.resolve(json)
+    }
+  })
 }
 
 
