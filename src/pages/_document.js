@@ -7,7 +7,9 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {/* Uncomment to add favicons for other platforms */}
+          {/* favicon */}
+          <link rel="shortcut icon" href="/favicon.png" />
+          
           <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
           <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
           <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />

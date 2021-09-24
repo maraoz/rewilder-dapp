@@ -18,13 +18,13 @@ function ThanksForDonating({ tokenId }) {
           <img src="/assets/img/shape/check-shape.svg" alt="success" />
         </div>
         <h4>Thanks for donating!</h4>
-        <div className="hero-v1-btn">
-          <Button
-            text={"Go to your donation NFT"}
-            isLoading={loading}
-            onClick={clicked}
-          />
-        </div>
+      </div>
+      <div className="hero-v1-btn">
+        <Button
+          text={"Go to your donation NFT"}
+          isLoading={loading}
+          onClick={clicked}
+        />
       </div>
     </>
   );

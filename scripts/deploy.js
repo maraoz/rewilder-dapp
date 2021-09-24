@@ -46,6 +46,7 @@ async function main() {
   }
   console.log("Using wallet address:", wallet);
   const addresses = {};
+  addresses['wallet'] = wallet;
   
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", 

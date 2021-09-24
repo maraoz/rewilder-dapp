@@ -1,19 +1,23 @@
 const firebaseAdmin = require("./firebase");
-
 const firestore = firebaseAdmin.firestore();
-
 const config = require("../../config");
 
-const collectionName = "tokens-"+config.networkName;
+const tokenCollectionName = "tokens-"+config.networkName;
+const updatesCollectionName = "updates-"+config.networkName;
 
 // Get token
-function getToken(id) {
-  return firestore.collection(collectionName).doc(id).get().then(format);
+async function getToken(id) {
+  return firestore.collection(tokenCollectionName).doc(id).get().then(format);
 }
 
 // Get all tokens
-function getAllTokens() {
-  return firestore.collection(collectionName).get().then(format);
+async function getAllTokens() {
+  return firestore.collection(tokenCollectionName).get().then(format);
+}
+
+// get updates for a specific token
+async function getUpdatesForToken(id) {
+  return firestore.collection(updatesCollectionName).doc(id).get().then(format);
 }
 
 // Format Firestore response
@@ -33,4 +37,5 @@ function getDoc(doc) {
 module.exports = {
   getToken,
   getAllTokens,
+  getUpdatesForToken,
 };
