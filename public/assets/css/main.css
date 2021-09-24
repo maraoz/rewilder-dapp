@@ -293,19 +293,23 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-      min-height: 100vh;
+  min-height: 100vh;
+}
+
+.container, .container-md, .container-sm {
+  flex-grow: 3;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin: 1.5rem 0;
 }
 
 .logo {
-  margin: 1.5rem 0 .5rem;
+  padding: 0 1rem;
+  margin: 1.7rem 0 .5rem;
 }
-.logo img {
-  width: 100%;
-}
-.logo .small-logo {
-  margin-left: 10px;
-  display: none;
-}
+.logo img { width: 100%; }
+.logo .small-logo { display: none; }
 
 .header-button {
   text-align: right;
@@ -367,9 +371,6 @@ label {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-
-
-
 
 .hero-v1-wrapper {
   max-width: 880px;
@@ -532,19 +533,6 @@ label {
   line-height: 18px;
 }
 
-@media (min-width: 768px) {
-  .container, .container-md, .container-sm {
-    max-width: 100%;
-    flex-grow: 3;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    margin: 1rem 0;
-  }
-}
-
-
-
 .connect-wallet-popup {
   position: fixed;
   top: 48%;
@@ -655,9 +643,7 @@ label {
   right: 30px;
   cursor: pointer;
 }
-.sign-transaction-popup .sign-close i {
-  font-size: 24px;
-}
+.sign-transaction-popup .sign-close i { font-size: 24px; }
 .sign-transaction-popup h4 {
   font-size: 24px;
   line-height: 31px;
@@ -669,9 +655,7 @@ label {
   padding: 0;
 }
 
-.circle-shape {
-  animation: rotate 1s linear infinite;
-}
+.circle-shape { animation: rotate 1s linear infinite;}
 
 .sign-transaction-popup .circle-shape {
   max-width: 80px;
@@ -823,7 +807,6 @@ label {
   background: #c4cfc4;
 }
 
-
 .disconnect-button .disconnect {
   padding: 8px 12px;
   border-radius: 8px;
@@ -856,7 +839,6 @@ label {
 .disconnect-error-popup .message a i {
   color: #990808;
 }
-
 
 .donation-message {
   text-align: center;
@@ -1131,6 +1113,9 @@ a.btn-theme { color: white; }
 /*------------------------------------------------------------------------------
   Responsive
 -------------------------------------------------------------------------------*/
+@media (min-width: 768px) {
+  .container, .container-md, .container-sm { max-width: 100%; }
+}
 
 @media screen and (max-width: 575px) {
   .description-area { padding: 0px; }
@@ -1275,14 +1260,11 @@ a.btn-theme { color: white; }
     margin: 0 auto;
   }
   
-  /* XXXXXXX */
-  .header-v1-wrapper {
-    padding: 30px 0px;
-    justify-content: space-between;
-  }
-  .logo { max-width: 70px; }
+  /* LOGOS */
   .logo .big-logo { display: none; }
   .logo .small-logo { display: block; }
+  .logo { margin-top: 2rem; }
+  .logo img { height: 1.5rem; }
 }
 
 
@@ -1323,6 +1305,8 @@ a.btn-theme { color: white; }
     margin-right: auto;
     margin-top: 50px;
   }
+  .logo {  margin-right: auto; }
+  .logo img { height: 1.25rem; }
 }
 
 @media screen and (max-width: 1199px) {
