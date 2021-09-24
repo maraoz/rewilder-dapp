@@ -1,7 +1,7 @@
 {
   "wallet": "0x5b17B5C7149633Ef4dfc4c71a66b8948EDeD073B",
   "network": "rinkeby",
-  "RewilderNFT": "0x83b76e31919DF4994f29c6bf43C6ad99d3E352E7",
+  "RewilderNFT": "0x9eb7a6cBD796BeD09A8a78E672a55b6CF2fE183a",
   "RewilderNFTImpl": "0xa479d03Bc2d3D823018e98b68d6e387Df80368Ab",
-  "RewilderDonationCampaign": "0xfAc269D3E976adc41d0AFe4a1fd1A6f75dc55402"
+  "RewilderDonationCampaign": "0xE34098c9BE0d633fccb3F65042D29D663f44fB93"
 }
