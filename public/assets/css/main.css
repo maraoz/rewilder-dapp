@@ -889,6 +889,19 @@ label {
   justify-content: space-between;
 }
 
+.description-wrapper .nft {
+  flex: 1 1 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-basis: auto;
+  justify-content: space-evenly;
+}
+
+.description-wrapper .nft .thumb {
+  margin: 1rem 0;
+}
+
 /* DONATION CARD */
 .donation {
   width: 42rem;

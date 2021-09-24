@@ -78,7 +78,7 @@ function DonationPage() {
       <div className="description-area">
         <div className="container-fluid">
           <div className="description-wrapper">
-            <div>
+            <div className="nft">
               <div className="donation-logo">
                 <img src="/assets/img/logo/logo.svg" alt="logo"/>
               </div>
@@ -87,8 +87,8 @@ function DonationPage() {
                   className={"nft-image"}/>
                 }
                 <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="frame"/>
-                <figcaption>“{attributes["flavor"]}”</figcaption>
               </div>
+              <figcaption>“{attributes["flavor"]}”</figcaption>
             </div>
 
             <div className="donation">
