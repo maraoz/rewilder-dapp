@@ -7,11 +7,19 @@ body {
   font-size: 16px;
   font-family: "Airbnb Cereal App Book";
   font-weight: 400;
-  background-image: url("/assets/img/body-bg.png");
-  background-size: cover;
-  background-attachment: fixed;
-  position: -webkit-sticky;
-  position: sticky;
+  background-color: #1B201C;
+  background-image: linear-gradient(112deg, #171B17 0%, #1B201C 50%, #25382C 100%);
+  min-height: 100vh;
+}
+.noise {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/noise.png);
+  background-size: auto;
+  background-repeat: repeat;
+  opacity: .2;
+  z-index: -1;
 }
 body::after {
   position: absolute;
@@ -251,21 +259,10 @@ label {
 }
 
 /* Others Common Css Here :) */
-.f-left {
-  float: left;
-}
-
-.f-right {
-  float: right;
-}
-
-.fix {
-  overflow: hidden;
-}
-
-.separator {
-  border-top: 1px solid #f2f2f2;
-}
+.f-left { float: left; }
+.f-right { float: right; }
+.fix { overflow: hidden; }
+.separator { border-top: 1px solid #f2f2f2; }
 
 /* Overlay */
 [data-overlay] {
@@ -282,78 +279,53 @@ label {
   bottom: 0;
   content: "";
 }
+[data-overlay=light]::before { background-color: #fff; }
+[data-overlay=dark]::before { background-color: #000; }
+[data-overlay=theme]::before { background-color: #388447; }
+[data-opacity="1"]::before { opacity: 0.1; }
+[data-opacity="2"]::before { opacity: 0.2; }
+[data-opacity="3"]::before { opacity: 0.3; }
+[data-opacity="4"]::before { opacity: 0.4; }
+[data-opacity="5"]::before { opacity: 0.5; }
+[data-opacity="6"]::before { opacity: 0.6; }
+[data-opacity="7"]::before { opacity: 0.7; }
+[data-opacity="8"]::before { opacity: 0.8; }
+[data-opacity="9"]::before { opacity: 0.9; }
 
-[data-overlay=light]::before {
-  background-color: #fff;
-}
-
-[data-overlay=dark]::before {
-  background-color: #000;
-}
-
-[data-overlay=theme]::before {
-  background-color: #388447;
-}
-
-[data-opacity="1"]::before {
-  opacity: 0.1;
-}
-
-[data-opacity="2"]::before {
-  opacity: 0.2;
-}
-
-[data-opacity="3"]::before {
-  opacity: 0.3;
-}
-
-[data-opacity="4"]::before {
-  opacity: 0.4;
-}
-
-[data-opacity="5"]::before {
-  opacity: 0.5;
-}
-
-[data-opacity="6"]::before {
-  opacity: 0.6;
-}
-
-[data-opacity="7"]::before {
-  opacity: 0.7;
-}
-
-[data-opacity="8"]::before {
-  opacity: 0.8;
-}
-
-[data-opacity="9"]::before {
-  opacity: 0.9;
-}
+/* .hero-v1-area {
+  margin: 1.5rem 0;
+} */
 
 .header-v1-wrapper {
-  padding: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.container, .container-md, .container-sm {
+  flex-grow: 3;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  align-content: center;
+  margin: 1.5rem 0;
 }
 
 .logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  padding: 0 1rem;
+  margin: 1.7rem 0 .5rem;
 }
-.logo img {
-  width: 100%;
-}
-.logo .small-logo {
-  margin-left: 10px;
-  display: none;
-}
+.logo img { width: 100%; }
+.logo .small-logo { display: none; }
 
 .header-button {
-  display: inline-block;
   text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.5rem 1rem 0 0;
+  z-index: 9;
 }
 .header-button a {
   font-size: 14px;
@@ -386,13 +358,13 @@ label {
   opacity: 1;
 }
 .frame {
-  mix-blend-mode: overlay;
+  /* mix-blend-mode: overlay; */
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  opacity: .2;
+  opacity: .15;
 }
 
 .nft-image {
@@ -408,39 +380,6 @@ label {
   -ms-user-select: none;
 }
 
-@media screen and (max-width: 767px) {
-  .header-v1-wrapper {
-    justify-content: space-between;
-  }
-
-  .logo {
-    max-width: 115px;
-    position: unset;
-    top: unset;
-    left: unset;
-    transform: translateX(0%);
-  }
-}
-@media screen and (max-width: 575px) {
-  .header-v1-wrapper {
-    padding: 30px 0px;
-    justify-content: space-between;
-  }
-
-  .logo {
-    max-width: 70px;
-  }
-  .logo .big-logo {
-    display: none;
-  }
-  .logo .small-logo {
-    display: block;
-  }
-}
-.hero-v1-area {
-  padding: 20px 0px 80px;
-}
-
 .hero-v1-wrapper {
   max-width: 880px;
   margin: 0 auto;
@@ -454,31 +393,34 @@ label {
 .hero-v1-thumb {
   width: 50%;
   position: relative;
-}
-.hero-v1-thumb img {
-  /* TODO: make this fit nicely without stretching */
-  /* height: 100%; */
-  padding-bottom: 40px;
-}
-.hero-v1-thumb p {
-  position: absolute;
-  z-index: 9;
-  bottom: 0;
-  left: 0;
   background-color: #716B5E;
-  padding: 15px 0px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-v1-thumb p {
+  width: 100%;
+  flex-grow: 2;
+  z-index: 9;
   font-size: 12px;
   line-height: 16px;
   color: #fff;
-  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hero-v1-content {
   width: 50%;
   background: #fff;
-  padding: 32px;
+  padding: 2rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .hero-v1-content .shape {
   position: absolute;
@@ -495,42 +437,36 @@ label {
   font-weight: 900;
   color: #171C18;
   font-family: "Airbnb Cereal App Black";
-  margin-top: 12px;
-  line-height: 31px;
+  margin: .5rem 0;
+  line-height: 2rem;
 }
-.hero-v1-content .tree-group {
+.donation-control {
+  padding: 1rem 0 2rem;
+}
+.tree-group {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 2rem;
-  margin-bottom: 10px;
+  margin-bottom: .5rem;
 }
-.hero-v1-content .tree-group .single-tree {
+.tree-group .single-tree {
   width: 100%;
   text-align: center;
   cursor: pointer;
 }
-.hero-v1-content .tree-group .single-tree .tree-img {
-  max-width: 45px;
+.tree-group .single-tree .tree-img {
   margin: 0 auto;
 }
-.hero-v1-content .tree-group .single-tree .tree-img.medium-tree {
-  max-width: 55px;
-  margin: 0 auto;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.small-tree {
-  max-width: 20px;
-  margin: 0 auto;
-}
-.hero-v1-content .tree-group .single-tree .tree-title {
-  margin-top: 8px;
-}
-.hero-v1-content .tree-group .single-tree .tree-title h5 {
+.tree-group .single-tree h5 {
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
   font-family: "Airbnb Cereal App Bold";
   color: #8C8D91;
+  margin: .5rem auto;
+}
+.tree-group .single-tree h5.active { 
+  color: #388447;
 }
 .hero-v1-content .range-input {
   position: relative;
@@ -566,8 +502,8 @@ label {
   font-family: "Airbnb Cereal App Medium";
 }
 .hero-v1-content .donating-value {
-  margin-top: 60px;
   text-align: center;
+  margin-top: 2rem;
 }
 .hero-v1-content .donating-value h4 {
   font-size: 20px;
@@ -590,9 +526,6 @@ label {
   line-height: 16px;
   margin-top: 8px;
 }
-.hero-v1-content .hero-v1-btn {
-  margin-top: 55px;
-}
 .hero-v1-content .hero-v1-btn a {
   display: block;
   text-align: center;
@@ -608,69 +541,6 @@ label {
   line-height: 18px;
 }
 
-@media screen and (max-width: 767px) {
-  .hero-v1-wrapper {
-    max-width: 880px;
-    margin: 0 auto;
-    display: flex;
-    background: #FFFFFF;
-    box-shadow: 0px 8px 46px rgba(7, 39, 14, 0.4);
-    border-radius: 16px;
-    overflow: hidden;
-    flex-direction: column;
-  }
-
-  .hero-v1-thumb {
-    width: 100%;
-  }
-
-  .hero-v1-thumb p {
-    padding: 15px 30px;
-  }
-
-  .hero-v1-content {
-    width: 100%;
-  }
-  .hero-v1-content .range-value {
-    margin-top: 10px;
-  }
-}
-@media screen and (max-width: 575px) {
-  .hero-v1-area {
-    padding: 25px 0px 30px;
-  }
-  .hero-v1-thumb p {
-    padding: 15px 30px;
-  }
-  .hero-v1-content {
-    padding: 20px;
-  }
-  .hero-v1-content .shape {
-    top: 20px;
-    right: 20px;
-    max-width: 50px;
-  }
-  .hero-v1-content .title h2 {
-    font-size: 20px;
-    margin-top: 5px;
-  }
-  .hero-v1-content .tree-group {
-    margin-top: 20px;
-    margin-bottom: 5px;
-  }
-  .hero-v1-content .donating-value {
-    margin-top: 30px;
-  }
-  .hero-v1-content .donating-value h4 {
-    font-size: 18px;
-    line-height: 1.5;
-    max-width: 170px;
-    margin: 0 auto;
-  }
-  .hero-v1-content .hero-v1-btn {
-    margin-top: 25px;
-  }
-}
 .connect-wallet-popup {
   position: fixed;
   top: 48%;
@@ -755,30 +625,6 @@ label {
   margin: 0px 3px;
 }
 
-@media screen and (max-width: 575px) {
-  .connect-wallet-popup {
-    padding: 20px;
-    border-radius: 10px;
-  }
-  .connect-wallet-popup .connect-wallet-close {
-    top: 8px;
-    right: 15px;
-  }
-  .connect-wallet-popup h4 {
-    font-size: 20px;
-    line-height: 1;
-  }
-  .connect-wallet-popup .connect-option {
-    margin: 25px 0px;
-  }
-  .connect-wallet-popup .connect-option a {
-    padding: 8px 15px;
-    margin: 0px 7px;
-  }
-  .connect-wallet-popup .connect-option a img {
-    max-width: 60px;
-  }
-}
 .sign-transaction-popup {
   padding: 50px;
   position: absolute;
@@ -805,9 +651,7 @@ label {
   right: 30px;
   cursor: pointer;
 }
-.sign-transaction-popup .sign-close i {
-  font-size: 24px;
-}
+.sign-transaction-popup .sign-close i { font-size: 24px; }
 .sign-transaction-popup h4 {
   font-size: 24px;
   line-height: 31px;
@@ -819,9 +663,7 @@ label {
   padding: 0;
 }
 
-.circle-shape {
-  animation: rotate 1s linear infinite;
-}
+.circle-shape { animation: rotate 1s linear infinite;}
 
 .sign-transaction-popup .circle-shape {
   max-width: 80px;
@@ -862,60 +704,38 @@ label {
     transform: rotate(0deg);
   }
 }
-@media screen and (max-width: 575px) {
-  .sign-transaction-popup {
-    padding: 20px;
-    border-radius: 10px;
-  }
-  .sign-transaction-popup .sign-close {
-    top: 13px;
-    right: 20px;
-  }
-  .sign-transaction-popup .sign-close i {
-    font-size: 20px;
-  }
-  .sign-transaction-popup h4 {
-    font-size: 20px;
-    line-height: 1;
-  }
-  .sign-transaction-popup .circle-shape {
-    max-width: 55px;
-    margin: 40px auto 0px;
-  }
-  .sign-transaction-popup .sign-close-btn {
-    margin-top: 30px;
-    width: 280px;
-  }
-}
-.connect-header .connect-button {
+
+.connect-button {
   background: #0D0F09;
-  border-radius: 12px;
-  padding: 4px 4px 3px 10px;
+  border-radius: 14px;
+  padding: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.25rem 1rem 0 0;
+  z-index: 10;
 }
-.connect-header .connect-button a {
+.connect-button a {
   font-family: 'Azeret Mono', monospace;
   color: #F7FAF8;
-  font-size: .9rem;
-  line-height: 1;
+  font-size: 1rem;
+  line-height: 1rem;
+  display: flex;
 }
-.connect-header .connect-button a span {
+.connect-button a span {
   background: #28332C;
-  border-radius: 8px;
-  padding: 4px 8px 4px 6px;
+  border-radius: .5rem;
+  padding: 6px 8px;
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
-  margin-top: 2px;
 }
 
-.connect-header .connect-button a span.balance {
-  margin-bottom: 3px;
-  vertical-align: bottom;
+.connect-button a span.balance {
   background: none;
-  padding-left: 0;
+  margin-right: .5rem;
 }
 
-.connect-header .connect-button a span canvas {
+.connect-button a span canvas {
   border-radius: 1rem;
   margin-right: 8px;
 }
@@ -995,59 +815,30 @@ label {
   background: #c4cfc4;
 }
 
-@media screen and (max-width: 575px) {
-  .connect-header .connect-button a {
-    font-size: 14px;
-  }
-  .connect-header .connect-button a span img {
-    max-width: 12px;
-  }
+.disconnect-button .disconnect {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 1rem 0 .5rem;
+  margin-left: auto;
+  flex-wrap: nowrap;
+  width: fit-content;
+}
 
-  .connect-error-popup {
-    padding: 20px;
-    border-radius: 10px;
-  }
-  .connect-error-popup .connect-error-close {
-    top: 15px;
-    right: 20px;
-  }
-  .connect-error-popup .connect-error-close i {
-    font-size: 20px;
-  }
-  .connect-error-popup h4 {
-    font-size: 20px;
-    line-height: 1;
-  }
-  .connect-error-popup .message {
-    margin-top: 15px;
-    width: 280px;
-  }
-  .connect-error-popup .message a {
-    padding: 12px 15px;
-  }
-  .connect-error-popup .connect-error-close-btn {
-    margin-top: 20px;
-  }
-  .connect-error-popup .connect-error-close-btn a {
-    padding: 10px 45px;
-  }
-}
-.disconnect-header .disconnect-button .disconnect {
-  padding-right: 12px;
-  padding-bottom: 12px;
-  text-align: right;
-  margin-top: 15px;
-}
-.disconnect-header .disconnect-button .disconnect a {
+.disconnect-button .disconnect a {
   letter-spacing: 0.01em;
-  color: #778C7E;
+  color: #ACBFB2;
   font-family: "Airbnb Cereal App Bold";
   font-size: 14px;
-  line-height: 21px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  opacity: .8;
 }
-.disconnect-header .disconnect-button .disconnect a svg {
-  margin-right: 5px;
+.disconnect-button .disconnect a svg {
+  margin-right: 4px;
 }
+.disconnect-button .disconnect:hover { background: #28332C; }
+.disconnect-button .disconnect:hover a { opacity: 1; }
 
 .disconnect-error-popup .message a {
   background: #F5EBEB;
@@ -1057,21 +848,18 @@ label {
   color: #990808;
 }
 
-@media screen and (max-width: 575px) {
-  .disconnect-header .disconnect-button {
-    padding: 10px;
-  }
-  .disconnect-header .disconnect-button .disconnect {
-    margin-top: 10px;
-  }
-}
 .donation-message {
   text-align: center;
-  margin: 100px 0px 0px;
+  margin: 0px;
+  flex-grow: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
 }
 .donation-message .main-shape {
   max-width: 80px;
-  margin: 60px auto 0px;
+  margin: 0px auto;
 }
 .donation-message .main-shape svg {
   color: #277336;
@@ -1091,40 +879,19 @@ label {
   display: inline-flex;
   align-items: center;
   color: #8C8D91;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
-  margin-top: 10px;
+  margin: .5rem auto;
+}
+.donation-message h4 img {
+  width: 25px;
+  margin-bottom: 4px;
 }
 .donation-message a svg {
   font-size: 12px;
   margin-left: 5px;
 }
 
-@media screen and (max-width: 991px) {
-
-  .hero-v1-thumb p {
-    padding: 15px 15px;
-  }
-
-  .donation-message {
-    margin: 80px 0px 0px;
-  }
-  .donation-message h4 {
-    font-size: 18px;
-  }
-}
-@media screen and (max-width: 767px) {
-  .donation-message {
-    margin: 30px 0px 0px;
-  }
-  .donation-message .main-shape {
-    max-width: 55px;
-    margin: 0px auto 0px;
-  }
-  .donation-message h4 {
-    margin-top: 15px;
-  }
-}
 .description-area {
   padding: 40px;
 }
@@ -1134,19 +901,17 @@ label {
   justify-content: space-between;
 }
 
-.description-thumbnial {
-  width: 50%;
+.description-wrapper .nft {
+  flex: 1 1 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-basis: auto;
+  justify-content: space-evenly;
 }
-.description-thumbnial .thumb {
-  margin: 80px auto 0px;
-}
-.description-thumbnial .thumb figcaption {
-  color: #D4CFC7;
-  display: block;
-  font-size: 16px;
-  line-height: 21px;
-  margin-top: 55px;
+
+.description-wrapper .nft .thumb {
+  margin: 1rem 0;
 }
 
 /* DONATION CARD */
@@ -1156,9 +921,10 @@ label {
   min-height: 40rem;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 16px;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 3rem 0;
   position: relative;
-  overflow: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 /* donation header */
@@ -1234,16 +1000,27 @@ label {
 }
 
 /* donation updates */
-.updates h5{
+.updates {
+  overflow-y: auto;
+}
+.donation h5 {
   font-family: 'Airbnb Cereal App Bold', sans-serif;
   font-weight: bold;
   color: #F7FAF8;
-  margin: 2rem 0 1rem;
+  margin: 1rem 0;
 }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background-color: #1B201C; }
+::-webkit-scrollbar-thumb { background: #223326; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3F6947; }
+
+.updates::-webkit-scrollbar-track { background-color: transparent; }
 
 /* DonationUpdate component */
 .update-card {
-  background: #162018;
+  background: #141e18;
   border-radius: .5rem;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -1251,7 +1028,7 @@ label {
   justify-content: space-between;
 }
 .update-card:last-child {
-  margin-bottom: 0;
+  margin-bottom: 2.5rem;
 }
 .update-card .update-icon {
   width: 2.5rem;
@@ -1290,71 +1067,86 @@ label {
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
-  background: black;
 }
 
-@media screen and (max-width: 1199px) {
-  .description-thumbnial {
-    width: 30%;
-    margin-right: 30px;
-  }
+/* # sourceMappingURL=main.css.map */
 
-  .donation {
-    width: 60%;
-  }
+
+/* extras added by maraoz */
+.alert {
+  background-color: #990808;
+  color: #fafafa;
+  font-weight: 800;
 }
-@media screen and (max-width: 991px) {
-  .description-wrapper {
-    flex-direction: column;
-  }
 
-  .description-thumbnial {
-    width: 100%;
-    margin-right: 0px;
-  }
-  .description-thumbnial .thumb {
-    margin: 50px auto 0px;
-  }
-  .description-thumbnial .thumb figcaption {
-    margin-top: 30px;
-  }
-
-  .donation {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-  }
+.info-popover-root {
+  display: inline;
+  cursor: pointer;
 }
-@media screen and (max-width: 767px) {
-  .description-area {
-    padding: 20px;
-  }
-
-  .donation {
-    padding: 1.5rem;
-    width: 100%;
-  }
+.info-popover {
+  z-index: 10;
+  width: 220px;
+  padding: 10px;
+  background: #FFFDFC;
+  border: 1px solid #EBE2DE;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 8px rgba(32, 63, 38, 0.16);
+  border-radius: 8px;
+  font-family: "Airbnb Cereal App Book";
+  font-size: 12px;
+  line-height: 14px;
+  color: #565044;
+  text-align: left;
 }
+.info-popover-root:hover svg { color: #3F6947; }
+
+.selected-amount {
+  text-align: center; 
+  width: 5rem;
+  padding-left: 0px;
+  padding-right: 0px;
+  display: inline;
+  -webkit-appearance: none;
+  border: 0;
+  border-width:0px;
+  border-bottom: 1px solid #C2C4CC;
+  font-size: 28px;
+}
+.selected-amount:focus { outline: none; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] { -moz-appearance: textfield; }
+
+.tree-group .single-tree img.tree-img.small-tree { max-height: 2.8rem; }
+.tree-group .single-tree img.tree-img.medium-tree { max-height: 3.75rem; }
+.tree-group .single-tree img.tree-img.large-tree { max-height: 5rem; }
+
+.btn-theme .circle-shape {
+  max-width: 1rem;
+  filter: invert(100%) sepia(1%) saturate(218%) hue-rotate(142deg) brightness(117%) contrast(100%);
+  margin: auto 10px;
+}
+a.btn-theme { color: white; }
+
+
+/*------------------------------------------------------------------------------
+  Responsive
+-------------------------------------------------------------------------------*/
+@media (min-width: 768px) {
+  .container, .container-md, .container-sm { max-width: 100%; }
+}
+
 @media screen and (max-width: 575px) {
-  .description-area {
-    padding: 0px;
-  }
-
-  .description-thumbnial .thumb {
-    margin: 30px auto 0px;
-  }
-  .description-thumbnial .thumb figcaption {
-    margin-top: 20px;
-    font-size: 14px;
-  }
-
+  .description-area { padding: 0px; }
   .donation .shape {
     top: 10px;
     right: 10px;
     max-width: 60px;
   }
-
   .donation {
     padding: 2rem 0px;
     width: 100%;
@@ -1385,73 +1177,161 @@ label {
   .update-card .update-content {
     padding-left: 0;
   }
+
+  /* XXXXXXXXX */
+  .disconnect-button {
+    padding: 10px;
+  }
+  .disconnect-button .disconnect {
+    margin-top: 10px;
+  }
+
+  /* XXXXXXXXX */
+  .connect-button a {
+    font-size: 14px;
+  }
+  .connect-button a span img {
+    max-width: 12px;
+  }
+
+  .connect-error-popup {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .connect-error-popup .connect-error-close {
+    top: 15px;
+    right: 20px;
+  }
+  .connect-error-popup .connect-error-close i {
+    font-size: 20px;
+  }
+  .connect-error-popup h4 {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .connect-error-popup .message {
+    margin-top: 15px;
+    width: 280px;
+  }
+  .connect-error-popup .message a {
+    padding: 12px 15px;
+  }
+  .connect-error-popup .connect-error-close-btn {
+    margin-top: 20px;
+  }
+  .connect-error-popup .connect-error-close-btn a {
+    padding: 10px 45px;
+  }
+  
+  /* XXXXXXXXX */
+  .sign-transaction-popup {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .sign-transaction-popup .sign-close {
+    top: 13px;
+    right: 20px;
+  }
+  .sign-transaction-popup .sign-close i {
+    font-size: 20px;
+  }
+  .sign-transaction-popup h4 {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .sign-transaction-popup .circle-shape {
+    max-width: 55px;
+    margin: 40px auto 0px;
+  }
+  .sign-transaction-popup .sign-close-btn {
+    margin-top: 30px;
+    width: 280px;
+  }
+
+  /* XXXXXXX */
+  .connect-wallet-popup {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .connect-wallet-popup .connect-wallet-close {
+    top: 8px;
+    right: 15px;
+  }
+  .connect-wallet-popup h4 {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .connect-wallet-popup .connect-option { margin: 25px 0px; }
+  .connect-wallet-popup .connect-option a {
+    padding: 8px 15px;
+    margin: 0px 7px;
+  }
+  .connect-wallet-popup .connect-option a img { max-width: 60px; }
+  
+  /* XXXXXXX */
+  .hero-v1-content { padding: 1.5rem; }
+  .hero-v1-content .shape {
+    top: 20px;
+    right: 20px;
+    max-width: 50px;
+  }
+  .hero-v1-content .title h2 { font-size: 20px; }
+  .hero-v1-content .donating-value h4 {
+    font-size: 18px;
+    line-height: 1.5;
+    max-width: 170px;
+    margin: 0 auto;
+  }
+  
+  /* LOGOS */
+  .logo .big-logo { display: none; }
+  .logo .small-logo { display: block; }
+  .logo { margin-top: 2rem; }
+  .logo img { height: 1.5rem; }
 }
 
-/* # sourceMappingURL=main.css.map */
+
+@media screen and (max-width: 767px) {
+  .header-v1-wrapper { justify-content: space-between; }
+  .hero-v1-wrapper {
+    max-width: 880px;
+    margin: 0 auto;
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 46px rgba(7, 39, 14, 0.4);
+    border-radius: 16px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .hero-v1-thumb { width: 100%; }
+  .hero-v1-content { width: 100%; }
+  .hero-v1-content .range-value { margin-top: 1rem; }
+
+  .description-area { padding: 20px; }
+  
+  .donation {
+    padding: 1.5rem;
+    width: 100%;
+  }
+  .donation-message .main-shape { max-width: 55px; }
+  .donation-message h4 { margin-top: 15px; }
+}
 
 
-/* extras added by maraoz */
-.alert {
-  background-color: #990808;
-  color: #fafafa;
-  font-weight: 800;
+@media screen and (max-width: 991px) {
+  .donation-message h4 { font-size: 18px;}
+  .description-wrapper { flex-direction: column;}
+  .donation {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+  }
+  .logo {  margin-right: auto; }
+  .logo img { height: 1.25rem; }
 }
 
-.info-popover-root {
-  display: inline;
-}
-.info-popover {
-  width: 200px;
-  border: 1px solid red;
-  background-color: white;
-  font-size: 12px;
-  color: #8C8D91;
-  line-height: 16px;
-  margin-top: 8px;;
-  z-index: 10;
-}
-
-.selected-amount {
-  text-align: center; 
-  width: 5rem;
-  padding-left: 0px;
-  padding-right: 0px;
-  display: inline;
-  -webkit-appearance: none;
-  border: 0;
-  border-width:0px;
-  border-bottom: 1px solid #C2C4CC;
-  font-size: 28px;
-}
-.selected-amount:focus {
-  outline: none;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-.hero-v1-content .tree-group .single-tree .tree-img.small-tree img {
-  max-height: 1.5rem;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.medium-tree img {
-  max-height: 3rem;
-}
-.hero-v1-content .tree-group .single-tree .tree-img.large-tree img {
-  max-height: 5rem;
-}
-
-.btn-theme .circle-shape {
-  max-width: 1rem;
-  filter: invert(100%) sepia(1%) saturate(218%) hue-rotate(142deg) brightness(117%) contrast(100%);
-  margin: auto 10px;
-}
-a.btn-theme {
-  color: white;
+@media screen and (max-width: 1199px) {
+  .donation { width: 60%; }
 }
