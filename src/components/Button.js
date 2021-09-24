@@ -13,7 +13,7 @@ function Button({ onClick , disabled, text, loadingText, isLoading }) {
     <a className={"btn-theme"+((disabled || isLoading)?" disabled":"")}
       onClick={clicked} disabled={disabled || isLoading} >
       {isLoading && 
-        <img className="circle-shape" src="assets/img/shape/circle-shape.svg" alt="shape" />
+        <img className="circle-shape" src="/assets/img/shape/circle-shape.svg" alt="shape" />
       }
       {(isLoading && loadingText)? loadingText : text}
     </a>

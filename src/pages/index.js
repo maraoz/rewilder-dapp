@@ -5,11 +5,12 @@ import Router from 'next/router'
 
 import { Layout } from "./../components/Layout";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
-import { useDonation } from "../lib/rewilderDonationCampaign";
+import { useDonation, useCampaignFinalized } from "../lib/rewilderDonationCampaign";
 import ThanksForDonating from "../components/ThanksForDonating";
 import DonationControls from "../components/DonationControls";
 import PendingDonation from "../components/PendingDonation";
 import LoadingCampaign from "../components/LoadingCampaign";
+import CampaignFinalized from "../components/CampaignFinalized";
 
 import FLAVOR_TEXT from "../lib/flavorText";
 
@@ -17,13 +18,18 @@ function IndexPage() {
   const { account } = useEthers();
   
   const [amount, setAmount] = useState(1);
+  const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
+  const finalized = useCampaignFinalized();
   
   const maybeNFTBalance = useBalanceOf(account);
   const nftBalance = maybeNFTBalance && maybeNFTBalance.toNumber();
   const maybeTokenId = useTokenOfOwner(account, nftBalance);
   const tokenId =  maybeTokenId && maybeTokenId.toNumber();
-  const isLoading = account && maybeNFTBalance === undefined || 
-    (nftBalance && maybeTokenId === undefined);
+  const isLoading = account && (
+    maybeNFTBalance === undefined || 
+    (nftBalance && maybeTokenId === undefined) ||
+    finalized === undefined
+    );
 
   const getTierForAmount = (amount) => {
     return amount < 33 ? "cypress" : amount < 66 ? "araucaria" : "sequoia";
@@ -31,8 +37,6 @@ function IndexPage() {
   
   const tier = getTierForAmount(amount);
   const flavorText = FLAVOR_TEXT[tier]; 
-  
-  const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
     
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
 
@@ -59,20 +63,22 @@ function IndexPage() {
           </div>
           <div className="hero-v1-content">
             <div className="shape">
-              <img src="assets/img/shape/stamp.png" alt="shape" />
+              <img src="/assets/img/shape/stamp.png" alt="shape" />
             </div>
             <div className="title">
-              <img src="assets/img/logo/hero-logo.svg" alt="logo" />
+              <img src="/assets/img/logo/hero-logo.svg" alt="logo" />
               <h2>Edition 001: Origin</h2>
             </div>
             {
               isLoading?
                 <LoadingCampaign />:
-                alreadyDonated?
-                  <ThanksForDonating tokenId={tokenId}/>:
-                  donateTx.status == 'Mining'?
-                    <PendingDonation {...{donateTx}} />:
-                    <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
+                finalized?
+                <CampaignFinalized tokenId={tokenId}/>:
+                  alreadyDonated?
+                    <ThanksForDonating tokenId={tokenId}/>:
+                    donateTx.status == 'Mining'?
+                      <PendingDonation {...{donateTx}} />:
+                      <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
             }
           </div>
         </div>

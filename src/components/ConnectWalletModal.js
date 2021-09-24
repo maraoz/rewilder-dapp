@@ -68,11 +68,11 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
         <h4>Connect to a wallet</h4>
         <div className="connect-option">
           <a href="#" onClick={clickMetamask}>
-            <img src="assets/img/icon/metamask-icon.svg" alt="Metamask" />
+            <img src="/assets/img/icon/metamask-icon.svg" alt="Metamask" />
             <span>Metamask</span>
           </a>
           <a href="#" onClick={clickWalletConnect}>
-            <img src="assets/img/icon/wallet-connect-icon.svg" alt="WalletConnect" />
+            <img src="/assets/img/icon/wallet-connect-icon.svg" alt="WalletConnect" />
             <span>WalletConnect</span>
           </a>
         </div>

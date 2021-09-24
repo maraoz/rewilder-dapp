@@ -28,8 +28,8 @@ export const Layout = ({ children, ...customMeta }) => {
             {
             !incorrectNetwork &&
               <a href="#">
-                <img className="big-logo" src="assets/img/logo/logo.svg" alt="Rewilder logo" />
-                <img className="small-logo" src="assets/img/logo/small-logo.svg" alt="Rewilder logo" />
+                <img className="big-logo" src="/assets/img/logo/logo.svg" alt="Rewilder logo" />
+                <img className="small-logo" src="/assets/img/logo/small-logo.svg" alt="Rewilder logo" />
               </a>
             }
         </div>
