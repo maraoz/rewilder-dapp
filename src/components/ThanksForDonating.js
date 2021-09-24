@@ -5,10 +5,10 @@ import Router from 'next/router'
 
 function ThanksForDonating({ tokenId }) {
 
-  const [loading, setLoading] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
 
   const clicked = () => {
-    setLoading(true);
+    setRedirecting(true);
     Router.push(`/donation/${tokenId}`);
   };
   return (
@@ -21,8 +21,9 @@ function ThanksForDonating({ tokenId }) {
       </div>
       <div className="hero-v1-btn">
         <Button
-          text={"Go to your donation NFT"}
-          isLoading={loading}
+          disabled={!tokenId}
+          text={!tokenId?"Minting NFT, hang tight!":"Go to your donation NFT"}
+          isLoading={!tokenId || redirecting}
           onClick={clicked}
         />
       </div>
