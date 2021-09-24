@@ -9,6 +9,7 @@ body {
   font-weight: 400;
   background-color: #1B201C;
   background-image: linear-gradient(112deg, #171B17 0%, #1B201C 50%, #25382C 100%);
+  min-height: 100vh;
 }
 .noise {
   position: fixed;
