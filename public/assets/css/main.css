@@ -1131,6 +1131,9 @@ input[type=number] { -moz-appearance: textfield; }
   margin: auto 10px;
 }
 a.btn-theme { color: white; }
+svg {
+  font-size: 1em;
+}
 
 
 /*------------------------------------------------------------------------------
