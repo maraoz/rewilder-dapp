@@ -4,6 +4,7 @@ module.exports = {
     return [
     ];
   },
+  generateBuildId: () => 'build',
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     if (dev) {
       config.optimization.minimize = false;
