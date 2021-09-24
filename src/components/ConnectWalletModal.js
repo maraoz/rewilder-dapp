@@ -59,7 +59,7 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
   }, []);
 
   return (
-    <div className="container">
+    <div>
     { 
       <div className={"connect-wallet-popup"+(isOpen?" active":"")}>
         <div className="connect-wallet-close" onClick={onClose}>

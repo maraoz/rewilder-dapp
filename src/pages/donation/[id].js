@@ -64,7 +64,7 @@ function DonationPage() {
       <div className="description-area">
         <div className="container-fluid">
           <div className="description-wrapper">
-            <div className="description-thumbnial">
+            <div>
               <div className="donation-logo">
                 <img src="/assets/img/logo/logo.svg" alt="logo"/>
               </div>

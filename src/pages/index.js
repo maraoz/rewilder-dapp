@@ -51,34 +51,32 @@ function IndexPage() {
   
   return (
     <Layout>
-      <section className="hero-v1-area">
-        <div className="container">
-          <div className="hero-v1-wrapper">
-            <div className="hero-v1-thumb">
-              <img src={`assets/img/donation/${tier}.jpg`} className="banner-image" />
-              <p>“{flavorText}”</p>
+      <div className="container">
+        <div className="hero-v1-wrapper">
+          <div className="hero-v1-thumb">
+            <img src={`assets/img/donation/${tier}.jpg`} className="banner-image" />
+            <p>“{flavorText}”</p>
+          </div>
+          <div className="hero-v1-content">
+            <div className="shape">
+              <img src="assets/img/shape/stamp.png" alt="shape" />
             </div>
-            <div className="hero-v1-content">
-              <div className="shape">
-                <img src="assets/img/shape/stamp.png" alt="shape" />
-              </div>
-              <div className="title">
-                <img src="assets/img/logo/hero-logo.svg" alt="logo" />
-                <h2>Edition 001: Origin</h2>
-              </div>
-              {
-                isLoading?
-                  <LoadingCampaign />:
-                  alreadyDonated?
-                    <ThanksForDonating tokenId={tokenId}/>:
-                    donateTx.status == 'Mining'?
-                      <PendingDonation {...{donateTx}} />:
-                      <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
-              }
+            <div className="title">
+              <img src="assets/img/logo/hero-logo.svg" alt="logo" />
+              <h2>Edition 001: Origin</h2>
             </div>
+            {
+              isLoading?
+                <LoadingCampaign />:
+                alreadyDonated?
+                  <ThanksForDonating tokenId={tokenId}/>:
+                  donateTx.status == 'Mining'?
+                    <PendingDonation {...{donateTx}} />:
+                    <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
+            }
           </div>
         </div>
-      </section>
+      </div>
     </Layout>
   );
 }
