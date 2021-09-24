@@ -14,6 +14,7 @@ export const Layout = ({ children, ...customMeta }) => {
   return (
     <>
       <Head {...customMeta} />
+      <div className="noise"></div>  
       {account ? (
         <WalletInfo />
         ) : (
@@ -21,7 +22,6 @@ export const Layout = ({ children, ...customMeta }) => {
           <a href="#" onClick={modalContext.onOpen}>Connect wallet</a>
         </div>
       )}
-      
       <div className="header-v1-wrapper">
         <div className="logo"> 
             <NetworkErrorMessage />

@@ -7,11 +7,19 @@ body {
   font-size: 16px;
   font-family: "Airbnb Cereal App Book";
   font-weight: 400;
-  background-image: url("/assets/img/body-bg.png");
-  background-size: cover;
-  background-attachment: fixed;
-  position: -webkit-sticky;
-  position: sticky;
+  background-color: #1B201C;
+  background-image: linear-gradient(112deg, #171B17 0%, #1B201C 50%, #25382C 100%);
+  min-height: 100vh;
+}
+.noise {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/noise.png);
+  background-size: auto;
+  background-repeat: repeat;
+  opacity: .2;
+  z-index: -1;
 }
 body::after {
   position: absolute;
@@ -350,13 +358,13 @@ label {
   opacity: 1;
 }
 .frame {
-  mix-blend-mode: overlay;
+  /* mix-blend-mode: overlay; */
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  opacity: .2;
+  opacity: .15;
 }
 
 .nft-image {
@@ -1010,7 +1018,7 @@ label {
 
 /* DonationUpdate component */
 .update-card {
-  background: #162018;
+  background: #141e18;
   border-radius: .5rem;
   padding: 1rem;
   margin-bottom: 1rem;
