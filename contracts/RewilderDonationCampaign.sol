@@ -16,7 +16,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     constructor(RewilderNFT nftAddress, address payable wallet) {
         _nft = nftAddress;
         _wallet = wallet;
-        
+
         // give ownership of campaign to wallet (allows pausing and finalizing campaign)
         transferOwnership(_wallet);
     }
@@ -24,7 +24,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     /**
      * @dev Returns the address of the NFT contract.
      */
-    function nft() public view virtual returns (RewilderNFT) {
+    function getRewilderNft() public view virtual returns (RewilderNFT) {
         return _nft;
     }
 

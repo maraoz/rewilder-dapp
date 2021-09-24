@@ -3,7 +3,7 @@ const { expect } = require("chai");
 
 
 describe("RewilderDonationCampaign", function () {
-  
+
   let RewilderDonationCampaign;
   beforeEach(async function () {
     const [deployer, donorA, donorB, wallet] = await ethers.getSigners();
@@ -14,11 +14,11 @@ describe("RewilderDonationCampaign", function () {
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
     this.nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
     RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
-    
+
     this.campaign = await RewilderDonationCampaign.deploy(
       this.nft.address, this.wallet.address);
     await this.campaign.deployed();
-    
+
     // transfer nft ownership to donation campaign
     await this.nft.transferOwnership(this.campaign.address);
   });
@@ -36,22 +36,22 @@ describe("RewilderDonationCampaign", function () {
 
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
     const nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
-    
+
     const brokenCampaign = await RewilderDonationCampaign.deploy(
       nft.address, badWallet.address);
     await brokenCampaign.deployed();
-      
+
     await nft.transferOwnership(brokenCampaign.address);
 
     const donationAmountWEI = ethers.utils.parseEther("2.0");
     await expect(brokenCampaign.receiveDonation({value: donationAmountWEI}))
       .to.be.revertedWith('Transfer to wallet failed');
-    
+
   });
-    
+
   describe("constructs correctly", function () {
     it("stores nft address", async function () {
-      expect(await this.campaign.nft()).to.equal(this.nft.address);
+      expect(await this.campaign.getRewilderNft()).to.equal(this.nft.address);
     });
     it("sets the right owner", async function () {
       expect(await this.campaign.owner()).to.equal(this.wallet.address);
@@ -178,10 +178,10 @@ describe("RewilderDonationCampaign", function () {
       expect(await this.campaign.paused()).to.equal(false);
     });
   })
-  
-  
+
+
   describe("finalize call", function () {
-      
+
     it("starts unpaused", async function () {
       expect(await this.campaign.paused()).to.equal(false);
     });
@@ -206,7 +206,7 @@ describe("RewilderDonationCampaign", function () {
       it("transfers ownership of NFT to multisig ", async function () {
         expect(await this.nft.owner()).to.equal(this.wallet.address);
       });
-      
+
       it("disallows further donations", async function () {
         const donationAmountWEI = ethers.utils.parseEther("1.0");
         await expect(this.campaign.connect(this.donorA).receiveDonation({
