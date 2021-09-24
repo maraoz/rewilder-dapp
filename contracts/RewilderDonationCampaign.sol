@@ -11,12 +11,12 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     RewilderNFT private _nft;
     address payable private _wallet;
 
-    event Donation(address indexed donor, uint256 amount, uint256 indexed tokenID);
+    event DonationReceived(address indexed donor, uint256 amount, uint256 indexed tokenID);
 
     constructor(RewilderNFT nftAddress, address payable wallet) {
         _nft = nftAddress;
         _wallet = wallet;
-        
+
         // give ownership of campaign to wallet (allows pausing and finalizing campaign)
         transferOwnership(_wallet);
     }
@@ -38,7 +38,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
         uint256 tokenId =_nft.safeMint(msg.sender);
         (bool success, ) = _wallet.call{value: msg.value}("");
         require(success, "Transfer to wallet failed.");
-        emit Donation(msg.sender, msg.value, tokenId);
+        emit DonationReceived(msg.sender, msg.value, tokenId);
     }
 
     /**
