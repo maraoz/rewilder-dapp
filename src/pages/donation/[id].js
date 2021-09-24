@@ -147,7 +147,7 @@ function DonationPage() {
                   date={creationDate}
                   message="You will be able to see future updates about your donation here. For example, when we buy the land or make a payment."
                   linkText="Subscribe to also receive email notifications."
-                  linkHref="https://rewilder.substack.com"
+                  linkHref="https://rewilder.substack.com/subscribe"
                   isCloseable={true}
                   onClose={()=>{setFutureUpdatesInfoDismissed(true)}}
                   />
