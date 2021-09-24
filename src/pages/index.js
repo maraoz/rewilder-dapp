@@ -31,6 +31,7 @@ function IndexPage() {
     (nftBalance && maybeTokenId === undefined) ||
     finalized === undefined
     );
+  const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
 
   const getTierForAmount = (amount) => {
     return amount < TIER_MARKERS['araucaria'] ?
@@ -43,10 +44,9 @@ function IndexPage() {
   const tier = getTierForAmount(amount);
   const flavorText = FLAVOR_TEXT[tier]; 
     
-  const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
 
   useEffect(() => {
-    const redirectDelayMS = 2000;
+    const redirectDelayMS = 5000;
     if (donationEvents) {
       const tokenId = donationEvents[0].args[2].toNumber();
       console.log(`tokenId=${tokenId} minted, redirecting in ${redirectDelayMS}ms...`);

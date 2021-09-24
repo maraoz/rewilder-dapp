@@ -6,7 +6,7 @@ var mineOneBlock = async function() {
   await network.provider.send("evm_mine");
 }
 
-const addresses = require("./addresses");
+const addresses = require("./lib/addresses");
 const indexDonation = require("./lib/index-donation");
 
 async function main() {

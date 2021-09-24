@@ -15,10 +15,10 @@ module.exports = async function(donor, amount, tokenID, txid) {
   "and obtained token id", tokenID.toString());
 
   tier = 'cypress';
-  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['araucaria']))) {
+  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['araucaria']+".0"))) {
     tier = 'araucaria';
   }
-  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['sequoia']))) {
+  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['sequoia']+".0"))) {
     tier = 'sequoia';
   }
   const data = {
