@@ -31,7 +31,7 @@ contract RewilderNFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
 
     function safeMint(address to) public onlyOwner returns (uint256) {
         uint256 tokenId = _tokenIdCounter.current();
-        _safeMint(to, tokenId);
+        _mint(to, tokenId);
         _tokenIdCounter.increment();
         return tokenId;
     }
