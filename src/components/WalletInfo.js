@@ -1,18 +1,16 @@
 import React from "react";
-import Identicon from 'react-identicons';
 import { formatEther } from "@ethersproject/units";
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { Menu } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
+import RewilderIdenticon from "./RewilderIdenticon";
 import truncateHash from "../lib/truncateHash";
 
 function WalletInfo() {
   const { account, deactivate } = useEthers();
   const etherBalance  = useEtherBalance(account);
-  const size = 16;
-  const palette = ["#E05304", "#DDB21A", "#12501E"];
   return (
     account && (
       <>
@@ -23,7 +21,7 @@ function WalletInfo() {
               {" "}ETH{" "}
             </span>
             <span>
-              <Identicon palette={palette} bg="#6DD681" string={account} size={size} />
+              <RewilderIdenticon account={account} />
               {"  "}{truncateHash(account)}
             </span>
           </Menu.Button>

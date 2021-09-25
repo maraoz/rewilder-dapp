@@ -5,6 +5,7 @@ const app = admin.initializeApp({
 });
 
 const FLAVOR_TEXT = require("../../src/lib/flavorText.js");
+const TIER_MARKERS = require("../../src/lib/tierMarkers.js");
 
 const db = admin.firestore(app);
 
@@ -14,20 +15,17 @@ module.exports = async function(donor, amount, tokenID, txid) {
   "and obtained token id", tokenID.toString());
 
   tier = 'cypress';
-  // TODO: fix to proper comparison
-  if (amount.gte(ethers.utils.parseEther("2.0"))) {
+  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['araucaria']+".0"))) {
     tier = 'araucaria';
   }
-  // TODO: fix to proper comparison
-  if (amount.gte(ethers.utils.parseEther("3.0"))) {
+  if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['sequoia']+".0"))) {
     tier = 'sequoia';
   }
   const data = {
     name: 'Rewilder Origin Donation #' + tokenID.toString(),
     description: 'Receipt NFT for Rewilder\'s first donation campaign on October 2021.',
     external_url: tokenID?`https://app.rewilder.xyz/donation/${tokenID}`:'https://app.rewilder.xyz',
-    // TODO: use the actual images, not mockups
-    image: 'https://rewilder.xyz/assets/img/mockup/' + tier + '.png',
+    image: 'https://app.rewilder.xyz/assets/img/donation/' + tier + '.jpg',
     attributes: [
       {trait_type: "donor", value: donor},
       {trait_type: "amount", value: ethers.utils.formatEther(amount)+" ETH"},
