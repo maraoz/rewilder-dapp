@@ -71,7 +71,7 @@ function DonationPage() {
   const isDonor = !isLoading && account == attributes["donor"];
   const youText = !isLoading && (isDonor?'You':truncateHash(attributes["donor"]));
   const yourText = !isLoading && (isDonor?'your':'their');
-  const thanksText = !isLoading && (isDonor?' - (thank you so much!)':'');
+  const thanksText = !isLoading && (isDonor?' - thank you so much!':'');
   const creationDate = !isLoading && new Date(updateList[0].timestamp).toLocaleDateString(undefined, dateOptions);
   return (
     <>
@@ -165,7 +165,7 @@ function DonationPage() {
                       <>
                         {youText} donated {attributes["amount"]} {" "}
                         <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
-                          <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                          <FontAwesomeIcon icon={faExternalLinkAlt} />
                         </a> 
                         {thanksText}
                         <br />

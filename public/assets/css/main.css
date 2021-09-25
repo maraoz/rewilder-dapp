@@ -1059,6 +1059,13 @@ label {
   color: #388447;
   text-decoration: underline;
 }
+
+.update-card .update-content a svg {
+  color: #758078;
+  font-size: .8rem;
+  margin: 0 4px;
+}
+
 .update-card .update-content span {
   font-weight: bold;
   font-size: 0.75rem;
@@ -1135,6 +1142,7 @@ input[type=number] { -moz-appearance: textfield; }
 }
 a.btn-theme { color: white; }
 svg {
+  color: #758078;
   font-size: 1em;
 }
 
