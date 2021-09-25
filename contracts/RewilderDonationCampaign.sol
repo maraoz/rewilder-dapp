@@ -3,9 +3,12 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
 import "./RewilderNFT.sol";
 
 contract RewilderDonationCampaign is Pausable, Ownable {
+
+    using Address for address payable;
 
     RewilderNFT private _nft;
     address payable private _wallet;
@@ -35,8 +38,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
         require(msg.value <= 100 ether, "Maximum donation is 100 ETH");
 
         uint256 tokenId =_nft.safeMint(msg.sender);
-        (bool success, ) = _wallet.call{value: msg.value}("");
-        require(success, "Transfer to wallet failed.");
+        _wallet.sendValue(msg.value);
         emit DonationReceived(msg.sender, msg.value, tokenId);
     }
 

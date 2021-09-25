@@ -45,7 +45,7 @@ describe("RewilderDonationCampaign", function () {
 
     const donationAmountWEI = ethers.utils.parseEther("2.0");
     await expect(brokenCampaign.receiveDonation({value: donationAmountWEI}))
-      .to.be.revertedWith('Transfer to wallet failed');
+      .to.be.revertedWith('Address: unable to send value, recipient may have reverted');
 
   });
 
