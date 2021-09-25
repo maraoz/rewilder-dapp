@@ -34,7 +34,7 @@
     "@nomiclabs/hardhat-etherscan": "^2.1.6",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.3.2",
-    "@openzeppelin/contracts-upgradeable": "^4.2.0",
+    "@openzeppelin/contracts-upgradeable": "^4.3.2",
     "@openzeppelin/hardhat-upgrades": "^1.9.0",
     "chai": "^4.3.4",
     "chainlink": "^0.8.2",
@@ -43,7 +43,6 @@
     "hardhat": "=2.6.1",
     "lint-staged": "^10.0.10",
     "prettier": "^2.0.2",
-    "react-identicons": "^1.2.5",
     "solidity-coverage": "^0.7.17"
   },
   "scripts": {
