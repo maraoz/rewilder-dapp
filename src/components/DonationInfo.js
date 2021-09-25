@@ -1,7 +1,7 @@
-function DonationInfo({ image, imagealt, label, data  }) {
+function DonationInfo({ icon, label, data  }) {
   return <div className="donation-info">
     <div className="donation-img">
-      <img src={image} alt={imagealt}/>
+      {icon}
     </div>
     <div>
       <span>{label}</span>

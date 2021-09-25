@@ -15,6 +15,7 @@ import { addressFor } from "../../lib/addresses";
 import useStoredState  from "../../lib/storedState";
 import { useToken, useUpdatesForToken } from "../../lib/db";
 import truncateHash from "../../lib/truncateHash";
+import RewilderIdenticon from "../../components/RewilderIdenticon";
 
 function DonationPage() {
   const router = useRouter();
@@ -102,18 +103,18 @@ function DonationPage() {
                 <div className="info-container">
                   <div className="flex">
                     <DonationInfo 
-                      image="/assets/images/icon/donation.svg"
+                      icon={<img src="/assets/images/icon/donation.svg" alt="donation"/>}
                       label="donation"
                       data={attributes["amount"]}
                       />
                     <DonationInfo 
-                      image="/assets/images/icon/rewilder-logo.svg"
+                      icon={<img src="/assets/images/icon/rewilder-logo.svg" alt="rewilding"/>}
                       label="rewilding"
                       data="Location TBD"
                       />
                   </div>
                   <DonationInfo 
-                    image="/assets/images/icon/amount-icon.svg"
+                    icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
                     label="donor"
                     data={attributes["donor"]}
                     />

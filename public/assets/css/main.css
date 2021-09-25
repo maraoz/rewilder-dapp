@@ -735,9 +735,12 @@ label {
   margin-right: .5rem;
 }
 
-.connect-button a span canvas {
-  border-radius: 1rem;
+.connect-button a span .identicon {
   margin-right: 8px;
+}
+
+.identicon {
+  border-radius: 1rem;
 }
 
 .connect-error-popup {
