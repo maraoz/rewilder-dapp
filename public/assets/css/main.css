@@ -520,12 +520,20 @@ label {
 .hero-v1-content .donating-value h4 img {
   width: 20px;
 }
+
 .hero-v1-content .donating-value span {
-  font-size: 12px;
-  color: #8C8D91;
+  font-size: 14px;
+  color: #acadae;
   line-height: 16px;
   margin-top: 8px;
+  font-family: "Airbnb Cereal App Medium";
 }
+
+.hero-v1-content .donating-value span svg {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
 .hero-v1-content .hero-v1-btn a {
   display: block;
   text-align: center;
@@ -1142,7 +1150,7 @@ input[type=number] { -moz-appearance: textfield; }
 }
 a.btn-theme { color: white; }
 svg {
-  color: #758078;
+  color: #C2C4CC;
   font-size: 1em;
 }
 
