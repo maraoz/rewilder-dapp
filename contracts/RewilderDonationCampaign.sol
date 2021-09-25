@@ -48,6 +48,7 @@ contract RewilderDonationCampaign is Pausable, Ownable {
     function finalize() public onlyOwner {
         _pause();
         _nft.transferOwnership(_wallet);
+        renounceOwnership();
     }
 
     /**
