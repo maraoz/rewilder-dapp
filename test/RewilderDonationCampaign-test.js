@@ -219,7 +219,7 @@ describe("RewilderDonationCampaign", function () {
           .to.be.revertedWith('Ownable: caller is not the owner')
         await expect(this.campaign.connect(this.donorA).unpause())
           .to.be.revertedWith('Ownable: caller is not the owner')
-          await expect(this.campaign.connect(this.wallet).unpause())
+        await expect(this.campaign.connect(this.wallet).unpause())
           .to.be.revertedWith('Ownable: caller is not the owner')
         expect(await this.campaign.paused()).to.equal(true);
       });
