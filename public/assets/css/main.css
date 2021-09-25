@@ -585,6 +585,7 @@ label {
   line-height: 31px;
   background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Airbnb Cereal App Extra Bold";
   margin: 0;
@@ -665,6 +666,7 @@ label {
   line-height: 31px;
   background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Airbnb Cereal App Extra Bold";
   margin: 0;
