@@ -1,6 +1,7 @@
 const { Contract, Wallet, utils, BigNumber, BigNumberish, Signer, PopulatedTransaction } = require("ethers");
 const { TypedDataSigner } = require("@ethersproject/abstract-signer");
 const { AddressZero } = require("@ethersproject/constants");
+const { deployedContracts } = require("./gnosis-addresses");
 
 const EIP712_SAFE_TX_TYPE = {
   // "SafeTx(address to,uint256 value,bytes data,uint8 operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address refundReceiver,uint256 nonce)"
@@ -41,7 +42,7 @@ function buildSignatureBytes(signatures) {
 
 async function executeTx(safe, safeTx, signatures) {
   const signatureBytes = buildSignatureBytes(signatures);
-  return safe.execTransaction(safeTx.to, safeTx.value, safeTx.data, safeTx.operation, safeTx.safeTxGas, safeTx.baseGas, safeTx.gasPrice, safeTx.gasToken, safeTx.refundReceiver, signatureBytes, {})
+  return safe.execTransaction(safeTx.to, safeTx.value, safeTx.data, safeTx.operation, safeTx.safeTxGas, safeTx.baseGas, safeTx.gasPrice, safeTx.gasToken, safeTx.refundReceiver, signatureBytes, {});
 }
 
 function buildContractCall(contract, method, params, nonce, delegateCall, overrides) {
@@ -64,6 +65,7 @@ async function executeTxWithSigners(safe, tx, signers) {
 async function executeContractCallWithSigners(safe, contract, method, params, signers, delegateCall, overrides) {
   const nonce = await safe.nonce();
   const tx = buildContractCall(contract, method, params, nonce, delegateCall, overrides);
+  console.log("tx", tx);
   return executeTxWithSigners(safe, tx, signers);
 }
 
@@ -84,7 +86,52 @@ function buildSafeTransaction(template) {
 
 async function chainId() { return (await hre.ethers.provider.getNetwork()).chainId }
 
+async function createSafeFor(signers, requiredConfirmations){
+
+  const signersAddresses = signers.map(signer => signer.address);
+  console.log("Creating safe for signers :", signersAddresses);
+
+  requiredConfirmations = requiredConfirmations || signersAddresses.length;
+
+  // get deployed GnosisSafe Master Copy
+  const GnosisSafeFactory = await ethers.getContractFactory("GnosisSafe");
+  const gnosisSafeContract = GnosisSafeFactory.attach(deployedContracts.GnosisSafe.deployedAt);
+
+  // prepare setup params
+  const params = [
+    signersAddresses,
+    requiredConfirmations,
+    AddressZero,
+    "0x",
+    AddressZero, // default fallback handler address
+    AddressZero,
+    0,
+    AddressZero
+  ];
+  const setupParams = gnosisSafeContract.interface.encodeFunctionData("setup", params);
+
+  // get deployed GnosisSafeProxyFactory
+  const ProxyFactory = await ethers.getContractFactory("GnosisSafeProxyFactory");
+  const ProxyFactoryContract = ProxyFactory.attach(deployedContracts.GnosisSafeProxyFactory.deployedAt);
+
+  // create 2of3 GnosisSafe
+  const txResponse = await ProxyFactoryContract.createProxy(gnosisSafeContract.address, setupParams);
+  const txReceipt = await txResponse.wait();
+
+  const abi = ["event ProxyCreation(address proxy, address singleton)"];
+  const iface = new ethers.utils.Interface(abi);
+  const eventsLog = iface.parseLog(txReceipt.events[1])
+  const { proxy, singleton } = eventsLog.args;
+
+  console.log("Deployed proxy at: ", proxy);
+  console.log("Master contract at: ", singleton);
+
+  const safe = GnosisSafeFactory.attach(proxy);
+
+  return safe;
+}
 module.exports = {
   executeContractCallWithSigners,
   chainId,
+  createSafeFor
 }

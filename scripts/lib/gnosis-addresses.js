@@ -1,10 +1,10 @@
-var deployedContracts = {
+const deployedContracts = {
   "GnosisSafeProxyFactory": {
-    "deployedAt": "0xAADFe7925b0Cad895665aDE74f5848043B8c4b7D"
+    "deployedAt": "0xE89ce3bcD35bA068A9F9d906896D3d03Ad5C30EC"
   },
   "GnosisSafe": {
-    "deployedAt": "0xdB6FC7603DdC91F027379267A3549D28E65484D5"
+    "deployedAt": "0xb4A7C7da1631CF60A2Cf23ABc86986f99a1A7f70"
   }
-}
+};
 
-module.exports = deployedContracts;
+module.exports = { deployedContracts };
