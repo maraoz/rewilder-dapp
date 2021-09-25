@@ -45,7 +45,7 @@ function DonationPage() {
     // loading placeholder data
     data = {
       "name": "Loading...",
-      "image": `/assets/img/donation/cypress.jpg`,
+      "image": `/assets/img/donation/cypress.png`,
     }
     attributes["flavor"] = "Loading...";
     attributes["amount"] = "...";
