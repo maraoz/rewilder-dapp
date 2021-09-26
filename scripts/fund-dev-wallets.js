@@ -2,7 +2,7 @@ const {ethers, network} = require("hardhat");
 
 async function main() {
 
-  if (network.name != "localhost" && network.name != "rinkeby")
+  if (network.name != "localhost")
     return;
 
   let [deployer] = await ethers.getSigners();

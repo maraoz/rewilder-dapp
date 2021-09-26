@@ -11,7 +11,7 @@ async function main() {
   let donationCampaignAddress = addresses.RewilderDonationCampaign;
   let provider = new ethers.providers.EtherscanProvider(network.name);
   let history = await provider.getHistory(donationCampaignAddress);
-  console.log('Found ', history.length, 'donation transactions.');
+  console.log('Found', history.length, 'transactions.');
   for(var tx of history){
     if (tx.to == donationCampaignAddress){
       let txid = tx.hash;
@@ -20,8 +20,9 @@ async function main() {
       let iface = new ethers.utils.Interface(abi);
       let log = iface.parseLog(receipt.logs[1]);
       const {donor, value: amount, tokenID} = log.args;
+      console.log("indexing donation", txid);
       await indexDonation(donor, amount, tokenID, txid);
-      await sleep(1000);
+      await sleep(10000);
     }
   }
 }
