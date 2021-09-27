@@ -6,13 +6,6 @@ async function main() {
   let [deployer, wallet] = await ethers.getSigners();
 
   console.log("Finalizing with the account:", wallet.address);
-  console.log(process.env.REWILDER_MULTISIG)
-  if (process.env.REWILDER_MULTISIG && 
-    ethers.utils.isAddress(process.env.REWILDER_MULTISIG)) {
-    wallet = process.env.REWILDER_MULTISIG;
-  }
-
-  console.log("Finalizing with the account:", wallet.address);
   console.log("Account balance:", 
     (await wallet.getBalance()/1e18).toString(), 
     network.name, "ETH");
