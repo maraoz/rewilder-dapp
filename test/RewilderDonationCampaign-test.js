@@ -31,7 +31,7 @@ describe("RewilderDonationCampaign", function () {
 
   it("throws on receiveDonation if can't transfer ETH to wallet", async function () {
     RejectsEther = await ethers.getContractFactory("RejectsEther");
-    badWallet = await RejectsEther.deploy();
+    const badWallet = await RejectsEther.deploy();
     await badWallet.deployed();
 
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");

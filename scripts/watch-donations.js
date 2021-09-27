@@ -1,11 +1,4 @@
-const {config, ethers, network} = require("hardhat");
-
-
-var mineOneBlock = async function() {
-  console.log("Requesting node to mine one block");
-  await network.provider.send("evm_mine");
-}
-
+const { ethers } = require("hardhat");
 const addresses = require("./lib/addresses");
 const indexDonation = require("./lib/index-donation");
 
@@ -24,10 +17,6 @@ async function main() {
   // Emitted when any new pending transaction is noticed
   ethers.provider.on("pending", (tx) => {
     console.log("pending tx", tx.hash);
-    if (!config.networks.hardhat.mining.auto &&
-      network.name == 'localhost') {
-      setTimeout(mineOneBlock, 5000);
-    }
   });
 
   // listen for events

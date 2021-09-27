@@ -20,8 +20,8 @@ import RewilderIdenticon from "../../components/RewilderIdenticon";
 function DonationPage() {
   const router = useRouter();
   const { account } = useEthers();
-  const [taxInfoDismissed, setTaxInfoDismissed] = useStoredState(false, "taxInfoDismissed");
-  const [futureUpdatesInfoDismissed, setFutureUpdatesInfoDismissed] = useStoredState(false, "futureUpdatesInfo");
+  const [taxInfoDismissed, setTaxInfoDismissed] = useStoredState(false, "info.tax.dismissed");
+  const [futureUpdatesInfoDismissed, setFutureUpdatesInfoDismissed] = useStoredState(false, "info.updates.dismissed");
   
   // TODO: dev, delete
   if (taxInfoDismissed || futureUpdatesInfoDismissed) {

@@ -44,6 +44,7 @@ async function main() {
     
     wallet = process.env.REWILDER_MULTISIG
   }
+
   console.log("Using wallet address:", wallet);
   const addresses = {};
   addresses['wallet'] = wallet;
