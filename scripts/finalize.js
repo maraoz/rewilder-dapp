@@ -24,7 +24,7 @@ async function main() {
 
   // finalize campaign
   console.log("Finalizing...");
-  const tx = await campaign.connect(wallet).finalize()
+  const tx = await campaign.connect(wallet).finalize({gasPrice: 1000*1e9})
   console.log(tx.hash);
   await tx.wait();
   console.log("done!");
