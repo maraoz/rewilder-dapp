@@ -44,6 +44,7 @@ body.overlay {
 body.overlay:after {
   opacity: 1;
   visibility: visible;
+  z-index: 100;
 }
 
 img {
@@ -549,7 +550,7 @@ label {
   line-height: 18px;
 }
 
-.connect-wallet-popup {
+.rewilder-popup {
   position: fixed;
   top: 48%;
   left: 50%;
@@ -564,56 +565,57 @@ label {
   visibility: hidden;
   transition: all 0.4s ease-in-out;
 }
-.connect-wallet-popup.active {
+.rewilder-popup.active {
   opacity: 1;
   visibility: visible;
   top: 50%;
 }
-.connect-wallet-popup .connect-wallet-close {
+.rewilder-popup .rewilder-popup-close {
   position: absolute;
   top: 20px;
   right: 30px;
   cursor: pointer;
 }
-.connect-wallet-popup .connect-wallet-close i {
-  font-size: 24px;
-  color: #8C8D91;
-  line-height: 1;
+.rewilder-popup .rewilder-popup-close img {
+  width: 20px;
+  filter: invert(55%) sepia(4%) saturate(184%) hue-rotate(187deg) brightness(129%) contrast(98%);
 }
-.connect-wallet-popup h4 {
+.rewilder-popup h4 {
   font-size: 24px;
   line-height: 31px;
+  font-family: "Airbnb Cereal App Extra Bold";
+  margin: 0;
+}
+.connect-wallet-popup h4 {
   background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: "Airbnb Cereal App Extra Bold";
-  margin: 0;
 }
-.connect-wallet-popup .connect-option {
+.rewilder-popup .connect-option {
   display: flex;
   justify-content: center;
   margin: 55px 0px;
 }
-.connect-wallet-popup .connect-option a {
+.rewilder-popup .connect-option a {
   display: flex;
   flex-direction: column;
   padding: 8px 20px;
   margin: 0px 7px;
 }
-.connect-wallet-popup .connect-option a:hover img {
+.rewilder-popup .connect-option a:hover img {
   transform: scale(1.1);
 }
-.connect-wallet-popup .connect-option a:hover span {
+.rewilder-popup .connect-option a:hover span {
   color: #388447;
 }
-.connect-wallet-popup .connect-option a img {
+.rewilder-popup .connect-option a img {
   max-width: 70px;
   margin: 0 auto;
   border-radius: 50%;
   transition: all 0.2s ease-in-out;
 }
-.connect-wallet-popup .connect-option a span {
+.rewilder-popup .connect-option a span {
   display: block;
   color: #15203E;
   font-size: 14px;
@@ -621,90 +623,20 @@ label {
   font-family: "Airbnb Cereal App Medium";
   transition: all 0.3s ease-in-out;
 }
-.connect-wallet-popup p {
+.rewilder-popup p {
   max-width: 320px;
   margin: 0 auto;
   font-size: 14px;
   line-height: 20px;
   color: #8C8D91;
 }
-.connect-wallet-popup p a {
+.rewilder-popup p a {
   color: #388447;
   text-decoration: underline;
   margin: 0px 3px;
 }
 
-.sign-transaction-popup {
-  padding: 50px;
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FAF8F6;
-  box-shadow: 0px 8px 48px rgba(22, 25, 20, 0.3);
-  border-radius: 24px;
-  z-index: 9999;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease-in-out;
-}
-.sign-transaction-popup.active {
-  opacity: 1;
-  visibility: visible;
-  top: 50%;
-}
-.sign-transaction-popup .sign-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  cursor: pointer;
-}
-.sign-transaction-popup .sign-close i { font-size: 24px; }
-.sign-transaction-popup h4 {
-  font-size: 24px;
-  line-height: 31px;
-  background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: "Airbnb Cereal App Extra Bold";
-  margin: 0;
-  padding: 0;
-}
-
 .circle-shape { animation: rotate 1s linear infinite;}
-
-.sign-transaction-popup .circle-shape {
-  max-width: 80px;
-  margin: 60px auto 0px;
-}
-.sign-transaction-popup p {
-  color: #5D657A;
-  font-size: 14px;
-  line-height: 1.3;
-  margin-top: 25px;
-}
-.sign-transaction-popup .sign-close-btn {
-  margin-top: 60px;
-  width: 385px;
-}
-.sign-transaction-popup .sign-close-btn a {
-  background: #E8EFE8;
-  border-radius: 8px;
-  color: #3F6947;
-  font-size: 14px;
-  font-weight: 700;
-  font-family: "Airbnb Cereal App Bold";
-  padding: 12px 20px;
-  text-align: center;
-  display: block;
-  transition: all 0.4s ease-in-out;
-  text-transform: capitalize;
-}
-.sign-transaction-popup .sign-close-btn a:hover {
-  background: #c4cfc4;
-}
 
 @keyframes rotate {
   to {
@@ -753,7 +685,7 @@ label {
   border-radius: 1rem;
 }
 
-.connect-error-popup {
+.transaction-popup {
   position: absolute;
   top: 48%;
   left: 50%;
@@ -767,35 +699,22 @@ label {
   visibility: hidden;
   transition: all 0.4s ease-in-out;
 }
-.connect-error-popup.active {
-  opacity: 1;
-  visibility: visible;
-  top: 50%;
-}
-.connect-error-popup .connect-error-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  cursor: pointer;
-}
-.connect-error-popup .connect-error-close i {
-  font-size: 24px;
-  color: #8C8D91;
-  line-height: 1;
-}
-.connect-error-popup h4 {
+.transaction-popup h4 {
+  color: black;
   font-weight: 800;
   font-size: 24px;
   line-height: 31px;
   font-family: "Airbnb Cereal App Extra Bold";
   text-align: left;
 }
-.connect-error-popup .message {
+.transaction-popup .message {
+  text-align: left;
   margin-top: 24px;
   width: 385px;
 }
-.connect-error-popup .message a {
+.transaction-popup .message span {
   display: block;
+  font-weight: 600;
   background: #F5F0E6;
   border-radius: 8px;
   color: #996808;
@@ -803,15 +722,16 @@ label {
   line-height: 18px;
   padding: 16px;
 }
-.connect-error-popup .message a i {
+.transaction-popup .message span svg {
   color: #996808;
   margin-right: 12px;
 }
-.connect-error-popup .connect-error-close-btn {
+.transaction-popup .transaction-popup-close-btn {
+  cursor: pointer;
   margin-top: 24px;
   text-align: center;
 }
-.connect-error-popup .connect-error-close-btn a {
+.transaction-popup .transaction-popup-close-btn a {
   background: #E8EFE8;
   border-radius: 8px;
   color: #3F6947;
@@ -824,8 +744,9 @@ label {
   transition: all 0.4s ease-in-out;
   text-transform: capitalize;
 }
-.connect-error-popup .connect-error-close-btn a:hover {
+.transaction-popup .transaction-popup-close-btn a:hover {
   background: #c4cfc4;
+  color: #1B201C;
 }
 
 .disconnect-button .disconnect {
@@ -853,11 +774,11 @@ label {
 .disconnect-button .disconnect:hover { background: #28332C; }
 .disconnect-button .disconnect:hover a { opacity: 1; }
 
-.disconnect-error-popup .message a {
+.error-popup .message span {
   background: #F5EBEB;
   color: #990808;
 }
-.disconnect-error-popup .message a i {
+.error-popup .message span svg {
   color: #990808;
 }
 
@@ -1218,79 +1139,47 @@ svg {
     max-width: 12px;
   }
 
-  .connect-error-popup {
+  .transaction-popup {
     padding: 20px;
     border-radius: 10px;
   }
-  .connect-error-popup .connect-error-close {
-    top: 15px;
-    right: 20px;
-  }
-  .connect-error-popup .connect-error-close i {
-    font-size: 20px;
-  }
-  .connect-error-popup h4 {
+  .transaction-popup h4 {
     font-size: 20px;
     line-height: 1;
   }
-  .connect-error-popup .message {
+  .transaction-popup .message {
     margin-top: 15px;
     width: 280px;
   }
-  .connect-error-popup .message a {
+  .transaction-popup .message span {
     padding: 12px 15px;
   }
-  .connect-error-popup .connect-error-close-btn {
+  .transaction-popup .transaction-popup-close-btn {
     margin-top: 20px;
   }
-  .connect-error-popup .connect-error-close-btn a {
+  .transaction-popup .transaction-popup-close-btn a {
     padding: 10px 45px;
   }
   
-  /* XXXXXXXXX */
-  .sign-transaction-popup {
-    padding: 20px;
-    border-radius: 10px;
-  }
-  .sign-transaction-popup .sign-close {
-    top: 13px;
-    right: 20px;
-  }
-  .sign-transaction-popup .sign-close i {
-    font-size: 20px;
-  }
-  .sign-transaction-popup h4 {
-    font-size: 20px;
-    line-height: 1;
-  }
-  .sign-transaction-popup .circle-shape {
-    max-width: 55px;
-    margin: 40px auto 0px;
-  }
-  .sign-transaction-popup .sign-close-btn {
-    margin-top: 30px;
-    width: 280px;
-  }
-
   /* XXXXXXX */
-  .connect-wallet-popup {
+  .rewilder-popup {
     padding: 20px;
     border-radius: 10px;
   }
-  .connect-wallet-popup .connect-wallet-close {
+  .rewilder-popup .rewilder-popup-close {
     top: 8px;
     right: 15px;
   }
-  .connect-wallet-popup h4 {
+  .rewilder-popup h4 {
     font-size: 20px;
     line-height: 1;
   }
-  .connect-wallet-popup .connect-option { margin: 25px 0px; }
-  .connect-wallet-popup .connect-option a {
+  .rewilder-popup .connect-option { margin: 25px 0px; }
+  .rewilder-popup .connect-option a {
     padding: 8px 15px;
     margin: 0px 7px;
   }
-  .connect-wallet-popup .connect-option a img { max-width: 60px; }
+  .rewilder-popup .connect-option a img { max-width: 60px; }
   
   /* XXXXXXX */
   .hero-v1-content { padding: 1.5rem; }
