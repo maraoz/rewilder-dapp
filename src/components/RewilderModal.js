@@ -28,20 +28,13 @@ function RewilderModal({ children, className, onOpen, isOpen, onClose, title }) 
     };
   }, []);
 
-  const childrenWithProps = React.Children.map(children, child => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, { onOpen, isOpen, onClose, title });
-    }
-    return child;
-  });
-
   return (
     <div className={"rewilder-popup"+(className?(" "+className):"")+(isOpen?" active":"")}>
       <div className="rewilder-popup-close" onClick={onClose}>
         <img src="/assets/img/icon/x.svg"></img>
       </div>
       <h4>{title}</h4>
-      {childrenWithProps}
+      {children}
     </div>
   );
 }

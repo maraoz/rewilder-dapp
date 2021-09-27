@@ -13,7 +13,7 @@ function ErrorModal({ onOpen, isOpen, onClose }) {
           Donation transaction failed. 
         </span>
       </div>
-      <div class="transaction-popup-close-btn">
+      <div className="transaction-popup-close-btn">
         <a onClick={onClose}>close</a>
       </div>
     </RewilderModal>
