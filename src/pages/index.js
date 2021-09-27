@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { useEthers } from "@usedapp/core";
+import { useEthers, useTransactions } from "@usedapp/core";
 import Router from 'next/router'
+import { useDisclosure } from "@chakra-ui/react";
 
 import { Layout } from "./../components/Layout";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
@@ -12,13 +13,18 @@ import PendingDonation from "../components/PendingDonation";
 import LoadingCampaign from "../components/LoadingCampaign";
 import CampaignFinalized from "../components/CampaignFinalized";
 import networkMatches from "../lib/networkMatches";
+import ErrorModal from "../components/ErrorModal";
+import useStoredState from "../lib/storedState";
 
 import FLAVOR_TEXT from "../lib/flavorText";
 import TIER_MARKERS from "../lib/tierMarkers";
 
 function IndexPage() {
   const { account } = useEthers();
-  
+  const { transactions } = useTransactions();
+  const { onOpen: errorModalOpen, isOpen, onClose: errorModalClose } = useDisclosure();
+  const [donationFailedDismissed, setDonationFailedDismissed] = useStoredState(false, "donation.failed.dismissed");
+
   const [amount, setAmount] = useState(1);
   const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
   const finalized = useCampaignFinalized();
@@ -32,9 +38,8 @@ function IndexPage() {
     maybeNFTBalance === undefined || 
     (nftBalance && maybeTokenId === undefined) ||
     finalized === undefined
-    );
+  );
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
-
   const getTierForAmount = (amount) => {
     return amount < TIER_MARKERS['araucaria'] ?
       "cypress" :
@@ -45,7 +50,25 @@ function IndexPage() {
   
   const tier = getTierForAmount(amount);
   const flavorText = FLAVOR_TEXT[tier]; 
+
+  // TODO: handle refresh with pending tx
+  const donationPending = donateTx.status == 'Mining';// ||
+    //(transactions.length > 0 && transactions[0]);
+  
+  const donationFailed = donateTx.status == 'Fail' ||
+    (transactions.length > 0 && transactions[0].receipt && transactions[0].receipt.status == 0);
+  
+  const dismissFailedDonation = () => {
+    setDonationFailedDismissed(true);
+    errorModalClose();
+  };
+  const errorModal = <ErrorModal onOpen={errorModalOpen} isOpen={isOpen} onClose={dismissFailedDonation} ></ErrorModal>;
     
+  useEffect(() => {
+    if (donationFailed && !donationFailedDismissed) {
+      errorModalOpen();
+    }
+  }, [donationFailed]);
 
   useEffect(() => {
     const redirectDelayMS = 5000;
@@ -61,6 +84,7 @@ function IndexPage() {
   }, [donationEvents]);
   
   return (
+    <>
     <Layout>
       <div className="container">
         <div className="hero-v1-wrapper">
@@ -83,7 +107,7 @@ function IndexPage() {
                 <CampaignFinalized tokenId={tokenId}/>:
                   alreadyDonated?
                     <ThanksForDonating tokenId={tokenId}/>:
-                    donateTx.status == 'Mining'?
+                    donationPending?
                       <PendingDonation {...{donateTx}} />:
                       <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
             }
@@ -91,6 +115,8 @@ function IndexPage() {
         </div>
       </div>
     </Layout>
+    {errorModal}
+    </>
   );
 }
 
