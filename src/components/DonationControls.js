@@ -220,12 +220,6 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
         </div>
       </div>
       <div className="range-input">
-          {/* <input type="range" min="1" max="100" onChange={handleSliderChange} value={amount} step="0.1" list="tickmarks" id="rangeInput" />
-          <div id="selector" style={{left: `${amount}%`}}>
-            <div className="SelectBtn">
-            </div>
-          </div>
-          <div id="Progressbar" style={{width: `${amount}%`}}></div> */}
           <RewilderSlider
             value={amount}
             min={1}
