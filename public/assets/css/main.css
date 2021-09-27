@@ -426,9 +426,14 @@ label {
 .hero-v1-content .shape {
   position: absolute;
   max-width: 60px;
-  right: 30px;
-  top: 30px;
+  display: flex;
 }
+
+.hero-v1-content .shape img {
+  min-width: 1rem;
+  min-height: 1rem;
+}
+
 .hero-v1-content .title img {
   max-width: 90px;
   width: 100%;
@@ -862,7 +867,7 @@ label {
 }
 
 /* donation header */
-.donation .stamp {
+.stamp {
   position: absolute;
   top: 1.75rem;
   right: 2rem;
