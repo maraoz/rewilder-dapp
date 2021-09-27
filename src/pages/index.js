@@ -11,6 +11,7 @@ import DonationControls from "../components/DonationControls";
 import PendingDonation from "../components/PendingDonation";
 import LoadingCampaign from "../components/LoadingCampaign";
 import CampaignFinalized from "../components/CampaignFinalized";
+import networkMatches from "../lib/networkMatches";
 
 import FLAVOR_TEXT from "../lib/flavorText";
 import TIER_MARKERS from "../lib/tierMarkers";
@@ -21,16 +22,18 @@ function IndexPage() {
   const [amount, setAmount] = useState(1);
   const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
   const finalized = useCampaignFinalized();
+  const incorrectNetwork = !networkMatches();
   
   const maybeNFTBalance = useBalanceOf(account);
   const nftBalance = maybeNFTBalance && maybeNFTBalance.toNumber();
   const maybeTokenId = useTokenOfOwner(account, nftBalance);
   const tokenId =  maybeTokenId && maybeTokenId.toNumber();
-  const isLoading = account && (
+  const isLoading = account && !incorrectNetwork && (
     maybeNFTBalance === undefined || 
     (nftBalance && maybeTokenId === undefined) ||
     finalized === undefined
     );
+  console.log(isLoading, account, maybeNFTBalance, nftBalance, maybeTokenId, finalized)
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
 
   const getTierForAmount = (amount) => {
