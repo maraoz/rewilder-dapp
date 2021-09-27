@@ -18,6 +18,7 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
   }, [error]);
 
   const clickMetamask = async () => {
+    // don't remove this await
     await activateBrowserWallet();
     if (error) {
       if (error.name == 'UserRejectedRequestError') {
@@ -35,7 +36,7 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
   };
 
   return (
-    <RewilderModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} title={"Connect to a wallet"}>
+    <RewilderModal className="connect-wallet-popup" onOpen={onOpen} isOpen={isOpen} onClose={onClose} title={"Connect to a wallet"}>
       <div className="connect-option">
         <a href="#" onClick={clickMetamask}>
           <img src="/assets/img/icon/metamask-icon.svg" alt="Metamask" />
