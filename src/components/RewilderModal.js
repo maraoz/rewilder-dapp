@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
-function ConnectWalletModal({ children, onOpen, isOpen, onClose, title }) {
+function RewilderModal({ children, className, onOpen, isOpen, onClose, title }) {
 
   useEffect(() => {
     if (isOpen) {
@@ -36,9 +36,9 @@ function ConnectWalletModal({ children, onOpen, isOpen, onClose, title }) {
   });
 
   return (
-    <div className={"connect-wallet-popup"+(isOpen?" active":"")}>
-      <div className="connect-wallet-close" onClick={onClose}>
-        <FontAwesomeIcon icon={faTimes} />
+    <div className={"rewilder-popup"+(className?(" "+className):"")+(isOpen?" active":"")}>
+      <div className="rewilder-popup-close" onClick={onClose}>
+        <img src="/assets/img/icon/x.svg"></img>
       </div>
       <h4>{title}</h4>
       {childrenWithProps}
@@ -46,4 +46,4 @@ function ConnectWalletModal({ children, onOpen, isOpen, onClose, title }) {
   );
 }
 
-export default ConnectWalletModal;
+export default RewilderModal;
