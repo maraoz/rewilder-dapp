@@ -52,8 +52,8 @@ function IndexPage() {
   const flavorText = FLAVOR_TEXT[tier]; 
 
   // TODO: handle refresh with pending tx
-  const donationPending = donateTx.status == 'Mining';// ||
-    //(transactions.length > 0 && transactions[0]);
+  const donationPending = donateTx.status == 'Mining' ||
+    (transactions.length > 0 && !transactions[0].receipt);
   
   const donationFailed = donateTx.status == 'Fail' ||
     (transactions.length > 0 && transactions[0].receipt && transactions[0].receipt.status == 0);
@@ -108,7 +108,7 @@ function IndexPage() {
                   alreadyDonated?
                     <ThanksForDonating tokenId={tokenId}/>:
                     donationPending?
-                      <PendingDonation {...{donateTx}} />:
+                      <PendingDonation {...{donateTx: transactions.length>0?transactions[0]:donateTx}} />:
                       <DonationControls {...{amount, setAmount, tier, alreadyDonated, donateTx, requestDonationToWallet}}/>
             }
           </div>
