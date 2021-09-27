@@ -17,7 +17,7 @@ contract RewilderNFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
     constructor() initializer {}
 
     function initialize() initializer public {
-        __ERC721_init("RewilderNFT", "WILD");
+        __ERC721_init("Rewilder Donation", "WILD");
         __ERC721Enumerable_init();
         __Ownable_init();
         __UUPSUpgradeable_init();
@@ -31,7 +31,7 @@ contract RewilderNFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
 
     function safeMint(address to) public onlyOwner returns (uint256) {
         uint256 tokenId = _tokenIdCounter.current();
-        _safeMint(to, tokenId);
+        _mint(to, tokenId);
         _tokenIdCounter.increment();
         return tokenId;
     }

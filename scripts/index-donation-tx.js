@@ -3,7 +3,7 @@ const {ethers} = require("hardhat");
 const indexDonation = require("./lib/index-donation");
 
 async function main() {
-  const txid = "0xbf8d07e3f7a0c2e177a864efedb1eaef1f2e6e3cbcc6a7c326a663dca62b9cdb";
+  const txid = "0xc7495c4d762db9d1d8c1f2e4b3843624a8bfead3f88e415fe6ee6c0d4a26ea17";
 
   const receipt = await ethers.provider.getTransactionReceipt(txid);
   let abi = [ "event DonationReceived(address indexed donor, uint256 value, uint256 indexed tokenID)" ];

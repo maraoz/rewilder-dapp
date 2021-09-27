@@ -1,14 +1,12 @@
 import Router from "next/router";
 import GA4React from "ga-4-react";
 
+
 if (
   typeof window !== "undefined" &&
   process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 ) {
-  const GA = new GA4React(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, {
-    debug_mode: !process.env.production,
-  });
-
+  const GA = new GA4React(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
   GA.initialize().then(
     (ga) => {
       ga.pageview(window.location.pathname);
@@ -18,7 +16,7 @@ if (
       });
     },
     (err) => {
-      console.error(err);
+      console.error("GA4R Error:", err);
     }
   );
 }

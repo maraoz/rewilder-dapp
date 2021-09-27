@@ -520,12 +520,20 @@ label {
 .hero-v1-content .donating-value h4 img {
   width: 20px;
 }
+
 .hero-v1-content .donating-value span {
-  font-size: 12px;
-  color: #8C8D91;
+  font-size: 14px;
+  color: #acadae;
   line-height: 16px;
   margin-top: 8px;
+  font-family: "Airbnb Cereal App Medium";
 }
+
+.hero-v1-content .donating-value span svg {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
 .hero-v1-content .hero-v1-btn a {
   display: block;
   text-align: center;
@@ -577,6 +585,7 @@ label {
   line-height: 31px;
   background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Airbnb Cereal App Extra Bold";
   margin: 0;
@@ -657,6 +666,7 @@ label {
   line-height: 31px;
   background: linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Airbnb Cereal App Extra Bold";
   margin: 0;
@@ -735,9 +745,12 @@ label {
   margin-right: .5rem;
 }
 
-.connect-button a span canvas {
-  border-radius: 1rem;
+.connect-button a span .identicon {
   margin-right: 8px;
+}
+
+.identicon {
+  border-radius: 1rem;
 }
 
 .connect-error-popup {
@@ -1056,6 +1069,13 @@ label {
   color: #388447;
   text-decoration: underline;
 }
+
+.update-card .update-content a svg {
+  color: #758078;
+  font-size: .8rem;
+  margin: 0 4px;
+}
+
 .update-card .update-content span {
   font-weight: bold;
   font-size: 0.75rem;
@@ -1131,6 +1151,10 @@ input[type=number] { -moz-appearance: textfield; }
   margin: auto 10px;
 }
 a.btn-theme { color: white; }
+svg {
+  color: #C2C4CC;
+  font-size: 1em;
+}
 
 
 /*------------------------------------------------------------------------------

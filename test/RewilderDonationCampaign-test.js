@@ -45,7 +45,7 @@ describe("RewilderDonationCampaign", function () {
 
     const donationAmountWEI = ethers.utils.parseEther("2.0");
     await expect(brokenCampaign.receiveDonation({value: donationAmountWEI}))
-      .to.be.revertedWith('Transfer to wallet failed');
+      .to.be.revertedWith('Address: unable to send value, recipient may have reverted');
 
   });
 
@@ -213,13 +213,15 @@ describe("RewilderDonationCampaign", function () {
           value: donationAmountWEI}))
           .to.be.revertedWith('Pausable: paused')
       });
-      it("can only be unpaused by wallet", async function () {
+      it("wallet renounced ownership", async function () {
+        expect(await this.campaign.owner()).to.equal(ethers.constants.AddressZero);
         await expect(this.campaign.connect(this.deployer).unpause())
           .to.be.revertedWith('Ownable: caller is not the owner')
         await expect(this.campaign.connect(this.donorA).unpause())
           .to.be.revertedWith('Ownable: caller is not the owner')
-        await this.campaign.connect(this.wallet).unpause();
-        expect(await this.campaign.paused()).to.equal(false);
+        await expect(this.campaign.connect(this.wallet).unpause())
+          .to.be.revertedWith('Ownable: caller is not the owner')
+        expect(await this.campaign.paused()).to.equal(true);
       });
     });
   });

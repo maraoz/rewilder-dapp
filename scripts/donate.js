@@ -1,13 +1,13 @@
 const {config, ethers, upgrades} = require("hardhat");
-const addresses = require("./addresses");
+const addresses = require("./lib/addresses");
 
 async function main() {
-  
+
   const [deployer, wallet, donorA] = await ethers.getSigners();
 
   console.log("Donating with the account:", donorA.address);
-  console.log("Account balance:", 
-    (await donorA.getBalance()/1e18).toString(), 
+  console.log("Account balance:",
+    (await donorA.getBalance()/1e18).toString(),
     network.name, "ETH");
 
   // get donation campaign

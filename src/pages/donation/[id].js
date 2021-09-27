@@ -15,6 +15,7 @@ import { addressFor } from "../../lib/addresses";
 import useStoredState  from "../../lib/storedState";
 import { useToken, useUpdatesForToken } from "../../lib/db";
 import truncateHash from "../../lib/truncateHash";
+import RewilderIdenticon from "../../components/RewilderIdenticon";
 
 function DonationPage() {
   const router = useRouter();
@@ -44,7 +45,7 @@ function DonationPage() {
     // loading placeholder data
     data = {
       "name": "Loading...",
-      "image": `/assets/img/donation/cypress.jpg`,
+      "image": `/assets/img/donation/cypress.png`,
     }
     attributes["flavor"] = "Loading...";
     attributes["amount"] = "...";
@@ -70,7 +71,7 @@ function DonationPage() {
   const isDonor = !isLoading && account == attributes["donor"];
   const youText = !isLoading && (isDonor?'You':truncateHash(attributes["donor"]));
   const yourText = !isLoading && (isDonor?'your':'their');
-  const thanksText = !isLoading && (isDonor?' - (thank you so much!)':'');
+  const thanksText = !isLoading && (isDonor?' - thank you so much!':'');
   const creationDate = !isLoading && new Date(updateList[0].timestamp).toLocaleDateString(undefined, dateOptions);
   return (
     <>
@@ -102,18 +103,18 @@ function DonationPage() {
                 <div className="info-container">
                   <div className="flex">
                     <DonationInfo 
-                      image="/assets/images/icon/donation.svg"
+                      icon={<img src="/assets/images/icon/donation.svg" alt="donation"/>}
                       label="donation"
                       data={attributes["amount"]}
                       />
                     <DonationInfo 
-                      image="/assets/images/icon/rewilder-logo.svg"
+                      icon={<img src="/assets/images/icon/rewilder-logo.svg" alt="rewilding"/>}
                       label="rewilding"
                       data="Location TBD"
                       />
                   </div>
                   <DonationInfo 
-                    image="/assets/images/icon/amount-icon.svg"
+                    icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
                     label="donor"
                     data={attributes["donor"]}
                     />
@@ -147,7 +148,7 @@ function DonationPage() {
                   date={creationDate}
                   message="You will be able to see future updates about your donation here. For example, when we buy the land or make a payment."
                   linkText="Subscribe to also receive email notifications."
-                  linkHref="https://rewilder.substack.com"
+                  linkHref="https://rewilder.substack.com/subscribe"
                   isCloseable={true}
                   onClose={()=>{setFutureUpdatesInfoDismissed(true)}}
                   />
@@ -157,16 +158,14 @@ function DonationPage() {
                   update.type == 'creation' && 
                     <DonationUpdate 
                     key={update.timestamp}
-                    // TODO: change icon
                     icon="/assets/images/icon/avatar-icon.svg"
                     iconalt="creation"
                     date={creationDate}
                     message={
                       <>
                         {youText} donated {attributes["amount"]} {" "}
-                        {/* // TODO: change to update */}
                         <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
-                          <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                          <FontAwesomeIcon icon={faExternalLinkAlt} />
                         </a> 
                         {thanksText}
                         <br />
