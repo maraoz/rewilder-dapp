@@ -1,5 +1,5 @@
-const {ethers} = require("hardhat");
-const addresses = require("./addresses");
+const { ethers } = require("hardhat");
+const addresses = require("./lib/addresses");
 
 async function main() {
   

@@ -33,7 +33,6 @@ function IndexPage() {
     (nftBalance && maybeTokenId === undefined) ||
     finalized === undefined
     );
-  console.log(isLoading, account, maybeNFTBalance, nftBalance, maybeTokenId, finalized)
   const alreadyDonated = donateTx.status=="Success" || tokenId > 0;
 
   const getTierForAmount = (amount) => {
