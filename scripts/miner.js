@@ -17,6 +17,10 @@ var getPendingTransactions = async () => {
 };
 
 async function main() {
+  if (network.name != 'localhost') {
+    console.log("miner can only run in localhost network");
+    return;
+  }
   // block tick
   ethers.provider.on("block", (blockNumber) => {
     console.log("block", blockNumber, "mined at", new Date().getTime());
@@ -26,9 +30,7 @@ async function main() {
   // Emitted when any new pending transaction is noticed
   ethers.provider.on("pending", (tx) => {
     console.log("pending tx", tx.hash);
-    if (!config.networks.hardhat.mining.auto &&
-      network.name == 'localhost' &&
-      autoMine) {
+    if (autoMine) {
       setTimeout(mineOneBlock, config.networks.hardhat.mining.interval);
     }
   });
