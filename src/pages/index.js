@@ -22,7 +22,7 @@ import TIER_MARKERS from "../lib/tierMarkers";
 function IndexPage() {
   const { account } = useEthers();
   const { transactions } = useTransactions();
-  const { onOpen: errorModalOpen, isOpen, onClose: errorModalClose } = useDisclosure();
+  const { onOpen: openErrorModal, isOpen: isErrorModalOpen, onClose: closeErrorModal } = useDisclosure();
   const [donationFailedDismissed, setDonationFailedDismissed] = useStoredState(false, "donation.failed.dismissed");
 
   const [amount, setAmount] = useState(1);
@@ -51,7 +51,6 @@ function IndexPage() {
   const tier = getTierForAmount(amount);
   const flavorText = FLAVOR_TEXT[tier]; 
 
-  // TODO: handle refresh with pending tx
   const donationPending = donateTx.status == 'Mining' ||
     (transactions.length > 0 && !transactions[0].receipt);
   
@@ -60,13 +59,13 @@ function IndexPage() {
   
   const dismissFailedDonation = () => {
     setDonationFailedDismissed(true);
-    errorModalClose();
+    closeErrorModal();
   };
-  const errorModal = <ErrorModal onOpen={errorModalOpen} isOpen={isOpen} onClose={dismissFailedDonation} ></ErrorModal>;
+  const errorModal = <ErrorModal onOpen={openErrorModal} isOpen={isErrorModalOpen} onClose={dismissFailedDonation} ></ErrorModal>;
     
   useEffect(() => {
     if (donationFailed && !donationFailedDismissed) {
-      errorModalOpen();
+      openErrorModal();
     }
   }, [donationFailed]);
 
