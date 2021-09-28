@@ -16,7 +16,7 @@ import '../../public/assets/css/bootstrap.min.css';
 import '../../public/assets/css/main.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-import { fontawesomeConfig } from '@fortawesome/fontawesome-svg-core'
+import { config as fontawesomeConfig } from '@fortawesome/fontawesome-svg-core'
 fontawesomeConfig.autoAddCss = false
 
 // required for dev networks
