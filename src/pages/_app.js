@@ -10,6 +10,10 @@ import { addressFor } from "../lib/addresses";
 import ConnectWalletModal from "../components/ConnectWalletModal";
 import WalletModalContext from "../lib/walletModalContext";
 
+// css
+import '../../public/assets/css/airbnb-font.css';
+import '../../public/assets/css/bootstrap.min.css';
+import '../../public/assets/css/main.css';
 
 // required for dev networks
 config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor("Multicall")
