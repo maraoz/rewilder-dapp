@@ -4,7 +4,6 @@ import { DAppProvider } from "@usedapp/core";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 
-import "./../lib/analytics.js";
 import config from "../config.js";
 import { addressFor } from "../lib/addresses";
 import ConnectWalletModal from "../components/ConnectWalletModal";
