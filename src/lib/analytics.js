@@ -3,6 +3,7 @@ import GA4React from "ga-4-react";
 
 
 if (
+  false &&
   typeof window !== "undefined" &&
   process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 ) {

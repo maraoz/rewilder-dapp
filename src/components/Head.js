@@ -51,6 +51,10 @@ function Head(props) {
       <meta name="twitter:card" content="summary" key="twitter-card" />
       {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} key="twitter-site" />}
       {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
+
+      {/* plausible analytics */}
+      <script defer data-domain="rewilder.xyz" src="https://plausible.io/js/plausible.js"></script>
+
     </NextHead>
   );
 }
