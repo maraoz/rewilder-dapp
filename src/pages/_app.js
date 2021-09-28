@@ -14,6 +14,10 @@ import WalletModalContext from "../lib/walletModalContext";
 import '../../public/assets/css/airbnb-font.css';
 import '../../public/assets/css/bootstrap.min.css';
 import '../../public/assets/css/main.css';
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+config.autoAddCss = false
 
 // required for dev networks
 config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor("Multicall")
