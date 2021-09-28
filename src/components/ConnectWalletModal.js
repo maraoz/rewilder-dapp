@@ -38,11 +38,11 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
   return (
     <RewilderModal className="connect-wallet-popup" onOpen={onOpen} isOpen={isOpen} onClose={onClose} title={"Connect to a wallet"}>
       <div className="connect-option">
-        <a href="#" onClick={clickMetamask}>
+        <a href="#" onClick={clickMetamask} className="metamask">
           <img src="/assets/img/icon/metamask-icon.svg" alt="Metamask" />
           <span>Metamask</span>
         </a>
-        <a href="#" onClick={clickWalletConnect}>
+        <a href="#" onClick={clickWalletConnect} className="wallet-connect">
           <img src="/assets/img/icon/wallet-connect-icon.svg" alt="WalletConnect" />
           <span>WalletConnect</span>
         </a>
