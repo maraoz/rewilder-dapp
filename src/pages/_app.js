@@ -16,8 +16,8 @@ import '../../public/assets/css/bootstrap.min.css';
 import '../../public/assets/css/main.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-import { config } from '@fortawesome/fontawesome-svg-core'
-config.autoAddCss = false
+import { fontawesomeConfig } from '@fortawesome/fontawesome-svg-core'
+fontawesomeConfig.autoAddCss = false
 
 // required for dev networks
 config.DAppProviderConfig.multicallAddresses[config.chainId] = addressFor("Multicall")
