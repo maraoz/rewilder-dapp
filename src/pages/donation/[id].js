@@ -111,7 +111,7 @@ function DonationPage() {
 
           <div className="donation">
             <div className="header">
-              <img src={isLoading?"/assets/img/shape/stamp.png":("/assets/img/shape/stamp-" + attributes.tier + ".svg")} alt={attributes.tier + " stamp"} className="stamp"/>
+              <img src={isLoading?"/assets/img/shape/stamp_blank.svg":("/assets/img/shape/stamp-" + attributes.tier + ".svg")} alt={attributes.tier + " stamp"} className="stamp"/>
               <div className="title">
                 <span>Tier: {attributes.tier}</span>
                 <h2>{data.name}</h2>
