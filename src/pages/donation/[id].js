@@ -105,7 +105,7 @@ function DonationPage() {
                 {!isLoading && <img src={imageSource} alt="nft"
                   className={"nft-image"}/>
                 }
-                <img src="/assets/images/stamp.svg" height="446" width="390" alt="decorative stamp frame" className="frame"/>
+                <img src="/assets/img/shape/stamp.svg" alt="decorative stamp frame" className="frame"/>
               </div>
               <figcaption>“{attributes["flavor"]}”</figcaption>
             </div>
@@ -133,7 +133,9 @@ function DonationPage() {
                   <DonationInfo 
                     icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
                     label="donor"
-                    data={attributes["donor"]}
+                    // FIX: use ellipsis instead of full address on mobile
+                    // data={attributes["donor"]}
+                    data={youText}
                     />
                 </div>
               </div>
@@ -199,10 +201,15 @@ function DonationPage() {
                   ))
                 }
               </div>
+              
             </div>
           </div>
         </div>
+        <div className="footer text-center donation-page">
+          <p>© Rewilder Foundation, Inc.  -  Terms of use  -  Privacy</p>
+        </div>
       </div>
+      
     </>
   );
 }
