@@ -358,27 +358,24 @@ label {
 .header-button a:hover::before {
   opacity: 1;
 }
-.frame {
-  /* mix-blend-mode: overlay; */
+
+/* NFT image and stamp */
+.thumb img {
+  width: 390px;
+  height: 448px;
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+.thumb img.frame { 
+  position: absolute;
   opacity: .15;
 }
-
-.nft-image {
-  position: absolute;
+.thumb img.nft-image {
   padding: 1.5rem;
-  height: 446px;
-  width: 390px;
   z-index: 10;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 .hero-v1-wrapper {
@@ -546,13 +543,14 @@ label {
 }
 
 .footer {
-  padding: 20px 0px;
-  margin-bottom: auto;
-}
-.footer p {
+  padding-bottom: 1rem;
   color: #3F6947;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 1;
+  opacity: .7;
+}
+.footer.donation-page {
+  width: calc(100% - 42rem);
 }
 
 .rewilder-popup {
@@ -838,7 +836,9 @@ label {
 }
 
 .description-area {
-  padding: 40px;
+  padding: 2.75rem 2.5rem 0;
+  max-width: 84rem;
+  margin: auto;
 }
 
 .description-wrapper {
@@ -847,16 +847,26 @@ label {
 }
 
 .description-wrapper .nft {
-  flex: 1 1 0;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  flex-basis: auto;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 1;
+  padding-bottom: 3rem;
+}
+.description-wrapper .nft figcaption {
+  font-family: "Airbnb Cereal App Book";
+  font-size: 1rem;
+  text-align: center;
+  color: #D4CFC7;
+  max-width: 20rem;
 }
 
 .description-wrapper .nft .thumb {
-  margin: 1rem 0;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* DONATION CARD */
@@ -870,6 +880,7 @@ label {
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-left: 1rem;
 }
 
 /* donation header */
@@ -891,13 +902,12 @@ label {
 .donation .title h2 {
   color: #fff;
   font-family: "Airbnb Cereal App Black";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 42px;
   margin: 0;
   padding: 0;
-  margin-top: 8px;
+  margin-top: .5rem;
+  max-width: 80%;
 }
 .donation .info-container {
   padding: 2rem 0;
@@ -917,14 +927,14 @@ label {
   margin-right: 0;
 }
 .donation-info .donation-img {
-  width: 40px;
-  height: 40px;
+  width: 2.75rem;
+  height: 2.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #1B201C;
   border-radius: 50%;
-  margin-right: 12px;
+  margin-right: .75rem;
 }
 .donation-info span {
   font-size: 12px;
@@ -935,13 +945,12 @@ label {
   display: block;
 }
 .donation-info h4 {
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 1.15rem;
   font-family: "Airbnb Cereal App Bold";
   color: #FAF8F6;
   margin: 0;
   padding: 0;
-  margin-top: 3px;
+  margin-top: .25rem;
 }
 
 /* donation updates */
@@ -1102,40 +1111,40 @@ body.overlay .walletconnect-qrcode__base {
 
 @media screen and (max-width: 575px) {
   .description-area { padding: 0px; }
-  .donation .shape {
-    top: 10px;
-    right: 10px;
-    max-width: 60px;
+  
+  /* Donation NFT img */
+  .thumb img { width: 290px; height: 332px; }
+  .thumb img.nft-image { padding: 1rem; }
+
+  /* Donation card header */
+  .donation-info .donation-img {
+    width: 3rem;
+    height: 3rem;
   }
-  .donation {
-    padding: 2rem 0px;
-    width: 100%;
-  }
-  .donation .donation-update {
-    flex-direction: column;
-  }
-  .donation .donation-update h4 {
+  .donation .title span,
+  .donation-info span {
     font-size: 1rem;
-    line-height: 20px;
-    margin-top: 3px;
   }
-  .donation .donation-update .update-icon {
-    margin-right: 0;
-    margin-bottom: 6px;
+  .donation-info h4 {
+    font-size: 1.5rem;
   }
-  .donation .top-option .donation-update {
-    margin-right: 50px;
-  }
+
+  /* Donation updates */
   .update-card {
-    flex-direction: column;
-    padding: 15px;
+    padding: .75rem;
   }
   .update-card .update-icon {
-    position: unset;
-    margin-bottom: 6px;
+    min-width: 2.5rem;
+    margin-right: .75rem;
   }
   .update-card .update-content {
-    padding-left: 0;
+    padding: .25rem 0 0;
+    width: 100%;
+  }
+  .update-card .update-content p,
+  .update-card .update-content a,
+  .update-card .update-content span {
+    font-size: 1rem;
   }
 
   /* XXXXXXXXX */
@@ -1237,31 +1246,53 @@ body.overlay .walletconnect-qrcode__base {
   .hero-v1-content .range-value { margin-top: 1rem; }
 
   .description-area { padding: 20px; }
-  
-  .donation {
-    padding: 1.5rem;
-    width: 100%;
-  }
+
   .donation-message .main-shape { max-width: 55px; }
   .donation-message h4 { margin-top: 15px; }
 }
 
+@media screen and (max-width: 1199px) {
+  .donation { 
+    width: 55%;
+    padding: 2rem;
+  }
+}
 
 @media screen and (max-width: 991px) {
   .donation-message h4 { font-size: 18px;}
   .description-wrapper { flex-direction: column;}
-  .donation {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-  }
+  
   .logo {  margin-right: auto; }
   .logo img { height: 1.25rem; }
-}
 
-@media screen and (max-width: 1199px) {
-  .donation { width: 60%; }
+  /* Donation page */
+  .description-wrapper .nft {
+    padding-bottom: 1rem;
+  }
+  .donation {
+    width: 100%;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    height: fit-content;
+    margin-left: 0;
+  }
+  .donation .stamp {
+    top: 1.5rem;
+    right: 1.5rem;
+    max-width: 5rem;
+  }
+  .donation .info-container .flex { 
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+  .donation .info-container .flex .donation-info { margin: 0 0 1.75rem; }
+  .update-card:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  .footer.donation-page {
+    width: 100%;
+    padding-top: 2rem;
+  }
 }
 
 .fade-in {
