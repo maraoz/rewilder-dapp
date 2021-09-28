@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function DonationUpdate({ icon, iconalt, date, message, linkText, linkHref, isCloseable, onClose }) {
-  return <div className="update-card">
+function DonationUpdate({ className, icon, iconalt, date, message, linkText, linkHref, isCloseable, onClose }) {
+  return <div className={"update-card "+className??""}>
     <div className="update-icon">
         <img src={icon} alt={iconalt}/>
     </div>

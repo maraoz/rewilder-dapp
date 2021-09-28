@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { getExplorerTransactionLink, useEthers } from "@usedapp/core";
@@ -21,12 +20,16 @@ function DonationPage() {
   const router = useRouter();
   const { account } = useEthers();
   const [taxInfoDismissed, setTaxInfoDismissed] = useStoredState(false, "info.tax.dismissed");
+  const [taxInfoShown, setTaxInfoShown] = useStoredState(false, "info.tax.shown");
   const [futureUpdatesInfoDismissed, setFutureUpdatesInfoDismissed] = useStoredState(false, "info.updates.dismissed");
+  const [futureUpdatesInfoShown, setFutureUpdatesInfoShown] = useStoredState(false, "info.updates.shown");
   
   // TODO: dev, delete
-  if (taxInfoDismissed || futureUpdatesInfoDismissed) {
+  if (taxInfoDismissed || futureUpdatesInfoDismissed || taxInfoShown || futureUpdatesInfoShown) {
     // setTaxInfoDismissed(false);
     // setFutureUpdatesInfoDismissed(false);
+    // setTaxInfoShown(false)
+    // setFutureUpdatesInfoShown(false);
   }
 
   const tokenId = router.query.id;
@@ -73,6 +76,20 @@ function DonationPage() {
   const yourText = !isLoading && (isDonor?'your':'their');
   const thanksText = !isLoading && (isDonor?' - thank you so much!':'');
   const creationDate = !isLoading && new Date(updateList[0].timestamp).toLocaleDateString(undefined, dateOptions);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      setFutureUpdatesInfoShown(true);
+    }, 3000);
+    const timer2 = setTimeout(() => {
+      setTaxInfoShown(true);
+    }, 4000);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2)
+    };
+  }, []);
+
   return (
     <>
       <Head { ...{ title: data.name } } />
@@ -125,8 +142,9 @@ function DonationPage() {
               <div className="updates">
                 {/* synthetic updates */}
                 {
-                isDonor && !taxInfoDismissed &&
+                isDonor && taxInfoShown && !taxInfoDismissed &&
                 <DonationUpdate 
+                  className="fade-in"
                   icon="/assets/images/icon/info.svg"
                   iconalt="info"
                   date={creationDate}
@@ -141,8 +159,9 @@ function DonationPage() {
                   />
                 }
                 {
-                isDonor && !futureUpdatesInfoDismissed &&
+                isDonor && futureUpdatesInfoShown && !futureUpdatesInfoDismissed &&
                 <DonationUpdate 
+                  className="fade-in"
                   icon="/assets/images/icon/info.svg"
                   iconalt="info"
                   date={creationDate}
@@ -157,6 +176,7 @@ function DonationPage() {
                 { updateList && updateList.length > 0 && updateList.map((update) => (
                   update.type == 'creation' && 
                     <DonationUpdate 
+                    className="fade-in"
                     key={update.timestamp}
                     icon="/assets/images/icon/avatar-icon.svg"
                     iconalt="creation"
