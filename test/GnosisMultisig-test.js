@@ -18,7 +18,7 @@ describe("GnosisSafe", function () {
   });
 
   beforeEach(async function () { 
-    this.campaignSafe = await createSafeFor([signer1, signer2, signer3], 2);
+    this.campaignSafe = await createSafeFor([this.signer1, this.signer2, this.signer3], 2);
     const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
     this.nft = await upgrades.deployProxy(RewilderNFT, { kind: "uups" });
     RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
