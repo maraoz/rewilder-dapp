@@ -16,6 +16,10 @@ export default class MyDocument extends Document {
           <link href="/safari-pinned-tab.svg" rel="mask-icon" color="#4a9885" />
           <link href="/site.webmanifest" rel="manifest" />
 
+          <link rel="stylesheet" href="/assets/css/airbnb-font.css"/>
+          <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+          <link rel="stylesheet" href="/assets/css/main.css"/>
+
         </Head>
         <body>
           <Main />
