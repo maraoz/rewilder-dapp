@@ -603,29 +603,35 @@ label {
 .rewilder-popup .connect-option a {
   display: flex;
   flex-direction: column;
-  padding: 8px 20px;
-  margin: 0px 7px;
-}
-.rewilder-popup .connect-option a:hover img {
-  transform: scale(1.1);
-}
-.rewilder-popup .connect-option a:hover span {
-  color: #388447;
+  align-items: center;
+  width: 7.5rem;
+  padding: .5rem;
+  margin: 0 .5rem;
+  border: solid 1px #FAF8F6;
+  border-radius: .5rem;
+  color: #15203E;
 }
 .rewilder-popup .connect-option a img {
   max-width: 70px;
-  margin: 0 auto;
   border-radius: 50%;
-  transition: all 0.2s ease-in-out;
 }
 .rewilder-popup .connect-option a span {
   display: block;
-  color: #15203E;
   font-size: 14px;
-  margin-top: 8px;
+  margin-top: .25rem;
   font-family: "Airbnb Cereal App Medium";
-  transition: all 0.3s ease-in-out;
 }
+.rewilder-popup .connect-option a.metamask:hover {
+  background: #FAEEE1;
+  border-color: #F2DBC2;
+  color: #814717;
+}
+.rewilder-popup .connect-option a.wallet-connect:hover {
+  background: #E6F1FC;
+  border-color: #C2DAF2;
+  color: #175899;
+}
+
 .rewilder-popup p {
   max-width: 320px;
   margin: 0 auto;
@@ -1091,6 +1097,10 @@ svg {
   font-size: 1em;
 }
 
+/* Wallet connect  */
+body.overlay .walletconnect-qrcode__base {  
+  background-image: linear-gradient(112deg, #171B17 0%, #1B201C 50%, #25382C 100%);
+}
 
 /*------------------------------------------------------------------------------
   Responsive
