@@ -1253,3 +1253,12 @@ svg {
 @media screen and (max-width: 1199px) {
   .donation { width: 60%; }
 }
+
+.fade-in {
+  animation: fadeIn .5s;
+  -webkit-animation: fadeIn .5s;
+}
+@keyframes fadeIn {
+  0% {opacity:0; line-height: 0;}
+  100% {opacity:1; line-height: auto;}
+}
