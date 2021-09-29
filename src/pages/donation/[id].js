@@ -74,7 +74,7 @@ function DonationPage() {
   const isDonor = !isLoading && account == attributes["donor"];
   const youText = !isLoading && (isDonor?'You':truncateHash(attributes["donor"]));
   const yourText = !isLoading && (isDonor?'your':'their');
-  const thanksText = !isLoading && (isDonor?' - thank you so much!':'');
+  const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[0].timestamp).toLocaleDateString(undefined, dateOptions);
 
   useEffect(() => {
@@ -132,8 +132,6 @@ function DonationPage() {
                 <DonationInfo 
                   icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
                   label="donor"
-                  // FIX: use ellipsis instead of full address on mobile
-                  // data={attributes["donor"]}
                   data={youText}
                   />
               </div>
@@ -151,8 +149,8 @@ function DonationPage() {
                 date={creationDate}
                 message={
                   <>
-                    If you want your donation to be 501(c)(3) tax deductible, send us an email to{" "}
-                    <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a>
+                    If you want a donation receipt for 501(c)(3) purposes, send us an email to{" "}
+                    <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a> .
                   </>
                 }
                 isCloseable={true}
@@ -166,7 +164,7 @@ function DonationPage() {
                 icon="/assets/images/icon/info.svg"
                 iconalt="info"
                 date={creationDate}
-                message="You will be able to see future updates about your donation here. For example, when we buy the land or make a payment."
+                message="You will be able to see future updates about the use of your donated funds here. For example, when we buy the land or make a payment."
                 linkText="Subscribe to also receive email notifications."
                 linkHref="https://rewilder.substack.com/subscribe"
                 isCloseable={true}
