@@ -7,6 +7,8 @@ module.exports.chainId = ChainId.Localhost;
 if (process.env.NEXT_PUBLIC_REWILDER_ENV == "production") {
   // TODO: change to mainnet
   module.exports.chainId = ChainId.Rinkeby;
+  // add dummy Multicall address to prevent @usedapp trying to deploy a new one
+  MULTICALL_ADDRESSES[ChainId.Localhost] = MULTICALL_ADDRESSES[ChainId.Rinkeby];
 }
 module.exports.networkName = getChainName(module.exports.chainId).toLowerCase();
 
