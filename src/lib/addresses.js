@@ -2,23 +2,29 @@ import { ChainId, getChainName, MULTICALL_ADDRESSES} from "@usedapp/core";
 import config from "../config.js"; 
 
 
-let localhostAddresses, rinkebyAddresses;
+const addresses = {
+};
 try {
-  localhostAddresses = require( "../addresses-localhost.json");
+  addresses[ChainId.Localhost] = require( "../addresses-localhost.json");
+  addresses[ChainId.Hardhat] = require( "../addresses-localhost.json");
 } catch (e) {
   console.log("No address file found for localhost.");
 }
 try {
-  rinkebyAddresses = require( "../addresses-rinkeby.json");
+  addresses[ChainId.Rinkeby] = require( "../addresses-rinkeby.json");
 } catch (e) {
   console.log("No address file found for rinkeby.");
 }
-
-const addresses = {
-};
-addresses[ChainId.Localhost] = localhostAddresses;
-addresses[ChainId.Hardhat] = localhostAddresses;
-addresses[ChainId.Rinkeby] = rinkebyAddresses;
+try {
+  addresses[ChainId.Kovan] = require( "../addresses-kovan.json");
+} catch (e) {
+  console.log("No address file found for kovan.");
+}
+try {
+  addresses[ChainId.Mainnet] = require( "../addresses-mainnet.json");
+} catch (e) {
+  console.log("No address file found for mainnet.");
+}
 
 // copy multicall addresses from usedapp on production networks
 for (const chain of Object.keys(addresses)) {
@@ -26,6 +32,12 @@ for (const chain of Object.keys(addresses)) {
     addresses[chain]['Multicall'] = MULTICALL_ADDRESSES[chain];
   }
 }
+
+// add dummy localhost address for production
+if (process.env.NEXT_PUBLIC_REWILDER_ENV == "production") {
+  addresses[ChainId.Localhost] = addresses[ChainId.Rinkeby];
+}
+
 
 export const addressFor = function(contractName) {
   const chainAddresses = addresses[config.chainId];
