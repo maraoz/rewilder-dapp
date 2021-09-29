@@ -233,11 +233,11 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
       <div className="range-value">
           <span>
             1 ETH{" "}
-            <InformationIcon text={"Our current best estimates say that donating the equivalent of $3000 USD in crypto will help add ~1 hectare (~2.5 acres) of wildland to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum donation value."}/>
+            <InformationIcon text={"Our current best estimates say that donating the equivalent of $3000 USD in ETH will help add ~1 acre (~0.4 hectares) of wildland to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum ETH donation value in this campaign."}/>
           </span>
           <span>
             100 ETH{" "}
-          <InformationIcon text={"Given this is our first fundraising campaign, we've decided to set a maximum donation per address"}/>
+          <InformationIcon text={"Given this is our first fundraising campaign, we've decided to set a maximum donation per address."}/>
           </span>
       </div>
       <div className="donating-value">
