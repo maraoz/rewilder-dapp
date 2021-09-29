@@ -53,7 +53,7 @@ function Head(props) {
       {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
 
       {/* plausible analytics */}
-      <script defer data-domain="rewilder.xyz" src="https://plausible.io/js/plausible.js"></script>
+      <script defer data-domain="app.rewilder.xyz" src="https://plausible.io/js/plausible.js"></script>
 
     </NextHead>
   );
