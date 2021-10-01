@@ -20,7 +20,7 @@ function WalletInfo() {
               {etherBalance? parseFloat(formatEther(etherBalance)).toFixed(3):"0"}
               {" "}ETH{" "}
             </span>
-            <span>
+            <span className="address">
               <RewilderIdenticon account={account} />
               {"  "}{truncateHash(account)}
             </span>
