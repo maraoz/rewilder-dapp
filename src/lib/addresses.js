@@ -8,7 +8,9 @@ try {
   addresses[ChainId.Localhost] = require( "../addresses-localhost.json");
   addresses[ChainId.Hardhat] = require( "../addresses-localhost.json");
 } catch (e) {
-  console.log("No address file found for localhost.");
+  if (process.env.NEXT_PUBLIC_REWILDER_ENV == "dev") {
+    console.log("No address file found for localhost.");
+  }
 }
 try {
   addresses[ChainId.Rinkeby] = require( "../addresses-rinkeby.json");
