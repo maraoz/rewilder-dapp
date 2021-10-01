@@ -349,7 +349,7 @@ label {
   top: 0;
   left: 0;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(89.18deg, #3F6947 0%, #339645 100%);
-  box-shadow: 0px 1px 16px rgba(64, 128, 85, 0.3);
+  box-shadow: 0px 1px 16px rgba(64, 128, 85, 0.75);
   border-radius: 8px;
   z-index: -1;
   opacity: 0;
@@ -679,6 +679,9 @@ label {
   padding: 6px 8px;
   display: inline-flex;
   align-items: center;
+}
+.connect-button a span.address:hover {
+  box-shadow: inset 0px 0px 0px 1px #778C7E;
 }
 
 .connect-button a span.balance {
