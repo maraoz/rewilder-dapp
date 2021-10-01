@@ -25,7 +25,7 @@ module.exports = async function(donor, amount, tokenID, txid) {
     name: 'Rewilder Origin Donation #' + tokenID.toString(),
     description: 'Receipt NFT for Rewilder\'s first donation campaign on October 2021.',
     external_url: tokenID?`https://app.rewilder.xyz/donation/${tokenID}`:'https://app.rewilder.xyz',
-    image: 'https://app.rewilder.xyz/assets/img/donation/' + tier + '.png',
+    image: `https://app.rewilder.xyz/assets/img/donation/${tier}-full.png`,
     attributes: [
       {trait_type: "donor", value: donor},
       {trait_type: "amount", value: ethers.utils.formatEther(amount)+" ETH"},

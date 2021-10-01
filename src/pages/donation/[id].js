@@ -48,7 +48,7 @@ function DonationPage() {
     // loading placeholder data
     data = {
       "name": "Loading...",
-      "image": `/assets/img/donation/cypress.png`,
+      "image": `/assets/img/donation/cypress-web.jpg`,
     }
     attributes["flavor"] = "Loading...";
     attributes["amount"] = "...";
@@ -60,7 +60,7 @@ function DonationPage() {
     'opensea.io/assets/'+addressFor("RewilderNFT")+
     "/"+tokenId;
   
-  const imageSource = data.image;
+  const imageSource = `/assets/img/donation/${attributes.tier}-web.jpg`;
 
   const parseUpdates = (updates) => {
     if (!updates) return [];
