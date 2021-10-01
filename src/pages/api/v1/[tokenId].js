@@ -15,7 +15,7 @@ export default async (req, res) => {
   const host = req && req.headers.host;
   const protocol = host.includes('localhost')?'http':'https';
   const baseUrl = protocol + "://" + host;
-  const updatesURL = baseUrl + `/v1/updates/${tokenId}`;
+  const updatesURL = baseUrl + `/api/v1/updates/${tokenId}`;
 
   // deterministic and safe responses
   token.attributes.sort();
