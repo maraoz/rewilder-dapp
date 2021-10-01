@@ -48,7 +48,7 @@ function DonationPage() {
     // loading placeholder data
     data = {
       "name": "Loading...",
-      "image": `/assets/img/donation/cypress.png`,
+      "image": `/assets/img/donation/cypress-web.jpg`,
     }
     attributes["flavor"] = "Loading...";
     attributes["amount"] = "...";
@@ -60,7 +60,7 @@ function DonationPage() {
     'opensea.io/assets/'+addressFor("RewilderNFT")+
     "/"+tokenId;
   
-  const imageSource = data.image;
+  const imageSource = `/assets/img/donation/${attributes.tier}-web.jpg`;
 
   const parseUpdates = (updates) => {
     if (!updates) return [];
@@ -119,12 +119,12 @@ function DonationPage() {
               <div className="info-container">
                 <div className="flex">
                   <DonationInfo 
-                    icon={<img src="/assets/images/icon/donation.svg" alt="donation"/>}
+                    icon={<img src="/assets/img/icon/donation.svg" alt="donation"/>}
                     label="donation"
                     data={attributes["amount"]}
                     />
                   <DonationInfo 
-                    icon={<img src="/assets/images/icon/rewilder-logo.svg" alt="rewilding"/>}
+                    icon={<img src="/assets/img/icon/rewilder-logo.svg" alt="rewilding"/>}
                     label="rewilding"
                     data="Location TBD"
                     />
@@ -144,7 +144,7 @@ function DonationPage() {
               isDonor && taxInfoShown && !taxInfoDismissed &&
               <DonationUpdate 
                 className="fade-in"
-                icon="/assets/images/icon/info.svg"
+                icon="/assets/img/icon/info.svg"
                 iconalt="info"
                 date={creationDate}
                 message={
@@ -161,7 +161,7 @@ function DonationPage() {
               isDonor && futureUpdatesInfoShown && !futureUpdatesInfoDismissed &&
               <DonationUpdate 
                 className="fade-in"
-                icon="/assets/images/icon/info.svg"
+                icon="/assets/img/icon/info.svg"
                 iconalt="info"
                 date={creationDate}
                 message="You will be able to see future updates about the use of your donated funds here. For example, when we buy the land or make a payment."
@@ -177,7 +177,7 @@ function DonationPage() {
                   <DonationUpdate 
                   className="fade-in"
                   key={update.timestamp}
-                  icon="/assets/images/icon/avatar-icon.svg"
+                  icon="/assets/img/icon/gallery-icon.svg"
                   iconalt="creation"
                   date={creationDate}
                   message={
