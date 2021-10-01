@@ -1,6 +1,6 @@
 import { useEthers } from "@usedapp/core";
 import { useEffect } from "react";
-import { walletconnect } from "../lib/connectors";
+import { getWalletConnectConnector } from "../lib/connectors";
 
 import RewilderModal from './RewilderModal';
 
@@ -31,7 +31,8 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
   };
 
   const clickWalletConnect = async () => {
-    await activate(walletconnect);
+    const wcc = getWalletConnectConnector();
+    await activate(wcc);
     onClose();
   };
 
