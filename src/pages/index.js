@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useEthers, useTransactions } from "@usedapp/core";
 import Router from 'next/router'
 import { useDisclosure } from "@chakra-ui/react";
+import { ethers } from 'ethers';
 
 import { Layout } from "./../components/Layout";
 import { useBalanceOf, useTokenOfOwner } from "../lib/rewilderNFT";
@@ -81,6 +82,12 @@ function IndexPage() {
       }
     }
   }, [donationEvents]);
+
+  useEffect(() => {
+    if (alreadyDonated && transactions && transactions[0] && transactions[0].receipt && transactions[0].receipt.status == 1) {
+      setAmount(ethers.utils.formatEther(transactions[0].transaction.value));
+    }
+  }, [alreadyDonated, transactions]);
   
   return (
     <>
