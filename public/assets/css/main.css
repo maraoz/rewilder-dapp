@@ -492,6 +492,15 @@ label {
   z-index: 3;
   position: relative;
 }
+.MuiSlider-mark {
+  pointer-events: none;
+  width: 1px;
+  height: 7px;
+  top: 10px;
+  position: absolute;
+  display: inline;
+  background-color: rgba(63, 105, 71, 0.2);
+}
 .hero-v1-content .range-value {
   display: flex;
   align-items: center;
