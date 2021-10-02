@@ -84,10 +84,10 @@ function IndexPage() {
   }, [donationEvents]);
 
   useEffect(() => {
-    if (alreadyDonated && transactions && transactions[0] && transactions[0].receipt && transactions[0].receipt.status == 1) {
+    if ((alreadyDonated || donationPending) && transactions && transactions[0] && transactions[0].transaction) {
       setAmount(ethers.utils.formatEther(transactions[0].transaction.value));
     }
-  }, [alreadyDonated, transactions]);
+  }, [alreadyDonated, donationPending, transactions]);
   
   return (
     <>
