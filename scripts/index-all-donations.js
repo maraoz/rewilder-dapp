@@ -1,6 +1,6 @@
 const {ethers, network} = require("hardhat");
 
-const indexDonation = require("./lib/index-donation");
+const processTransaction = require("./lib/process-transaction");
 const addresses = require("./lib/addresses");
 
 function sleep(ms) {
@@ -8,21 +8,24 @@ function sleep(ms) {
 }
 
 async function main() {
+  if (!process.env.ETHERSCAN_KEY) {
+    console.log('Required ETHERSCAN_KEY env variable not set.');
+    return;
+  }
   let donationCampaignAddress = addresses.RewilderDonationCampaign;
-  let provider = new ethers.providers.EtherscanProvider(network.name);
-  let history = await provider.getHistory(donationCampaignAddress);
+  console.log('Using donation address', donationCampaignAddress);
+  let etherscan = new ethers.providers.EtherscanProvider(network.name, process.env.ETHERSCAN_KEY);
+  let history = await etherscan.getHistory(donationCampaignAddress);
+  
   console.log('Found', history.length, 'transactions.');
   for(var tx of history){
     if (tx.to == donationCampaignAddress){
-      let txid = tx.hash;
-      const receipt = await ethers.provider.getTransactionReceipt(txid);
-      let abi = [ "event DonationReceived(address indexed donor, uint256 value, uint256 indexed tokenID)" ];
-      let iface = new ethers.utils.Interface(abi);
-      let log = iface.parseLog(receipt.logs[1]);
-      const {donor, value: amount, tokenID} = log.args;
-      console.log("indexing donation", txid);
-      await indexDonation(donor, amount, tokenID, txid);
-      await sleep(10000);
+      console.log("indexing", tx.hash);
+      await processTransaction(tx);
+      console.log("indexed", tx.hash, '- now waiting...')
+      await sleep(5000);
+    } else {
+      console.log('skipping', tx.hash);
     }
   }
 }

@@ -3,9 +3,9 @@ const TIER_MARKERS = require("../../src/lib/tierMarkers.js");
 
 const db = require('./firestore');
 
-module.exports = async function(donor, amount, tokenID, txid) {
+module.exports = async function(donor, amount, tokenID, txid, timestamp) {
   console.log(donor, "donated", ethers.utils.formatEther(amount), "ETH",
-  "in transaction ", txid,
+  "in transaction", txid,
   "and obtained token id", tokenID.toString());
 
   tier = 'cypress';
@@ -36,7 +36,7 @@ module.exports = async function(donor, amount, tokenID, txid) {
   // initialize updates for this token
   const updates = {};
   updates[0] = {
-    timestamp: new Date().getTime(),
+    timestamp: timestamp || new Date().getTime(),
     type: "creation", 
     info: {
       "txid": txid,
