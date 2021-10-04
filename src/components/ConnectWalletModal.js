@@ -9,7 +9,8 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
 
   useEffect(() => {
     if (error) {
-      if (error.name == 'UserRejectedRequestError' || error.message == "The user rejected the request") {
+      if (error.name == 'UserRejectedRequestError' || 
+        error.toString() == "e: The user rejected the request.") {
         onOpen();
       } else {
         console.log(`Unexpected error!! fix this:`, error.name, error);
