@@ -8,6 +8,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import RewilderIdenticon from "./RewilderIdenticon";
 import truncateHash from "../lib/truncateHash";
 
+
 function WalletInfo() {
   const { account, deactivate, library } = useEthers();
   const etherBalance  = useEtherBalance(account);
