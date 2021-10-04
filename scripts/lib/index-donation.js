@@ -6,7 +6,8 @@ const db = require('./firestore');
 module.exports = async function(donor, amount, tokenID, txid, timestamp) {
   console.log(donor, "donated", ethers.utils.formatEther(amount), "ETH",
   "in transaction", txid,
-  "and obtained token id", tokenID.toString());
+  "and obtained token id", tokenID.toString(),
+  "at timestamp", timestamp);
 
   tier = 'cypress';
   if (amount.gte(ethers.utils.parseEther(TIER_MARKERS['araucaria']+".0"))) {
