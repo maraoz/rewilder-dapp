@@ -40,9 +40,6 @@ async function main() {
   // for server
   // TODO:
 
-  // for client app
-  // TODO:
-
 
   // done!
   console.log("Done! ✨")
