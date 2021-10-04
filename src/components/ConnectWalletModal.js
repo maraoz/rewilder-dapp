@@ -12,7 +12,7 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
       if (error.name == 'UserRejectedRequestError') {
         onOpen();
       } else {
-        console.log(`Unexpected error!! fix this:`, error);
+        console.log(`Unexpected error!! fix this:`, error.name, error);
       }
     }
   }, [error]);
