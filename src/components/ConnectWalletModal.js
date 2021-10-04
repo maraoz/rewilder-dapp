@@ -13,6 +13,7 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
         onOpen();
       } else {
         console.log(`Unexpected error!! fix this:`, error.name, error);
+        console.log(error.toString());
       }
     }
   }, [error]);
