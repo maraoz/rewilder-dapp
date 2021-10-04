@@ -72,6 +72,7 @@ function DonationPage() {
   const dateOptions = {year: 'numeric', month: 'short', day: 'numeric'};
   
   const isDonor = !isLoading && account == attributes["donor"];
+  const youLongText = !isLoading && (isDonor?'You':attributes["donor"]);
   const youText = !isLoading && (isDonor?'You':truncateHash(attributes["donor"]));
   const yourText = !isLoading && (isDonor?'your':'their');
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
@@ -132,7 +133,7 @@ function DonationPage() {
                 <DonationInfo 
                   icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
                   label="donor"
-                  data={youText}
+                  data={youLongText}
                   />
               </div>
             </div>

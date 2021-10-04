@@ -939,7 +939,7 @@ label {
   margin-right: 0;
 }
 .donation-info .donation-img {
-  width: 2.75rem;
+  min-width: 2.75rem;
   height: 2.75rem;
   display: flex;
   align-items: center;
@@ -947,6 +947,9 @@ label {
   background: #1B201C;
   border-radius: 50%;
   margin-right: .75rem;
+}
+.donation-info .donation-text {
+  max-width: 90%;
 }
 .donation-info span {
   font-size: 12px;
@@ -963,6 +966,9 @@ label {
   margin: 0;
   padding: 0;
   margin-top: .25rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 /* donation updates */
@@ -1261,6 +1267,14 @@ body.overlay .walletconnect-qrcode__base {
 
   .donation-message .main-shape { max-width: 55px; }
   .donation-message h4 { margin-top: 15px; }
+  .donation-info .donation-text {
+    max-width: 70%;
+  }
+  .donation-info h4 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 @media screen and (max-width: 1199px) {
