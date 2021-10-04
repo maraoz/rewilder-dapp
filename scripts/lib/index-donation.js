@@ -1,16 +1,7 @@
-var admin = require('firebase-admin');
-var serviceAccount = require("../../rewilder-dev-firebase.json");
-if (process.env.NEXT_PUBLIC_REWILDER_ENV == "staging") {
-  serviceAccount = require("../../rewilder-staging-firebase.json")
-}
-const app = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
 const FLAVOR_TEXT = require("../../src/lib/flavorText.js");
 const TIER_MARKERS = require("../../src/lib/tierMarkers.js");
 
-const db = admin.firestore(app);
+const db = require('./firestore');
 
 module.exports = async function(donor, amount, tokenID, txid) {
   console.log(donor, "donated", ethers.utils.formatEther(amount), "ETH",
