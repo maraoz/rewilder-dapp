@@ -4,7 +4,6 @@ const { expect } = require("chai");
 
 const db = require('./lib/firestore');
 const firebaseAdmin = require('../src/lib/server/firebase');
-const serverConfig = require('../src/config');
 
 async function main() {
 
