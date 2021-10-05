@@ -562,6 +562,12 @@ label {
   line-height: 1;
   opacity: .7;
 }
+.footer a {
+  color: #3F6947;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
 .footer.donation-page {
   width: calc(100% - 42rem);
 }
