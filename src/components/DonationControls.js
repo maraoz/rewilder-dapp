@@ -228,7 +228,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
       <div className="range-value">
           <span>
             1 ETH{" "}
-            <InformationIcon text={"Our current best estimates say that donating the equivalent of $3000 USD in ETH will help add ~1 acre (~0.4 hectares) of wildland to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum ETH donation value in this campaign."}/>
+            <InformationIcon text={"Our current best estimates say that donating the equivalent of ~$3000 USD in ETH will help add ~1 acre (~0.4 hectares) of wildland and fund the future maintenance costs to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum ETH donation value in this campaign."}/>
           </span>
           <span>
             100 ETH{" "}
