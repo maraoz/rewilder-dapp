@@ -4,13 +4,11 @@ const { expect } = require("chai");
 
 const db = require('./lib/firestore');
 const firebaseAdmin = require('../src/lib/server/firebase');
+const serverConfig = require('../src/config');
 
 async function main() {
 
   wallet = process.env.REWILDER_MULTISIG;
-
-  // network setup
-  // TODO
 
   // get contracts
   const RewilderDonationCampaign = await ethers.getContractFactory("RewilderDonationCampaign");
