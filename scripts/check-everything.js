@@ -1,4 +1,4 @@
-const {config, ethers, upgrades} = require("hardhat");
+const {ethers, network} = require("hardhat");
 const addresses = require("./lib/addresses");
 const { expect } = require("chai");
 
@@ -14,7 +14,7 @@ async function main() {
   const campaign = RewilderDonationCampaign.attach(addresses.RewilderDonationCampaign);
   console.log("RewilderDonationCampaign attached to:", campaign.address);
   const RewilderNFT = await ethers.getContractFactory("RewilderNFT");
-  const nft = RewilderDonationCampaign.attach(addresses.RewilderNFT);
+  const nft = RewilderNFT.attach(addresses.RewilderNFT);
   console.log("RewilderNFT attached to:", nft.address);
   console.log("Using wallet address:", wallet);
   console.log("=================");
