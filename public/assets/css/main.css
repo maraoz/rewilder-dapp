@@ -839,6 +839,12 @@ label {
   line-height: 16px;
   margin: .5rem auto;
 }
+.donation-message a.subscribe {
+  color: #3F6947;
+  font-size: 14px;
+  line-height: 1.5;
+  text-decoration: underline;
+}
 .donation-message h4 img {
   width: 25px;
   margin-bottom: 4px;
