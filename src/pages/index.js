@@ -99,11 +99,16 @@ function IndexPage() {
             <p>“{flavorText}”</p>
           </div>
           <div className="hero-v1-content">
-            <img className="stamp" src={`/assets/img/shape/stamp-${tier}.svg`} alt={tier} />
-            <div className="title">
-              <img src="/assets/img/logo/hero-logo.svg" alt="logo" />
-              <h2>Edition 001: Origin</h2>
-            </div>
+            {
+            !finalized &&
+            <>
+              <img className="stamp" src={`/assets/img/shape/stamp-${tier}.svg`} alt={tier} />
+              <div className="title">
+                <img src="/assets/img/logo/hero-logo.svg" alt="logo" />
+                <h2>Edition 001: Origin</h2>
+              </div> 
+            </>
+            }
             {
               isLoading?
                 <LoadingCampaign />:

@@ -33,11 +33,11 @@ function CampaignFinalized({ tokenId }) {
         {rewilderWalletBalance? parseFloat(formatEther(rewilderWalletBalance)).toFixed(0):"0"}
         <img src="/assets/img/icon/eth.svg" height="16" width="16" alt="ETH" />
         {" "}ETH were donated in {parseFloat(daysSinceStart).toFixed(0)} days.
-        <br /><br />
-        Thanks to everyone for participating!</h4>
-        <a href="https://rewilder.substack.com/subscribe" target="_blank">
+        </h4>
+        <br />
+        <p>Thanks to everyone for participating!</p>
+        <a href="https://rewilder.substack.com/subscribe" target="_blank" className="subscribe">
           Subscribe to our newsletter to receive future updates.
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
         </a>
       </div>
 
