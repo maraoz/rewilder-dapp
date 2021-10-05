@@ -52,7 +52,7 @@ function ConnectWalletModal({ onOpen, isOpen, onClose }) {
       </div>
       <p>
         By connecting a wallet, you agree to Rewilder’s 
-        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a>
+        <a target="_blank" href="https://docs.rewilder.xyz/legal/terms-and-conditions">Terms of Service</a> and <a target="_blank" href="https://docs.rewilder.xyz/legal/privacy-policy">Privacy Policy.</a>
       </p>
     </RewilderModal>
   );
