@@ -294,10 +294,6 @@ label {
 [data-opacity="8"]::before { opacity: 0.8; }
 [data-opacity="9"]::before { opacity: 0.9; }
 
-/* .hero-v1-area {
-  margin: 1.5rem 0;
-} */
-
 .header-v1-wrapper {
   display: flex;
   flex-direction: column;
@@ -383,7 +379,6 @@ label {
   max-width: 880px;
   margin: 0 auto;
   display: flex;
-  background: #FFFFFF;
   box-shadow: 0px 8px 46px rgba(7, 39, 14, 0.4);
   border-radius: 16px;
   overflow: hidden;
@@ -395,6 +390,14 @@ label {
   background-color: #716B5E;
   display: flex;
   flex-direction: column;
+}
+
+.hero-v1-thumb.finalized {
+  background-color: #000;
+}
+
+.hero-v1-thumb.finalized img {
+  height: 100%;
 }
 
 .hero-v1-thumb p {
@@ -1253,15 +1256,13 @@ body.overlay .walletconnect-qrcode__base {
 }
 
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .header-v1-wrapper { justify-content: space-between; }
   .hero-v1-wrapper {
     max-width: 880px;
     margin: 0 auto;
     display: flex;
-    background: #FFFFFF;
     box-shadow: 0px 8px 46px rgba(7, 39, 14, 0.4);
-    border-radius: 16px;
     overflow: hidden;
     flex-direction: column;
   }

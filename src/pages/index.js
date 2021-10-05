@@ -94,9 +94,17 @@ function IndexPage() {
     <Layout>
       <div className="container">
         <div className="hero-v1-wrapper">
-          <div className="hero-v1-thumb">
-            <img src={`assets/img/donation/${tier}-web.jpg`} className="banner-image" />
-            <p>“{flavorText}”</p>
+          <div className={"hero-v1-thumb" + (finalized?" finalized":"")}>
+            {
+              // TODO: change to finalized-screen-web.jpg
+              finalized?
+                <img src={`assets/img/donation/finalized-screen-pixelated.jpg`} className="banner-image" />
+                :
+                <>
+                  <img src={`assets/img/donation/${tier}-web.jpg`} className="banner-image" />
+                  <p>“{flavorText}”</p>
+                </>
+            }
           </div>
           <div className="hero-v1-content">
             {
