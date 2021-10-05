@@ -1,4 +1,4 @@
-const {config, ethers, upgrades} = require("hardhat");
+const {ethers, network} = require("hardhat");
 const addresses = require("./lib/addresses");
 const { expect } = require("chai");
 
