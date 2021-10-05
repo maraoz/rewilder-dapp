@@ -3,6 +3,7 @@ const addresses = require("./lib/addresses");
 const { expect } = require("chai");
 
 const db = require('./lib/firestore');
+const firebaseAdmin = require('../src/lib/server/firebase');
 
 async function main() {
 
@@ -27,23 +28,30 @@ async function main() {
   console.log("✔️");
 
   // check if firebase env is properly set
-  const collection = db.collection(`tokens-${network.name}`);
+  const collection = db.collection(`setup-${network.name}`);
   // for scripts
   process.stdout.write("Attempting to write in db... ");
-  await collection.doc('setup').set({'done': true});
+  await collection.doc('scripts').set({'done': true});
   console.log("✔️");
 
   process.stdout.write("Checking if write in db was successful... ");
-  const response = (await collection.doc('setup').get()).data();
+  const response = (await collection.doc('scripts').get()).data();
   expect(response.done).to.equal(true);
   console.log("✔️");
   // for server
-  // TODO:
-
+  const serverDB = firebaseAdmin.firestore();
+  const serverCollection = serverDB.collection(`setup-${network.name}`);
+  process.stdout.write("Attempting to write in db from server config... ");
+  await serverCollection.doc('server').set({'done': true});
+  console.log("✔️");
+  process.stdout.write("Checking if write in db from server config was successful... ");
+  const responseServer = (await collection.doc('server').get()).data();
+  expect(responseServer).to.not.be.undefined;
+  expect(responseServer.done).to.equal(true);
+  console.log("✔️");
 
   // done!
   console.log("Done! ✨")
-
 }
 
 main()
