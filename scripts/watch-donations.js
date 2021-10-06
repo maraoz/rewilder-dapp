@@ -12,7 +12,9 @@ async function main() {
 
   // block tick
   ethers.provider.on("block", (blockNumber) => {
-    console.log("block", blockNumber, "mined at", new Date().getTime());
+    if (blockNumber % 240 == 0) {
+      console.log("block", blockNumber, "mined at", new Date().getTime());
+    }
   });
   // Emitted when any new pending transaction is noticed
   ethers.provider.on("pending", (tx) => {
