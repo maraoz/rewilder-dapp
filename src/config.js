@@ -5,8 +5,7 @@ const INFURA_ID = "cea7dccbc1994ce1a585d6f06eda519b";
 module.exports.chainId = ChainId.Localhost;
 
 if (process.env.NEXT_PUBLIC_REWILDER_ENV == "production") {
-  // TODO: change to mainnet
-  module.exports.chainId = ChainId.Rinkeby;
+  module.exports.chainId = ChainId.Mainnet;
 }
 if (process.env.NEXT_PUBLIC_REWILDER_ENV == "staging") {
   module.exports.chainId = ChainId.Rinkeby;

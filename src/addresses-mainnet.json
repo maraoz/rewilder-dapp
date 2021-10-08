@@ -1,2 +1,7 @@
 {
+  "wallet": "0x4b6997F5aAEEF7F6591D18C7eddB86e37122f5C1",
+  "network": "mainnet",
+  "RewilderNFT": "0x3c2809b814d633018b864E2d628448216D5291C0",
+  "RewilderNFTImpl": "0xBc7fD75E0c01a139DE2fd18408bd94c38249EA08",
+  "RewilderDonationCampaign": "0x2882Ae268fCfF174beBDdA03BD9ea0893deeaCC2"
 }
