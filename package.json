@@ -16,6 +16,7 @@
     "dotenv": "^10.0.0",
     "ethers": "5.4.5",
     "firebase-admin": "^9.11.1",
+    "hardhat": "=2.6.1",
     "next": "^11.1.2",
     "react": "^17.0.2",
     "react-popper": "^2.2.5",
@@ -31,7 +32,6 @@
     "chai": "^4.3.4",
     "chainlink": "^0.8.2",
     "ethereum-waffle": "^3.3.0",
-    "hardhat": "=2.6.1",
     "prettier": "^2.0.2",
     "solidity-coverage": "^0.7.17"
   },
