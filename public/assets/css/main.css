@@ -440,7 +440,7 @@ label {
   width: 100%;
 }
 .hero-v1-content .title h2 {
-  font-size: 24px;
+  font-size: 1.75rem;
   font-weight: 900;
   color: #171C18;
   font-family: "Airbnb Cereal App Black";
@@ -1246,7 +1246,6 @@ body.overlay .walletconnect-qrcode__base {
     right: 20px;
     max-width: 50px;
   }
-  .hero-v1-content .title h2 { font-size: 20px; }
   .hero-v1-content .donating-value h4 {
     font-size: 18px;
     line-height: 1.5;

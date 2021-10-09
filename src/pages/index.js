@@ -112,7 +112,7 @@ function IndexPage() {
               <img className="stamp" src={`/assets/img/shape/stamp-${tier}.svg`} alt={tier} />
               <div className="title">
                 <img src="/assets/img/logo/hero-logo.svg" alt="logo" />
-                <h2>Edition 001: Origin</h2>
+                <h2>Origin Edition</h2>
               </div> 
             </>
             }
