@@ -31,7 +31,7 @@ cache
 artifacts
 deployments
 .openzeppelin
-src/artifacts/
+# src/artifacts/
 src/addresses-localhost.json
 src/addresses-hardhat.json
 coverage.json
