@@ -142,8 +142,9 @@ function DonationPage() {
                 date={creationDate}
                 message={
                   <>
-                    If you want a donation receipt for 501(c)(3) purposes, send us an email to{" "}
-                    <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a> .
+                    If you want a donation receipt, send us an email to{" "}
+                    <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a> and
+                    consult your tax advisor regarding deductibility.
                   </>
                 }
                 isCloseable={true}
