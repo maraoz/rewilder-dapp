@@ -234,8 +234,6 @@ export async function getStaticPaths() {
   return {
     paths,
     // Server-render on demand if page does't exist yet
-    // TODO: Not sure if "blocking" is supported by Netlify, but not a big deal since client-side will
-    // still take over and fetch data from `/api/token`.
     fallback: "blocking",
   };
 }
