@@ -3,6 +3,9 @@ var serviceAccount = require("../../rewilder-dev-firebase.json");
 if (process.env.REWILDER_ENV == "staging") {
   serviceAccount = require("../../rewilder-staging-firebase.json")
 }
+if (process.env.REWILDER_ENV == "production") {
+  serviceAccount = require("../../rewilder-production-firebase.json")
+}
 const app = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });

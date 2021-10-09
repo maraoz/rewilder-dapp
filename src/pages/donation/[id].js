@@ -24,14 +24,6 @@ function DonationPage() {
   const [futureUpdatesInfoDismissed, setFutureUpdatesInfoDismissed] = useStoredState(false, "info.updates.dismissed");
   const [futureUpdatesInfoShown, setFutureUpdatesInfoShown] = useStoredState(false, "info.updates.shown");
   
-  // TODO: dev, delete
-  if (taxInfoDismissed || futureUpdatesInfoDismissed || taxInfoShown || futureUpdatesInfoShown) {
-    // setTaxInfoDismissed(false);
-    // setFutureUpdatesInfoDismissed(false);
-    // setTaxInfoShown(false)
-    // setFutureUpdatesInfoShown(false);
-  }
-
   const tokenId = router.query.id;
   let data = {};
   const { data: tokenData, status } = useToken(tokenId);

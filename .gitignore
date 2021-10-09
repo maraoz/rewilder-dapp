@@ -28,10 +28,14 @@ node_modules
 ## Hardhat files ##
 *.txt
 cache
-artifacts
 deployments
 .openzeppelin
-src/artifacts/
+src/artifacts/@gnosis.pm
+src/artifacts/@openzeppelin
+src/artifacts/build-info
+src/artifacts/contracts/mocks
+src/artifacts/contracts/Multicall.sol
+src/**/*.dbg.json
 src/addresses-localhost.json
 src/addresses-hardhat.json
 coverage.json
