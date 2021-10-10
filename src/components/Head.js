@@ -10,7 +10,7 @@ function Head(props) {
   const globalMeta = {
     siteName: "Rewilder Donation Campaign",
     domain: "https://app.rewilder.xyz",
-    twitterHandle: "",
+    twitterHandle: "@RewilderOrg",
   };
 
   // Default meta values for current page (override with props)
@@ -46,10 +46,10 @@ function Head(props) {
       {meta.image && <meta property="og:image" content={meta.image} key="og-image" />}
 
       {/* Twitter */}
-      <meta name="twitter:title" content={meta.title} key="twitter-title" />
-      <meta name="twitter:description" content={meta.description} key="twitter-description"/>
-      <meta name="twitter:card" content="summary" key="twitter-card" />
-      {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} key="twitter-site" />}
+      <meta name="twitter:title" content={meta.title} />
+      <meta name="twitter:description" content={meta.description} />
+      <meta name="twitter:card" content="summary_large_image" />
+      {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} />}
       {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
 
       {/* plausible analytics */}
