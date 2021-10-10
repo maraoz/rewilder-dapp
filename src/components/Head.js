@@ -18,7 +18,7 @@ function Head(props) {
     title: "Rewilder",
     description:
       "Crypto-native non-profit that coordinates the global purchase of land for wildlife conservation.",
-    image: "https://rewilder.xyz/assets/img/social/avatar-small.png",
+    image: "/assets/img/social/twitter-card.jpg",
     type: "website",
   };
 
@@ -49,8 +49,8 @@ function Head(props) {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:card" content="summary_large_image" />
-      {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} />}
-      {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
+      <meta name="twitter:site" content={meta.twitterHandle} />
+      <meta name="twitter:image" content={meta.image} />
 
       {/* plausible analytics */}
       <script defer data-domain="app.rewilder.xyz" src="https://plausible.io/js/plausible.js"></script>
