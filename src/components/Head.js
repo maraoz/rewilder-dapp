@@ -10,7 +10,7 @@ function Head(props) {
   const globalMeta = {
     siteName: "Rewilder Donation Campaign",
     domain: "https://app.rewilder.xyz",
-    twitterHandle: "",
+    twitterHandle: "@RewilderOrg",
   };
 
   // Default meta values for current page (override with props)
@@ -18,7 +18,7 @@ function Head(props) {
     title: "Rewilder",
     description:
       "Crypto-native non-profit that coordinates the global purchase of land for wildlife conservation.",
-    image: "https://rewilder.xyz/assets/img/social/avatar-small.png",
+    image: "https://app.rewilder.xyz/assets/img/social/twitter-card.jpg",
     type: "website",
   };
 
@@ -46,11 +46,11 @@ function Head(props) {
       {meta.image && <meta property="og:image" content={meta.image} key="og-image" />}
 
       {/* Twitter */}
-      <meta name="twitter:title" content={meta.title} key="twitter-title" />
-      <meta name="twitter:description" content={meta.description} key="twitter-description"/>
-      <meta name="twitter:card" content="summary" key="twitter-card" />
-      {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} key="twitter-site" />}
-      {meta.image && <meta name="twitter:image" content={meta.image} key="twitter-image" />}
+      <meta name="twitter:title" content={meta.title} />
+      <meta name="twitter:description" content={meta.description} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={meta.twitterHandle} />
+      <meta name="twitter:image" content={meta.image} />
 
       {/* plausible analytics */}
       <script defer data-domain="app.rewilder.xyz" src="https://plausible.io/js/plausible.js"></script>
