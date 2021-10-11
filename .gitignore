@@ -29,7 +29,9 @@ node_modules
 *.txt
 cache
 deployments
-.openzeppelin
+.openzeppelin/unknown-*.json
+.openzeppelin/rinkeby.json
+.openzeppelin/kovan.json
 src/artifacts/@gnosis.pm
 src/artifacts/@openzeppelin
 src/artifacts/build-info
