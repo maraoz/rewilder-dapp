@@ -136,7 +136,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
       setAmount("");
       return;
     }
-    const value = clamp(event.target.value, 1, 100);
+    const value = clamp(event.target.value, 1, 30);
     setAmount(value);
   };
 
@@ -217,7 +217,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
             // TODO: uncomment this when this @mui/core/SliderUnstyled bug is fixed:
             // https://github.com/mui-org/material-ui/issues/28500
             // marks={marks}
-            max={100}
+            max={30}
             disabled={alreadyDonated}
             onChange={handleSliderChange}
           />
@@ -231,7 +231,7 @@ function DonationControls({ amount, setAmount, tier, alreadyDonated, donateTx, r
             <InformationIcon text={"Our current best estimates say that donating the equivalent of ~$3000 USD in ETH will help add ~1 acre (~0.4 hectares) of wildland and fund the future maintenance costs to our first rewilding project. This fact, added to marginal costs of providing updates in the future, is why we require this as the minimum ETH donation value in this campaign."}/>
           </span>
           <span>
-            100 ETH{" "}
+            30 ETH{" "}
           <InformationIcon text={"Given this is our first fundraising campaign, we've decided to set a maximum donation per address."}/>
           </span>
       </div>
