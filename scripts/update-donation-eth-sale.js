@@ -29,11 +29,12 @@ const update = async function(tokenID, timestamp, txid) {
 }
 
 async function main() {
-  const tokenID = 1;
-  console.log('processing single donation with tokenID', tokenID);
-
-  const timestamp = 1656606971337; // 0xb4328dd417d7a4964365f714d03c6b33e3fc3a7f6de03f14211a2284685bbdfc
-  await update(tokenID, timestamp, '0xb4328dd417d7a4964365f714d03c6b33e3fc3a7f6de03f14211a2284685bbdfc');
+  for (var tokenID = 1; tokenID <= 4; tokenID++) {
+    console.log('processing single donation with tokenID', tokenID);
+  
+    const timestamp = 1656606971337; // 0xb4328dd417d7a4964365f714d03c6b33e3fc3a7f6de03f14211a2284685bbdfc
+    await update(tokenID, timestamp, '0xb4328dd417d7a4964365f714d03c6b33e3fc3a7f6de03f14211a2284685bbdfc');
+  }
 }
 
 main()
