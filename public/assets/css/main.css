@@ -1029,6 +1029,7 @@ label {
 }
 .update-card .update-icon img {
   width: 1rem;
+  height: 1rem;
 }
 .update-card .update-content {
   padding: 0 1rem;

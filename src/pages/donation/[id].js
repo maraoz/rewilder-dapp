@@ -58,7 +58,8 @@ function DonationPage() {
     if (!updates) return [];
     return Object.keys(updates)
       .filter((key)=> key != 'id' )
-      .map((i) => updates[i]);
+      .map((i) => updates[i])
+      .reverse();
   };
   const updateList = parseUpdates(updates);
   const dateOptions = {year: 'numeric', month: 'short', day: 'numeric'};
@@ -68,7 +69,7 @@ function DonationPage() {
   const youText = !isLoading && (isDonor?'You':truncateHash(attributes["donor"]));
   const yourText = !isLoading && (isDonor?'your':'their');
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
-  const creationDate = !isLoading && new Date(updateList[0].timestamp).toLocaleDateString(undefined, dateOptions);
+  const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -166,30 +167,49 @@ function DonationPage() {
                 />
               }
               {/* real updates */}
-              { updateList && updateList.length > 0 && updateList.map((update) => (
-                update.type == 'creation' && 
-                  <DonationUpdate 
-                  className="fade-in"
-                  key={update.timestamp}
-                  icon="/assets/img/icon/gallery-icon.svg"
-                  iconalt="creation"
-                  date={creationDate}
-                  message={
-                    <>
-                      {youText} donated {attributes["amount"]} {" "}
-                      <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
-                        <FontAwesomeIcon icon={faExternalLinkAlt} />
-                      </a> 
-                      {thanksText}
-                      <br />
-                      and minted {yourText} unique NFT donation receipt{" "}
-                      <a href={openseaURL} target="_blank">
-                        <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
-                      </a>
-                    </>
-                  }>
-                  </DonationUpdate>
-                ))
+              { updateList && updateList.length > 0 && updateList.map((update) => {
+                  if (update.type == 'creation') {
+                    return <DonationUpdate 
+                      className="fade-in"
+                      key={update.timestamp}
+                      icon="/assets/img/icon/gallery-icon.svg"
+                      iconalt="creation"
+                      date={creationDate}
+                      message={
+                        <>
+                          {youText} donated {attributes["amount"]} {" "}
+                          <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
+                            <FontAwesomeIcon icon={faExternalLinkAlt} />
+                          </a> 
+                          {thanksText}
+                          <br />
+                          and minted {yourText} unique NFT donation receipt{" "}
+                          <a href={openseaURL} target="_blank">
+                            <FontAwesomeIcon className="icon-color" icon={faExternalLinkAlt} />
+                          </a>
+                        </>
+                      }>
+                      </DonationUpdate>
+                  }
+                  if (update.type == 'eth-sale') {
+                    return <DonationUpdate 
+                      className="fade-in"
+                      key={update.timestamp}
+                      icon="/assets/img/icon/donation.svg"
+                      iconalt="eth sale"
+                      date={new Date(update.timestamp).toLocaleDateString(undefined, dateOptions)}
+                      message={
+                        <>
+                          Donated ETH was sold for USDC. 
+                          <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
+                            <FontAwesomeIcon icon={faExternalLinkAlt} />
+                          </a> 
+                        </>
+                      }>
+                      </DonationUpdate>
+                  }
+                  return <></>
+                })
               }
             </div>
           </div>
