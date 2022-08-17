@@ -20,6 +20,7 @@ import useStoredState from "../lib/storedState";
 import FLAVOR_TEXT from "../lib/flavorText";
 import TIER_MARKERS from "../lib/tierMarkers";
 
+
 function IndexPage() {
   const { account } = useEthers();
   const { transactions } = useTransactions();
