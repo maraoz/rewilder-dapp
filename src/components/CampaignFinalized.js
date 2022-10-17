@@ -32,7 +32,7 @@ function CampaignFinalized({ tokenId }) {
         <br />
         {102.87} 
         <img src="/assets/img/icon/eth.svg" height="16" width="16" alt="ETH" />
-        {" "}ETH were donated in {parseFloat(daysSinceStart).toFixed(0)} days.
+        {" "}ETH were donated in {371} days.
         </h4>
         <br />
         <p>Thanks to everyone for participating!</p>
