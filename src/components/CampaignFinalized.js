@@ -30,7 +30,7 @@ function CampaignFinalized({ tokenId }) {
         </div>
         <h4>Donation Campaign Ended
         <br />
-        {rewilderWalletBalance? parseFloat(formatEther(rewilderWalletBalance)).toFixed(0):"0"}
+        {102.87}
         <img src="/assets/img/icon/eth.svg" height="16" width="16" alt="ETH" />
         {" "}ETH were donated in {parseFloat(daysSinceStart).toFixed(0)} days.
         </h4>
