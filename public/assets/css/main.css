@@ -8,8 +8,8 @@ body {
   font-family: "Airbnb Cereal App Book";
   font-display: swap;
   font-weight: 400;
-  background-color: #1B201C;
-  background-image: linear-gradient(112deg, #171B17 0%, #1B201C 50%, #25382C 100%);
+  background-color: #121814;
+  background-image: linear-gradient(107deg, #121512 0%, #121814 50%, #131915 100%);
   min-height: 100vh;
 }
 .noise {
@@ -354,25 +354,6 @@ label {
 }
 .header-button a:hover::before {
   opacity: 1;
-}
-
-/* NFT image and stamp */
-.thumb img {
-  width: 390px;
-  height: 448px;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
-.thumb img.frame { 
-  position: absolute;
-  opacity: .15;
-}
-.thumb img.nft-image {
-  padding: 1.5rem;
-  z-index: 10;
 }
 
 .hero-v1-wrapper {
@@ -882,27 +863,13 @@ label {
   flex-grow: 1;
   padding-bottom: 3rem;
 }
-.description-wrapper .nft figcaption {
-  font-family: "Airbnb Cereal App Book";
-  font-size: 1rem;
-  text-align: center;
-  color: #D4CFC7;
-  max-width: 20rem;
-}
-
-.description-wrapper .nft .thumb {
-  margin: 2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 /* DONATION CARD */
 .donation {
   width: 42rem;
   height: 90vh;
   min-height: 40rem;
-  background: rgba(0, 0, 0, 0.4);
+  /* background: rgba(0, 0, 0, 0.4); */
   border-radius: 16px;
   padding: 2.5rem 3rem 0;
   position: relative;

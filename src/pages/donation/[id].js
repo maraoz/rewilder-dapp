@@ -90,19 +90,7 @@ function DonationPage() {
       <div className="noise"></div>    
       <div className="description-area">
         <div className="description-wrapper">
-          <div className="nft">
-            <div className="donation-logo">
-              <img src="/assets/img/logo/logo.svg" alt="logo"/>
-            </div>
-            <div className="thumb">
-              {!isLoading && <img src={imageSource} alt="nft"
-                className={"nft-image"}/>
-              }
-              <img src="/assets/img/shape/stamp.svg" alt="decorative stamp frame" className="frame"/>
-            </div>
-            <figcaption>“{attributes["flavor"]}”</figcaption>
-          </div>
-
+          {/* Donation Updates */}
           <div className="donation">
             <div className="header">
               <img src={isLoading?"/assets/img/shape/stamp_blank.svg":("/assets/img/shape/stamp-" + attributes.tier + ".svg")} alt={attributes.tier + " stamp"} className="stamp"/>
@@ -212,6 +200,14 @@ function DonationPage() {
                 })
               }
             </div>
+          </div>
+
+          {/* Map */}
+          <div className="nft">
+            <div className="donation-logo">
+              <img src="/assets/img/logo/logo.svg" alt="logo"/>
+            </div>
+            
           </div>
         </div>
         <div className="footer text-center donation-page">
