@@ -845,9 +845,9 @@ label {
 }
 
 .description-area {
-  padding: 2.75rem 2.5rem 0;
-  max-width: 84rem;
-  margin: auto;
+  padding: 1rem;
+  width: 100%;
+  max-width: 90rem;
 }
 
 .description-wrapper {
@@ -869,13 +869,11 @@ label {
   width: 42rem;
   height: 90vh;
   min-height: 40rem;
-  /* background: rgba(0, 0, 0, 0.4); */
-  border-radius: 16px;
-  padding: 2.5rem 3rem 0;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
 }
 
 /* donation header */
