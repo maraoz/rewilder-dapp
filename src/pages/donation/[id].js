@@ -158,6 +158,20 @@ function DonationPage() {
               { updateList && updateList.length > 0 &&
                   <DonationUpdate
                     className="fade-in"
+                    key="1234567891"
+                    icon="/assets/img/icon/sign.svg"
+                    iconalt="sign contract with AMBA"
+                    date={new Date("28 Jan 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={<>
+                      Signed contract with {" "}
+                      <a href="https://amba.org.uy/en/" target="_blank">AMBÁ</a>,
+                      our local rewilding partner in Uruguay.
+                      </>}
+                    />
+              }
+              { updateList && updateList.length > 0 &&
+                  <DonationUpdate
+                    className="fade-in"
                     key="1234567890"
                     icon="/assets/img/icon/swap.svg"
                     iconalt="swap"
