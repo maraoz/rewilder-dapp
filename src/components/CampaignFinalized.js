@@ -12,11 +12,6 @@ import { addressFor } from '../lib/addresses';
 function CampaignFinalized({ tokenId }) {
 
   const [loading, setLoading] = useState(false);
-  const rewilderWalletBalance  = useEtherBalance(addressFor("wallet"));
-  const now = new Date().getTime();
-  const oct12 = new Date("Tue Oct 12 2021 00:00:00 GMT+0000");
-  const daysSinceStart = Math.abs((now - oct12) / (1000 * 3600 * 24));
-
 
   const clicked = () => {
     setLoading(true);
