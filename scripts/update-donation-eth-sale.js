@@ -5,15 +5,6 @@ const db = require('./lib/firestore');
 const update = async function(tokenID, timestamp, txid) {
   console.log("ETH from donation", tokenID, "sold at", timestamp, "at tx", txid);
 
-  // initialize updates for this token
-  // const updates = {};
-  // updates[0] = {
-  //   timestamp: timestamp || new Date().getTime(),
-  //   type: "creation", 
-  //   info: {
-  //     "txid": txid,
-  //   }
-  // }
   const snapshot = await db.collection(`updates-${network.name}`).doc(tokenID.toString()).get();
   const updates = snapshot.data();
   updates[1] = {
