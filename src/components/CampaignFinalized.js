@@ -28,7 +28,7 @@ function CampaignFinalized({ tokenId }) {
         <div className="main-shape">
           <img src="/assets/img/shape/finalized.svg" alt="campaign finalized" />
         </div>
-        <h4>Donation Campaign Ended
+        <h4>Donation Campaign Ended! 
         <br />
         {102.87} 
         <img src="/assets/img/icon/eth.svg" height="16" width="16" alt="ETH" />
