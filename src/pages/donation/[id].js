@@ -114,7 +114,7 @@ function DonationPage() {
                 <DonationInfo 
                   icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
                   label="donor"
-                  data={youLongText}
+                  data={youText}
                   />
               </div>
             </div>
@@ -155,12 +155,22 @@ function DonationPage() {
                 />
               }
               {/* real updates */}
+              { updateList && updateList.length > 0 &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key="1234567890"
+                    icon="/assets/img/icon/swap.svg"
+                    iconalt="swap"
+                    date={new Date("25 Jan 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"Converted USDC to USD in Rewilder bank account"}
+                    />
+              }
               { updateList && updateList.length > 0 && updateList.map((update) => {
                   if (update.type == 'creation') {
                     return <DonationUpdate 
                       className="fade-in"
                       key={update.timestamp}
-                      icon="/assets/img/icon/gallery-icon.svg"
+                      icon="/assets/img/icon/in.svg"
                       iconalt="creation"
                       date={creationDate}
                       message={
@@ -183,12 +193,12 @@ function DonationPage() {
                     return <DonationUpdate 
                       className="fade-in"
                       key={update.timestamp}
-                      icon="/assets/img/icon/donation.svg"
+                      icon="/assets/img/icon/swap.svg"
                       iconalt="eth sale"
                       date={new Date(update.timestamp).toLocaleDateString(undefined, dateOptions)}
                       message={
                         <>
-                          Donated ETH was sold for USDC. 
+                          Rewilder sold donated ETH for USDC. 
                           <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
                             <FontAwesomeIcon icon={faExternalLinkAlt} />
                           </a> 
