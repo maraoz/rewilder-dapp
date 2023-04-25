@@ -70,6 +70,7 @@ function DonationPage() {
   const yourText = !isLoading && (isDonor?'your':'their');
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
+  const MAY2023UPDATE_ID = 2;
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -121,44 +122,50 @@ function DonationPage() {
           
             <h5>Updates</h5>
             <div className="updates">
-              {/* synthetic updates */}
-              {
-              isDonor && taxInfoShown && !taxInfoDismissed &&
-              <DonationUpdate 
-                className="fade-in"
-                icon="/assets/img/icon/info.svg"
-                iconalt="info"
-                date={creationDate}
-                message={
-                  <>
-                    If you want a donation receipt, send us an email to{" "}
-                    <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a> and
-                    consult your tax advisor regarding deductibility.
-                  </>
-                }
-                isCloseable={true}
-                onClose={()=>{setTaxInfoDismissed(true)}}
-                />
-              }
-              {
-              isDonor && futureUpdatesInfoShown && !futureUpdatesInfoDismissed &&
-              <DonationUpdate 
-                className="fade-in"
-                icon="/assets/img/icon/info.svg"
-                iconalt="info"
-                date={creationDate}
-                message="You will be able to see future updates about the use of your donated funds here. For example, when we buy the land or make a payment."
-                linkText="Subscribe to also receive email notifications."
-                linkHref="https://rewilder.substack.com/subscribe"
-                isCloseable={true}
-                onClose={()=>{setFutureUpdatesInfoDismissed(true)}}
-                />
-              }
-              {/* real updates */}
-              { updateList && updateList.length > 0 &&
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
                   <DonationUpdate
                     className="fade-in"
-                    key="1234567891"
+                    key={new Date("2 May 2023").getTime()}
+                    icon="/assets/img/icon/pin.svg"
+                    iconalt="pin"
+                    date={new Date("2 May 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"Your parcel allocation."}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("1 May 2023").getTime()}
+                    icon="/assets/img/icon/sign.svg"
+                    iconalt="signs deed title"
+                    date={new Date("1 May 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"Signing of the deed title."}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("9 Feb 2023").getTime()}
+                    icon="/assets/img/icon/sign.svg"
+                    iconalt="signs land purchase agreement"
+                    date={new Date("9 Feb 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"AMBÁ signs land purchase agreement."}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("30 Jan 2023").getTime()}
+                    icon="/assets/img/icon/out.svg"
+                    iconalt="outgoing transaction"
+                    date={new Date("30 Jan 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"USD sent to AMBÁ for land purchase."}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("28 Jan 2023").getTime()}
                     icon="/assets/img/icon/sign.svg"
                     iconalt="sign contract with AMBA"
                     date={new Date("28 Jan 2023").toLocaleDateString(undefined, dateOptions)}
@@ -169,10 +176,10 @@ function DonationPage() {
                       </>}
                     />
               }
-              { updateList && updateList.length > 0 &&
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
                   <DonationUpdate
                     className="fade-in"
-                    key="1234567890"
+                    key={new Date("25 Jan 2023").getTime()}
                     icon="/assets/img/icon/swap.svg"
                     iconalt="swap"
                     date={new Date("25 Jan 2023").toLocaleDateString(undefined, dateOptions)}
