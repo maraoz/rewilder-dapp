@@ -992,7 +992,7 @@ label {
   width: min-content;
 }
 .update-card .update-content p {
-  margin-top: .25rem;
+  margin: .25rem 0;
   color: #F7FAF8;
 }
 .update-card .update-content a {
