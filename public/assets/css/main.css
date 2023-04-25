@@ -940,6 +940,10 @@ label {
   overflow: hidden;
   white-space: nowrap;
 }
+.donation-info h4 a:hover {
+  color: #4CB26E;
+  text-decoration: underline;
+}
 
 /* donation updates */
 .updates {
