@@ -335,12 +335,12 @@ function DonationPage() {
               </svg>
 
             </div>
-            <div className="donation-legals">
-                <img className="donation-logo" src="/assets/img/logo/logo.svg" alt="logo"/>
-                <div className="footer text-center donation-page">
-                  <p>© Rewilder Foundation, Inc.  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/terms-and-conditions">Terms of Service</a>  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/privacy-policy">Privacy</a></p>
-                </div>
+            {/* <div className="donation-legals">
+              <img className="donation-logo" src="/assets/img/logo/logo.svg" alt="logo"/>
+              <div className="footer text-center donation-page">
+                <p>© Rewilder Foundation, Inc.  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/terms-and-conditions">Terms of Service</a>  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/privacy-policy">Privacy</a></p>
               </div>
+            </div> */}
           </div>
         </div>
         
