@@ -1030,6 +1030,56 @@ label {
   cursor: pointer;
 }
 
+/* Map styles */
+.map {
+  min-width: 26rem;
+  max-width: 50rem;
+  height: calc(100vh - 2rem);
+
+  /* Center satellital view */
+  border-radius: 1rem;
+  background-image: url(../img/land.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* Center land allocation */
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+svg {
+  width: 728px;
+  height: calc(100vh - 1rem);
+}
+
+path {
+	fill: #ffffff00;
+	stroke: #ffffff77;
+	stroke-width: 1px;
+  /* stroke-dasharray: 2 2; */
+  transition: fill 0.2s;
+}
+
+path:hover {
+  fill: #ffffff33;
+  stroke: #fff;
+	cursor: pointer;
+  stroke-width: 2px;
+  stroke-dasharray: 0;
+}
+
+.selected path,
+path:active {
+  fill: #fff;
+  stroke: #fff;
+	cursor: pointer;
+  stroke-dasharray: 0;
+}
+
+/* Map styles end */
+
 /* # sourceMappingURL=main.css.map */
 
 
