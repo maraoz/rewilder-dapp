@@ -549,9 +549,6 @@ label {
 .footer a:hover {
   text-decoration: underline;
 }
-.footer.donation-page {
-  width: calc(100% - 42rem);
-}
 
 .rewilder-popup {
   position: fixed;
@@ -1023,17 +1020,6 @@ label {
 }
 
 /* Map styles */
-.donation-legals {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: inherit;
-  padding: 1rem 0 0;
-}
-.donation-legals .donation-logo {
-  height: 1rem;
-}
 .map {
   min-width: 26rem;
   max-width: 50rem;
@@ -1049,22 +1035,36 @@ label {
   /* Center land allocation */
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
+
+  /* Align logo and legal footer */
+  position: relative;
 }
 
+/* Logo */
+.map .donation-logo {
+  height: 1rem;
+  position: absolute;
+  top: 1rem;
+}
+
+/* Legal footer */
+.map .footer.donation-page {
+  position: absolute;
+  bottom: 0;
+}
+
+/* Interactive map */
 .map svg {
   width: 728px;
   height: calc(100vh - 1rem);
 }
-
 .map path {
 	fill: #ffffff00;
 	stroke: #ffffff77;
 	stroke-width: 1px;
-  /* stroke-dasharray: 2 2; */
   transition: fill 0.2s;
 }
-
 .map path:hover {
   fill: #ffffff33;
   stroke: #fff;
@@ -1072,7 +1072,6 @@ label {
   stroke-width: 2px;
   stroke-dasharray: 0;
 }
-
 .map .selected path,
 .map path:active {
   fill: #fff;
@@ -1083,8 +1082,8 @@ label {
 
 /* Map styles end */
 
-/* # sourceMappingURL=main.css.map */
 
+/* # sourceMappingURL=main.css.map */
 
 /* extras added by maraoz */
 .alert {
@@ -1343,11 +1342,6 @@ body.overlay .walletconnect-qrcode__base {
   .donation .info-container .flex .donation-info { margin: 0 0 1.75rem; }
   .update-card:last-child { margin-bottom: 0; }
 
-  /* Footer */
-  .footer.donation-page {
-    width: 100%;
-    padding-top: 2rem;
-  }
 }
 
 .fade-in {
