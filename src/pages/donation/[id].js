@@ -241,10 +241,10 @@ function DonationPage() {
           </div>
 
           {/* Map */}
-          <div className="nft">
+          <div>
             <div class="map">
+              
               <svg viewBox="0 0 312 794" xmlns="http://www.w3.org/2000/svg">
-                
                 <a href="#1" class="selected">
                   <path d="M165.729 190.293L169.009 170.574L166.293 160.591L160.13 147.524L144.274 142.07L130.797 149.841L134.598 156.367L131.326 173.508L154.743 186.807L165.729 190.293Z" />
                 </a>
@@ -333,17 +333,17 @@ function DonationPage() {
                   <path d="M135.022 688.731L132.711 659.001L104.175 646.445L100.398 614.671L84.1897 599.645L86.8131 578.592L61.6643 566.486L49.0292 597.027L21.9336 596.071L1 677.142C1 677.142 68.9558 699.414 125.524 718.03L125.241 706.614L135.022 688.731Z" />
                 </a>
               </svg>
-            </div>
 
-            <div className="donation-logo">
-              <img src="/assets/img/logo/logo.svg" alt="logo"/>
             </div>
-            
+            <div className="donation-legals">
+                <img className="donation-logo" src="/assets/img/logo/logo.svg" alt="logo"/>
+                <div className="footer text-center donation-page">
+                  <p>© Rewilder Foundation, Inc.  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/terms-and-conditions">Terms of Service</a>  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/privacy-policy">Privacy</a></p>
+                </div>
+              </div>
           </div>
         </div>
-        <div className="footer text-center donation-page">
-          <p>© Rewilder Foundation, Inc.  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/terms-and-conditions">Terms of Service</a>  -  <a target="_blank" href="https://docs.rewilder.xyz/legal/privacy-policy">Privacy</a></p>
-        </div>
+        
       </div>
       
     </>

@@ -855,15 +855,6 @@ label {
   justify-content: space-between;
 }
 
-.description-wrapper .nft {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  flex-grow: 1;
-  padding-bottom: 3rem;
-}
-
 /* DONATION CARD */
 .donation {
   width: 42rem;
@@ -1031,6 +1022,17 @@ label {
 }
 
 /* Map styles */
+.donation-legals {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: inherit;
+  padding: 1rem 0 0;
+}
+.donation-legals .donation-logo {
+  height: 1rem;
+}
 .map {
   min-width: 26rem;
   max-width: 50rem;
@@ -1321,9 +1323,6 @@ body.overlay .walletconnect-qrcode__base {
   .logo img { height: 1.25rem; }
 
   /* Donation page */
-  .description-wrapper .nft {
-    padding-bottom: 1rem;
-  }
   .donation {
     width: 100%;
     margin-top: 3rem;
