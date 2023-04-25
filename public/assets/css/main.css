@@ -1052,12 +1052,12 @@ label {
   align-items: center;  
 }
 
-svg {
+.map svg {
   width: 728px;
   height: calc(100vh - 1rem);
 }
 
-path {
+.map path {
 	fill: #ffffff00;
 	stroke: #ffffff77;
 	stroke-width: 1px;
@@ -1065,7 +1065,7 @@ path {
   transition: fill 0.2s;
 }
 
-path:hover {
+.map path:hover {
   fill: #ffffff33;
   stroke: #fff;
 	cursor: pointer;
@@ -1073,8 +1073,8 @@ path:hover {
   stroke-dasharray: 0;
 }
 
-.selected path,
-path:active {
+.map .selected path,
+.map path:active {
   fill: #fff;
   stroke: #fff;
 	cursor: pointer;
