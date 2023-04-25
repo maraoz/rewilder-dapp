@@ -1014,9 +1014,9 @@ label {
 }
 
 .update-card .update-content img {
-  display: block;
-  max-width: 25%;
-  margin-top: .5rem;
+  width: 7.5rem;
+  height: 4rem;
+  margin: .5rem .5rem 0 0;
   border-radius: .5rem;
 }
 
@@ -1205,6 +1205,9 @@ body.overlay .walletconnect-qrcode__base {
   .update-card .update-content a,
   .update-card .update-content span {
     font-size: 1rem;
+  }
+  .updates-images {
+    display: flex;
   }
 
   /* XXXXXXXXX */
