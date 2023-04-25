@@ -47,8 +47,6 @@ function DonationPage() {
     'opensea.io/assets/'+addressFor("RewilderNFT")+
     "/"+tokenId;
   
-  const imageSource = `/assets/img/donation/${attributes.tier}-web.jpg`;
-
   const parseUpdates = (updates) => {
     if (!updates) return [];
     return Object.keys(updates)
