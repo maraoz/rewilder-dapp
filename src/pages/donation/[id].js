@@ -122,8 +122,10 @@ function DonationPage() {
                     date={new Date("2 May 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
                       Your parcel allocation. {" "}
-                      <a href="/assets/img/2023-project/parcel-1.jpg" target="_blank"><img src="/assets/img/2023-project/parcel-1.jpg"></img></a> 
-                      <a href="/assets/img/2023-project/visit-a.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
+                      <div className="updates-images">
+                        <a href="/assets/img/2023-project/parcel-1.jpg" target="_blank"><img src="/assets/img/2023-project/parcel-1.jpg"></img></a> 
+                        <a href="/assets/img/2023-project/visit-a.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
+                      </div>
                       </>}
                     />
               }
@@ -136,7 +138,9 @@ function DonationPage() {
                     date={new Date("1 May 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
                       Signing of the deed title. {" "}
-                      <a href="/assets/img/2023-project/002.jpg" target="_blank"><img src="/assets/img/2023-project/002.jpg"></img></a> 
+                      <div className="updates-images">
+                        <a href="/assets/img/2023-project/002.jpg" target="_blank"><img src="/assets/img/2023-project/002.jpg"></img></a> 
+                      </div>
                       </>}
                     />
               }
@@ -149,7 +153,9 @@ function DonationPage() {
                     date={new Date("9 Feb 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
                       AMBÁ signs land purchase agreement. {" "}
-                      <a href="/assets/img/2023-project/001.jpg" target="_blank"><img src="/assets/img/2023-project/001.jpg"></img></a> 
+                      <div className="updates-images">
+                        <a href="/assets/img/2023-project/001.jpg" target="_blank"><img src="/assets/img/2023-project/001.jpg"></img></a> 
+                      </div>
                       </>}
                     />
               }
