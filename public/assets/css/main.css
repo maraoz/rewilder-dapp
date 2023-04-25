@@ -848,6 +848,7 @@ label {
   padding: 1rem;
   width: 100%;
   max-width: 90rem;
+  margin: auto;
 }
 
 .description-wrapper {
