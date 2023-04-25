@@ -845,9 +845,9 @@ label {
 }
 
 .description-area {
-  padding: 2.75rem 2.5rem 0;
-  max-width: 84rem;
-  margin: auto;
+  padding: 1rem;
+  width: 100%;
+  max-width: 90rem;
 }
 
 .description-wrapper {
@@ -855,27 +855,16 @@ label {
   justify-content: space-between;
 }
 
-.description-wrapper .nft {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  flex-grow: 1;
-  padding-bottom: 3rem;
-}
-
 /* DONATION CARD */
 .donation {
   width: 42rem;
   height: 90vh;
   min-height: 40rem;
-  /* background: rgba(0, 0, 0, 0.4); */
-  border-radius: 16px;
-  padding: 2.5rem 3rem 0;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
 }
 
 /* donation header */
@@ -1031,6 +1020,67 @@ label {
   height: 1.5rem;
   cursor: pointer;
 }
+
+/* Map styles */
+.donation-legals {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: inherit;
+  padding: 1rem 0 0;
+}
+.donation-legals .donation-logo {
+  height: 1rem;
+}
+.map {
+  min-width: 26rem;
+  max-width: 50rem;
+  height: calc(100vh - 2rem);
+
+  /* Center satellital view */
+  border-radius: 1rem;
+  background-image: url(../img/land.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* Center land allocation */
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+svg {
+  width: 728px;
+  height: calc(100vh - 1rem);
+}
+
+path {
+	fill: #ffffff00;
+	stroke: #ffffff77;
+	stroke-width: 1px;
+  /* stroke-dasharray: 2 2; */
+  transition: fill 0.2s;
+}
+
+path:hover {
+  fill: #ffffff33;
+  stroke: #fff;
+	cursor: pointer;
+  stroke-width: 2px;
+  stroke-dasharray: 0;
+}
+
+.selected path,
+path:active {
+  fill: #fff;
+  stroke: #fff;
+	cursor: pointer;
+  stroke-dasharray: 0;
+}
+
+/* Map styles end */
 
 /* # sourceMappingURL=main.css.map */
 
@@ -1273,9 +1323,6 @@ body.overlay .walletconnect-qrcode__base {
   .logo img { height: 1.25rem; }
 
   /* Donation page */
-  .description-wrapper .nft {
-    padding-bottom: 1rem;
-  }
   .donation {
     width: 100%;
     margin-top: 3rem;
