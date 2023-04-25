@@ -97,7 +97,7 @@ function DonationPage() {
                     icon={<img src="/assets/img/icon/location.svg" alt="location"/>}
                     label="location"
                     data={<>
-                    <a href="https://goo.gl/maps/qcCH9ZJHhvZJeqGt5" target="_blank">
+                    <a href="https://www.google.com/maps/place/34%C2%B023'48.5%22S+54%C2%B028'23.7%22W/@-34.3970014,-54.4768913,1198m/data=!3m1!1e3!4m10!1m5!3m4!2zMzTCsDIzJzQ4LjUiUyA1NMKwMjgnMjMuNyJX!8m2!3d-34.396808!4d-54.473258!3m3!8m2!3d-34.396808!4d-54.473258" target="_blank">
                     Rocha, Uruguay
                     </a> 
                   </>}
