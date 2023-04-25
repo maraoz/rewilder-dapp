@@ -29,7 +29,7 @@ function IndexPage() {
 
   const [amount, setAmount] = useState(1);
   const { donateTx , donationEvents, requestDonationToWallet } = useDonation();
-  const finalized = useCampaignFinalized();
+  const finalized = true; // useCampaignFinalized();
   const incorrectNetwork = !networkMatches();
   
   const maybeNFTBalance = useBalanceOf(account);
