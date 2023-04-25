@@ -96,7 +96,11 @@ function DonationPage() {
                 <DonationInfo 
                     icon={<img src="/assets/img/icon/location.svg" alt="location"/>}
                     label="location"
-                    data="Rocha, Uruguay"
+                    data={<>
+                    <a href="https://goo.gl/maps/qcCH9ZJHhvZJeqGt5" target="_blank">
+                    Rocha, Uruguay
+                    </a> 
+                  </>}
                     />
                   <DonationInfo 
                     icon={<img src="/assets/img/icon/rewilder-logo.svg" alt="rewilding"/>}
