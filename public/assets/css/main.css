@@ -892,7 +892,7 @@ label {
   max-width: 80%;
 }
 .donation .info-container {
-  padding: 2rem 0;
+  padding: 2rem 0 1rem;
 }
 .donation .info-container .flex {
   display: flex;
@@ -903,7 +903,8 @@ label {
 .donation-info {
   display: flex;
   align-content: center;
-  margin-right: 3rem;
+  margin-right: 0;
+  width: 50%;
 }
 .donation-info:last-child {
   margin-right: 0;
@@ -944,12 +945,13 @@ label {
 /* donation updates */
 .updates {
   overflow-y: auto;
+  margin-top: 1rem;
 }
 .donation h5 {
   font-family: 'Airbnb Cereal App Bold', sans-serif;
   font-weight: bold;
   color: #F7FAF8;
-  margin: 1rem 0;
+  margin: 0;
 }
 
 /* Scrollbar */
@@ -965,12 +967,12 @@ label {
   background: #141e18;
   border-radius: .5rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: .75rem;
   display: flex;
   justify-content: space-between;
 }
 .update-card:last-child {
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
 }
 .update-card .update-icon {
   width: 2.5rem;
