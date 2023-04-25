@@ -1318,46 +1318,48 @@ body.overlay .walletconnect-qrcode__base {
     background-image: none;
     min-width: 100%;
   }
-
+  .logo { margin-right: auto; }
+  .logo img { height: 1.25rem; }
   .donation-message h4 { font-size: 18px;}
   .description-wrapper { 
-    flex-direction: column;
+    flex-direction: column-reverse;
     display: flex;
     align-items: center;
     width: inherit;
   }
-  
-  .logo { margin-right: auto; }
-  .logo img { height: 1.25rem; }
-
   .donation {
     padding: 0;
     height: fit-content;
     width: 100%;
     max-width: 50rem;
+    margin: 1rem 0;
   }
-  
+  .donation .stamp {
+    top: .5rem;
+    right: .25rem;
+    max-width: 6rem;
+  }
   .map svg,
   .map {
     width: 100%;
     min-width: 0;
-    height: calc(100vh - 12rem);
+    height: calc(100vh - 14rem);
   }
   .map .donation-logo {
-    display: none;
+    height: 0.9rem;
+    top: 0.75rem;
   }
 }
 
 /* Laptop 1024 */
-@media screen and (max-width: 1024px) {
+@media (min-width: 991px) and (max-width: 1024px) {
   .donation {
-    /* padding: 1rem 1rem 0; */
-    margin-bottom: 1rem;
+    margin: 0;
+    padding: 1rem;
   }
   .donation .stamp {
-    top: 1rem;
-    right: 1rem;
-    max-width: 5rem;
+    top: .5rem;
+    right: 1.5rem;
   }
 }
 
