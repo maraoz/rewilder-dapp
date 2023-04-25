@@ -888,7 +888,7 @@ label {
   margin: 0;
   padding: 0;
   margin-top: .5rem;
-  max-width: 80%;
+  max-width: 75%;
 }
 .donation .info-container {
   padding: 2rem 0 1rem;
@@ -1175,25 +1175,12 @@ body.overlay .walletconnect-qrcode__base {
 }
 
 @media screen and (max-width: 575px) {
-  .description-area { padding: 0px; }
-  
-  /* Donation NFT img */
-  .thumb img { width: 290px; height: 332px; }
-  .thumb img.nft-image { padding: 1rem; }
 
   /* Donation card header */
   .donation-info .donation-img {
     width: 3rem;
     height: 3rem;
   }
-  .donation .title span,
-  .donation-info span {
-    font-size: 1rem;
-  }
-  .donation-info h4 {
-    font-size: 1.5rem;
-  }
-
   /* Donation updates */
   .update-card {
     padding: .75rem;
@@ -1205,11 +1192,6 @@ body.overlay .walletconnect-qrcode__base {
   .update-card .update-content {
     padding: .25rem 0 0;
     width: 100%;
-  }
-  .update-card .update-content p,
-  .update-card .update-content a,
-  .update-card .update-content span {
-    font-size: 1rem;
   }
   .updates-images {
     display: flex;
@@ -1292,6 +1274,14 @@ body.overlay .walletconnect-qrcode__base {
   .logo .small-logo { display: block; }
   .logo { margin-top: 2rem; }
   .logo img { height: 1.5rem; }
+
+  .donation .info-container .flex { 
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+  .donation-info {
+    padding-bottom: 1rem;
+  }
 }
 
 
@@ -1310,54 +1300,65 @@ body.overlay .walletconnect-qrcode__base {
   .hero-v1-content { width: 100%; }
   .hero-v1-content .range-value { margin-top: 1rem; }
 
-  .description-area { padding: 20px; }
-
-  .donation-message .main-shape { max-width: 55px; }
-  .donation-message h4 { margin-top: 15px; }
-  .donation-info .donation-text {
-    max-width: 70%;
-  }
+  /* Donation page */
   .donation-info h4 {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
   }
-}
-
-@media screen and (max-width: 1199px) {
-  .donation { 
-    width: 55%;
-    padding: 2rem;
+  .donation {
+    width: inherit;
+    margin-bottom: 1rem;
+    height: fit-content;
   }
 }
 
 @media screen and (max-width: 991px) {
+  body {
+    background-image: none;
+    min-width: 100%;
+  }
+
   .donation-message h4 { font-size: 18px;}
-  .description-wrapper { flex-direction: column;}
+  .description-wrapper { 
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    width: inherit;
+  }
   
-  .logo {  margin-right: auto; }
+  .logo { margin-right: auto; }
   .logo img { height: 1.25rem; }
 
-  /* Donation page */
   .donation {
-    width: 100%;
-    margin-top: 3rem;
-    padding: 1.5rem;
+    padding: 0;
     height: fit-content;
-    margin-left: 0;
+    width: 100%;
+    max-width: 50rem;
+  }
+  
+  .map svg,
+  .map {
+    width: 100%;
+    min-width: 0;
+    height: calc(100vh - 12rem);
+  }
+  .map .donation-logo {
+    display: none;
+  }
+}
+
+/* Laptop 1024 */
+@media screen and (max-width: 1024px) {
+  .donation {
+    /* padding: 1rem 1rem 0; */
+    margin-bottom: 1rem;
   }
   .donation .stamp {
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1rem;
+    right: 1rem;
     max-width: 5rem;
   }
-  .donation .info-container .flex { 
-    flex-direction: column;
-    padding-bottom: 0;
-  }
-  .donation .info-container .flex .donation-info { margin: 0 0 1.75rem; }
-  .update-card:last-child { margin-bottom: 0; }
-
 }
 
 .fade-in {
