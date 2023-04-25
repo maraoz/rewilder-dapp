@@ -102,21 +102,28 @@ function DonationPage() {
               <div className="info-container">
                 <div className="flex">
                   <DonationInfo 
+                    icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
+                    label="donor"
+                    data={youText}
+                    />
+                  <DonationInfo 
                     icon={<img src="/assets/img/icon/donation.svg" alt="donation"/>}
                     label="donation"
                     data={attributes["amount"]}
                     />
+                </div>
+                <div className="flex">
+                <DonationInfo 
+                    icon={<img src="/assets/img/icon/location.svg" alt="location"/>}
+                    label="location"
+                    data="Rocha, Uruguay"
+                    />
                   <DonationInfo 
                     icon={<img src="/assets/img/icon/rewilder-logo.svg" alt="rewilding"/>}
                     label="rewilding"
-                    data="Location TBD"
+                    data={"~"+(parseInt(attributes["amount"])*0.5)+" hectares"}
                     />
                 </div>
-                <DonationInfo 
-                  icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
-                  label="donor"
-                  data={youText}
-                  />
               </div>
             </div>
           
