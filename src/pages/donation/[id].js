@@ -11,7 +11,6 @@ import DonationInfo from "../../components/DonationInfo";
 import Head from "../../components/Head";
 import config from "../../config";
 import { addressFor } from "../../lib/addresses";
-import useStoredState  from "../../lib/storedState";
 import { useToken, useUpdatesForToken } from "../../lib/db";
 import truncateHash from "../../lib/truncateHash";
 import RewilderIdenticon from "../../components/RewilderIdenticon";
@@ -19,10 +18,6 @@ import RewilderIdenticon from "../../components/RewilderIdenticon";
 function DonationPage() {
   const router = useRouter();
   const { account } = useEthers();
-  const [taxInfoDismissed, setTaxInfoDismissed] = useStoredState(false, "info.tax.dismissed");
-  const [taxInfoShown, setTaxInfoShown] = useStoredState(false, "info.tax.shown");
-  const [futureUpdatesInfoDismissed, setFutureUpdatesInfoDismissed] = useStoredState(false, "info.updates.dismissed");
-  const [futureUpdatesInfoShown, setFutureUpdatesInfoShown] = useStoredState(false, "info.updates.shown");
   
   const tokenId = router.query.id;
   let data = {};
@@ -71,19 +66,6 @@ function DonationPage() {
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
   const MAY2023UPDATE_ID = 2;
-
-  useEffect(() => {
-    const timer1 = setTimeout(() => {
-      setFutureUpdatesInfoShown(true);
-    }, 3000);
-    const timer2 = setTimeout(() => {
-      setTaxInfoShown(true);
-    }, 4000);
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2)
-    };
-  }, []);
 
   return (
     <>
@@ -136,7 +118,11 @@ function DonationPage() {
                     icon="/assets/img/icon/pin.svg"
                     iconalt="pin"
                     date={new Date("2 May 2023").toLocaleDateString(undefined, dateOptions)}
-                    message={"Your parcel allocation."}
+                    message={<>
+                      Your parcel allocation. {" "}
+                      <a href="/assets/img/2023-project/parcel-1.jpg" target="_blank"><img src="/assets/img/2023-project/parcel-1.jpg"></img></a> 
+                      <a href="/assets/img/2023-project/visit-a.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
+                      </>}
                     />
               }
               { updateList && updateList.length > MAY2023UPDATE_ID &&
@@ -146,7 +132,10 @@ function DonationPage() {
                     icon="/assets/img/icon/sign.svg"
                     iconalt="signs deed title"
                     date={new Date("1 May 2023").toLocaleDateString(undefined, dateOptions)}
-                    message={"Signing of the deed title."}
+                    message={<>
+                      Signing of the deed title. {" "}
+                      <a href="/assets/img/2023-project/002.jpg" target="_blank"><img src="/assets/img/2023-project/002.jpg"></img></a> 
+                      </>}
                     />
               }
               { updateList && updateList.length > MAY2023UPDATE_ID &&
@@ -156,7 +145,10 @@ function DonationPage() {
                     icon="/assets/img/icon/sign.svg"
                     iconalt="signs land purchase agreement"
                     date={new Date("9 Feb 2023").toLocaleDateString(undefined, dateOptions)}
-                    message={"AMBÁ signs land purchase agreement."}
+                    message={<>
+                      AMBÁ signs land purchase agreement. {" "}
+                      <a href="/assets/img/2023-project/001.jpg" target="_blank"><img src="/assets/img/2023-project/001.jpg"></img></a> 
+                      </>}
                     />
               }
               { updateList && updateList.length > MAY2023UPDATE_ID &&
@@ -245,7 +237,7 @@ function DonationPage() {
             <div class="map">
               
               <svg viewBox="0 0 312 794" xmlns="http://www.w3.org/2000/svg">
-                <a href="#1" class="selected">
+                <a href="#1">
                   <path d="M165.729 190.293L169.009 170.574L166.293 160.591L160.13 147.524L144.274 142.07L130.797 149.841L134.598 156.367L131.326 173.508L154.743 186.807L165.729 190.293Z" />
                 </a>
                 <a href="#2">
@@ -254,7 +246,7 @@ function DonationPage() {
                 <a href="#3">
                   <path d="M264.093 170.747L267.378 190.594L294.258 196.289L297.312 198.405L293.891 151.481L293.054 151.09L273.654 154.391L264.093 170.747Z" />
                 </a>
-                <a href="#4">
+                <a href="#4" class="selected">
                   <path d="M267.352 190.66L254.3 196.323L257.674 219.414L270.591 215.267L286.435 223.873L297.763 220.716L298.922 221.293L297.255 198.464L294.205 196.35L267.352 190.66Z" />
                 </a>
                 <a href="#5">

@@ -1014,6 +1014,14 @@ label {
   font-family: 'Airbnb Cereal App Bold', sans-serif;
   color: #758078;
 }
+
+.update-card .update-content img {
+  display: block;
+  max-width: 25%;
+  margin-top: .5rem;
+  border-radius: .5rem;
+}
+
 .update-card .close {
   display: block;
   width: 1.5rem;
