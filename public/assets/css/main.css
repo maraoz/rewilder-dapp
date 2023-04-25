@@ -940,6 +940,10 @@ label {
   overflow: hidden;
   white-space: nowrap;
 }
+.donation-info h4 a:hover {
+  color: #4CB26E;
+  text-decoration: underline;
+}
 
 /* donation updates */
 .updates {
@@ -1036,7 +1040,7 @@ label {
 
   /* Center satellital view */
   border-radius: 1rem;
-  background-image: url(../img/land.png);
+  background-image: url(../img/land.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

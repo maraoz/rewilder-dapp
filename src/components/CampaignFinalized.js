@@ -1,13 +1,6 @@
 import Button from "./Button";
 import React, { useState } from "react";
 import Router from 'next/router'
-import { useEtherBalance } from "@usedapp/core";
-import { formatEther } from "@ethersproject/units";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-
-import { addressFor } from '../lib/addresses';
-
 
 function CampaignFinalized({ tokenId }) {
 
@@ -15,6 +8,9 @@ function CampaignFinalized({ tokenId }) {
 
   const clicked = () => {
     setLoading(true);
+    if (!tokenId) {
+      tokenId = 1;
+    }
     Router.push(`/donation/${tokenId}`);
   };
   return (
@@ -23,7 +19,7 @@ function CampaignFinalized({ tokenId }) {
         <div className="main-shape">
           <img src="/assets/img/shape/finalized.svg" alt="campaign finalized" />
         </div>
-        <h4>Donation Campaign Ended! 
+        <h4>Donation Campaign Ended
         <br />
         {102.87} 
         <img src="/assets/img/icon/eth.svg" height="16" width="16" alt="ETH" />
@@ -31,16 +27,23 @@ function CampaignFinalized({ tokenId }) {
         </h4>
         <br />
         <p>Thanks to everyone for participating!</p>
-        <a href="https://rewilder.substack.com/subscribe" target="_blank" className="subscribe">
-          Subscribe to our newsletter to receive future updates.
-        </a>
       </div>
 
       {
         tokenId &&
           <div className="hero-v1-btn">
             <Button
-              text={"Go to your donation NFT"}
+              text={"See map and your donation NFT"}
+              isLoading={loading}
+              onClick={clicked}
+            />
+          </div>
+      }
+      {
+        !tokenId &&
+          <div className="hero-v1-btn">
+            <Button
+              text={"See map"}
               isLoading={loading}
               onClick={clicked}
             />

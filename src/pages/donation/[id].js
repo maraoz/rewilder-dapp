@@ -96,7 +96,11 @@ function DonationPage() {
                 <DonationInfo 
                     icon={<img src="/assets/img/icon/location.svg" alt="location"/>}
                     label="location"
-                    data="Rocha, Uruguay"
+                    data={<>
+                    <a href="https://goo.gl/maps/qcCH9ZJHhvZJeqGt5" target="_blank">
+                    Rocha, Uruguay
+                    </a> 
+                  </>}
                     />
                   <DonationInfo 
                     icon={<img src="/assets/img/icon/rewilder-logo.svg" alt="rewilding"/>}
@@ -120,7 +124,7 @@ function DonationPage() {
                       Your parcel allocation. {" "}
                       <div className="updates-images">
                         <a href="/assets/img/2023-project/parcel-1.jpg" target="_blank"><img src="/assets/img/2023-project/parcel-1.jpg"></img></a> 
-                        <a href="/assets/img/2023-project/visit-a.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
+                        <a href="/assets/img/2023-project/visit-a-full.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
                       </div>
                       </>}
                     />
@@ -186,7 +190,7 @@ function DonationPage() {
                     icon="/assets/img/icon/swap.svg"
                     iconalt="swap"
                     date={new Date("25 Jan 2023").toLocaleDateString(undefined, dateOptions)}
-                    message={"Converted USDC to USD in Rewilder bank account."}
+                    message={"Converted USDC to USD in Rewilder's bank account."}
                     />
               }
               { updateList && updateList.length > 0 && updateList.map((update) => {
@@ -222,7 +226,7 @@ function DonationPage() {
                       date={new Date(update.timestamp).toLocaleDateString(undefined, dateOptions)}
                       message={
                         <>
-                          Rewilder sold donated ETH for USDC. 
+                          Rewilder sold ETH for USDC. 
                           <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
                             <FontAwesomeIcon icon={faExternalLinkAlt} />
                           </a> 
