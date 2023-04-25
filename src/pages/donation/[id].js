@@ -70,6 +70,7 @@ function DonationPage() {
   const yourText = !isLoading && (isDonor?'your':'their');
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
+  const MAY2023UPDATE_ID = 2;
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -101,66 +102,103 @@ function DonationPage() {
               <div className="info-container">
                 <div className="flex">
                   <DonationInfo 
+                    icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
+                    label="donor"
+                    data={youText}
+                    />
+                  <DonationInfo 
                     icon={<img src="/assets/img/icon/donation.svg" alt="donation"/>}
                     label="donation"
                     data={attributes["amount"]}
                     />
+                </div>
+                <div className="flex">
+                <DonationInfo 
+                    icon={<img src="/assets/img/icon/location.svg" alt="location"/>}
+                    label="location"
+                    data="Rocha, Uruguay"
+                    />
                   <DonationInfo 
                     icon={<img src="/assets/img/icon/rewilder-logo.svg" alt="rewilding"/>}
                     label="rewilding"
-                    data="Location TBD"
+                    data={"~"+(parseInt(attributes["amount"])*0.5)+" hectares"}
                     />
                 </div>
-                <DonationInfo 
-                  icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
-                  label="donor"
-                  data={youLongText}
-                  />
               </div>
             </div>
           
             <h5>Updates</h5>
             <div className="updates">
-              {/* synthetic updates */}
-              {
-              isDonor && taxInfoShown && !taxInfoDismissed &&
-              <DonationUpdate 
-                className="fade-in"
-                icon="/assets/img/icon/info.svg"
-                iconalt="info"
-                date={creationDate}
-                message={
-                  <>
-                    If you want a donation receipt, send us an email to{" "}
-                    <a target="_blank" href="mailto:receipts@rewilder.xyz">receipts@rewilder.xyz</a> and
-                    consult your tax advisor regarding deductibility.
-                  </>
-                }
-                isCloseable={true}
-                onClose={()=>{setTaxInfoDismissed(true)}}
-                />
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("2 May 2023").getTime()}
+                    icon="/assets/img/icon/pin.svg"
+                    iconalt="pin"
+                    date={new Date("2 May 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"Your parcel allocation."}
+                    />
               }
-              {
-              isDonor && futureUpdatesInfoShown && !futureUpdatesInfoDismissed &&
-              <DonationUpdate 
-                className="fade-in"
-                icon="/assets/img/icon/info.svg"
-                iconalt="info"
-                date={creationDate}
-                message="You will be able to see future updates about the use of your donated funds here. For example, when we buy the land or make a payment."
-                linkText="Subscribe to also receive email notifications."
-                linkHref="https://rewilder.substack.com/subscribe"
-                isCloseable={true}
-                onClose={()=>{setFutureUpdatesInfoDismissed(true)}}
-                />
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("1 May 2023").getTime()}
+                    icon="/assets/img/icon/sign.svg"
+                    iconalt="signs deed title"
+                    date={new Date("1 May 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"Signing of the deed title."}
+                    />
               }
-              {/* real updates */}
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("9 Feb 2023").getTime()}
+                    icon="/assets/img/icon/sign.svg"
+                    iconalt="signs land purchase agreement"
+                    date={new Date("9 Feb 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"AMBÁ signs land purchase agreement."}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("30 Jan 2023").getTime()}
+                    icon="/assets/img/icon/out.svg"
+                    iconalt="outgoing transaction"
+                    date={new Date("30 Jan 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"USD sent to AMBÁ for land purchase."}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("28 Jan 2023").getTime()}
+                    icon="/assets/img/icon/sign.svg"
+                    iconalt="sign contract with AMBA"
+                    date={new Date("28 Jan 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={<>
+                      Signed contract with {" "}
+                      <a href="https://amba.org.uy/en/" target="_blank">AMBÁ</a>,
+                      our local rewilding partner in Uruguay.
+                      </>}
+                    />
+              }
+              { updateList && updateList.length > MAY2023UPDATE_ID &&
+                  <DonationUpdate
+                    className="fade-in"
+                    key={new Date("25 Jan 2023").getTime()}
+                    icon="/assets/img/icon/swap.svg"
+                    iconalt="swap"
+                    date={new Date("25 Jan 2023").toLocaleDateString(undefined, dateOptions)}
+                    message={"Converted USDC to USD in Rewilder bank account."}
+                    />
+              }
               { updateList && updateList.length > 0 && updateList.map((update) => {
                   if (update.type == 'creation') {
                     return <DonationUpdate 
                       className="fade-in"
                       key={update.timestamp}
-                      icon="/assets/img/icon/gallery-icon.svg"
+                      icon="/assets/img/icon/in.svg"
                       iconalt="creation"
                       date={creationDate}
                       message={
@@ -183,12 +221,12 @@ function DonationPage() {
                     return <DonationUpdate 
                       className="fade-in"
                       key={update.timestamp}
-                      icon="/assets/img/icon/donation.svg"
+                      icon="/assets/img/icon/swap.svg"
                       iconalt="eth sale"
                       date={new Date(update.timestamp).toLocaleDateString(undefined, dateOptions)}
                       message={
                         <>
-                          Donated ETH was sold for USDC. 
+                          Rewilder sold donated ETH for USDC. 
                           <a href={getExplorerTransactionLink(update.info.txid, config.chainId)??"#"} target="_blank">
                             <FontAwesomeIcon icon={faExternalLinkAlt} />
                           </a> 

@@ -44,7 +44,7 @@ coverage.json
 
 
 ## Firebase credentials
-rewilder-*-firebase.json
+rewilder-*-firebase*.json
 
 ## Frontend Files ##
 # testing
