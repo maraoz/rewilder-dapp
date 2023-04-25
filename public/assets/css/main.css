@@ -856,8 +856,7 @@ label {
 /* DONATION CARD */
 .donation {
   width: 42rem;
-  height: 90vh;
-  min-height: 40rem;
+  height: calc(100vh - 2rem);
   border-radius: 1rem;
   padding: 1.5rem 2rem 0;
   position: relative;
@@ -892,7 +891,7 @@ label {
   max-width: 80%;
 }
 .donation .info-container {
-  padding: 2rem 0;
+  padding: 2rem 0 1rem;
 }
 .donation .info-container .flex {
   display: flex;
@@ -903,7 +902,8 @@ label {
 .donation-info {
   display: flex;
   align-content: center;
-  margin-right: 3rem;
+  margin-right: 0;
+  width: 50%;
 }
 .donation-info:last-child {
   margin-right: 0;
@@ -944,12 +944,13 @@ label {
 /* donation updates */
 .updates {
   overflow-y: auto;
+  margin-top: 1rem;
 }
 .donation h5 {
   font-family: 'Airbnb Cereal App Bold', sans-serif;
   font-weight: bold;
   color: #F7FAF8;
-  margin: 1rem 0;
+  margin: 0;
 }
 
 /* Scrollbar */
@@ -965,12 +966,12 @@ label {
   background: #141e18;
   border-radius: .5rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: .75rem;
   display: flex;
   justify-content: space-between;
 }
 .update-card:last-child {
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
 }
 .update-card .update-icon {
   width: 2.5rem;
@@ -992,7 +993,7 @@ label {
   width: min-content;
 }
 .update-card .update-content p {
-  margin-top: .25rem;
+  margin: .25rem 0;
   color: #F7FAF8;
 }
 .update-card .update-content a {
@@ -1014,9 +1015,9 @@ label {
 }
 
 .update-card .update-content img {
-  display: block;
-  max-width: 25%;
-  margin-top: .5rem;
+  width: 7.5rem;
+  height: 4rem;
+  margin: .5rem .5rem 0 0;
   border-radius: .5rem;
 }
 
@@ -1205,6 +1206,9 @@ body.overlay .walletconnect-qrcode__base {
   .update-card .update-content a,
   .update-card .update-content span {
     font-size: 1rem;
+  }
+  .updates-images {
+    display: flex;
   }
 
   /* XXXXXXXXX */
