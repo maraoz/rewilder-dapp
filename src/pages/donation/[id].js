@@ -63,6 +63,7 @@ function DonationPage() {
   const yourText = !isLoading && (isDonor?'your':'their');
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
+  const parcelImageSrc = "/assets/img/2023-project/parcels/"+tokenId+".jpg"
   const MAY2023UPDATE_ID = 2;
 
   return (
@@ -123,8 +124,8 @@ function DonationPage() {
                     message={<>
                       Your parcel allocation. {" "}
                       <div className="updates-images">
-                        <a href="/assets/img/2023-project/parcel-1.jpg" target="_blank"><img src="/assets/img/2023-project/parcel-1.jpg"></img></a> 
-                        <a href="/assets/img/2023-project/visit-a-full.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
+                        <a href={parcelImageSrc} target="_blank"><img src={parcelImageSrc}></img></a> 
+                        <a href="/assets/img/2023-project/visit-a.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
                       </div>
                       </>}
                     />
