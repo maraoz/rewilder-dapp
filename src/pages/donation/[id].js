@@ -58,9 +58,9 @@ function DonationPage() {
   const dateOptions = {year: 'numeric', month: 'short', day: 'numeric'};
   
   const isDonor = !isLoading && account == attributes["donor"];
-  const youLongText = !isLoading && (isDonor?'You':attributes["donor"]);
   const youText = !isLoading && (isDonor?'You':truncateHash(attributes["donor"]));
   const yourText = !isLoading && (isDonor?'your':'their');
+  const youOrDonor = !isLoading && (isDonor?'your':(truncateHash(attributes["donor"])+'\'s'));
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
   const parcelImageSrc = "/assets/img/2023-project/parcels/"+tokenId+".jpg"
@@ -126,7 +126,7 @@ function DonationPage() {
                     iconalt="pin"
                     date={new Date("9 May 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
-                      {yourText.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})} parcel allocation. {" "}
+                      {youOrDonor.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})} parcel allocation. {" "}
                       <div className="updates-images">
                         <a href={parcelImageSrc} target="_blank"><img src={parcelImageSrc}></img></a> 
                         <a href="/assets/img/2023-project/visit-a-full.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
@@ -184,7 +184,10 @@ function DonationPage() {
                     message={<>
                       Signed contract with {" "}
                       <a href="https://amba.org.uy/en/" target="_blank">AMBÁ</a>,
-                      our local rewilding partner in Uruguay.
+                      our local rewilding partner in Uruguay. 
+                      <a href="https://drive.google.com/file/d/1jhQXBrAX-LMxzpDcuM8fH7Uo9efMwm2A/view?usp=sharing" target="_blank">
+                        <FontAwesomeIcon icon={faExternalLinkAlt} />
+                      </a> 
                       </>}
                     />
               }
