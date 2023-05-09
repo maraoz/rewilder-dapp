@@ -25,7 +25,7 @@ export default async (req, res) => {
     description: token.description || "",
     external_url: token.external_url,
     updates: updatesURL,
-    image: `https://app.rewilder.xyz/assets/img/donation/{tokenId}.png`,
+    image: `https://app.rewilder.xyz/assets/img/donation/${tokenId}.png`,
     attributes: token.attributes.map(
       (attribute) => {
         return {"trait_type": attribute.trait_type, "value": attribute.value};
