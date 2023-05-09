@@ -87,7 +87,7 @@ function DonationPage() {
               <div className="info-container">
                 <div className="flex">
                   <DonationInfo 
-                    icon={<RewilderIdenticon size={24} account={attributes["donor"]} />}
+                    icon={<RewilderIdenticon size={24} account={attributes["donor"] || '0x0000000000000000000000000000000000000000'} />}
                     label="donor"
                     data={youText}
                     />
