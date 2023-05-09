@@ -64,7 +64,9 @@ function DonationPage() {
   const thanksText = !isLoading && (isDonor?' - thank you so much! -':'');
   const creationDate = !isLoading && new Date(updateList[updateList.length-1].timestamp).toLocaleDateString(undefined, dateOptions);
   const parcelImageSrc = "/assets/img/2023-project/parcels/"+tokenId+".jpg"
-  const MAY2023UPDATE_ID = 2;
+  const MAY2023UPDATE_ID = 1;
+
+  data.name = 'Cerro Negro Donation #'+tokenId;
 
   return (
     <>
@@ -77,6 +79,8 @@ function DonationPage() {
             <div className="header">
               <img src={isLoading?"/assets/img/shape/stamp_blank.svg":("/assets/img/shape/stamp-" + attributes.tier + ".svg")} alt={attributes.tier + " stamp"} className="stamp"/>
               <div className="title">
+                <span>Donation #{tokenId}</span>
+                <span> - </span>
                 <span>Tier: {attributes.tier}</span>
                 <h2>{data.name}</h2>
               </div>
@@ -117,15 +121,15 @@ function DonationPage() {
               { updateList && updateList.length > MAY2023UPDATE_ID &&
                   <DonationUpdate
                     className="fade-in"
-                    key={new Date("2 May 2023").getTime()}
+                    key={new Date("9 May 2023").getTime()}
                     icon="/assets/img/icon/pin.svg"
                     iconalt="pin"
-                    date={new Date("2 May 2023").toLocaleDateString(undefined, dateOptions)}
+                    date={new Date("9 May 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
-                      Your parcel allocation. {" "}
+                      {yourText.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})} parcel allocation. {" "}
                       <div className="updates-images">
                         <a href={parcelImageSrc} target="_blank"><img src={parcelImageSrc}></img></a> 
-                        <a href="/assets/img/2023-project/visit-a.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
+                        <a href="/assets/img/2023-project/visit-a-full.jpg" target="_blank"><img src="/assets/img/2023-project/visit-a.jpg"></img></a>
                       </div>
                       </>}
                     />
@@ -133,14 +137,14 @@ function DonationPage() {
               { updateList && updateList.length > MAY2023UPDATE_ID &&
                   <DonationUpdate
                     className="fade-in"
-                    key={new Date("1 May 2023").getTime()}
+                    key={new Date("8 May 2023").getTime()}
                     icon="/assets/img/icon/sign.svg"
-                    iconalt="signs deed title"
-                    date={new Date("1 May 2023").toLocaleDateString(undefined, dateOptions)}
+                    iconalt="signs deed title."
+                    date={new Date("8 May 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
-                      Signing of the deed title. {" "}
+                      Signing of the deed title between AMBÁ and previous owner. {" "}
                       <div className="updates-images">
-                        <a href="/assets/img/2023-project/002.jpg" target="_blank"><img src="/assets/img/2023-project/002.jpg"></img></a> 
+                        <a href="/assets/img/2023-project/002-full.jpg" target="_blank"><img src="/assets/img/2023-project/002.jpg"></img></a> 
                       </div>
                       </>}
                     />
@@ -153,9 +157,9 @@ function DonationPage() {
                     iconalt="signs land purchase agreement"
                     date={new Date("9 Feb 2023").toLocaleDateString(undefined, dateOptions)}
                     message={<>
-                      AMBÁ signs land purchase agreement. {" "}
+                      AMBÁ signs land purchase offer. {" "}
                       <div className="updates-images">
-                        <a href="/assets/img/2023-project/001.jpg" target="_blank"><img src="/assets/img/2023-project/001.jpg"></img></a> 
+                        <a href="/assets/img/2023-project/001-full.jpg" target="_blank"><img src="/assets/img/2023-project/001.jpg"></img></a> 
                       </div>
                       </>}
                     />
